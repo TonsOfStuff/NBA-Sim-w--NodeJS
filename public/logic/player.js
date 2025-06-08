@@ -85,7 +85,8 @@ export class Player{
         //Season stats
         this.gamesPlayed = 0;
         this.gamesStarted = 0;
-    
+        
+        this.avgMin = 0;
         this.avgMin = 0;
         this.avgPts = 0;
         this.avgAst = 0;
@@ -99,6 +100,7 @@ export class Player{
         this.tpp = 0;
         this.ftp = 0;
 
+        this.seasonTotalMin = 0;
         this.seasonTotalPts = 0;
         this.seasonTotalAst = 0;
         this.seasonTotalOReb = 0;
@@ -124,6 +126,7 @@ export class Player{
         this.careerGamesPlayed = 0;
         this.careerGamesStarted = 0;
 
+        this.careerAvgMin = 0;
         this.careerAvgPts = 0;
         this.careerAvgAst = 0;
         this.careerAvgOReb = 0;
@@ -136,6 +139,7 @@ export class Player{
         this.careerAvgTP = 0;
         this.careerAvgFT = 0;
 
+        this.careerTotalMin = 0;
         this.careerTotalPts = 0;
         this.careerTotalAst = 0;
         this.careerTotalOReb = 0;
@@ -527,7 +531,7 @@ export class Player{
     }
 
     statsUpdate(){
-        if (this.min === 0){
+        if (this.min != 0){
             this.gamesPlayed += 1;
             this.careerGamesPlayed += 1;
             /*
@@ -569,6 +573,7 @@ export class Player{
             }
 
             //Season updates
+            this.seasonTotalMin += this.min;
             this.seasonTotalPts += this.pts;
             this.seasonTotalAst += this.ast;
             this.seasonTotalOReb += this.oReb;
@@ -584,6 +589,7 @@ export class Player{
             this.seasonTotalFTA += this.fta;
             this.seasonTotalFTM += this.ftm;
 
+            this.avgMin = Number((this.seasonTotalMin / this.gamesPlayed).toFixed(1));
             this.avgPts = Number((this.seasonTotalPts / this.gamesPlayed).toFixed(1));
             this.avgAst = Number((this.seasonTotalAst / this.gamesPlayed).toFixed(1));
             this.avgOReb = Number((this.seasonTotalOReb / this.gamesPlayed).toFixed(1));
@@ -598,6 +604,7 @@ export class Player{
 
 
             //Career updates
+            this.careerTotalMin += this.min;
             this.careerTotalPts += this.pts;
             this.careerTotalAst += this.ast;
             this.careerTotalOReb += this.oReb;
@@ -613,6 +620,7 @@ export class Player{
             this.careerTotalFTA += this.fta;
             this.careerTotalFTM += this.ftm;
 
+            this.careerAvgMin = Number((this.careerTotalMin / this.careerGamesPlayed).toFixed(1));
             this.careerAvgPts = Number((this.careerTotalPts / this.careerGamesPlayed).toFixed(1));
             this.careerAvgAst = Number((this.careerTotalAst / this.careerGamesPlayed).toFixed(1));
             this.careerAvgOReb = Number((this.careerTotalOReb / this.careerGamesPlayed).toFixed(1));

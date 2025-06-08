@@ -92,38 +92,64 @@ for (let i=0;i<allTeams.length;i++){
     for (let k=0;k<12;k++){
         const chosenPlayer = removePlayers[Math.floor(Math.random() * removePlayers.length)];
         allTeams[i].players.push(chosenPlayer);
+        chosenPlayer.calcOvr();
         removePlayers.splice(removePlayers.indexOf(chosenPlayer), 1);
     }
+
+    allTeams[i].players.sort((a, b) => b.ovr - a.ovr);
+    allTeams[i].startingLineup.push(...allTeams[i].players.slice(0, 5));
+    allTeams[i].lineup = allTeams[i].startingLineup;
+    allTeams[i].setPositions();
 }
 
-console.log(bulls.players);
-console.log(lakers.players);
+console.log(bulls);
+console.log(lakers);
 
 bulls.setOpponentsAndTeammates(lakers);
 lakers.setOpponentsAndTeammates(bulls);
 
 
 window.test = function(){
-    hasBallPlayer = bulls.players[0];
-    for (let i = 0; i < 250; i++){ //Quarter 1
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * 2)])
+    const team1 = allTeams[0];
+    const team2 = allTeams[1];
+
+
+    hasBallPlayer = team1.pg;
+    for (let i = 0; i < 240; i++){ //Quarter 1
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        if (i % 20 === 0){
+            team1.updateMin();
+            team2.updateMin();
+        }
     }
 
-    for (let i = 0; i < 250; i++){ //Quarter 2
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * 2)])
+    for (let i = 0; i < 240; i++){ //Quarter 2
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        if (i % 20 === 0){
+            team1.updateMin();
+            team2.updateMin();
+        }
     }
 
-    for (let i = 0; i < 250; i++){ //Quarter 3
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * 2)])
+    for (let i = 0; i < 240; i++){ //Quarter 3
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        if (i % 20 === 0){
+            team1.updateMin();
+            team2.updateMin();
+        }
     }
 
-    for (let i = 0; i < 250; i++){ //Quarter 4
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * 2)])
+    for (let i = 0; i < 240; i++){ //Quarter 4
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        if (i % 20 === 0){
+            team1.updateMin();
+            team2.updateMin();
+        }
     }
 
     for (let i = 0; i < 11; i++){
         allPlayers[i].statsUpdate();
-        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
+        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
     }
 }
 

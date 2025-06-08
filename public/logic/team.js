@@ -60,9 +60,49 @@ export class Team{
     }
 
     setOpponentsAndTeammates(opposingTeam){
-        this.players.forEach(player => {
-            player.opponents.push(...opposingTeam.players);
-            player.otherTeammates = this.players;
+        this.lineup.forEach(player => {
+            player.opponents.push(...opposingTeam.lineup);
+            player.otherTeammates = this.lineup;
         });
+    }
+
+    updateMin(){
+        this.lineup.forEach(player => {
+            player.min += 1;
+        });
+    }
+
+    setPositions(){
+        let playersCopy = [...this.players];
+
+        this.pg = playersCopy.reduce((best, current) => {
+            const bestSum = best.passingAccuracy + best.passingTen;
+            const currentSum = current.passingAccuracy + current.passingTen;
+            return currentSum > bestSum ? current : best;
+        });
+        playersCopy.splice(playersCopy.indexOf(this.pg), 1);
+
+        this.sg = playersCopy.reduce((best, current) => {
+            const bestSum = best.twoPt + best.threePt;
+            const currentSum = current.twoPt + current.threePt;
+            return currentSum > bestSum ? current : best;
+        });
+        playersCopy.splice(playersCopy.indexOf(this.sg), 1);
+
+        this.c = playersCopy.reduce((best, current) => {
+            const bestSum = best.height + best.inside;
+            const currentSum = current.inside + current.height;
+            return currentSum > bestSum ? current : best;
+        });
+        playersCopy.splice(playersCopy.indexOf(this.c), 1);
+
+        this.pf = playersCopy.reduce((best, current) => {
+            const bestSum = best.height + best.inside;
+            const currentSum = current.inside + current.height;
+            return currentSum > bestSum ? current : best;
+        });
+        playersCopy.splice(playersCopy.indexOf(this.pf), 1);
+
+        this.sf = playersCopy[0];
     }
 }
