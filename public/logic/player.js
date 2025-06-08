@@ -328,4 +328,40 @@ export class Player{
 
     }
     
+    rebound(defense){
+        let oPToReb = null;
+        let dPToReb = null;
+
+        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + p.offensiveReb, 0);
+        let rand = Math.random() * totalWeight;
+
+        let runningSum = 0;
+        for (let player of this.otherTeammates) {
+            runningSum += player.offensiveReb;
+            if (rand < runningSum){
+                oPToReb = player;
+                break;
+            }
+        }
+
+
+        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + p.defensiveReb, 0);
+        rand = Math.random() * totalWeight;
+
+        runningSum = 0;
+        for (let player of defense.otherTeammates) {
+            runningSum += player.defensiveReb;
+            if (rand < runningSum){
+                dPToReb = player;
+                break;
+            }
+        }
+
+        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 1.5);
+        if (rand < dPToReb.defensiveReb) {
+            return oPToReb;
+        } else {
+            return dPToReb;
+        }
+    }
 }
