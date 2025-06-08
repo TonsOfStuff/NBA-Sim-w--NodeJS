@@ -1,4 +1,4 @@
-fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious", "Jeffrey", "Jerry", 
+export let fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious", "Jeffrey", "Jerry", 
     "Lucas", "Barack", "Daniel", "Owen", "David", "Maple", "Luka", "Greg", "George", "Walter", 
     "Winston", "Wilbur", "William", "Will", "Blake", "John", "Joe", "Vlad", "Henry", "Harry", 
     "Henrick", "Harold", "Ronald", "Donald", "Douglass", "Jack", "Jake", "Lou", "Bob", "Xavier", 
@@ -21,7 +21,7 @@ fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious", "Jeffrey",
     "Terry", "Garry", "Woodrow", "Clark", "Sebastion", "Steve", "Steven", "Chuck", "Zane", "Ty", "Tyrone", "Luca",
     "Lance", "Stephon", "Stephen"]
 
-ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mase", "Hilm", "Monroe", "Obama", 
+export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mase", "Hilm", "Monroe", "Obama", 
     "Trump", "McDonald", "McArthur", "Jones Jr", "Alpine", "Doe", "Harris", "Harrison", "Lindenburg", 
     "Arthur", "May", "Churchill", "Johnson", "Wood", "Oak", "Jordan", "Douglass", "White", "West", 
     "East", "Eastmore", "Westmore", "Green", "Bob Jr", "Gordan", "Mann", "Hamilton", "Hanks", "Bridges", 
