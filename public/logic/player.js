@@ -1,5 +1,5 @@
 export class Player{
-    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch){
+    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, potential){
         this.name = name;
         this.arch = arch;
 
@@ -48,6 +48,10 @@ export class Player{
         this.foul = foul;
         this.drawFoul = drawFoul;
         this.clutch = clutch;
+        this.potential = potential;
+
+        //Other stats
+        this.ovr = 0;
 
         //Game stats
         this.min = 0;
@@ -66,5 +70,9 @@ export class Player{
         this.fta = 0;
         this.ftm = 0;
         this.boxMinus = 0;
+    }
+
+    calcOvr() {
+        this.ovr = Math.round((this.twoPt + this.threePt + this.inside + this.freeThrow + this.offensiveAbility + this.defensiveAbility + this.defensiveReb + this.offensiveReb + this.blockTen + this.stealTen + this.passingAccuracy + this.ballControl + this.catching + this.vertical + this.hustle + this.stamina + this.clutch + this.potential) / 17);
     }
 }
