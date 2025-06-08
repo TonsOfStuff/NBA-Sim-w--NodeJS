@@ -52,6 +52,14 @@ export class Player{
 
         //Other stats
         this.ovr = 0;
+        this.team = null;
+
+        //Game necessaries
+        this.location = "Center Three"
+        this.otherTeammates = [];
+        this.hasBall = false;
+        this.passTo = 10;
+        this.passedFromSomeone = false;
 
         //Game stats
         this.min = 0;
@@ -70,8 +78,7 @@ export class Player{
         this.fta = 0;
         this.ftm = 0;
         this.boxMinus = 0;
-
-        this.location = "Center Three"
+       
     }
 
     calcOvr() {
@@ -94,6 +101,7 @@ export class Player{
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -104,6 +112,7 @@ export class Player{
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -114,6 +123,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -124,6 +134,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -134,6 +145,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -144,6 +156,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -154,6 +167,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -166,6 +180,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -178,6 +193,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -190,6 +206,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -202,6 +219,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -214,6 +232,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
             else{
@@ -278,4 +297,35 @@ export class Player{
             }
         }
     }
+
+    pass(defense){
+        const passingList = [];
+        for (let i = 0; i < 5; i++){
+            if (this.otherTeammates[i] === this){
+                continue;
+            }
+            passingList.push(...Array(this.otherTeammates[i].passTo).fill(this.otherTeammates[i]));
+        }
+
+        //Check for ball turning over and if defense steals it
+        if (this.passingAccuracy >= Math.random() * 2000){
+            this.tov += 1;
+            this.hasBall = false;
+        }
+        else if (this.passingAccuracy + defense.stealTen >= Math.random() * 2000){
+            this.tov += 1;
+            this.hasBall = false;
+            defense.hasBall = true;
+            defense.stl += 1;
+        }else{
+            const passedTo = passingList[Math.floor(Math.random() * passingList.length)];
+            passedTo.hasBall = true;
+            this.hasBall = false;
+            passedTo.passedFromSomeone = this;
+            console.log(passedTo.name);
+        }
+
+
+    }
+    
 }

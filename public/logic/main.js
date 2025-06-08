@@ -16,3 +16,7 @@ window.test = function(){
     console.log("Field Goal: " + lebron.fgm.toString() + "/" + lebron.fga.toString());
     console.log("Three: " + lebron.tpm.toString() + "/" + lebron.tpa.toString());
 }
+
+michaelJordan.otherTeammates.push(lebron);
+console.log(michaelJordan.otherTeammates)
+michaelJordan.pass(lebron);
