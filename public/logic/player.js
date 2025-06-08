@@ -1,4 +1,4 @@
-class Player{
+export class Player{
     constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch){
         this.name = name;
         this.arch = arch;
@@ -50,6 +50,7 @@ class Player{
         this.clutch = clutch;
 
         //Game stats
+        this.min = 0;
         this.pts = 0;
         this.ast = 0;
         this.dReb = 0;
