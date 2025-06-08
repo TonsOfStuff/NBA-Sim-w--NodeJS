@@ -174,6 +174,9 @@ export class Player{
 
         if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -186,6 +189,9 @@ export class Player{
         }
         else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -198,6 +204,9 @@ export class Player{
         }
         else if (this.location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -210,6 +219,9 @@ export class Player{
         }
         else if (this.location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -222,6 +234,9 @@ export class Player{
         }
         else if (this.location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -234,6 +249,9 @@ export class Player{
         }
         else if (this.location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -246,6 +264,9 @@ export class Player{
         }
         else if (this.location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
+            if(defense.block(this)){
+                return false;
+            }
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
@@ -259,6 +280,9 @@ export class Player{
         else if (this.location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
+            if(defense.block(this, true)){
+                return false;
+            }
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
@@ -273,6 +297,9 @@ export class Player{
         else if (this.location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
+            if(defense.block(this, true)){
+                return false;
+            }
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
@@ -287,6 +314,9 @@ export class Player{
         else if (this.location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
+            if(defense.block(this, true)){
+                return false;
+            }
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
@@ -301,6 +331,9 @@ export class Player{
         else if (this.location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
+            if(defense.block(this, true)){
+                return false;
+            }
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
@@ -315,6 +348,9 @@ export class Player{
         else if (this.location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
+            if(defense.block(this, true)){
+                return false;
+            }
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
@@ -385,6 +421,19 @@ export class Player{
         }
     }
 
+    block(offense, three = false){
+        let blockFactor = 0;
+        if (three === true){
+            blockFactor = 100;
+        }
+        if (this.blk * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 15000){
+            this.blk += 1;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     pass(defense){
         const passingList = [];
         for (let i = 0; i < this.otherTeammates.length; i++){
@@ -395,7 +444,7 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (this.passingAccuracy >= Math.random() * 2000){
+        if (this.passingAccuracy + this.ballControl >= Math.random() * 1000){
             this.tov += 1;
             this.hasBall = false;
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
