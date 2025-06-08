@@ -83,14 +83,14 @@ export class Player{
         */
     }
 
-    shooting(location, defense){
+    shooting(defense){
         const defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 1.2);
         const insideStress = 100;
         const twoStress = 130;
         const threeStress = 155;
 
 
-        if (location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
+        if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
@@ -100,7 +100,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
@@ -110,7 +110,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
@@ -120,7 +120,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
@@ -130,7 +130,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
@@ -140,7 +140,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
@@ -150,7 +150,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
@@ -160,7 +160,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
@@ -172,7 +172,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
@@ -184,7 +184,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
@@ -196,7 +196,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
@@ -208,7 +208,7 @@ export class Player{
                 return false;
             }
         }
-        else if (location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * 100)){
             this.fga += 1;
             this.tpa += 1;
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
@@ -222,7 +222,7 @@ export class Player{
         }
     }
 
-    moving(){
+    moving(defense){
         const possiblePlaces = ["Inside", "Close", "Left Elbow", "Right Elbow", "Left Corner", "Right Corner", "Left Wing", "Right Wing", "Left", "Right", "Center", "Center Three"]
         const chosenPlaceToMove = possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)]
         const moveStress = 200;
@@ -230,39 +230,51 @@ export class Player{
         if (chosenPlaceToMove != this.location){
             if (chosenPlaceToMove === "Inside" && this.insideTen >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Close" && this.closeTen >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Left Elbow" && this.leftElbow >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Right Elbow" && this.rightElbow >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Left Corner" && this.leftCorner >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Right Corner" && this.rightCorner >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Left Wing" && this.leftWing >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Right Wing" && this.rightWing >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Left" && this.leftTwo >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Right" && this.rightTwo >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Center" && this.centerTwo >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
             else if (chosenPlaceToMove === "Center Three" && this.centerThree >= Math.random() * moveStress){
                 this.location = chosenPlaceToMove;
+                defense.location = chosenPlaceToMove;
             }
         }
     }
