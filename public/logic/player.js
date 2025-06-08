@@ -1,3 +1,5 @@
+import { hasBallPlayerSetter } from "./main.js";
+
 export class Player{
     constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, potential){
         this.name = name;
@@ -57,6 +59,7 @@ export class Player{
         //Game necessaries
         this.location = "Center Three"
         this.otherTeammates = [];
+        this.opponents = [];
         this.hasBall = false;
         this.passTo = 10;
         this.passedFromSomeone = false;
@@ -101,6 +104,7 @@ export class Player{
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -112,6 +116,7 @@ export class Player{
             this.fga += 1;
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -123,6 +128,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -134,6 +140,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -145,6 +152,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -156,6 +164,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -167,6 +176,7 @@ export class Player{
             this.fga += 1;
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
+                this.pts += 2;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -180,6 +190,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                this.pts += 3;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -193,6 +204,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                this.pts += 3;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -206,6 +218,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                this.pts += 3;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -219,6 +232,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                this.pts += 3;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -232,6 +246,7 @@ export class Player{
             if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
                 this.fgm += 1;
                 this.tpm += 1;
+                this.pts += 3;
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -300,7 +315,7 @@ export class Player{
 
     pass(defense){
         const passingList = [];
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < this.otherTeammates.length; i++){
             if (this.otherTeammates[i] === this){
                 continue;
             }
@@ -311,18 +326,22 @@ export class Player{
         if (this.passingAccuracy >= Math.random() * 2000){
             this.tov += 1;
             this.hasBall = false;
+            const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
+            hasBallPlayerSetter(newPlayer);
+            newPlayer.hasBall = true;
         }
         else if (this.passingAccuracy + defense.stealTen >= Math.random() * 2000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
+            hasBallPlayerSetter(defense);
             defense.stl += 1;
         }else{
             const passedTo = passingList[Math.floor(Math.random() * passingList.length)];
             passedTo.hasBall = true;
+            hasBallPlayerSetter(passedTo);
             this.hasBall = false;
             passedTo.passedFromSomeone = this;
-            console.log(passedTo.name);
         }
 
 
@@ -357,11 +376,32 @@ export class Player{
             }
         }
 
-        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 1.5);
+        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 3);
         if (rand < dPToReb.defensiveReb) {
+            oPToReb.oReb += 1;
             return oPToReb;
         } else {
+            dPToReb.dReb += 1;
             return dPToReb;
+        }
+    }
+
+    playerPossesion(defense){
+        this.moving(defense);
+        if (this.passingTen > Math.random() * 80){
+            this.pass(defense);
+        }else{
+            const shotOutcome = this.shooting(defense);
+            if (shotOutcome === false){
+                const newPlayer = this.rebound(defense);
+                newPlayer.hasBall = true;
+                hasBallPlayerSetter(newPlayer);
+            }else{
+                this.hasBall = false;
+                const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
+                hasBallPlayerSetter(newPlayer);
+                newPlayer.hasBall = true;
+            }
         }
     }
 }
