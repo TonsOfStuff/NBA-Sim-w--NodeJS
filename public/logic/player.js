@@ -426,7 +426,7 @@ export class Player{
         if (three === true){
             blockFactor = 100;
         }
-        if (this.blk * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 15000){
+        if (this.blk * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 1){
             this.blk += 1;
             return true;
         }else{
