@@ -81,7 +81,79 @@ export class Player{
         this.fta = 0;
         this.ftm = 0;
         this.boxMinus = 0;
-       
+
+        //Season stats
+        this.gamesPlayed = 0;
+        this.gamesStarted = 0;
+    
+        this.avgMin = 0;
+        this.avgPts = 0;
+        this.avgAst = 0;
+        this.avgDReb = 0;
+        this.avgOReb = 0;
+        this.avgStl = 0;
+        this.avgBlk = 0;
+        this.avgFls = 0;
+        this.avgTov = 0;
+        this.fgp = 0;
+        this.tpp = 0;
+        this.ftp = 0;
+
+        this.seasonTotalPts = 0;
+        this.seasonTotalAst = 0;
+        this.seasonTotalOReb = 0;
+        this.seasonTotalDReb = 0;
+        this.seasonTotalStl = 0;
+        this.seasonTotalBlk = 0;
+        this.seasonTotalFls = 0;
+        this.seasonTotalTov = 0;
+        this.seasonTotalFGA = 0;
+        this.seasonTotalFGM = 0;
+        this.seasonTotalTPA = 0;
+        this.seasonTotalTPM = 0;
+        this.seasonTotalFTA = 0;
+        this.seasonTotalFTM = 0;
+
+        this.seasonTripleDoubles = 0;
+        this.seasonDoubleDoubles = 0;
+        this.seasonQuadDoubles = 0;
+
+
+
+        //Career Stats
+        this.careerGamesPlayed = 0;
+        this.careerGamesStarted = 0;
+
+        this.careerAvgPts = 0;
+        this.careerAvgAst = 0;
+        this.careerAvgOReb = 0;
+        this.careerAvgDReb = 0;
+        this.careerAvgStl = 0;
+        this.careerAvgBlk = 0;
+        this.careerAvgFls = 0;
+        this.careerAvgTov = 0;
+        this.careerAvgFG = 0;
+        this.careerAvgTP = 0;
+        this.careerAvgFT = 0;
+
+        this.careerTotalPts = 0;
+        this.careerTotalAst = 0;
+        this.careerTotalOReb = 0;
+        this.careerTotalDReb = 0;
+        this.careerTotalStl = 0;
+        this.careerTotalBlk = 0;
+        this.careerTotalFls = 0;
+        this.careerTotalTov = 0;
+        this.careerTotalFGA = 0;
+        this.careerTotalFGM = 0;
+        this.careerTotalTPA = 0;
+        this.careerTotalTPM = 0;
+        this.careerTotalFTA = 0;
+        this.careerTotalFTM = 0;
+
+        this.careerTripleDoubles = 0;
+        this.careerDoubleDoubles = 0;
+        this.careerQuadDoubles = 0;
     }
 
     calcOvr() {
@@ -402,6 +474,126 @@ export class Player{
                 hasBallPlayerSetter(newPlayer);
                 newPlayer.hasBall = true;
             }
+        }
+    }
+
+    statsUpdate(){
+        if (this.min === 0){
+            this.gamesPlayed += 1;
+            this.careerGamesPlayed += 1;
+            /*
+            if (this.team.startingLineup.includes(this)){
+                this.gamesStarted += 1;
+                this.careerGamesStarted += 1;
+            }
+            */
+
+            //Check for double doubles, triple doubles, quadruple doubles
+            let greaterThanTenAmount = 0;
+            if (this.pts >= 10){
+                greaterThanTenAmount += 1;
+            }
+            if (this.ast >= 10){
+                greaterThanTenAmount += 1;
+            }
+            if (this.oReb + this.dReb >= 10){
+                greaterThanTenAmount += 1;
+            }
+            if (this.stl >= 10){
+                greaterThanTenAmount += 1;
+            }
+            if (this.blk >= 10){
+                greaterThanTenAmount += 1;
+            }
+
+            if (greaterThanTenAmount === 2){
+                this.seasonDoubleDoubles += 1;
+                this.careerDoubleDoubles += 1;
+            }
+            if (greaterThanTenAmount === 3){
+                this.seasonTripleDoubles += 1;
+                this.careerTripleDoubles += 1;
+            }
+            if (greaterThanTenAmount >= 4){
+                this.seasonQuadDoubles += 1;
+                this.careerQuadDoubles += 1;
+            }
+
+            //Season updates
+            this.seasonTotalPts += this.pts;
+            this.seasonTotalAst += this.ast;
+            this.seasonTotalOReb += this.oReb;
+            this.seasonTotalDReb += this.dReb;
+            this.seasonTotalStl += this.stl;
+            this.seasonTotalBlk += this.blk;
+            this.seasonTotalFls += this.fls;
+            this.seasonTotalTov += this.tov;
+            this.seasonTotalFGA += this.fga;
+            this.seasonTotalFGM += this.fgm;
+            this.seasonTotalTPA += this.tpa;
+            this.seasonTotalTPM += this.tpm;
+            this.seasonTotalFTA += this.fta;
+            this.seasonTotalFTM += this.ftm;
+
+            this.avgPts = Number((this.seasonTotalPts / this.gamesPlayed).toFixed(1));
+            this.avgAst = Number((this.seasonTotalAst / this.gamesPlayed).toFixed(1));
+            this.avgOReb = Number((this.seasonTotalOReb / this.gamesPlayed).toFixed(1));
+            this.avgDReb = Number((this.seasonTotalDReb / this.gamesPlayed).toFixed(1));
+            this.avgStl = Number((this.seasonTotalStl / this.gamesPlayed).toFixed(1));
+            this.avgBlk = Number((this.seasonTotalBlk / this.gamesPlayed).toFixed(1));
+            this.avgFls = Number((this.seasonTotalFls / this.gamesPlayed).toFixed(1));
+            this.avgTov = Number((this.seasonTotalTov / this.gamesPlayed).toFixed(1));
+            this.fgp = Number((this.seasonTotalFGM / this.seasonTotalFGA).toFixed(1));
+            this.tpp = Number((this.seasonTotalTPM / this.seasonTotalTPA).toFixed(1));
+            this.ftp = Number((this.seasonTotalFTM / this.seasonTotalFTA).toFixed(1));
+
+
+            //Career updates
+            this.careerTotalPts += this.pts;
+            this.careerTotalAst += this.ast;
+            this.careerTotalOReb += this.oReb;
+            this.careerTotalDReb += this.dReb;
+            this.careerTotalStl += this.stl;
+            this.careerTotalBlk += this.blk;
+            this.careerTotalFls += this.fls;
+            this.careerTotalTov += this.tov;
+            this.careerTotalFGA += this.fga;
+            this.careerTotalFGM += this.fgm;
+            this.careerTotalTPA += this.tpa;
+            this.careerTotalTPM += this.tpm;
+            this.careerTotalFTA += this.fta;
+            this.careerTotalFTM += this.ftm;
+
+            this.careerAvgPts = Number((this.careerTotalPts / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgAst = Number((this.careerTotalAst / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgOReb = Number((this.careerTotalOReb / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgDReb = Number((this.careerTotalDReb / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgStl = Number((this.careerTotalStl / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgBlk = Number((this.careerTotalBlk / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgFls = Number((this.careerTotalFls / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgTov = Number((this.careerTotalTov / this.careerGamesPlayed).toFixed(1));
+            this.careerAvgFG = Number((this.careerTotalFGM / this.careerTotalFGA).toFixed(1));
+            this.careerAvgTP = Number((this.careerTotalTPM / this.careerTotalTPA).toFixed(1));
+            this.careerAvgFT = Number((this.careerTotalFTM / this.careerTotalFTA).toFixed(1));
+
+
+            //Reset game stats
+            this.min = 0;
+            this.pts = 0;
+            this.ast = 0;
+            this.dReb = 0;
+            this.oReb = 0;
+            this.stl = 0;
+            this.blk = 0;
+            this.fls = 0;
+            this.tov = 0;
+            this.fga = 0;
+            this.fgm = 0;
+            this.tpa = 0;
+            this.tpm = 0;
+            this.fta = 0;
+            this.ftm = 0;
+            this.boxMinus = 0;
         }
     }
 }

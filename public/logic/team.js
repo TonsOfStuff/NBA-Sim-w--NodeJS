@@ -58,4 +58,11 @@ export class Team{
         this.playOffWins = 0;
         this.playerOffLosses = 0;
     }
+
+    setOpponentsAndTeammates(opposingTeam){
+        this.players.forEach(player => {
+            player.opponents.push(...opposingTeam.players);
+            player.otherTeammates = this.players;
+        });
+    }
 }
