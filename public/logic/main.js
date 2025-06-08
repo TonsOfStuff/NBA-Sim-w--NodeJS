@@ -117,7 +117,7 @@ window.test = function(){
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * 2)])
     }
 
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i < 11; i++){
         allPlayers[i].statsUpdate();
         console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
     }
