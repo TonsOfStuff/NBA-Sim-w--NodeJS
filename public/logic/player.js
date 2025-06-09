@@ -171,9 +171,11 @@ export class Player{
 
     shooting(defense){
         const defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 1.2);
-        const insideStress = 100;
+        const insideStress = 110;
         const twoStress = 130;
-        const threeStress = 155;
+        const threeStress = 200;
+        const drawFreeThrowAmount = 300;
+        const freeThrowDiff = 120;
 
 
         if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
@@ -187,9 +189,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -204,9 +236,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -221,9 +283,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -238,9 +330,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -255,9 +377,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -272,9 +424,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -289,9 +471,39 @@ export class Player{
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    defense.fls += 1;
+                    this.fta += 2;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -308,9 +520,45 @@ export class Player{
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
+                    defense.fls += 1;
+                    this.fta += 3;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -327,9 +575,45 @@ export class Player{
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
+                    defense.fls += 1;
+                    this.fta += 3;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -346,9 +630,45 @@ export class Player{
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
+                    defense.fls += 1;
+                    this.fta += 3;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -365,9 +685,45 @@ export class Player{
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
+                    defense.fls += 1;
+                    this.fta += 3;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -384,11 +740,49 @@ export class Player{
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
+                    defense.fls += 1;
+                    this.fta += 1;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }else{
+                        return false;
+                    }
+                }
                 return true;
             }
             else{
+                //Fts
+                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
+                    defense.fls += 1;
+                    this.fta += 3;
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                    }
+                    if (this.freeThrow > Math.random() * freeThrowDiff){
+                        this.pts += 1;
+                        this.ftm += 1;
+                        this.team.calcBoxMinus(1);
+                        defense.team.calcBoxMinus(-1);
+                        return true;
+                    }
+                }
                 return false;
             }
+        }else{
+            this.pass(defense);
         }
     }
 
@@ -454,7 +848,7 @@ export class Player{
         if (three === true){
             blockFactor = 100;
         }
-        if (this.blk * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 1){
+        if (this.blockTen * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 20000){
             this.blk += 1;
             return true;
         }else{
@@ -468,7 +862,21 @@ export class Player{
             if (this.otherTeammates[i] === this){
                 continue;
             }
-            passingList.push(...Array(this.otherTeammates[i].passTo).fill(this.otherTeammates[i]));
+            let passingAmount = this.otherTeammates[i].passTo;
+            //Progressive slowdown
+            if (this.otherTeammates[i].fga > 20){
+                passingAmount -= 5;
+            }
+            else if (this.otherTeammates[i].fga > 30){
+                passingAmount -= 8;
+            }
+            else if (this.otherTeammates[i].fga > 40){
+                passingAmount -= 9;
+            }
+            if (passingAmount < 0){
+                passingAmount = 0;
+            }
+            passingList.push(...Array(passingAmount).fill(this.otherTeammates[i]));
         }
 
         //Check for ball turning over and if defense steals it
@@ -525,7 +933,7 @@ export class Player{
             }
         }
 
-        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 3);
+        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 5);
         if (rand < dPToReb.defensiveReb) {
             oPToReb.oReb += 1;
             return oPToReb;
@@ -545,7 +953,7 @@ export class Player{
                 const newPlayer = this.rebound(defense);
                 newPlayer.hasBall = true;
                 hasBallPlayerSetter(newPlayer);
-            }else{
+            }else if (shotOutcome === true){
                 this.hasBall = false;
                 const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
                 hasBallPlayerSetter(newPlayer);
@@ -620,9 +1028,9 @@ export class Player{
             this.avgBlk = Number((this.seasonTotalBlk / this.gamesPlayed).toFixed(1));
             this.avgFls = Number((this.seasonTotalFls / this.gamesPlayed).toFixed(1));
             this.avgTov = Number((this.seasonTotalTov / this.gamesPlayed).toFixed(1));
-            this.fgp = Number((this.seasonTotalFGM / this.seasonTotalFGA).toFixed(1));
-            this.tpp = Number((this.seasonTotalTPM / this.seasonTotalTPA).toFixed(1));
-            this.ftp = Number((this.seasonTotalFTM / this.seasonTotalFTA).toFixed(1));
+            this.fgp = Number((this.seasonTotalFGM / this.seasonTotalFGA).toFixed(2));
+            this.tpp = Number((this.seasonTotalTPM / this.seasonTotalTPA).toFixed(2));
+            this.ftp = Number((this.seasonTotalFTM / this.seasonTotalFTA).toFixed(2));
 
 
             //Career updates
@@ -651,9 +1059,10 @@ export class Player{
             this.careerAvgBlk = Number((this.careerTotalBlk / this.careerGamesPlayed).toFixed(1));
             this.careerAvgFls = Number((this.careerTotalFls / this.careerGamesPlayed).toFixed(1));
             this.careerAvgTov = Number((this.careerTotalTov / this.careerGamesPlayed).toFixed(1));
-            this.careerAvgFG = Number((this.careerTotalFGM / this.careerTotalFGA).toFixed(1));
-            this.careerAvgTP = Number((this.careerTotalTPM / this.careerTotalTPA).toFixed(1));
-            this.careerAvgFT = Number((this.careerTotalFTM / this.careerTotalFTA).toFixed(1));
+            this.careerAvgFG = Number((this.careerTotalFGM / this.careerTotalFGA).toFixed(2));
+            this.careerAvgTP = Number((this.careerTotalTPM / this.careerTotalTPA).toFixed(2));
+            this.careerAvgFT = Number((this.careerTotalFTM / this.careerTotalFTA).toFixed(2));
+
 
 
             //Reset game stats

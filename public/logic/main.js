@@ -3,6 +3,45 @@ import { Team } from "./team.js";
 import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStats, insideStats, playmakerStats, allAroundStats} from "./statRange.js";
 import { fn, ln } from "./name.js";
 
+//DOM elements
+const main = document.getElementById("main");
+
+function displayGame(team1, team2, team1Score, team2Score){
+    while (main.firstChild){
+        main.removeChild(main.firstChild);
+    }
+    team1.players.sort((a, b) => b.pts - a.pts);
+    team2.players.sort((a, b) => b.pts - a.pts);
+
+    team1.players.forEach(player => {
+        const boxScoreRow = document.createElement("div");
+        boxScoreRow.innerText = player.name + "|Min: " + player.min + "|Pts: " + player.pts + "|DReb: " + player.dReb + "|OReb: " + player.oReb + "|Ast: " + player.ast + "|Stl: " + player.stl + "|Blk: " + player.blk + "|Fls: " + player.fls + "|TO: " + player.tov + "|FG%: " + player.fgm + "/" + player.fga + "|3P%: " + player.tpm + "/" + player.tpa + "|FT%: " + player.ftm + "/" + player.fta + "|+/-: " + player.boxMinus;
+        boxScoreRow.style.marginBottom = '10px';
+
+        main.appendChild(boxScoreRow);
+    });
+    let teamStuff = document.createElement("div");
+    teamStuff.innerText = team1.name + ": " + team1Score;
+    main.appendChild(teamStuff)
+
+    const space = document.createElement("div");
+    space.innerText = " ";
+    space.style.height = '50px';
+    main.appendChild(space);
+
+    team2.players.forEach(player => {
+        const boxScoreRow = document.createElement("div");
+        boxScoreRow.innerText = player.name + "|Min: " + player.min + "|Pts: " + player.pts + "|DReb: " + player.dReb + "|OReb: " + player.oReb + "|Ast: " + player.ast + "|Stl: " + player.stl + "|Blk: " + player.blk + "|Fls: " + player.fls + "|TO: " + player.tov + "|FG%: " + player.fgm + "/" + player.fga + "|3P%: " + player.tpm + "/" + player.tpa + "|FT%: " + player.ftm + "/" + player.fta + "|+/-: " + player.boxMinus;
+        boxScoreRow.style.marginBottom = '10px';
+
+        main.appendChild(boxScoreRow);
+    });
+    teamStuff = document.createElement("div");
+    teamStuff.innerText = team2.name + ": " + team2Score;
+    main.appendChild(teamStuff)
+}
+
+
 //Players
 const michaelJordan = new Player("Michael Jordan", "Slasher", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 29, 56, 96, 95, 93, 95, 92, 96, 75, 82, 90, 90, 94, 95, 87, 75, 99, 52, 87, 78, 34, 45, 99, 99)
 const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21, 88, 45, 42, 35, 94, 97, 99, 95, 91, 82, 87, 32, 32, 82, 85, 82, 90, 98, 95, 83, 79, 92, 81, 37, 42, 99, 99)
@@ -143,7 +182,7 @@ console.log(bulls);
 
 window.test = function(){
     
-    for(let i = 0; i<82 * allTeams.length / 2;i++){
+    for(let i = 0; i<1 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
@@ -155,8 +194,9 @@ window.test = function(){
         aGame(chosenTeam1, chosenTeam2);
     }
     for (let i = 0; i < 11; i++){
-        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
+        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].fgp + " " + allPlayers[i].tpp + " " + allPlayers[i].ftp);
     }
+
     console.log("Bulls "+ bulls.wins + ":" + bulls.losses);
     console.log("Lakers " + lakers.wins + ":" + lakers.losses);
     console.log("Celtics " + celtics.wins + ":" + celtics.losses);
@@ -235,7 +275,8 @@ function aGame(chosenTeam1, chosenTeam2){
             }
         }
     }
-    
+
+    displayGame(team1, team2, teamScores[0], teamScores[1]);
 
     team1.players.forEach(player => {
         player.statsUpdate();
