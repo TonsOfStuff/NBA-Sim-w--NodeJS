@@ -105,4 +105,32 @@ export class Team{
 
         this.sf = playersCopy[0];
     }
+
+
+    sub(quarter, time, team1Score, team2Score){
+        let smartSubNum = 8;
+        if (quarter === 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
+            smartSubNum = this.players.length;
+        }
+
+        this.lineup.splice(0, this.lineup.length);
+        const top = this.players.sort((a, b) => (b.stamina + b.boxMinus * 2) - (a.stamina + a.boxMinus * 2)).slice(0, smartSubNum);
+
+        for (let i = 0; i<5; i++){
+            let chosen = top[Math.floor(Math.random() * top.length)]
+            this.lineup.push(chosen);
+            top.splice(top.indexOf(chosen), 1);
+        }
+        this.setPositions();
+
+        console.log(this.lineup);
+    }
+
+
+
+    calcBoxMinus(value){
+        this.lineup.forEach(player => {
+            player.boxMinus += value;
+        });
+    }
 }

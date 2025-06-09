@@ -85,6 +85,33 @@ function genPlayer(amount){
     }
 }
 
+//Function for finding totals
+function findTotalScore(team1, team2){
+    let team1Total = 0;
+    team1.players.forEach(player => {
+        team1Total += player.pts;
+    });
+
+    let team2Total = 0;
+    team2.players.forEach(player => {
+        team1Total += player.pts;
+    });
+
+    return [team1Total, team2Total];
+}
+
+//Function for subbing
+function subbing(quarter, time, team1, team2){
+    let teamScores = [];
+
+    teamScores = findTotalScore(team1, team2);
+    team1.sub(quarter + 1, 0, teamScores[0], teamScores[1]);
+    team2.sub(quarter + 1, 0, teamScores[0], teamScores[1]);
+
+    team1.setOpponentsAndTeammates(team2);
+    team2.setOpponentsAndTeammates(team1);
+}
+
 //Set teams
 genPlayer(14)
 
@@ -93,6 +120,7 @@ for (let i=0;i<allTeams.length;i++){
         const chosenPlayer = removePlayers[Math.floor(Math.random() * removePlayers.length)];
         allTeams[i].players.push(chosenPlayer);
         chosenPlayer.calcOvr();
+        chosenPlayer.team = allTeams[i];
         removePlayers.splice(removePlayers.indexOf(chosenPlayer), 1);
     }
 
@@ -112,6 +140,8 @@ lakers.setOpponentsAndTeammates(bulls);
 window.test = function(){
     const team1 = allTeams[0];
     const team2 = allTeams[1];
+    let quarter = 1;
+    
 
 
     hasBallPlayer = team1.pg;
@@ -122,7 +152,9 @@ window.test = function(){
             team2.updateMin();
         }
     }
+    subbing(quarter, 0, team1, team2);
 
+    quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 2
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
         if (i % 20 === 0){
@@ -130,7 +162,9 @@ window.test = function(){
             team2.updateMin();
         }
     }
+    subbing(quarter, 0, team1, team2);
 
+    quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 3
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
         if (i % 20 === 0){
@@ -138,7 +172,9 @@ window.test = function(){
             team2.updateMin();
         }
     }
+    subbing(quarter, 0, team1, team2);
 
+    quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 4
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
         if (i % 20 === 0){

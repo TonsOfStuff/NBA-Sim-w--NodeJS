@@ -184,6 +184,8 @@ export class Player{
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -199,6 +201,8 @@ export class Player{
             if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -214,6 +218,8 @@ export class Player{
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -229,6 +235,8 @@ export class Player{
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -244,6 +252,8 @@ export class Player{
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -259,6 +269,8 @@ export class Player{
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -274,6 +286,8 @@ export class Player{
             if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
                 this.fgm += 1;
                 this.pts += 2;
+                this.team.calcBoxMinus(2);
+                defense.team.calcBoxMinus(-2);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -291,6 +305,8 @@ export class Player{
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
+                this.team.calcBoxMinus(3);
+                defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -308,6 +324,8 @@ export class Player{
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
+                this.team.calcBoxMinus(3);
+                defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -325,6 +343,8 @@ export class Player{
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
+                this.team.calcBoxMinus(3);
+                defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -342,6 +362,8 @@ export class Player{
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
+                this.team.calcBoxMinus(3);
+                defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
@@ -359,6 +381,8 @@ export class Player{
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
+                this.team.calcBoxMinus(3);
+                defense.team.calcBoxMinus(-3);
                 if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
                 return true;
             }
