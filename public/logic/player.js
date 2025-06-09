@@ -558,12 +558,10 @@ export class Player{
         if (this.min != 0){
             this.gamesPlayed += 1;
             this.careerGamesPlayed += 1;
-            /*
             if (this.team.startingLineup.includes(this)){
                 this.gamesStarted += 1;
                 this.careerGamesStarted += 1;
             }
-            */
 
             //Check for double doubles, triple doubles, quadruple doubles
             let greaterThanTenAmount = 0;

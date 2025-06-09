@@ -110,6 +110,9 @@ function subbing(quarter, time, team1, team2){
 
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
+
+    hasBallPlayer = team1.pg;
+    team1.pg.hasBall = true;
 }
 
 //Set teams
@@ -185,7 +188,7 @@ window.test = function(){
 
     for (let i = 0; i < 11; i++){
         allPlayers[i].statsUpdate();
-        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
+        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
     }
 }
 

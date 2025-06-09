@@ -112,7 +112,9 @@ export class Team{
         if (quarter === 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
             smartSubNum = this.players.length;
         }
-
+        this.lineup.forEach(player => {
+            player.hasBall = false;
+        });
         this.lineup.splice(0, this.lineup.length);
         const top = this.players.sort((a, b) => (b.stamina + b.boxMinus * 2) - (a.stamina + a.boxMinus * 2)).slice(0, smartSubNum);
 
@@ -121,9 +123,7 @@ export class Team{
             this.lineup.push(chosen);
             top.splice(top.indexOf(chosen), 1);
         }
-        this.setPositions();
-
-        console.log(this.lineup);
+        this.setPositions()
     }
 
 
