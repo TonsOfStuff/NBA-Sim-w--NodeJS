@@ -73,7 +73,7 @@ export class Team{
     }
 
     setPositions(){
-        let playersCopy = [...this.players];
+        let playersCopy = [...this.lineup];
 
         this.pg = playersCopy.reduce((best, current) => {
             const bestSum = best.passingAccuracy + best.passingTen;
@@ -109,7 +109,7 @@ export class Team{
 
     sub(quarter, time, team1Score, team2Score){
         let smartSubNum = 8;
-        if (quarter === 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
+        if (quarter >= 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
             smartSubNum = this.players.length;
         }
         this.lineup.forEach(player => {

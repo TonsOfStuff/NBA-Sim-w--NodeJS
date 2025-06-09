@@ -472,7 +472,7 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (this.passingAccuracy + this.ballControl >= Math.random() * 1000){
+        if (this.passingAccuracy + this.ballControl >= Math.random() * 3000){
             this.tov += 1;
             this.hasBall = false;
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];

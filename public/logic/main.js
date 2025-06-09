@@ -16,13 +16,16 @@ const curry = new Player("Stephen Curry", "Shooter Playmaker", 99, 99, 87, 99, 9
 const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 40, 99, 78, 95, 99, 76, 76, 99, 40, 31, 38, 44, 77, 79, 93, 93, 95, 90, 0, 0, 0, 0, 36, 44, 30, 0, 62, 33, 78, 84, 38, 38, 93, 99);
 
 let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem];
-let removePlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem];
+let removePlayers = [...allPlayers];
 
 //Teams
 const bulls = new Team("Chicago Bulls", true, []);
 const lakers = new Team("Los Angeles Lakers", false, []);
+const celtics = new Team("Boston Celitcs", true, []);
+const pacers = new Team("Pacers", true, []);
 
-const allTeams = [bulls, lakers]
+const allTeams = [bulls, lakers, celtics, pacers];
+let allTeamsTemp = [...allTeams];
 
 //Global variables
 let hasBallPlayer = null;
@@ -94,7 +97,7 @@ function findTotalScore(team1, team2){
 
     let team2Total = 0;
     team2.players.forEach(player => {
-        team1Total += player.pts;
+        team2Total += player.pts;
     });
 
     return [team1Total, team2Total];
@@ -105,19 +108,21 @@ function subbing(quarter, time, team1, team2){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
-    team1.sub(quarter + 1, 0, teamScores[0], teamScores[1]);
-    team2.sub(quarter + 1, 0, teamScores[0], teamScores[1]);
+    team1.sub(quarter + 1, time, teamScores[0], teamScores[1]);
+    team2.sub(quarter + 1, time, teamScores[0], teamScores[1]);
 
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
+
+    team1.setPositions();
+    team2.setPositions();
 
     hasBallPlayer = team1.pg;
     team1.pg.hasBall = true;
 }
 
 //Set teams
-genPlayer(14)
-
+genPlayer(allTeams.length * 12 - allPlayers.length);
 for (let i=0;i<allTeams.length;i++){
     for (let k=0;k<12;k++){
         const chosenPlayer = removePlayers[Math.floor(Math.random() * removePlayers.length)];
@@ -133,19 +138,41 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-console.log(bulls);
 console.log(lakers);
-
-bulls.setOpponentsAndTeammates(lakers);
-lakers.setOpponentsAndTeammates(bulls);
-
+console.log(bulls);
 
 window.test = function(){
-    const team1 = allTeams[0];
-    const team2 = allTeams[1];
+    
+    for(let i = 0; i<82 * allTeams.length / 2;i++){
+        if (allTeamsTemp.length === 0){
+            allTeamsTemp = [...allTeams];
+        }
+        const chosenTeam1 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam1), 1);
+        const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
+
+        aGame(chosenTeam1, chosenTeam2);
+    }
+    for (let i = 0; i < 11; i++){
+        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
+    }
+    console.log("Bulls "+ bulls.wins + ":" + bulls.losses);
+    console.log("Lakers " + lakers.wins + ":" + lakers.losses);
+    console.log("Celtics " + celtics.wins + ":" + celtics.losses);
+    console.log("Pacers " + pacers.wins + ":" + pacers.losses);
+}
+
+function aGame(chosenTeam1, chosenTeam2){
+    const team1 = chosenTeam1;
+    const team2 = chosenTeam2;
     let quarter = 1;
     
-
+    //Init teams
+    team1.lineup = team1.startingLineup;
+    team2.lineup = team2.startingLineup;
+    team1.setOpponentsAndTeammates(team2);
+    team2.setOpponentsAndTeammates(team1);
 
     hasBallPlayer = team1.pg;
     for (let i = 0; i < 240; i++){ //Quarter 1
@@ -186,10 +213,36 @@ window.test = function(){
         }
     }
 
-    for (let i = 0; i < 11; i++){
-        allPlayers[i].statsUpdate();
-        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].avgStl + " " + allPlayers[i].avgTov + " " + allPlayers[i].avgBlk);
+    let teamScores = findTotalScore(team1, team2);
+    if (teamScores[0] > teamScores[1]){
+        team1.wins += 1;
+        team2.losses += 1;
+        team1.franchiseWins += 1;
+        team2.franchiseLosses += 1;
+    }else if (teamScores[0] < teamScores[1]){
+        team1.losses += 1;
+        team2.wins += 1;
+        team1.franchiseLosses += 1;
+        team2.franchiseWins += 1;
+    }else{ //Overtime
+        subbing(quarter, 0, team1, team2);
+        quarter += 1;
+        for (let i = 0; i < 240; i++){ //Quarter 4
+            hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+            if (i % 20 === 0){
+                team1.updateMin();
+                team2.updateMin();
+            }
+        }
     }
+    
+
+    team1.players.forEach(player => {
+        player.statsUpdate();
+    });
+    team2.players.forEach(player => {
+        player.statsUpdate();
+    });
 }
 
 
