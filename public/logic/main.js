@@ -143,12 +143,12 @@ function findTotalScore(team1, team2){
 }
 
 //Function for subbing
-function subbing(quarter, time, team1, team2){
+function subbing(quarter, time, team1, team2, possesion){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
-    team1.sub(quarter + 1, time, teamScores[0], teamScores[1]);
-    team2.sub(quarter + 1, time, teamScores[0], teamScores[1]);
+    team1.sub(quarter, time, teamScores[0], teamScores[1]);
+    team2.sub(quarter, time, teamScores[0], teamScores[1]);
 
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
@@ -156,8 +156,8 @@ function subbing(quarter, time, team1, team2){
     team1.setPositions();
     team2.setPositions();
 
-    hasBallPlayer = team1.pg;
-    team1.pg.hasBall = true;
+    hasBallPlayer = possesion.pg;
+    possesion.pg.hasBall = true;
 }
 
 //Set teams
@@ -221,8 +221,11 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
+        if (i % 60){
+            subbing(quarter, i, team1, team2, hasBallPlayer.team)
+        }
     }
-    subbing(quarter, 0, team1, team2);
+    subbing(quarter + 1, 0, team1, team2, team1);
 
     quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 2
@@ -231,8 +234,11 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
+        if (i % 60){
+            subbing(quarter, i, team1, team2, hasBallPlayer.team)
+        }
     }
-    subbing(quarter, 0, team1, team2);
+    subbing(quarter + 1, 0, team1, team2, team2);
 
     quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 3
@@ -241,8 +247,11 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
+        if (i % 60){
+            subbing(quarter, i, team1, team2, hasBallPlayer.team)
+        }
     }
-    subbing(quarter, 0, team1, team2);
+    subbing(quarter + 1, 0, team1, team2, team2);
 
     quarter += 1;
     for (let i = 0; i < 240; i++){ //Quarter 4
@@ -250,6 +259,9 @@ function aGame(chosenTeam1, chosenTeam2){
         if (i % 20 === 0){
             team1.updateMin();
             team2.updateMin();
+        }
+        if (i % 60){
+            subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
 
@@ -265,13 +277,16 @@ function aGame(chosenTeam1, chosenTeam2){
         team1.franchiseLosses += 1;
         team2.franchiseWins += 1;
     }else{ //Overtime
-        subbing(quarter, 0, team1, team2);
+        subbing(quarter, 0, team1, team2, team1);
         quarter += 1;
         for (let i = 0; i < 240; i++){ //Quarter 4
             hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
             if (i % 20 === 0){
                 team1.updateMin();
                 team2.updateMin();
+            }
+            if (i % 60){
+                subbing(quarter, i, team1, team2, hasBallPlayer.team)
             }
         }
     }

@@ -174,8 +174,8 @@ export class Player{
         const insideStress = 110;
         const twoStress = 130;
         const threeStress = 200;
-        const drawFreeThrowAmount = 300;
-        const freeThrowDiff = 120;
+        const drawFreeThrowAmount = 100;
+        const freeThrowDiff = 110;
 
 
         if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
@@ -880,14 +880,14 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (this.passingAccuracy + this.ballControl >= Math.random() * 3000){
+        if (this.passingAccuracy + this.ballControl < Math.random() * 1000){
             this.tov += 1;
             this.hasBall = false;
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
             hasBallPlayerSetter(newPlayer);
             newPlayer.hasBall = true;
         }
-        else if (this.passingAccuracy + defense.stealTen >= Math.random() * 2000){
+        else if (Math.random() * 1000 < this.passingAccuracy + this.ballControl - defense.stealTen){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
@@ -945,7 +945,7 @@ export class Player{
 
     playerPossesion(defense){
         this.moving(defense);
-        if (this.passingTen > Math.random() * 80){
+        if (this.passingTen + this.fga > Math.random() * 100){
             this.pass(defense);
         }else{
             const shotOutcome = this.shooting(defense);
