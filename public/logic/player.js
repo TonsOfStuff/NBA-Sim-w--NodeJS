@@ -174,11 +174,15 @@ export class Player{
         const insideStress = 110;
         const twoStress = 130;
         const threeStress = 200;
-        const drawFreeThrowAmount = 100;
+        const drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;
 
 
         if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
+            if(defense.takeCharges > Math.random() * 10000){
+                this.fls += 1;
+                return true;
+            }
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -226,6 +230,10 @@ export class Player{
             }
         }
         else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * 100)){
+            if(defense.takeCharges > Math.random() * 10000){
+                this.fls += 1;
+                return true;
+            }
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -863,12 +871,13 @@ export class Player{
                 continue;
             }
             let passingAmount = this.otherTeammates[i].passTo;
+            
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 5;
+                passingAmount -= 3;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 8;
+                passingAmount -= 5;
             }
             else if (this.otherTeammates[i].fga > 40){
                 passingAmount -= 9;
@@ -880,20 +889,21 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (this.passingAccuracy + this.ballControl < Math.random() * 1000){
+        if (300 - this.passingAccuracy + this.ballControl > Math.random() * 15000){
             this.tov += 1;
             this.hasBall = false;
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
             hasBallPlayerSetter(newPlayer);
             newPlayer.hasBall = true;
         }
-        else if (Math.random() * 1000 < this.passingAccuracy + this.ballControl - defense.stealTen){
+        else if (500 - (this.passingAccuracy + this.ballControl - defense.stealTen) > Math.random() * 12000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
             hasBallPlayerSetter(defense);
             defense.stl += 1;
-        }else{
+        }
+        else{
             const passedTo = passingList[Math.floor(Math.random() * passingList.length)];
             passedTo.hasBall = true;
             hasBallPlayerSetter(passedTo);

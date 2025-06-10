@@ -61,8 +61,11 @@ export class Team{
 
     setOpponentsAndTeammates(opposingTeam){
         this.lineup.forEach(player => {
+            player.opponents.splice(0, player.opponents.length);
+            player.otherTeammates.splice(0, player.otherTeammates.length);
+
             player.opponents.push(...opposingTeam.lineup);
-            player.otherTeammates = this.lineup;
+            player.otherTeammates = [...this.lineup];
         });
     }
 
@@ -74,6 +77,21 @@ export class Team{
 
     setPositions(){
         let playersCopy = [...this.lineup];
+        try{
+            this.pg.passTo = 10;
+            this.sg.passTo = 10;
+            this.sf.passTo = 10;
+            this.pf.passTo = 10;
+            this.c.passTo = 10;
+        }catch{
+
+        }
+        
+
+        this.lineup.sort((a,b) => a.pts - b.pts);
+        this.lineup[0].passTo += 5;
+        this.lineup[1].passTo += 3;
+        this.lineup[2].passTo += 1;
 
         this.pg = playersCopy.reduce((best, current) => {
             const bestSum = best.passingAccuracy + best.passingTen;
@@ -107,7 +125,7 @@ export class Team{
     }
 
 
-    sub(quarter, time, team1Score, team2Score){
+    sub(quarter, time, team1Score, team2Score, insertStart = false){
         let smartSubNum = 8;
         if (quarter >= 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
             smartSubNum = this.players.length;
@@ -116,12 +134,17 @@ export class Team{
             player.hasBall = false;
         });
         this.lineup.splice(0, this.lineup.length);
-        const top = this.players.sort((a, b) => (b.stamina + b.boxMinus * 2) - (a.stamina + a.boxMinus * 2)).slice(0, smartSubNum);
 
-        for (let i = 0; i<5; i++){
-            let chosen = top[Math.floor(Math.random() * top.length)]
-            this.lineup.push(chosen);
-            top.splice(top.indexOf(chosen), 1);
+        if (insertStart === false){
+            const top = this.players.sort((a, b) => (b.stamina + b.boxMinus * 2) - (a.stamina + a.boxMinus * 2)).slice(0, smartSubNum);
+
+            for (let i = 0; i<5; i++){
+                let chosen = top[Math.floor(Math.random() * top.length)]
+                this.lineup.push(chosen);
+                top.splice(top.indexOf(chosen), 1);
+            }
+        }else{
+            this.lineup = [...this.startingLineup];
         }
         this.setPositions()
     }
