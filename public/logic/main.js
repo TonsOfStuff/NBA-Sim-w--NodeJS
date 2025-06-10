@@ -4,6 +4,7 @@ import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStat
 import { fn, ln } from "./name.js";
 
 
+
 //DOM elements
 const main = document.getElementById("main");
 
@@ -100,6 +101,8 @@ const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 40, 99, 7
 let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem];
 let removePlayers = [...allPlayers];
 
+
+
 //Teams
 const bulls = new Team("Chicago Bulls", true, []);
 const lakers = new Team("Los Angeles Lakers", false, []);
@@ -189,13 +192,31 @@ function findTotalScore(team1, team2){
     return [team1Total, team2Total];
 }
 
+//Saving and loading
+function save(players){
+    const strippedPlayers = players.map(player => {
+        const copy = { ...player};
+        delete copy.team;
+        return copy;
+    });
+
+    fetch('/api/save-player', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(strippedPlayers)
+        })
+    .then(res => res.json())
+    .then(data => console.log(data.message))
+    .catch(err => console.error(err));
+}
+
 //Function for subbing
 function subbing(quarter, time, team1, team2, possesion, insertStart = false){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
-    team1.sub(quarter, time, teamScores[0], teamScores[1], insertStart);
-    team2.sub(quarter, time, teamScores[0], teamScores[1], insertStart);
+    team1.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
+    team2.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
 
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
@@ -222,8 +243,9 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-console.log(lakers);
-console.log(bulls);
+save(allPlayers);
+
+
 
 window.test = function(){
     
@@ -251,7 +273,7 @@ function aGame(chosenTeam1, chosenTeam2){
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
     let quarter = 1;
-    const theTime = 276;
+    const theTime = 12 * 17;
     
     //Init teams
     team1.lineup = [...team1.startingLineup];

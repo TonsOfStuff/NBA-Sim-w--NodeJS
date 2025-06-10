@@ -88,7 +88,6 @@ export class Player{
         this.gamesStarted = 0;
         
         this.avgMin = 0;
-        this.avgMin = 0;
         this.avgPts = 0;
         this.avgAst = 0;
         this.avgDReb = 0;
@@ -988,17 +987,19 @@ export class Player{
 
     playerPossesion(defense){
         this.moving(defense);
-        if (this.passingTen + this.fga > Math.random() * 110 && this.team.shotClock < 24){
+        if (this.passingTen + this.fga > Math.random() * 1000 && this.team.shotClock < 24){
             this.pass(defense);
             this.team.shotClock += 1;
         }else{
             const shotOutcome = this.shooting(defense);
             if (shotOutcome === false){
+                this.passedFromSomeone = false;
                 const newPlayer = this.rebound(defense);
                 newPlayer.hasBall = true;
                 hasBallPlayerSetter(newPlayer);
                 this.team.shotClock = 0;
             }else if (shotOutcome === true){
+                this.passedFromSomeone = false;
                 this.hasBall = false;
                 const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
                 hasBallPlayerSetter(newPlayer);

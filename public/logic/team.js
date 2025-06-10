@@ -136,9 +136,12 @@ export class Team{
     }
 
 
-    sub(quarter, time, team1Score, team2Score, insertStart = false){
+    sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
         let smartSubNum = 8;
-        if (quarter >= 4 && time > 100 && Math.abs(team1Score - team2Score) > 20){
+        if (quarter >= 4 && time > 100 && team1Score - team2Score > 20 && team1 === this){
+            smartSubNum = this.players.length;
+        }
+        if (quarter >= 4 && time > 100 && team2Score - team1Score > 20 && team2 === this){
             smartSubNum = this.players.length;
         }
         this.lineup.forEach(player => {
