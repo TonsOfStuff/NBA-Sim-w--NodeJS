@@ -3,6 +3,7 @@ import { Team } from "./team.js";
 import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStats, insideStats, playmakerStats, allAroundStats} from "./statRange.js";
 import { fn, ln } from "./name.js";
 
+
 //DOM elements
 const main = document.getElementById("main");
 
@@ -40,6 +41,48 @@ function displayGame(team1, team2, team1Score, team2Score){
     teamStuff.innerText = team2.name + ": " + team2Score;
     main.appendChild(teamStuff)
 }
+
+function displayAwards(mvp, dpoy, tempList, dpoyTempList){
+    while (main.firstChild){
+        main.removeChild(main.firstChild);
+    }
+
+    const mvpStats = document.createElement("div");
+    mvpStats.innerText = "MVP: " + mvp.name + "|Min:" + mvp.avgMin + "|Pts:" + mvp.avgPts + "|Reb:" + (mvp.avgOReb + mvp.avgDReb).toFixed(1) + "|DReb:" + mvp.avgDReb + "|OReb:" + mvp.avgOReb + "|Ast:" + mvp.avgAst + "|Stl:" + mvp.avgStl + "|Blk:" + mvp.avgBlk + "|Fls" + mvp.avgFls + "|Tov:" + mvp.avgTov + "|FG%:" + mvp.fgp + "|3P%:" + mvp.tpp + "|FT%:" + mvp.ftp;
+    const dpoyStats = document.createElement("div");
+    dpoyStats.innerText = "DPOY: " + dpoy.name + "|Min:" + dpoy.avgMin + "|Pts:" + dpoy.avgPts + "|Reb:" + (dpoy.avgOReb + dpoy.avgDReb).toFixed(1) + "|DReb:" + dpoy.avgDReb + "|OReb:" + dpoy.avgOReb + "|Ast:" + dpoy.avgAst + "|Stl:" + dpoy.avgStl + "|Blk:" + dpoy.avgBlk + "|Fls" + dpoy.avgFls + "|Tov:" + dpoy.avgTov + "|FG%:" + dpoy.fgp + "|3P%:" + dpoy.tpp + "|FT%:" + dpoy.ftp;
+
+    main.appendChild(mvpStats);
+    main.appendChild(dpoyStats);
+
+
+    const allNBA1stText = document.createElement("div");
+    const allNBA2ndText = document.createElement("div");
+    const allNBA3rdText = document.createElement("div");
+    allNBA1stText.style.marginTop = "10px";
+    allNBA1stText.innerText = "All NBA 1st Team: |"+tempList[0].name+"|"+tempList[1].name+"|"+tempList[2].name+"|"+tempList[3].name+"|"+tempList[4].name;
+    allNBA2ndText.innerText = "All NBA 2nd Team: |"+tempList[5].name+"|"+tempList[6].name+"|"+tempList[7].name+"|"+tempList[8].name+"|"+tempList[9].name;
+    allNBA3rdText.innerText = "All NBA 3rd Team: |"+tempList[10].name+"|"+tempList[11].name+"|"+tempList[12].name+"|"+tempList[13].name+"|"+tempList[14].name;
+
+    main.appendChild(allNBA1stText);
+    main.appendChild(allNBA2ndText);
+    main.appendChild(allNBA3rdText);
+
+
+
+    const allDef1stText = document.createElement("div");
+    const allDef2ndText = document.createElement("div");
+    const allDef3rdText = document.createElement("div");
+    allDef1stText.style.marginTop = "10px";
+    allDef1stText.innerText = "All Def 1st Team: |"+dpoyTempList[0].name+"|"+dpoyTempList[1].name+"|"+dpoyTempList[2].name+"|"+dpoyTempList[3].name+"|"+dpoyTempList[4].name;
+    allDef2ndText.innerText = "All Def 2nd Team: |"+dpoyTempList[5].name+"|"+dpoyTempList[6].name+"|"+dpoyTempList[7].name+"|"+dpoyTempList[8].name+"|"+dpoyTempList[9].name;
+    allDef3rdText.innerText = "All Def 3rd Team: |"+dpoyTempList[10].name+"|"+dpoyTempList[11].name+"|"+dpoyTempList[12].name+"|"+dpoyTempList[13].name+"|"+dpoyTempList[14].name;
+
+    main.appendChild(allDef1stText);
+    main.appendChild(allDef2ndText);
+    main.appendChild(allDef3rdText);
+}
+
 
 
 //Players
@@ -175,6 +218,7 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].players.sort((a, b) => b.ovr - a.ovr);
     allTeams[i].startingLineup.push(...allTeams[i].players.slice(0, 5));
     allTeams[i].lineup = allTeams[i].startingLineup;
+    allTeams[i].startingLineupBoost();
     allTeams[i].setPositions();
 }
 
@@ -183,7 +227,7 @@ console.log(bulls);
 
 window.test = function(){
     
-    for(let i = 0; i<1 * allTeams.length / 2;i++){
+    for(let i = 0; i<82 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
@@ -197,6 +241,10 @@ window.test = function(){
     for (let i = 0; i < 11; i++){
         console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].fgp + " " + allPlayers[i].tpp + " " + allPlayers[i].ftp);
     }
+}
+
+window.testP = function(){
+    playOffs();
 }
 
 function aGame(chosenTeam1, chosenTeam2){
@@ -300,5 +348,45 @@ function aGame(chosenTeam1, chosenTeam2){
 
 function playOffs(){
     //Calc awards
+    let mvp = null;
+    let dpoy = null;
+
+    allPlayers.forEach(player => {
+        player.calcAwardsVal();
+    });
+    
+    const tempPlayers = [...allPlayers];
+    tempPlayers.sort((a,b)=>b.mvpNum - a.mvpNum);
+    tempPlayers[0].totalMVPS += 1;
+    mvp = tempPlayers[0];
+
+    for (let i = 0; i<15; i++){
+        if (i <= 4){
+            tempPlayers[i].allNBAFirst += 1;
+        }else if (i<= 9){
+            tempPlayers[i].allNBASecond += 1;
+        }else{
+            tempPlayers[i].allNBAThird += 1;
+        }
+    }
+    console.log(tempPlayers);
+
+    const dpoyTempList = [...allPlayers];
+    dpoyTempList.sort((a,b)=>b.dpoyNum - a.dpoyNum);
+    dpoyTempList[0].totalDPOYs += 1;
+    dpoy = dpoyTempList[0];
+
+    for (let i = 0; i<15; i++){
+        if (i <= 4){
+            dpoyTempList[i].allDefensiveFirst += 1;
+        }else if (i<= 9){
+            dpoyTempList[i].allDefensiveSecond += 1;
+        }else{
+            dpoyTempList[i].allDefensiveThird += 1;
+        }
+    }
+    console.log(dpoyTempList);
+
+    displayAwards(mvp, dpoy, tempPlayers, dpoyTempList);
 }
 

@@ -62,6 +62,7 @@ export class Player{
         this.opponents = [];
         this.hasBall = false;
         this.passTo = 10;
+        this.passToOg = 10;
         this.passedFromSomeone = false;
 
         //Game stats
@@ -158,6 +159,31 @@ export class Player{
         this.careerTripleDoubles = 0;
         this.careerDoubleDoubles = 0;
         this.careerQuadDoubles = 0;
+
+
+        //Awards
+        this.totalMVPS = 0;
+        this.totalDPOYs = 0;
+        this.totalROTYs = 0;
+        this.totalSMOTY = 0;
+
+        this.mvpNum = 0;
+        this.dpoyNum = 0;
+
+        this.allNBAFirst = 0;
+        this.allNBASecond = 0;
+        this.allNBAThird = 0;
+        this.allDefensiveFirst = 0;
+        this.allDefensiveSecond = 0;
+        this.allDefensiveThird = 0;
+
+        this.allStar = 0;
+
+        this.scoringChamp = 0;
+        this.assistChamp = 0;
+        this.reboundChamp = 0;
+        this.stealChamp = 0;
+        this.blockChamp = 0;
     }
 
     calcOvr() {
@@ -167,6 +193,11 @@ export class Player{
             this.ovr = 99;
         }
         */
+    }
+
+    calcAwardsVal(){
+        this.mvpNum = Number((this.avgPts + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 + this.fgp / 15 + this.tpp / 7 + this.ftp / 30 - this.avgFls - this.avgTov).toFixed(3));
+        this.dpoyNum = Number((this.avgStl * 2 + this.avgBlk * 9 + this.avgDReb * 3 + this.avgOReb + 2).toFixed(3));
     }
 
     shooting(defense){

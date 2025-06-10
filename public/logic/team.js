@@ -75,14 +75,21 @@ export class Team{
         });
     }
 
+    startingLineupBoost(){
+        this.startingLineup.forEach(player => {
+            player.passToOg += 10;
+            player.passTo += 10;
+        });
+    }
+
     setPositions(){
         let playersCopy = [...this.lineup];
         try{
-            this.pg.passTo = 10;
-            this.sg.passTo = 10;
-            this.sf.passTo = 10;
-            this.pf.passTo = 10;
-            this.c.passTo = 10;
+            this.pg.passTo = this.pg.passToOg;
+            this.sg.passTo = this.sg.passToOg;
+            this.sf.passTo = this.sf.passToOg;
+            this.pf.passTo = this.pf.passToOg;
+            this.c.passTo = this.c.passToOg;
         }catch{
 
         }
