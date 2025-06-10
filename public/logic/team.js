@@ -57,6 +57,10 @@ export class Team{
 
         this.playOffWins = 0;
         this.playerOffLosses = 0;
+
+
+        //Misc
+        this.shotClock = 0;
     }
 
     setOpponentsAndTeammates(opposingTeam){

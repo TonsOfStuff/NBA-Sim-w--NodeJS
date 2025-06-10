@@ -61,8 +61,8 @@ export class Player{
         this.otherTeammates = [];
         this.opponents = [];
         this.hasBall = false;
-        this.passTo = 10;
-        this.passToOg = 10;
+        this.passTo = 1;
+        this.passToOg = 1;
         this.passedFromSomeone = false;
 
         //Game stats
@@ -905,13 +905,13 @@ export class Player{
             
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 3;
+                passingAmount -= 1;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 5;
+                passingAmount -= 3;
             }
             else if (this.otherTeammates[i].fga > 40){
-                passingAmount -= 9;
+                passingAmount -= 5;
             }
             if (passingAmount < 0){
                 passingAmount = 0;
@@ -926,6 +926,7 @@ export class Player{
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
             hasBallPlayerSetter(newPlayer);
             newPlayer.hasBall = true;
+            this.team.shotClock = 0;
         }
         else if (500 - (this.passingAccuracy + this.ballControl - defense.stealTen) > Math.random() * 12000){
             this.tov += 1;
@@ -933,6 +934,7 @@ export class Player{
             defense.hasBall = true;
             hasBallPlayerSetter(defense);
             defense.stl += 1;
+            this.team.shotClock = 0;
         }
         else{
             const passedTo = passingList[Math.floor(Math.random() * passingList.length)];
@@ -949,12 +951,12 @@ export class Player{
         let oPToReb = null;
         let dPToReb = null;
 
-        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + p.offensiveReb, 0);
+        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + Math.pow(p.offensiveReb, 1.5) + Math.pow(p.height, 1.5), 0);
         let rand = Math.random() * totalWeight;
 
         let runningSum = 0;
         for (let player of this.otherTeammates) {
-            runningSum += player.offensiveReb;
+            runningSum += Math.pow(player.offensiveReb, 1.5) + Math.pow(player.height, 1.5);
             if (rand < runningSum){
                 oPToReb = player;
                 break;
@@ -962,12 +964,12 @@ export class Player{
         }
 
 
-        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + p.defensiveReb, 0);
+        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + Math.pow(p.defensiveReb, 1.5) + Math.pow(p.height, 1.5), 0);
         rand = Math.random() * totalWeight;
 
         runningSum = 0;
         for (let player of defense.otherTeammates) {
-            runningSum += player.defensiveReb;
+            runningSum += Math.pow(player.defensiveReb, 1.5) + Math.pow(player.height, 1.5);
             if (rand < runningSum){
                 dPToReb = player;
                 break;
@@ -986,19 +988,22 @@ export class Player{
 
     playerPossesion(defense){
         this.moving(defense);
-        if (this.passingTen + this.fga > Math.random() * 100){
+        if (this.passingTen + this.fga > Math.random() * 110 && this.team.shotClock < 24){
             this.pass(defense);
+            this.team.shotClock += 1;
         }else{
             const shotOutcome = this.shooting(defense);
             if (shotOutcome === false){
                 const newPlayer = this.rebound(defense);
                 newPlayer.hasBall = true;
                 hasBallPlayerSetter(newPlayer);
+                this.team.shotClock = 0;
             }else if (shotOutcome === true){
                 this.hasBall = false;
                 const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
                 hasBallPlayerSetter(newPlayer);
                 newPlayer.hasBall = true;
+                this.team.shotClock = 0;
             }
         }
     }

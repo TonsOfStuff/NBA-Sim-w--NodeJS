@@ -227,7 +227,7 @@ console.log(bulls);
 
 window.test = function(){
     
-    for(let i = 0; i<82 * allTeams.length / 2;i++){
+    for(let i = 0; i<1 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
