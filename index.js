@@ -1,10 +1,12 @@
 const { readFile } = require("fs").promises;
+const db = require('./models/db');
 
 const express = require('express');
 const app = express();
 
 
 app.use(express.static('public'));
+
 
 
 app.get("/", async (req, res) => {
