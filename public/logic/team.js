@@ -89,6 +89,13 @@ export class Team{
             player.passToOg += 10;
             player.passTo += 10;
         });
+
+        this.lineup = [...this.startingLineup];
+        this.startingLineupName1 = this.startingLineup[0].name;
+        this.startingLineupName2 = this.startingLineup[1].name;
+        this.startingLineupName3 = this.startingLineup[2].name;
+        this.startingLineupName4 = this.startingLineup[3].name;
+        this.startingLineupName5 = this.startingLineup[4].name;
     }
 
     setPositions(){

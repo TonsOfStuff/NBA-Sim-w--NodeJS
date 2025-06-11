@@ -197,6 +197,9 @@ function save(players, teams){
     const strippedPlayers = players.map(player => {
         const copy = { ...player};
         delete copy.team;
+        delete copy.otherTeammates;
+        delete copy.opponents;
+        delete copy.passedFromSomeone;
         return copy;
     });
 
@@ -238,7 +241,7 @@ function load(){
         .then(res => res.json())
         .then(data => {
             const teams = data.map(p => {
-                const team = new Team(p.name, p.inEast);
+                const team = new Team(p.name, p.inEast, []);
                 Object.assign(team, {
                     wins: p.wins,
                     losses: p.losses,
@@ -247,11 +250,11 @@ function load(){
                     seed: p.seed,
                     oldSeed: p.oldSeed,
 
-                    startingLineupOne: p.startingLineupOne,
-                    startingLineupTwo: p.startingLineupTwo,
-                    startingLineupThree: p.startingLineupThree,
-                    startingLineupFour: p.startingLineupFour,
-                    startingLineupFive: p.startingLineupFive,
+                    startingLineupName1: p.startingLineupOne,
+                    startingLineupName2: p.startingLineupTwo,
+                    startingLineupName3: p.startingLineupThree,
+                    startingLineupName4: p.startingLineupFour,
+                    startingLineupName5: p.startingLineupFive,
 
                     ptsAvg: p.ptsAvg,
                     astAvg: p.astAvg,
@@ -389,7 +392,9 @@ function load(){
                     assistChamp: p.assistChamp,
                     reboundChamp: p.reboundChamp,
                     stealChamp: p.stealChamp,
-                    blockChamp: p.blockChamp
+                    blockChamp: p.blockChamp,
+
+                    teamName: p.team
                 });
 
                 return player;
@@ -397,15 +402,26 @@ function load(){
             allPlayers.splice(0, allPlayers.length);
             allPlayers = [...players];
             allPlayers.forEach(player => {
-                for (let i = 0; i < allTeams.length; i++)
+                for (let i = 0; i < allTeams.length; i++){
+                    if (player.name === allTeams[i].startingLineupName1 || player.name === allTeams[i].startingLineupName2 || player.name === allTeams[i].startingLineupName3 || player.name === allTeams[i].startingLineupName4 || player.name === allTeams[i].startingLineupName5){
+                        allTeams[i].startingLineup.push(player);
+                    }
                     if(player.teamName === allTeams[i].name){
                         player.team = allTeams[i];
+                        allTeams[i].players.push(player);
                         break;
                     }
+                }
                 });
-
-            console.log(allPlayers);
+            allTeamsTemp = [...allTeams];
         });
+}
+
+window.loading = function (){
+    load();
+}
+window.saving = function(){
+    save(allPlayers, allTeams);
 }
 
 //Function for subbing
@@ -437,16 +453,21 @@ for (let i=0;i<allTeams.length;i++){
 
     allTeams[i].players.sort((a, b) => b.ovr - a.ovr);
     allTeams[i].startingLineup.push(...allTeams[i].players.slice(0, 5));
-    allTeams[i].lineup = allTeams[i].startingLineup;
+    allTeams[i].lineup = [...allTeams[i].startingLineup];
+    allTeams[i].startingLineupName1 = allTeams[i].startingLineup[0].name;
+    allTeams[i].startingLineupName2 = allTeams[i].startingLineup[1].name;
+    allTeams[i].startingLineupName3 = allTeams[i].startingLineup[2].name;
+    allTeams[i].startingLineupName4 = allTeams[i].startingLineup[3].name;
+    allTeams[i].startingLineupName5 = allTeams[i].startingLineup[4].name;
+
     allTeams[i].startingLineupBoost();
     allTeams[i].setPositions();
 }
 
-save(allPlayers, allTeams);
 
 
 window.test = function(){
-    
+    console.log(allTeams);
     for(let i = 0; i<1 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
@@ -478,6 +499,10 @@ function aGame(chosenTeam1, chosenTeam2){
     team2.lineup = [...team2.startingLineup];
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
+    team1.startingLineupBoost();
+    team2.startingLineupBoost();
+    team1.setPositions();
+    team2.setPositions();
 
     hasBallPlayer = team1.pg;
     for (let i = 0; i < theTime; i++){ //Quarter 1
