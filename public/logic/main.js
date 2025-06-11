@@ -193,7 +193,7 @@ function findTotalScore(team1, team2){
 }
 
 //Saving and loading
-function save(players){
+function save(players, teams){
     const strippedPlayers = players.map(player => {
         const copy = { ...player};
         delete copy.team;
@@ -208,6 +208,141 @@ function save(players){
     .then(res => res.json())
     .then(data => console.log(data.message))
     .catch(err => console.error(err));
+
+    const strippedTeams = teams.map(team => {
+        const copy = {...team};
+        delete copy.lineup;
+        delete copy.startingLineup;
+        delete copy.players;
+        delete copy.pg;
+        delete copy.sg;
+        delete copy.sf;
+        delete copy.pf;
+        delete copy.c;
+        delete copy.sixthMan;
+        return copy;
+    });
+
+    fetch('/api/saveTeams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(strippedTeams)
+        })
+    .then(res => res.json())
+    .then(data => console.log(data.message))
+    .catch(err => console.error(err));
+}
+
+function load(){
+    fetch('/api/load-players')
+        .then(res => res.json())
+        .then(data => {
+            const players = data.map(p => {
+                const player = new Player(
+                    p.name, p.arch, p.twoPt, p.threePt, p.inside, p.freeThrow,
+                    p.offensiveAbility, p.defensiveAbility, p.defensiveReb, p.offensiveReb,
+                    p.blockTen, p.stealTen, p.takeCharges, p.passingTen, p.passingAccuracy,
+                    p.ballControl, p.catching, p.insideTen, p.closeTen, p.leftElbow,
+                    p.rightElbow, p.leftCorner, p.rightCorner, p.leftWing, p.rightWing,
+                    p.leftTwo, p.rightTwo, p.centerTwo, p.centerThree, p.vertical,
+                    p.hustle, p.stamina, p.height, p.foul, p.drawFoul, p.clutch, p.potential
+                );
+                Object.assign(player, {
+                    gamesPlayed: p.gamesPlayed,
+                    gamesStarted: p.gamesStarted,
+                    avgMin: p.avgMin,
+                    avgPts: p.avgPts,
+                    avgAst: p.avgAst,
+                    avgDReb: p.avgDReb,
+                    avgOReb: p.avgOReb,
+                    avgStl: p.avgStl,
+                    avgBlk: p.avgBlk,
+                    avgFls: p.avgFls,
+                    avgTov: p.avgTov,
+                    fgp: p.fgp,
+                    tpp: p.tpp,
+                    ftp: p.ftp,
+
+                    seasonTotalMin: p.seasonTotalMin,
+                    seasonTotalPts: p.seasonTotalPts,
+                    seasonTotalAst: p.seasonTotalAst,
+                    seasonTotalOReb: p.seasonTotalOReb,
+                    seasonTotalDReb: p.seasonTotalDReb,
+                    seasonTotalStl: p.seasonTotalStl,
+                    seasonTotalBlk: p.seasonTotalBlk,
+                    seasonTotalFls: p.seasonTotalFls,
+                    seasonTotalTov: p.seasonTotalTov,
+                    seasonTotalFGA: p.seasonTotalFGA,
+                    seasonTotalFGM: p.seasonTotalFGM,
+                    seasonTotalTPA: p.seasonTotalTPA,
+                    seasonTotalTPM: p.seasonTotalTPM,
+                    seasonTotalFTA: p.seasonTotalFTA,
+                    seasonTotalFTM: p.seasonTotalFTM,
+                    seasonTripleDoubles: p.seasonTripleDoubles,
+                    seasonDoubleDoubles: p.seasonDoubleDoubles,
+                    seasonQuadDoubles: p.seasonQuadDoubles,
+
+                    careerGamesPlayed: p.careerGamesPlayed,
+                    careerGamesStarted: p.careerGamesStarted,
+                    careerAvgMin: p.careerAvgMin,
+                    careerAvgPts: p.careerAvgPts,
+                    careerAvgAst: p.careerAvgAst,
+                    careerAvgOReb: p.careerAvgOReb,
+                    careerAvgDReb: p.careerAvgDReb,
+                    careerAvgStl: p.careerAvgStl,
+                    careerAvgBlk: p.careerAvgBlk,
+                    careerAvgFls: p.careerAvgFls,
+                    careerAvgTov: p.careerAvgTov,
+                    careerAvgFG: p.careerAvgFG,
+                    careerAvgTP: p.careerAvgTP,
+                    careerAvgFT: p.careerAvgFT,
+                    careerTotalMin: p.careerTotalMin,
+                    careerTotalPts: p.careerTotalPts,
+                    careerTotalAst: p.careerTotalAst,
+                    careerTotalOReb: p.careerTotalOReb,
+                    careerTotalDReb: p.careerTotalDReb,
+                    careerTotalStl: p.careerTotalStl,
+                    careerTotalBlk: p.careerTotalBlk,
+                    careerTotalFls: p.careerTotalFls,
+                    careerTotalTov: p.careerTotalTov,
+                    careerTotalFGA: p.careerTotalFGA,
+                    careerTotalFGM: p.careerTotalFGM,
+                    careerTotalTPA: p.careerTotalTPA,
+                    careerTotalTPM: p.careerTotalTPM,
+                    careerTotalFTA: p.careerTotalFTA,
+                    careerTotalFTM: p.careerTotalFTM,
+                    careerTripleDoubles: p.careerTripleDoubles,
+                    careerDoubleDoubles: p.careerDoubleDoubles,
+                    careerQuadDoubles: p.careerQuadDoubles,
+
+                    totalMVPS: p.totalMVPS,
+                    totalDPOYs: p.totalDPOYs,
+                    totalROTYs: p.totalROTYs,
+                    totalSMOTY: p.totalSMOTY,
+                    mvpNum: p.mvpNum,
+                    dpoyNum: p.dpoyNum,
+
+                    allNBAFirst: p.allNBAFirst,
+                    allNBASecond: p.allNBASecond,
+                    allNBAThird: p.allNBAThird,
+                    allDefensiveFirst: p.allDefensiveFirst,
+                    allDefensiveSecond: p.allDefensiveSecond,
+                    allDefensiveThird: p.allDefensiveThird,
+                    allStar: p.allStar,
+
+                    scoringChamp: p.scoringChamp,
+                    assistChamp: p.assistChamp,
+                    reboundChamp: p.reboundChamp,
+                    stealChamp: p.stealChamp,
+                    blockChamp: p.blockChamp
+                });
+
+                return player;
+                });
+        allPlayers.splice(0, allPlayers.length);
+        allPlayers = [...players];
+    });
+    
 }
 
 //Function for subbing
@@ -233,6 +368,7 @@ for (let i=0;i<allTeams.length;i++){
         allTeams[i].players.push(chosenPlayer);
         chosenPlayer.calcOvr();
         chosenPlayer.team = allTeams[i];
+        chosenPlayer.teamName = chosenPlayer.team.name;
         removePlayers.splice(removePlayers.indexOf(chosenPlayer), 1);
     }
 
@@ -243,7 +379,7 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-save(allPlayers);
+save(allPlayers, allTeams);
 
 
 

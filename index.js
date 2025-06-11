@@ -1,6 +1,7 @@
 import { readFile } from "fs/promises";
 import { connection } from "./models/db.js";
 import playerRoutes from "./routes/playerRoutes.js";
+import teamRoutes from "./routes/teamRoutes.js";
 
 import express from "express";
 const app = express();
@@ -16,6 +17,7 @@ app.get("/", async (req, res) => {
 
 
 app.use('/api', playerRoutes);
+app.use('/api', teamRoutes);
 
 
 //Make app available

@@ -16,6 +16,11 @@ export class Team{
         //Lineup
         this.lineup = [];
         this.startingLineup = [];
+        this.startingLineupName1 = "";
+        this.startingLineupName2 = "";
+        this.startingLineupName3 = "";
+        this.startingLineupName4 = "";
+        this.startingLineupName5 = "";
 
         this.pg = null;
         this.sg = null;
@@ -41,15 +46,15 @@ export class Team{
         this.championships = 0;
 
 
-        this.ptsLeader = null;
+        this.ptsLeader = "";
         this.ptsLeaderVal = 0;
-        this.astLeader = null;
+        this.astLeader = "";
         this.astLeaderVal = 0;
-        this.rebLeader = null;
+        this.rebLeader = "";
         this.rebLeaderVal = 0;
-        this.stlLeader = null;
+        this.stlLeader = "";
         this.stlLeaderVal = 0;
-        this.blkLeader = null;
+        this.blkLeader = "";
         this.blkLeaderVal = 0;
 
         this.franchiseWins = 0;

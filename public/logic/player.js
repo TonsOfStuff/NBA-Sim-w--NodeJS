@@ -55,6 +55,7 @@ export class Player{
         //Other stats
         this.ovr = 0;
         this.team = null;
+        this.teamName = "Free Agent";
 
         //Game necessaries
         this.location = "Center Three"

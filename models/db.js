@@ -42,8 +42,10 @@ export async function savePlayer(player) {
 
       totalMVPS, totalDPOYs, totalROTYs, totalSMOTY, mvpNum, dpoyNum,
       allNBAFirst, allNBASecond, allNBAThird, allDefensiveFirst, allDefensiveSecond,
-      allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp
-    ) VALUES (${Array(119).fill('?').join(',')})
+      allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp,
+
+      team
+    ) VALUES (${Array(120).fill('?').join(',')})
   `;
 
   const values = [
@@ -78,10 +80,43 @@ export async function savePlayer(player) {
     player.mvpNum, player.dpoyNum, player.allNBAFirst, player.allNBASecond, player.allNBAThird,
     player.allDefensiveFirst, player.allDefensiveSecond, player.allDefensiveThird,
     player.allStar, player.scoringChamp, player.assistChamp, player.reboundChamp,
-    player.stealChamp, player.blockChamp
+    player.stealChamp, player.blockChamp,
+
+    player.teamName
   ];
 
 
   await connection.execute(sql, values);
-  console.log("Saved ", player.name);
+}
+
+export async function getPlayers() {
+  const sql = `SELECT * FROM players`;
+  return connection.execute(sql); 
+}
+
+
+export async function saveTeams(team){
+  const sql = `INSERT INTO teams (
+    name, inEast, wins, losses, oldWins, oldLosses, seed,
+    oldSeed, startingLineupOne, startingLineupTwo, startingLineupThree,
+    startingLineupFour, startingLineupFive, ptsAvg, astAvg, rebAvg, blkAvg, stlAvg, 
+    fg, tp, ft, playOffAppearances, finalsAppearances, championships, ptsLeader,
+    ptsLeaderVal, astLeader, astLeaderVal, rebLeader, rebLeaderVal, stlLeader, stlLeaderVal,
+    blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses
+  ) VALUES (${Array(38).fill('?').join(',')})`;
+
+  const values = [team.name, team.inEast, team.wins, team.losses, team.oldWins, team.oldLosses,
+    team.seed, team.oldSeed, team.startingLineupName1, team.startingLineupName2, team.startingLineupName3, team.startingLineupName4, team.startingLineupName5,
+    team.ptsAvg, team.astAvg, team.rebAvg, team.blkAvg, team.stlAvg, team.fg, team.tp, team.ft, team.playOffAppearances, team.finalsAppearances,
+    team.championships, team.ptsLeader, team.ptsLeaderVal, team.astLeader, team.astLeaderVal, team.rebLeader, team.rebLeaderVal,
+    team.stlLeader, team.stlLeaderVal, team.blkLeader, team.blkLeaderVal, team.franchiseWins, team.franchiseLosses, team.playOffWins,
+    team.playerOffLosses
+  ];
+
+  await connection.execute(sql, values);
+}
+
+export async function getTeams() {
+  const sql = `SELECT * FROM teams`;
+  return connection.execute(sql); 
 }
