@@ -1,5 +1,5 @@
 import express from 'express';
-import { connection, saveTeams, getTeams } from "../models/db.js";
+import { connection, saveTeams } from "../models/db.js";
 
 const router = express.Router();
 
@@ -24,15 +24,35 @@ router.post("/saveTeams", async (req, res) => {
     }
 });
 
-router.get("/loadTeams", async (req, res) => {
-    try {
-        const [teams] = await getTeams();
-        res.status(200).json(teams);
-    } catch (error) {
-        console.error('Error loading teams:', error);
-        res.status(500).json({ error: 'Failed to load teams' });
-    }
+router.get("/loadTeams", (req, res) => {
+  const query = connection.query("SELECT * FROM teams");
+
+  res.writeHead(200, {
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+  });
+
+  res.write("[");
+
+  let first = true;
+
+  query
+    .stream()
+    .on("data", (row) => {
+      if (!first) res.write(",");
+      res.write(JSON.stringify(row));
+      first = false;
+    })
+    .on("end", () => {
+      res.write("]");
+      res.end();
+    })
+    .on("error", (err) => {
+      console.error("Stream error:", err);
+      res.status(500).end("[]");
+    });
 });
+
 
 
 export default router;

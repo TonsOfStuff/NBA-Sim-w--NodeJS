@@ -113,7 +113,7 @@ const okc = new Team("Oklahoma City Thunder", false, []);
 const knicks = new Team("New York Knicks", true, []);
 const timberwolves = new Team("Minnesota Timberwolves", false, []);
 
-const allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves];
+let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves];
 let allTeamsTemp = [...allTeams];
 
 //Global variables
@@ -234,6 +234,61 @@ function save(players, teams){
 }
 
 function load(){
+    fetch("/api/loadTeams")
+        .then(res => res.json())
+        .then(data => {
+            const teams = data.map(p => {
+                const team = new Team(p.name, p.inEast);
+                Object.assign(team, {
+                    wins: p.wins,
+                    losses: p.losses,
+                    oldWins: p.oldWins,
+                    oldLosses: p.oldLosses,
+                    seed: p.seed,
+                    oldSeed: p.oldSeed,
+
+                    startingLineupOne: p.startingLineupOne,
+                    startingLineupTwo: p.startingLineupTwo,
+                    startingLineupThree: p.startingLineupThree,
+                    startingLineupFour: p.startingLineupFour,
+                    startingLineupFive: p.startingLineupFive,
+
+                    ptsAvg: p.ptsAvg,
+                    astAvg: p.astAvg,
+                    rebAvg: p.rebAvg,
+                    blkAvg: p.blkAvg,
+                    stlAvg: p.stlAvg,
+                    fg: p.fg,
+                    tp: p.tp,
+                    ft: p.ft,
+
+                    playOffAppearances: p.playOffAppearances,
+                    finalsAppearances: p.finalsAppearances,
+                    championships: p.championships,
+
+                    ptsLeader: p.ptsLeader,
+                    ptsLeaderVal: p.ptsLeaderVal,
+                    astLeader: p.astLeader,
+                    astLeaderVal: p.astLeaderVal,
+                    rebLeader: p.rebLeader,
+                    rebLeaderVal: p.rebLeaderVal,
+                    stlLeader: p.stlLeader,
+                    stlLeaderVal: p.stlLeaderVal,
+                    blkLeader: p.blkLeader,
+                    blkLeaderVal: p.blkLeaderVal,
+
+                    franchiseWins: p.franchiseWins,
+                    franchiseLosses: p.franchiseLosses,
+                    playOffWins: p.playOffWins,
+                    playerOffLosses: p.playerOffLosses
+                });
+
+                return team;
+            });
+            allTeams.splice(0, allTeams.length);
+            allTeams = [...teams];
+        });
+
     fetch('/api/load-players')
         .then(res => res.json())
         .then(data => {
@@ -338,11 +393,19 @@ function load(){
                 });
 
                 return player;
+            });
+            allPlayers.splice(0, allPlayers.length);
+            allPlayers = [...players];
+            allPlayers.forEach(player => {
+                for (let i = 0; i < allTeams.length; i++)
+                    if(player.teamName === allTeams[i].name){
+                        player.team = allTeams[i];
+                        break;
+                    }
                 });
-        allPlayers.splice(0, allPlayers.length);
-        allPlayers = [...players];
-    });
-    
+
+            console.log(allPlayers);
+        });
 }
 
 //Function for subbing
@@ -380,7 +443,6 @@ for (let i=0;i<allTeams.length;i++){
 }
 
 save(allPlayers, allTeams);
-
 
 
 window.test = function(){

@@ -1,21 +1,20 @@
-import db from "mysql2";
-import dotenv from "dotenv";
+import db from 'mysql2';
+import dotenv from 'dotenv';
 dotenv.config();
 
 export const connection = db.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
 });
 
 connection.connect((err) => {
-  if (err) {
-    console.error('MySQL connection error:', err.message);
-    return;
-  }
-  console.log('Connected to MySQL');
+  if (err) console.error('MySQL connection error:', err);
+  else console.log('Connected to MySQL');
 });
+
+
 
 
 export async function savePlayer(player) {
@@ -89,11 +88,6 @@ export async function savePlayer(player) {
   await connection.execute(sql, values);
 }
 
-export async function getPlayers() {
-  const sql = `SELECT * FROM players`;
-  return connection.execute(sql); 
-}
-
 
 export async function saveTeams(team){
   const sql = `INSERT INTO teams (
@@ -114,9 +108,4 @@ export async function saveTeams(team){
   ];
 
   await connection.execute(sql, values);
-}
-
-export async function getTeams() {
-  const sql = `SELECT * FROM teams`;
-  return connection.execute(sql); 
 }
