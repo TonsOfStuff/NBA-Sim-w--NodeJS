@@ -429,6 +429,9 @@ function subbing(quarter, time, team1, team2, possesion, insertStart = false){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
+    if (insertStart === false && Math.random() * 3 < 1){
+        insertStart = true;
+    }
     team1.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
     team2.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
 
@@ -493,14 +496,14 @@ function aGame(chosenTeam1, chosenTeam2){
     const team2 = chosenTeam2;
     let quarter = 1;
     const theTime = 12 * 17;
+    const subFreq = 80;
     
     //Init teams
     team1.lineup = [...team1.startingLineup];
     team2.lineup = [...team2.startingLineup];
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
-    team1.startingLineupBoost();
-    team2.startingLineupBoost();
+
     team1.setPositions();
     team2.setPositions();
 
@@ -511,7 +514,7 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % 60){
+        if (i % subFreq){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -524,7 +527,7 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % 60){
+        if (i % subFreq){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -537,7 +540,7 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % 60){
+        if (i % subFreq){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -550,7 +553,7 @@ function aGame(chosenTeam1, chosenTeam2){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % 60){
+        if (i % subFreq){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -575,7 +578,7 @@ function aGame(chosenTeam1, chosenTeam2){
                 team1.updateMin();
                 team2.updateMin();
             }
-            if (i % 60){
+            if (i % subFreq){
                 subbing(quarter, i, team1, team2, hasBallPlayer.team)
             }
         }

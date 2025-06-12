@@ -86,8 +86,8 @@ export class Team{
 
     startingLineupBoost(){
         this.startingLineup.forEach(player => {
-            player.passToOg += 10;
-            player.passTo += 10;
+            player.passToOg += 20;
+            player.passTo += 20;
         });
 
         this.lineup = [...this.startingLineup];
@@ -111,8 +111,8 @@ export class Team{
         }
         
 
-        this.lineup.sort((a,b) => a.pts - b.pts);
-        this.lineup[0].passTo += 5;
+        this.lineup.sort((a,b) => b.pts - a.pts);
+        this.lineup[0].passTo += 10;
         this.lineup[1].passTo += 3;
         this.lineup[2].passTo += 1;
 
@@ -150,14 +150,16 @@ export class Team{
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
         let smartSubNum = 8;
-        if (quarter >= 4 && time > 100 && team1Score - team2Score > 20 && team1 === this){
+        if (quarter >= 4 && time > 100 && team1Score - team2Score > 15 && team1 === this){
             smartSubNum = this.players.length;
         }
-        if (quarter >= 4 && time > 100 && team2Score - team1Score > 20 && team2 === this){
+        if (quarter >= 4 && time > 100 && team2Score - team1Score > 15 && team2 === this){
             smartSubNum = this.players.length;
         }
         this.lineup.forEach(player => {
             player.hasBall = false;
+            player.otherTeammates.splice(0, player.otherTeammates.length);
+            player.opponents.splice(0, player.opponents.length);
         });
         this.lineup.splice(0, this.lineup.length);
 

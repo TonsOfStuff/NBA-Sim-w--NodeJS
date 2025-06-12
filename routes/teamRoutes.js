@@ -24,33 +24,14 @@ router.post("/saveTeams", async (req, res) => {
     }
 });
 
-router.get("/loadTeams", (req, res) => {
-  const query = connection.query("SELECT * FROM teams");
-
-  res.writeHead(200, {
-    "Content-Type": "application/json",
-    "Transfer-Encoding": "chunked",
-  });
-
-  res.write("[");
-
-  let first = true;
-
-  query
-    .stream()
-    .on("data", (row) => {
-      if (!first) res.write(",");
-      res.write(JSON.stringify(row));
-      first = false;
-    })
-    .on("end", () => {
-      res.write("]");
-      res.end();
-    })
-    .on("error", (err) => {
-      console.error("Stream error:", err);
-      res.status(500).end("[]");
-    });
+router.get('/loadTeams', async (req, res) => {
+  try {
+    const [rows] = await connection.query('SELECT * FROM teams');
+    res.json(rows);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" href = "css/style.css" type="text/css">
+
+        <title>Stats Menu</title>
+    </head>
+    <script> /*Initialize the whole page here*/
+        document.addEventListener("DOMContentLoaded", () => {
+            const table = document.getElementById("playerTable").querySelector("tbody");
+            fetch("/api/stats").then(res => res.json()).then(data => {
+                console.log(Object.keys(data[0]));
+                const columns = [
+                    "name", "arch", "team", "avgMin", "avgPts", "avgReb", "avgDReb", "avgOReb", "avgAst", "avgStl",
+                    "avgBlk", "avgFls", "avgTov", "fgp", "tpp", "ftp", "gamesPlayed", "gamesStarted",
+                    "seasonDoubleDoubles", "seasonTripleDoubles", "seasonQuadDoubles", "seasonTotalMin",
+                    "seasonTotalPts", "seasonTotalReb", "seasonTotalDReb", "seasonTotalOReb", "seasonTotalAst",
+                    "seasonTotalStl", "seasonTotalBlk", "seasonTotalFls", "seasonTotalTov", "seasonTotalFGA",
+                    "seasonTotalFGM", "seasonTotalTPA", "seasonTotalTPM", "seasonTotalFTA", "seasonTotalFTM",
+                    "careerGamesPlayed", "careerGamesStarted", "careerDoubleDoubles", "careerTripleDoubles",
+                    "careerQuadDoubles", "careerTotalMin", "careerTotalPts", "careerTotalReb", "careerTotalDReb",
+                    "careerTotalOReb", "careerTotalAst", "careerTotalStl", "careerTotalBlk", "careerTotalFls",
+                    "careerTotalTov", "careerTotalFGA", "careerTotalFGM", "careerTotalTPA", "careerTotalTPM",
+                    "careerTotalFTA", "careerTotalFTM", "twoPt", "threePt", "inside", "freeThrow",
+                    "offensiveAbility", "defensiveAbility", "defensiveReb", "offensiveReb", "stealTen", "blockTen",
+                    "takeCharges", "passingTen", "passingAccuracy", "ballControl", "catching", "insideTen",
+                    "closeTen", "leftElbow", "rightElbow", "leftCorner", "rightCorner", "leftWing", "rightWing",
+                    "leftTwo", "rightTwo", "centerTwo", "centerThree", "vertical", "hustle", "stamina", "height",
+                    "foul", "drawFoul", "clutch", "potential"
+                ];
+
+
+                data.forEach(player => {
+                    const row = document.createElement("tr");
+
+                    columns.forEach(column => {
+                        const cell = document.createElement("td");
+                        if (column === "avgReb"){         
+                            cell.innerHTML = Number((player["avgDReb"] + player["avgOReb"]).toFixed(1));
+                        }else if (column === "seasonTotalReb"){
+                            cell.innerHTML = Number((player["seasonTotalOReb"] + player["seasonTotalDReb"]).toFixed(1));
+                        }else if (column === "careerTotalReb"){
+                            cell.innerHTML = Number((player["careerTotalOReb"] + player["careerTotalDReb"]).toFixed(1));
+                        }else{
+                            cell.innerHTML = player[column];           
+                        }
+                        row.appendChild(cell);
+                    });
+                    
+
+                    table.appendChild(row);
+                });
+            });
+            
+            function sortBasedOnClick(column){
+                let rows = Array.from(table.querySelectorAll(`tr`));
+
+                let qs = `td:nth-child(${column + 1})`;
+                const firstVal = rows[0].querySelector(qs).textContent.trim();
+                const isNumeric = !isNaN(parseFloat(firstVal));
+
+                rows.sort((a, b) => {
+                    let t1 = a.querySelector(qs).textContent.trim();
+                    let t2 = b.querySelector(qs).textContent.trim();
+
+                    if (isNumeric) {
+                        return parseFloat(t2) - parseFloat(t1);
+                    } else {
+                        return t1.localeCompare(t2); 
+                    }
+                });
+
+                rows.forEach(row => table.appendChild(row));
+                
+            }
+
+            attachColumnClickHighlighting()
+
+
+            function attachColumnClickHighlighting() {
+                const allRows = table.parentElement.querySelectorAll("tr");
+
+                allRows.forEach(row => {
+                    row.querySelectorAll("td").forEach((cell, colIndex) => {
+                        cell.addEventListener("click", () => {
+                            clearColumnHighlights();
+
+                            allRows.forEach(r => {
+                                const cells = r.querySelectorAll("td, th");
+                                if (cells[colIndex]) {
+                                    cells[colIndex].classList.add("highlight");
+                                }
+                            });
+                        });
+                    });
+                });
+
+                // Also add click listeners for headers
+                const headerCells = table.parentElement.querySelectorAll("thead th");
+                headerCells.forEach((th, colIndex) => {
+                    th.addEventListener("click", () => {
+                        clearColumnHighlights();
+
+                        allRows.forEach(r => {
+                            const cells = r.querySelectorAll("td, th");
+                            if (cells[colIndex]) {
+                                cells[colIndex].classList.add("highlight");
+                            }
+                        });
+                    });
+                });
+            }
+
+            function clearColumnHighlights() {
+                table.parentElement.querySelectorAll("td.highlight, th.highlight").forEach(cell => {
+                    cell.classList.remove("highlight");
+                });
+            }
+
+
+            document.querySelectorAll("#playerTable thead th").forEach((th, position) => {
+                th.addEventListener(`click`, evt => sortBasedOnClick(position));
+            });
+        });
+    </script>
+    
+    <body id = "statsPage">
+        <header>
+            <a href = "index.html">Home</a>
+            <a href = "stats.html">Stats</a>
+        </header>
+        <table id = "playerTable">
+            <thead>
+                <tr>
+                    <th style = "min-width: 150px;">Name</th><th style = "min-width: 200px;">Archetype</th><th style="min-width: 200px;">Team</th><th>MPG</th><th>PPG</th><th>RPG</th><th>DRPG</th><th>ORPG</th><th>APG</th><th>SPG</th>
+                    <th>BPG</th><th>FPG</th><th>TPG</th><th>FG%</th><th>3P%</th><th>FT%</th><th>Games Played</th><th>Games Started</th><th>Double Doubles</th><th>Triple Doubles</th><th style = "min-width: 155px;">Quadruple Doubles</th><th>Total Min</th><th>Total Pts</th><th>Total Reb</th><th>Total DReb</th>
+                    <th>Total OReb</th><th>Total Ast</th><th>Total Stl</th><th>Total Blk</th><th>Total Fls</th><th>Total Tov</th><th>FGA</th><th>FGM</th><th>3pA</th>
+                    <th>3pM</th><th>FTA</th><th>FTM</th><th style = "min-width: 150px;">Career Games Played</th><th style = "min-width: 150px;">Career Games Started</th><th style = "min-width: 160px;">Career Double Doubles</th><th style = "min-width: 155px;">Career Triple Doubles</th><th style = "min-width: 200px;">Career Quadruple Doubles</th>
+                    <th>Career Min</th><th>Career Pts</th><th>Career Reb</th><th>Career DReb</th><th>Career OReb</th><th>Career Ast</th><th>Career Stl</th><th>Career Blk</th>
+                    <th>Career Fls</th><th>Career Tov</th><th>Career FGA</th><th>Career FGM</th><th>Career 3pA</th><th>Career 3pM</th><th>Career FTA</th><th>Career FTM</th>
+                    <th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
+                    <th>Vertical</th><th>Hustle</th><th>Stamina</th><th>Height (in)</th><th>Foul Tendency</th><th>Draw Fouls</th><th>Clutch</th><th>Potential</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </body>
+</html>

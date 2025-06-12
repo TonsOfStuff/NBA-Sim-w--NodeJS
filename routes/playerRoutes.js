@@ -24,34 +24,14 @@ router.post('/save-player', async (req, res) => {
   }
 });
 
-
-router.get("/load-players", (req, res) => {
-  const query = connection.query("SELECT * FROM players");
-
-  res.writeHead(200, {
-    "Content-Type": "application/json",
-    "Transfer-Encoding": "chunked",
-  });
-
-  res.write("[");
-
-  let first = true;
-
-  query
-    .stream()
-    .on("data", (row) => {
-      if (!first) res.write(",");
-      res.write(JSON.stringify(row));
-      first = false;
-    })
-    .on("end", () => {
-      res.write("]");
-      res.end();
-    })
-    .on("error", (err) => {
-      console.error("Stream error:", err);
-      res.status(500).end("[]");
-    });
+router.get('/load-players', async (req, res) => {
+  try {
+    const [rows] = await connection.query('SELECT * FROM players');
+    res.json(rows); // returns all players as JSON
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 export default router;

@@ -200,11 +200,20 @@ export class Player{
         this.dpoyNum = Number((this.avgStl * 2 + this.avgBlk * 9 + this.avgDReb * 3 + this.avgOReb + 2).toFixed(3));
     }
 
-    shooting(defense){
-        const defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 1.2);
+    shooting(defense, time){
+        let defensiveImpact = 0;
+        if (this.passedFromSomeone === false){
+            defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 2);
+        }else{
+            defensiveImpact = this.offensiveAbility + this.passedFromSomeone.passingAccuracy - this.defensiveAbility * (Math.random() + 1.4)
+        }
+        let factor = 0;
+        if (time > 180){
+            factor = Math.round(this.clutch * 0.3);
+        }
         const insideStress = 110;
-        const twoStress = 130;
-        const threeStress = 200;
+        const twoStress = 150;
+        const threeStress = 250;
         const drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;
 
@@ -218,12 +227,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
+            if (this.inside + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -269,12 +278,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.inside + defensiveImpact >= Math.round(Math.random() * insideStress)){
+            if (this.inside + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -316,12 +325,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
+            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -363,12 +372,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
+            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -410,12 +419,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
+            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -457,12 +466,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
+            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -504,12 +513,12 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * twoStress)){
+            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
                 defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -552,13 +561,13 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
+            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -607,13 +616,13 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
+            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -662,13 +671,13 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
+            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -717,13 +726,13 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
+            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -772,13 +781,13 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * threeStress)){
+            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
                 this.team.calcBoxMinus(3);
                 defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone != false) this.passedFromSomeone.ast += 1;
+                if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
                 if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
                     defense.fls += 1;
                     this.fta += 1;
@@ -821,7 +830,53 @@ export class Player{
                 return false;
             }
         }else{
-            this.pass(defense);
+            if (Math.round(Math.random() * 5) === 1){
+                this.fga += 1;
+                if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+                    this.fgm += 1;
+                    this.pts += 2;
+                    this.team.calcBoxMinus(2);
+                    defense.team.calcBoxMinus(-2);
+                    if (this.passedFromSomeone != false && Math.random() * 3 > 1) this.passedFromSomeone.ast += 1;
+                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                        defense.fls += 1;
+                        this.fta += 1;
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                        }else{
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else{
+                    //Fts
+                    if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                        defense.fls += 1;
+                        this.fta += 2;
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                        }
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }else{
+                this.pass(defense);
+            }
+            
         }
     }
 
@@ -887,7 +942,7 @@ export class Player{
         if (three === true){
             blockFactor = 100;
         }
-        if (this.blockTen * this.height - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 20000){
+        if (Math.pow(this.blockTen, 1.5) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 7000){
             this.blk += 1;
             return true;
         }else{
@@ -896,13 +951,12 @@ export class Player{
     }
 
     pass(defense){
-        const passingList = [];
+        let passingList = [];
         for (let i = 0; i < this.otherTeammates.length; i++){
             if (this.otherTeammates[i] === this){
                 continue;
             }
             let passingAmount = this.otherTeammates[i].passTo;
-            
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
                 passingAmount -= 1;
@@ -928,7 +982,7 @@ export class Player{
             newPlayer.hasBall = true;
             this.team.shotClock = 0;
         }
-        else if (500 - (this.passingAccuracy + this.ballControl - defense.stealTen) > Math.random() * 12000){
+        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 12000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
@@ -986,13 +1040,13 @@ export class Player{
         }
     }
 
-    playerPossesion(defense){
+    playerPossesion(defense, time){
         this.moving(defense);
-        if (this.passingTen + this.fga > Math.random() * 1000 && this.team.shotClock < 24){
+        if (this.passingTen + this.fga > Math.random() * 100 && this.team.shotClock < 24){
             this.pass(defense);
             this.team.shotClock += 1;
         }else{
-            const shotOutcome = this.shooting(defense);
+            const shotOutcome = this.shooting(defense, time);
             if (shotOutcome === false){
                 this.passedFromSomeone = false;
                 const newPlayer = this.rebound(defense);

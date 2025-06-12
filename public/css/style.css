@@ -1,3 +1,54 @@
 body{
-    background-color: pink;
+    background-color: rgb(255, 255, 255);
+    font-family: "Montserrat", sans-serif;
+}
+
+header{
+    height: 100px;
+    padding: 10px;
+}
+
+header a{
+    padding: 8px;
+    border: 1px solid rgb(70, 166, 255);
+
+    text-decoration: none;
+    color: rgb(70, 166, 255);
+}
+
+/*Player stats page*/
+#statsPage{
+    background-color: rgb(43, 43, 43);
+    color: rgb(159, 209, 255);
+}
+
+
+
+#playerTable{
+    overflow-x: scroll;
+    font-size: 13px;
+}
+
+th, td{
+    border: 1px solid rgb(69, 69, 69);
+}
+
+td.highlight, th.highlight {
+    background-color: #a6993b; /* soft yellow, change if you want */
+}
+
+th,td{
+    padding: 4px;
+}
+
+th{
+    min-width: 130px;
+}
+
+#playerTable thead th:first-child,
+#playerTable tbody td:first-child {
+    position: sticky;
+    left: 0;
+    background: rgb(43, 43, 43);
+    z-index: 2; 
 }
