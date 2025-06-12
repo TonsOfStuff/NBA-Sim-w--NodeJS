@@ -467,7 +467,7 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-
+loading();
 
 window.test = function(){
     console.log(allTeams);
