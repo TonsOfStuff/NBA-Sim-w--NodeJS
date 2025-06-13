@@ -548,7 +548,7 @@ window.testP = function(){
     playOffs();
 }
 
-export function aGame(chosenTeam1, chosenTeam2, playOff = false){
+export function aGame(chosenTeam1, chosenTeam2, playOff = false, display = true){
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
@@ -623,32 +623,54 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false){
     }
 
     let teamScores = findTotalScore(team1, team2);
-    if (teamScores[0] > teamScores[1]){
-        team1.wins += 1;
-        team2.losses += 1;
-        team1.franchiseWins += 1;
-        team2.franchiseLosses += 1;
-    }else if (teamScores[0] < teamScores[1]){
-        team1.losses += 1;
-        team2.wins += 1;
-        team1.franchiseLosses += 1;
-        team2.franchiseWins += 1;
-    }else{ //Overtime
-        subbing(quarter, 0, team1, team2, team1, true);
-        quarter += 1;
-        for (let i = 0; i < 240; i++){ //Quarter 4
-            hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
-            if (i % 20 === 0){
-                team1.updateMin();
-                team2.updateMin();
+    while (true) { 
+        if (teamScores[0] > teamScores[1]){
+            if (!playOff){
+                team1.wins += 1;
+                team2.losses += 1;
+                team1.franchiseWins += 1;
+                team2.franchiseLosses += 1;
+            }else{
+                team1.playOffWins += 1;
+                team2.playerOffLosses += 1;
+
+                team1.playOffWinTemp += 1;
             }
-            if (i % subFreq){
-                subbing(quarter, i, team1, team2, hasBallPlayer.team)
+            break;
+        }else if (teamScores[0] < teamScores[1]){
+            if (!playOff){
+                team1.losses += 1;
+                team2.wins += 1;
+                team1.franchiseLosses += 1;
+                team2.franchiseWins += 1;
+            }else{
+                team1.playerOffLosses += 1;
+                team2.playOffWins += 1;
+
+                team2.playOffWinTemp += 1;
             }
+            
+            break;
+        }else{ //Overtime
+            subbing(quarter, 0, team1, team2, team1, true);
+            quarter += 1;
+            for (let i = 0; i < 240; i++){ //OT
+                hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+                if (i % 20 === 0){
+                    team1.updateMin();
+                    team2.updateMin();
+                }
+                if (i % subFreq){
+                    subbing(quarter, i, team1, team2, hasBallPlayer.team)
+                }
+            }
+            teamScores = findTotalScore(team1, team2);
         }
     }
-
-    displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
+    
+    if (display === true){
+        displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
+    }
 
     team1.players.forEach(player => {
         player.statsUpdate();

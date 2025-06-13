@@ -66,6 +66,8 @@ export class Team{
         this.playOffWins = 0;
         this.playerOffLosses = 0;
 
+        this.playOffWinTemp = 0;
+
 
         //Misc
         this.shotClock = 0;
