@@ -690,5 +690,10 @@ function playOffs(){
 
 
     displayAwards(mvp, dpoy, tempPlayers, dpoyTempList);
+
+
+    saving();
+
+    window.location.href = "/playoff.html";
 }
 

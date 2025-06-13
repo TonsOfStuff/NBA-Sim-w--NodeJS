@@ -60,8 +60,18 @@ th{
 #playOffPanel{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    height: 300px;
+}
+#firstRound, #secondRound, #confFinals{
+    align-content: center;
+}
 
+#firstRound #east, #firstRound #west{
+    row-gap: 70px;
+}
 
+#secondRound #east, #secondRound #west{
+    row-gap: 160px;
 }
 
 #east, #west{
@@ -69,6 +79,13 @@ th{
     flex-direction: column;
 }
 
-#firstRound #west{
-    transform: translateX(600%);
+#playOffPanel button{
+    width: 90%;
+    align-self: center;
+}
+
+
+#finals{
+    height: fit-content;
+    justify-self: center;
 }
