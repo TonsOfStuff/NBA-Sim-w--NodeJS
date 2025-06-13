@@ -52,3 +52,23 @@ th{
     background: rgb(43, 43, 43);
     z-index: 2; 
 }
+
+
+
+
+/*Playoff UI*/
+#playOffPanel{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+
+}
+
+#east, #west{
+    display: flex;
+    flex-direction: column;
+}
+
+#firstRound #west{
+    transform: translateX(600%);
+}

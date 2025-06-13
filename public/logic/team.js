@@ -200,11 +200,18 @@ export class Team{
         this.setPositions()
     }
 
-
-
     calcBoxMinus(value){
         this.lineup.forEach(player => {
             player.boxMinus += value;
         });
+    }
+
+    calcSeed(allTeams){
+        allTeams.sort((a,b) => b.wins - a.wins);
+        for (let i = 0; i < allTeams.length; i++){
+            if (this === allTeams[i]){
+                this.seed = (i + 1);
+            }
+        }
     }
 }

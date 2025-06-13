@@ -18,7 +18,11 @@ app.get("/", async (req, res) => {
 
 app.get("/stats", async (req, res) => {
     res.send ( await readFile ('./public/stats.html', "utf8"));
-})
+});
+
+app.get("/playoffs", async (req, res) => {
+    res.send( await readFile ('./public/playoff.html', "utf8"));
+});
 
 app.get("/api/stats", async (req, res) => {
     try {

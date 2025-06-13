@@ -9,6 +9,9 @@ import { fn, ln } from "./name.js";
 const main = document.getElementById("main");
 
 function displayGame(team1, team2, team1Score, team2Score){
+    const dayCounter = document.getElementById("dayCounter");
+    dayCounter.innerText = "Day: " + day;
+
     while (main.firstChild){
         main.removeChild(main.firstChild);
     }
@@ -483,6 +486,7 @@ for (let i=0;i<allTeams.length;i++){
 //loading();
 
 window.test = function(){
+    day += 82;
     for(let i = 0; i<82 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
@@ -494,12 +498,13 @@ window.test = function(){
 
         aGame(chosenTeam1, chosenTeam2);
     }
-    for (let i = 0; i < 11; i++){
-        console.log("Avgs " + allPlayers[i].name + ": " + allPlayers[i].avgMin + " " + allPlayers[i].avgPts + " " + allPlayers[i].avgAst + " " + (allPlayers[i].avgOReb + allPlayers[i].avgDReb).toFixed(1) + " " + allPlayers[i].fgp + " " + allPlayers[i].tpp + " " + allPlayers[i].ftp);
+    for (let i = 0; i < 8; i++){
+        console.log(allTeams[i].abr + ": " + allTeams[i].wins + ":" + allTeams[i].losses);
     }
 }
 
 window.simGame = function(){
+    day += 1;
     for(let i = 0; i<1 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
@@ -518,7 +523,7 @@ window.testP = function(){
 }
 
 function aGame(chosenTeam1, chosenTeam2){
-    day += 1;
+
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
     let quarter = 1;
@@ -637,7 +642,24 @@ function playOffs(){
     });
     
     const tempPlayers = [...allPlayers];
-    tempPlayers.sort((a,b)=>b.mvpNum - a.mvpNum);
+    //Champs
+    tempPlayers.sort((a,b)=>b.avgPts - a.avgPts);
+    tempPlayers[0].scoringChamp += 1;
+    tempPlayers.sort((a,b)=>(b.avgDReb + b.avgOReb) - (a.avgDReb + b.avgOReb));
+    tempPlayers[0].reboundChamp += 1;
+    tempPlayers.sort((a,b)=>b.avgAst - a.avgAst);
+    tempPlayers[0].assistChamp += 1;
+    tempPlayers.sort((a,b)=>b.avgStl - a.avgStl);
+    tempPlayers[0].stealChamp += 1;
+    tempPlayers.sort((a,b)=>b.avgBlk - a.avgBlk);
+    tempPlayers[0].blockChamp += 1;
+
+    allTeams.forEach(team => {
+        team.calcSeed(allTeams);
+    });
+
+    //MVP and DPOY
+    tempPlayers.sort((a,b)=>(b.mvpNum - b.team.seed) - (a.mvpNum - a.team.seed));
     tempPlayers[0].totalMVPS += 1;
     mvp = tempPlayers[0];
 
@@ -650,7 +672,6 @@ function playOffs(){
             tempPlayers[i].allNBAThird += 1;
         }
     }
-    console.log(tempPlayers);
 
     const dpoyTempList = [...allPlayers];
     dpoyTempList.sort((a,b)=>b.dpoyNum - a.dpoyNum);
@@ -666,7 +687,7 @@ function playOffs(){
             dpoyTempList[i].allDefensiveThird += 1;
         }
     }
-    console.log(dpoyTempList);
+
 
     displayAwards(mvp, dpoy, tempPlayers, dpoyTempList);
 }
