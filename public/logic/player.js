@@ -216,9 +216,9 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 88;
-        const twoStress = 165;
-        const threeStress = 250;
+        let insideStress = 87;
+        const twoStress = 180;
+        const threeStress = 255;
         let drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;
 

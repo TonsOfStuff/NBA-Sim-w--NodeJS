@@ -99,6 +99,28 @@ export class Team{
         this.startingLineupName5 = this.startingLineup[4].name;
     }
 
+    changeStart(){
+        this.players.forEach(player => {
+            player.calcAwardsVal();
+        });
+
+        let sub = [...this.players];
+        sub.sort((a,b) => (b.mvpNum + b.fgp) - (a.mvpNum + a.fgp));
+
+        this.startingLineup = [];
+
+        this.startingLineup.push(...sub.slice(0, 5));
+        this.lineup = [...this.startingLineup];
+        this.startingLineupName1 = this.startingLineup[0].name;
+        this.startingLineupName2 = this.startingLineup[1].name;
+        this.startingLineupName3 = this.startingLineup[2].name;
+        this.startingLineupName4 = this.startingLineup[3].name;
+        this.startingLineupName5 = this.startingLineup[4].name;
+
+        this.startingLineupBoost();
+        this.setPositions();
+    }
+
     setPositions(){
         let playersCopy = [...this.lineup];
         try{

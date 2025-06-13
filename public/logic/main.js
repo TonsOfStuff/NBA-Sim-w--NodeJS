@@ -87,7 +87,7 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList){
 
 
 //Players
-const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 29, 56, 96, 95, 99, 99, 92, 96, 55, 62, 70, 70, 94, 95, 99, 75, 99, 52, 87, 78, 34, 45, 99, 99)
+const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 27, 56, 96, 95, 99, 99, 62, 66, 25, 22, 50, 50, 94, 75, 79, 55, 99, 52, 87, 78, 34, 45, 99, 99)
 const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21, 88, 45, 42, 35, 94, 97, 99, 95, 91, 82, 87, 32, 32, 82, 85, 82, 90, 98, 95, 83, 79, 92, 81, 37, 42, 99, 99)
 const kareem = new Player("Kareem Abdul-Jabbar", "Inside Post-player", 92, 0, 99, 73, 99, 99, 93, 87, 94, 31, 2, 30, 13, 57, 78, 96, 99, 42, 49, 0, 0, 0, 0, 95, 96, 62, 0, 54, 21, 78, 85, 40, 40, 95, 99);
 const duncan = new Player("Tim Duncan", "Inside Defensive", 96, 50, 99, 80, 95, 99, 80, 90, 95, 82, 76, 35, 42, 52, 80, 91, 97, 96, 90, 0, 0, 1, 1, 92, 90, 97, 0, 31, 27, 76, 83, 38, 39, 93, 99);
@@ -124,6 +124,8 @@ let hasBallPlayer = null;
 export function hasBallPlayerSetter(player){
     hasBallPlayer = player;
 }
+
+let day = 0;
 
 //Generate Players
 function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
@@ -481,7 +483,6 @@ for (let i=0;i<allTeams.length;i++){
 //loading();
 
 window.test = function(){
-    console.log(allTeams);
     for(let i = 0; i<82 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
@@ -498,11 +499,26 @@ window.test = function(){
     }
 }
 
+window.simGame = function(){
+    for(let i = 0; i<1 * allTeams.length / 2;i++){
+        if (allTeamsTemp.length === 0){
+            allTeamsTemp = [...allTeams];
+        }
+        const chosenTeam1 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam1), 1);
+        const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
+
+        aGame(chosenTeam1, chosenTeam2);
+    }
+}
+
 window.testP = function(){
     playOffs();
 }
 
 function aGame(chosenTeam1, chosenTeam2){
+    day += 1;
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
     let quarter = 1;
@@ -510,6 +526,12 @@ function aGame(chosenTeam1, chosenTeam2){
     const subFreq = 80;
     
     //Init teams
+    if (day % 20 === 0){
+        team1.changeStart();
+        team2.changeStart();
+    }
+
+
     team1.lineup = [...team1.startingLineup];
     team2.lineup = [...team2.startingLineup];
     team1.setOpponentsAndTeammates(team2);
