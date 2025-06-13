@@ -213,8 +213,8 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 120;
-        const twoStress = 150;
+        let insideStress = 85;
+        const twoStress = 145;
         const threeStress = 250;
         let drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;
@@ -896,8 +896,29 @@ export class Player{
     }
 
     moving(defense){
-        const possiblePlaces = ["Inside", "Close", "Left Elbow", "Right Elbow", "Left Corner", "Right Corner", "Left Wing", "Right Wing", "Left", "Right", "Center", "Center Three"]
-        const chosenPlaceToMove = possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)]
+        const placeWeights = {
+            "Inside": this.insideTen,
+            "Close": this.closeTen,
+            "Left Elbow": this.leftElbow,
+            "Right Elbow": this.rightElbow,
+            "Left Corner": this.leftCorner,
+            "Right Corner": this.rightCorner,
+            "Left Wing": this.leftWing,
+            "Right Wing": this.rightWing,
+            "Left": this.leftTwo,
+            "Right": this.rightTwo,
+            "Center": this.centerTwo,
+            "Center Three": this.centerThree
+        };
+        let weightedPlaces = [];
+        for (const place in placeWeights) {
+            const weight = placeWeights[place];
+            for (let i = 0; i < weight; i++) {
+                weightedPlaces.push(place);
+            }
+        }
+
+        const chosenPlaceToMove = weightedPlaces[Math.floor(Math.random() * weightedPlaces.length)]
         const moveStress = 200;
 
         if (chosenPlaceToMove != this.location){
