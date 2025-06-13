@@ -184,6 +184,9 @@ export class Player{
         this.reboundChamp = 0;
         this.stealChamp = 0;
         this.blockChamp = 0;
+
+        this.championships = 0;
+        this.finalsMVP = 0;
     }
 
     calcOvr() {
@@ -213,8 +216,8 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 85;
-        const twoStress = 145;
+        let insideStress = 88;
+        const twoStress = 165;
         const threeStress = 250;
         let drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;

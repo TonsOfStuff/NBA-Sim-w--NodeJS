@@ -1,7 +1,8 @@
 export class Team{
-    constructor(name, inEast, players){
+    constructor(name, inEast, abr, players){
         this.name = name;
         this.inEast = inEast;
+        this.abr = abr;
         this.players = players;
 
         this.wins = 0;

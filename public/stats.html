@@ -14,7 +14,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const table = document.getElementById("playerTable").querySelector("tbody");
             fetch("/api/stats").then(res => res.json()).then(data => {
-                console.log(Object.keys(data[0]));
+                //console.log(Object.keys(data[0]));
                 const columns = [
                     "name", "arch", "team", "avgMin", "avgPts", "avgReb", "avgDReb", "avgOReb", "avgAst", "avgStl",
                     "avgBlk", "avgFls", "avgTov", "fgp", "tpp", "ftp", "gamesPlayed", "gamesStarted",
@@ -33,7 +33,7 @@
                     "leftTwo", "rightTwo", "centerTwo", "centerThree", "vertical", "hustle", "stamina", "height",
                     "foul", "drawFoul", "clutch", "potential", "allStar", "totalMVPS", "totalDPOYs", "totalROTYs", "totalSMOTY",
                     "allNBAFirst", "allNBASecond", "allNBAThird", "allDefensiveFirst", "allDefensiveSecond", "allDefensiveThird",
-                    "scoringChamp", "reboundChamp", "assistChamp", "stealChamp", "blockChamp"
+                    "scoringChamp", "reboundChamp", "assistChamp", "stealChamp", "blockChamp", "championships", "finalsMVP"
                 ];
 
 
@@ -139,7 +139,7 @@
         <table id = "playerTable">
             <thead>
                 <tr>
-                    <th style = "min-width: 150px;">Name</th><th style = "min-width: 200px;">Archetype</th><th style="min-width: 200px;">Team</th><th>MPG</th><th>PPG</th><th>RPG</th><th>DRPG</th><th>ORPG</th><th>APG</th><th>SPG</th>
+                    <th style = "min-width: 150px;">Name</th><th style = "min-width: 200px;">Archetype</th><th style="min-width: 50px;">Team</th><th>MPG</th><th>PPG</th><th>RPG</th><th>DRPG</th><th>ORPG</th><th>APG</th><th>SPG</th>
                     <th>BPG</th><th>FPG</th><th>TPG</th><th>FG%</th><th>3P%</th><th>FT%</th><th>Games Played</th><th>Games Started</th><th>Double Doubles</th><th>Triple Doubles</th><th style = "min-width: 155px;">Quadruple Doubles</th><th>Total Min</th><th>Total Pts</th><th>Total Reb</th><th>Total DReb</th>
                     <th>Total OReb</th><th>Total Ast</th><th>Total Stl</th><th>Total Blk</th><th>Total Fls</th><th>Total Tov</th><th>FGA</th><th>FGM</th><th>3pA</th>
                     <th>3pM</th><th>FTA</th><th>FTM</th><th style = "min-width: 150px;">Career Games Played</th><th style = "min-width: 150px;">Career Games Started</th><th style = "min-width: 160px;">Career Double Doubles</th><th style = "min-width: 155px;">Career Triple Doubles</th><th style = "min-width: 200px;">Career Quadruple Doubles</th>
@@ -147,7 +147,7 @@
                     <th>Career Fls</th><th>Career Tov</th><th>Career FGA</th><th>Career FGM</th><th>Career 3pA</th><th>Career 3pM</th><th>Career FTA</th><th>Career FTM</th>
                     <th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
                     <th>Vertical</th><th>Hustle</th><th>Stamina</th><th>Height (in)</th><th>Foul Tendency</th><th>Draw Fouls</th><th>Clutch</th><th>Potential</th><th>All Star</th><th>MVPs</th><th>DPOYs</th><th>ROTYs</th><th>SMOTYs</th><th>All-NBA 1st</th><th>All-NBA 2nd</th><th>All-NBA 3rd</th><th>All-Def 1st</th><th>All-Def 2nd</th><th>All-Def 3rd</th>
-                    <th>Scoring Titles</th><th>Rebound Titles</th><th>Assist Title</th><th>Steal Titles</th><th>Block Titles</th>
+                    <th>Scoring Titles</th><th>Rebound Titles</th><th>Assist Title</th><th>Steal Titles</th><th>Block Titles</th><th>Championships</th><th>Finals MVP</th>
                 </tr>
             </thead>
             <tbody>

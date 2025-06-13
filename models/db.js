@@ -43,8 +43,8 @@ export async function savePlayer(player) {
       allNBAFirst, allNBASecond, allNBAThird, allDefensiveFirst, allDefensiveSecond,
       allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp,
 
-      team
-    ) VALUES (${Array(120).fill('?').join(',')})
+      team, championships, finalsMVP
+    ) VALUES (${Array(122).fill('?').join(',')})
   `;
 
   const values = [
@@ -81,7 +81,7 @@ export async function savePlayer(player) {
     player.allStar, player.scoringChamp, player.assistChamp, player.reboundChamp,
     player.stealChamp, player.blockChamp,
 
-    player.teamName
+    player.teamName, player.championships, player.finalsMVP
   ];
 
 
@@ -91,15 +91,15 @@ export async function savePlayer(player) {
 
 export async function saveTeams(team){
   const sql = `INSERT INTO teams (
-    name, inEast, wins, losses, oldWins, oldLosses, seed,
+    name, inEast, abr, wins, losses, oldWins, oldLosses, seed,
     oldSeed, startingLineupOne, startingLineupTwo, startingLineupThree,
     startingLineupFour, startingLineupFive, ptsAvg, astAvg, rebAvg, blkAvg, stlAvg, 
     fg, tp, ft, playOffAppearances, finalsAppearances, championships, ptsLeader,
     ptsLeaderVal, astLeader, astLeaderVal, rebLeader, rebLeaderVal, stlLeader, stlLeaderVal,
     blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses
-  ) VALUES (${Array(38).fill('?').join(',')})`;
+  ) VALUES (${Array(39).fill('?').join(',')})`;
 
-  const values = [team.name, team.inEast, team.wins, team.losses, team.oldWins, team.oldLosses,
+  const values = [team.name, team.inEast, team.abr, team.wins, team.losses, team.oldWins, team.oldLosses,
     team.seed, team.oldSeed, team.startingLineupName1, team.startingLineupName2, team.startingLineupName3, team.startingLineupName4, team.startingLineupName5,
     team.ptsAvg, team.astAvg, team.rebAvg, team.blkAvg, team.stlAvg, team.fg, team.tp, team.ft, team.playOffAppearances, team.finalsAppearances,
     team.championships, team.ptsLeader, team.ptsLeaderVal, team.astLeader, team.astLeaderVal, team.rebLeader, team.rebLeaderVal,

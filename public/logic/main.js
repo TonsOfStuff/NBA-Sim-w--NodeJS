@@ -87,33 +87,34 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList){
 
 
 //Players
-const michaelJordan = new Player("Michael Jordan", "Slasher", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 29, 56, 96, 95, 93, 95, 92, 96, 75, 82, 90, 90, 94, 95, 87, 75, 99, 52, 87, 78, 34, 45, 99, 99)
+const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 29, 56, 96, 95, 99, 99, 92, 96, 55, 62, 70, 70, 94, 95, 99, 75, 99, 52, 87, 78, 34, 45, 99, 99)
 const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21, 88, 45, 42, 35, 94, 97, 99, 95, 91, 82, 87, 32, 32, 82, 85, 82, 90, 98, 95, 83, 79, 92, 81, 37, 42, 99, 99)
 const kareem = new Player("Kareem Abdul-Jabbar", "Inside Post-player", 92, 0, 99, 73, 99, 99, 93, 87, 94, 31, 2, 30, 13, 57, 78, 96, 99, 42, 49, 0, 0, 0, 0, 95, 96, 62, 0, 54, 21, 78, 85, 40, 40, 95, 99);
 const duncan = new Player("Tim Duncan", "Inside Defensive", 96, 50, 99, 80, 95, 99, 80, 90, 95, 82, 76, 35, 42, 52, 80, 91, 97, 96, 90, 0, 0, 1, 1, 92, 90, 97, 0, 31, 27, 76, 83, 38, 39, 93, 99);
 const bird = new Player("Larry Bird", "All", 98, 98, 91, 94, 99, 76, 52, 21, 42, 88, 15, 39, 94, 82, 90, 87, 85, 95, 99, 94, 92, 90, 87, 84, 88, 42, 83, 45, 69, 91, 81, 33, 37, 99, 99);
-const magic = new Player("Magic Johnson", "Playmaker Inside", 96, 80, 97, 85, 93, 93, 45, 33, 72, 79, 62, 55, 99, 94, 91, 99, 99, 92, 90, 1, 1, 2, 1, 56, 65, 99, 3, 81, 93, 90, 81, 35, 42, 98, 99);
+const magic = new Player("Magic Johnson", "Playmaker Inside", 96, 80, 97, 85, 93, 93, 45, 33, 72, 79, 62, 55, 99, 94, 91, 99, 99, 92, 90, 1, 1, 2, 1, 87, 88, 99, 3, 81, 93, 90, 81, 35, 42, 98, 99);
 const kobe = new Player("Kobe Bryant", "Slasher", 93, 92, 93, 90, 99, 92, 34, 22, 82, 80, 22, 21, 46, 89, 88, 90, 83, 98, 73, 34, 21, 85, 88, 83, 72, 76, 77, 80, 77, 91, 78, 33, 40, 99, 99);
 const shaq = new Player("Shaquille O'Neal", "Inside Post-player", 92, 0, 99, 55, 99, 88, 87, 80, 85, 21, 1, 28, 21, 68, 92, 99, 99, 45, 43, 0, 0, 0, 0, 0, 0, 0, 0, 83, 14, 70, 85, 42, 45, 95, 99);
-const curry = new Player("Stephen Curry", "Shooter Playmaker", 99, 99, 87, 99, 99, 67, 30, 15, 22, 90, 34, 45, 87, 95, 90, 88, 47, 77, 78, 96, 97, 93, 99, 61, 65, 54, 99, 62, 47, 97, 75, 34, 38, 98, 99);
+const curry = new Player("Stephen Curry", "Shooter Playmaker", 99, 99, 81, 99, 99, 67, 30, 15, 22, 90, 34, 45, 87, 95, 90, 88, 47, 77, 78, 90, 90, 83, 99, 61, 65, 54, 99, 62, 47, 97, 75, 34, 38, 98, 99);
 const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 0, 99, 78, 95, 99, 76, 76, 99, 40, 31, 38, 44, 77, 79, 93, 93, 95, 90, 0, 0, 0, 0, 36, 44, 30, 0, 62, 33, 78, 84, 38, 38, 93, 99);
 const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 99, 65, 84, 99, 99, 99, 99, 80, 77, 52, 83, 77, 91, 99, 99, 21, 20, 0,0, 0, 0, 10, 15, 14, 0, 82, 65, 81, 82, 40, 40, 87, 99);
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 99);
+const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 99);
 
-let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem, billRussell, wilt];
+let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem, billRussell, wilt, durant];
 let removePlayers = [...allPlayers];
 
 
 
 //Teams
-const bulls = new Team("Chicago Bulls", true, []);
-const lakers = new Team("Los Angeles Lakers", false, []);
-const celtics = new Team("Boston Celitcs", true, []);
-const pacers = new Team("Indiana Pacers", true, []);
-const kings = new Team("Sacramento Kings", false, []);
-const okc = new Team("Oklahoma City Thunder", false, []);
-const knicks = new Team("New York Knicks", true, []);
-const timberwolves = new Team("Minnesota Timberwolves", false, []);
+const bulls = new Team("Chicago Bulls", true, "CHI", []);
+const lakers = new Team("Los Angeles Lakers", false, "LAL", []);
+const celtics = new Team("Boston Celitcs", true, "BOS", []);
+const pacers = new Team("Indiana Pacers", true, "IND", []);
+const kings = new Team("Sacramento Kings", false, "SAC", []);
+const okc = new Team("Oklahoma City Thunder", false, "OKC", []);
+const knicks = new Team("New York Knicks", true, "NYK", []);
+const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", []);
 
 let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves];
 let allTeamsTemp = [...allTeams];
@@ -247,7 +248,7 @@ function load(){
         .then(res => res.json())
         .then(data => {
             const teams = data.map(p => {
-                const team = new Team(p.name, p.inEast, []);
+                const team = new Team(p.name, p.inEast, p.abr, []);
                 Object.assign(team, {
                     wins: p.wins,
                     losses: p.losses,
@@ -400,7 +401,10 @@ function load(){
                     stealChamp: p.stealChamp,
                     blockChamp: p.blockChamp,
 
-                    teamName: p.team
+                    teamName: p.team,
+
+                    championships: p.championships,
+                    finalsMVP: p.finalsMVP
                 });
 
                 return player;
@@ -412,7 +416,7 @@ function load(){
                     if (player.name === allTeams[i].startingLineupName1 || player.name === allTeams[i].startingLineupName2 || player.name === allTeams[i].startingLineupName3 || player.name === allTeams[i].startingLineupName4 || player.name === allTeams[i].startingLineupName5){
                         allTeams[i].startingLineup.push(player);
                     }
-                    if(player.teamName === allTeams[i].name){
+                    if(player.teamName === allTeams[i].abr){
                         player.team = allTeams[i];
                         allTeams[i].players.push(player);
                         break;
@@ -457,7 +461,7 @@ for (let i=0;i<allTeams.length;i++){
         allTeams[i].players.push(chosenPlayer);
         chosenPlayer.calcOvr();
         chosenPlayer.team = allTeams[i];
-        chosenPlayer.teamName = chosenPlayer.team.name;
+        chosenPlayer.teamName = chosenPlayer.team.abr;
         removePlayers.splice(removePlayers.indexOf(chosenPlayer), 1);
     }
 
