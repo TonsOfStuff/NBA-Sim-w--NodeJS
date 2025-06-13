@@ -6,11 +6,17 @@ import { fn, ln } from "./name.js";
 
 
 //DOM elements
-const main = document.getElementById("main");
+let main = document.getElementById("main");
 
-function displayGame(team1, team2, team1Score, team2Score){
-    const dayCounter = document.getElementById("dayCounter");
-    dayCounter.innerText = "Day: " + day;
+function displayGame(team1, team2, team1Score, team2Score, playOff = false){
+    main = playOff
+        ? document.getElementById("displayGame")
+        : document.getElementById("main");
+    if (playOff === false){
+        const dayCounter = document.getElementById("dayCounter");
+        dayCounter.innerText = "Day: " + day;
+    }
+    
 
     while (main.firstChild){
         main.removeChild(main.firstChild);
@@ -85,6 +91,14 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList){
     main.appendChild(allDef1stText);
     main.appendChild(allDef2ndText);
     main.appendChild(allDef3rdText);
+
+    const contButton = document.createElement("button");
+    contButton.innerText = "Continue"
+    contButton.addEventListener("click", () => {
+        window.location.href = "/playoff.html";
+    })
+
+    main.appendChild(contButton)
 }
 
 
@@ -95,7 +109,7 @@ const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21,
 const kareem = new Player("Kareem Abdul-Jabbar", "Inside Post-player", 92, 0, 99, 73, 99, 99, 93, 87, 94, 31, 2, 30, 13, 57, 78, 96, 99, 42, 49, 0, 0, 0, 0, 95, 96, 62, 0, 54, 21, 78, 85, 40, 40, 95, 99);
 const duncan = new Player("Tim Duncan", "Inside Defensive", 96, 50, 99, 80, 95, 99, 80, 90, 95, 82, 76, 35, 42, 52, 80, 91, 97, 96, 90, 0, 0, 1, 1, 92, 90, 97, 0, 31, 27, 76, 83, 38, 39, 93, 99);
 const bird = new Player("Larry Bird", "All", 98, 98, 91, 94, 99, 76, 52, 21, 42, 88, 15, 39, 94, 82, 90, 87, 85, 95, 99, 94, 92, 90, 87, 84, 88, 42, 83, 45, 69, 91, 81, 33, 37, 99, 99);
-const magic = new Player("Magic Johnson", "Playmaker Inside", 96, 80, 97, 85, 93, 93, 45, 33, 72, 79, 62, 55, 99, 94, 91, 99, 99, 92, 90, 1, 1, 2, 1, 87, 88, 99, 3, 81, 93, 90, 81, 35, 42, 98, 99);
+const magicJohnson = new Player("Magic Johnson", "Playmaker Inside", 96, 80, 97, 85, 93, 93, 45, 33, 72, 79, 62, 55, 99, 94, 91, 99, 99, 92, 90, 1, 1, 2, 1, 87, 88, 99, 3, 81, 93, 90, 81, 35, 42, 98, 99);
 const kobe = new Player("Kobe Bryant", "Slasher", 93, 92, 93, 90, 99, 92, 34, 22, 82, 80, 22, 21, 46, 89, 88, 90, 83, 98, 73, 34, 21, 85, 88, 83, 72, 76, 77, 80, 77, 91, 78, 33, 40, 99, 99);
 const shaq = new Player("Shaquille O'Neal", "Inside Post-player", 92, 0, 99, 55, 99, 88, 87, 80, 85, 21, 1, 28, 21, 68, 92, 99, 99, 45, 43, 0, 0, 0, 0, 0, 0, 0, 0, 83, 14, 70, 85, 42, 45, 95, 99);
 const curry = new Player("Stephen Curry", "Shooter Playmaker", 99, 99, 81, 99, 99, 67, 30, 15, 22, 90, 34, 45, 87, 95, 90, 88, 47, 77, 78, 90, 90, 83, 99, 61, 65, 54, 99, 62, 47, 97, 75, 34, 38, 98, 99);
@@ -104,7 +118,7 @@ const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 9
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 99);
 const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 99);
 
-let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magic, kobe, shaq, curry, hakeem, billRussell, wilt, durant];
+export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant];
 let removePlayers = [...allPlayers];
 
 
@@ -118,8 +132,16 @@ const kings = new Team("Sacramento Kings", false, "SAC", []);
 const okc = new Team("Oklahoma City Thunder", false, "OKC", []);
 const knicks = new Team("New York Knicks", true, "NYK", []);
 const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", []);
+const heat = new Team("Miami Heat", true, "MIA", []);
+const raptors = new Team("Toronto Raptors", true, "TOR", []);
+const clippers = new Team("Los Angeles Clippers", false, "LAC", []);
+const jazz = new Team("Utah Jazz", false, "UTA", []);
+const cavs = new Team("Cleveland Caveliers", true, "CLE", []);
+const rockets = new Team("Houston Rockets", false, "HOU", []);
+const spurs = new Team("San Antonio Spurs", false, "SAS", []);
+const magic = new Team("Orlando Magic", true, "ORL", []);
 
-let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves];
+export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic];
 let allTeamsTemp = [...allTeams];
 
 //Global variables
@@ -205,7 +227,7 @@ function findTotalScore(team1, team2){
 }
 
 //Saving and loading
-function save(players, teams){
+export function save(players, teams){
     const strippedPlayers = players.map(player => {
         const copy = { ...player};
         delete copy.team;
@@ -248,188 +270,192 @@ function save(players, teams){
     .catch(err => console.error(err));
 }
 
-function load(){
-    fetch("/api/loadTeams")
-        .then(res => res.json())
-        .then(data => {
-            const teams = data.map(p => {
-                const team = new Team(p.name, p.inEast, p.abr, []);
-                Object.assign(team, {
-                    wins: p.wins,
-                    losses: p.losses,
-                    oldWins: p.oldWins,
-                    oldLosses: p.oldLosses,
-                    seed: p.seed,
-                    oldSeed: p.oldSeed,
+export async function load(){
+    const [teamsRes, playersRes] = await Promise.all([
+        fetch("/api/loadTeams"),
+        fetch("/api/load-players")
+    ]);
 
-                    startingLineupName1: p.startingLineupOne,
-                    startingLineupName2: p.startingLineupTwo,
-                    startingLineupName3: p.startingLineupThree,
-                    startingLineupName4: p.startingLineupFour,
-                    startingLineupName5: p.startingLineupFive,
+    const teamData = await teamsRes.json();
+    const playerData = await playersRes.json();
 
-                    ptsAvg: p.ptsAvg,
-                    astAvg: p.astAvg,
-                    rebAvg: p.rebAvg,
-                    blkAvg: p.blkAvg,
-                    stlAvg: p.stlAvg,
-                    fg: p.fg,
-                    tp: p.tp,
-                    ft: p.ft,
+    const teams = teamData.map(p => {
+        const team = new Team(p.name, p.inEast, p.abr, []);
+        Object.assign(team, {
+            wins: p.wins,
+            losses: p.losses,
+            oldWins: p.oldWins,
+            oldLosses: p.oldLosses,
+            seed: p.seed,
+            oldSeed: p.oldSeed,
+            confSeed: p.confSeed,
+            oldConfSeed: p.oldConfSeed,
 
-                    playOffAppearances: p.playOffAppearances,
-                    finalsAppearances: p.finalsAppearances,
-                    championships: p.championships,
+            startingLineupName1: p.startingLineupOne,
+            startingLineupName2: p.startingLineupTwo,
+            startingLineupName3: p.startingLineupThree,
+            startingLineupName4: p.startingLineupFour,
+            startingLineupName5: p.startingLineupFive,
 
-                    ptsLeader: p.ptsLeader,
-                    ptsLeaderVal: p.ptsLeaderVal,
-                    astLeader: p.astLeader,
-                    astLeaderVal: p.astLeaderVal,
-                    rebLeader: p.rebLeader,
-                    rebLeaderVal: p.rebLeaderVal,
-                    stlLeader: p.stlLeader,
-                    stlLeaderVal: p.stlLeaderVal,
-                    blkLeader: p.blkLeader,
-                    blkLeaderVal: p.blkLeaderVal,
+            ptsAvg: p.ptsAvg,
+            astAvg: p.astAvg,
+            rebAvg: p.rebAvg,
+            blkAvg: p.blkAvg,
+            stlAvg: p.stlAvg,
+            fg: p.fg,
+            tp: p.tp,
+            ft: p.ft,
 
-                    franchiseWins: p.franchiseWins,
-                    franchiseLosses: p.franchiseLosses,
-                    playOffWins: p.playOffWins,
-                    playerOffLosses: p.playerOffLosses
-                });
+            playOffAppearances: p.playOffAppearances,
+            finalsAppearances: p.finalsAppearances,
+            championships: p.championships,
 
-                return team;
-            });
-            allTeams.splice(0, allTeams.length);
-            allTeams = [...teams];
+            ptsLeader: p.ptsLeader,
+            ptsLeaderVal: p.ptsLeaderVal,
+            astLeader: p.astLeader,
+            astLeaderVal: p.astLeaderVal,
+            rebLeader: p.rebLeader,
+            rebLeaderVal: p.rebLeaderVal,
+            stlLeader: p.stlLeader,
+            stlLeaderVal: p.stlLeaderVal,
+            blkLeader: p.blkLeader,
+            blkLeaderVal: p.blkLeaderVal,
+
+            franchiseWins: p.franchiseWins,
+            franchiseLosses: p.franchiseLosses,
+            playOffWins: p.playOffWins,
+            playerOffLosses: p.playerOffLosses
         });
 
-    fetch('/api/load-players')
-        .then(res => res.json())
-        .then(data => {
-            const players = data.map(p => {
-                const player = new Player(
-                    p.name, p.arch, p.twoPt, p.threePt, p.inside, p.freeThrow,
-                    p.offensiveAbility, p.defensiveAbility, p.defensiveReb, p.offensiveReb,
-                    p.blockTen, p.stealTen, p.takeCharges, p.passingTen, p.passingAccuracy,
-                    p.ballControl, p.catching, p.insideTen, p.closeTen, p.leftElbow,
-                    p.rightElbow, p.leftCorner, p.rightCorner, p.leftWing, p.rightWing,
-                    p.leftTwo, p.rightTwo, p.centerTwo, p.centerThree, p.vertical,
-                    p.hustle, p.stamina, p.height, p.foul, p.drawFoul, p.clutch, p.potential
-                );
-                Object.assign(player, {
-                    gamesPlayed: p.gamesPlayed,
-                    gamesStarted: p.gamesStarted,
-                    avgMin: p.avgMin,
-                    avgPts: p.avgPts,
-                    avgAst: p.avgAst,
-                    avgDReb: p.avgDReb,
-                    avgOReb: p.avgOReb,
-                    avgStl: p.avgStl,
-                    avgBlk: p.avgBlk,
-                    avgFls: p.avgFls,
-                    avgTov: p.avgTov,
-                    fgp: p.fgp,
-                    tpp: p.tpp,
-                    ftp: p.ftp,
+        return team;
+    });
+    allTeams.splice(0, allTeams.length);
+    allTeams = [...teams];
 
-                    seasonTotalMin: p.seasonTotalMin,
-                    seasonTotalPts: p.seasonTotalPts,
-                    seasonTotalAst: p.seasonTotalAst,
-                    seasonTotalOReb: p.seasonTotalOReb,
-                    seasonTotalDReb: p.seasonTotalDReb,
-                    seasonTotalStl: p.seasonTotalStl,
-                    seasonTotalBlk: p.seasonTotalBlk,
-                    seasonTotalFls: p.seasonTotalFls,
-                    seasonTotalTov: p.seasonTotalTov,
-                    seasonTotalFGA: p.seasonTotalFGA,
-                    seasonTotalFGM: p.seasonTotalFGM,
-                    seasonTotalTPA: p.seasonTotalTPA,
-                    seasonTotalTPM: p.seasonTotalTPM,
-                    seasonTotalFTA: p.seasonTotalFTA,
-                    seasonTotalFTM: p.seasonTotalFTM,
-                    seasonTripleDoubles: p.seasonTripleDoubles,
-                    seasonDoubleDoubles: p.seasonDoubleDoubles,
-                    seasonQuadDoubles: p.seasonQuadDoubles,
 
-                    careerGamesPlayed: p.careerGamesPlayed,
-                    careerGamesStarted: p.careerGamesStarted,
-                    careerAvgMin: p.careerAvgMin,
-                    careerAvgPts: p.careerAvgPts,
-                    careerAvgAst: p.careerAvgAst,
-                    careerAvgOReb: p.careerAvgOReb,
-                    careerAvgDReb: p.careerAvgDReb,
-                    careerAvgStl: p.careerAvgStl,
-                    careerAvgBlk: p.careerAvgBlk,
-                    careerAvgFls: p.careerAvgFls,
-                    careerAvgTov: p.careerAvgTov,
-                    careerAvgFG: p.careerAvgFG,
-                    careerAvgTP: p.careerAvgTP,
-                    careerAvgFT: p.careerAvgFT,
-                    careerTotalMin: p.careerTotalMin,
-                    careerTotalPts: p.careerTotalPts,
-                    careerTotalAst: p.careerTotalAst,
-                    careerTotalOReb: p.careerTotalOReb,
-                    careerTotalDReb: p.careerTotalDReb,
-                    careerTotalStl: p.careerTotalStl,
-                    careerTotalBlk: p.careerTotalBlk,
-                    careerTotalFls: p.careerTotalFls,
-                    careerTotalTov: p.careerTotalTov,
-                    careerTotalFGA: p.careerTotalFGA,
-                    careerTotalFGM: p.careerTotalFGM,
-                    careerTotalTPA: p.careerTotalTPA,
-                    careerTotalTPM: p.careerTotalTPM,
-                    careerTotalFTA: p.careerTotalFTA,
-                    careerTotalFTM: p.careerTotalFTM,
-                    careerTripleDoubles: p.careerTripleDoubles,
-                    careerDoubleDoubles: p.careerDoubleDoubles,
-                    careerQuadDoubles: p.careerQuadDoubles,
+    const players = playerData.map(p => {
+        const player = new Player(
+            p.name, p.arch, p.twoPt, p.threePt, p.inside, p.freeThrow,
+            p.offensiveAbility, p.defensiveAbility, p.defensiveReb, p.offensiveReb,
+            p.blockTen, p.stealTen, p.takeCharges, p.passingTen, p.passingAccuracy,
+            p.ballControl, p.catching, p.insideTen, p.closeTen, p.leftElbow,
+            p.rightElbow, p.leftCorner, p.rightCorner, p.leftWing, p.rightWing,
+            p.leftTwo, p.rightTwo, p.centerTwo, p.centerThree, p.vertical,
+            p.hustle, p.stamina, p.height, p.foul, p.drawFoul, p.clutch, p.potential
+        );
+        Object.assign(player, {
+            gamesPlayed: p.gamesPlayed,
+            gamesStarted: p.gamesStarted,
+            avgMin: p.avgMin,
+            avgPts: p.avgPts,
+            avgAst: p.avgAst,
+            avgDReb: p.avgDReb,
+            avgOReb: p.avgOReb,
+            avgStl: p.avgStl,
+            avgBlk: p.avgBlk,
+            avgFls: p.avgFls,
+            avgTov: p.avgTov,
+            fgp: p.fgp,
+            tpp: p.tpp,
+            ftp: p.ftp,
 
-                    totalMVPS: p.totalMVPS,
-                    totalDPOYs: p.totalDPOYs,
-                    totalROTYs: p.totalROTYs,
-                    totalSMOTY: p.totalSMOTY,
-                    mvpNum: p.mvpNum,
-                    dpoyNum: p.dpoyNum,
+            seasonTotalMin: p.seasonTotalMin,
+            seasonTotalPts: p.seasonTotalPts,
+            seasonTotalAst: p.seasonTotalAst,
+            seasonTotalOReb: p.seasonTotalOReb,
+            seasonTotalDReb: p.seasonTotalDReb,
+            seasonTotalStl: p.seasonTotalStl,
+            seasonTotalBlk: p.seasonTotalBlk,
+            seasonTotalFls: p.seasonTotalFls,
+            seasonTotalTov: p.seasonTotalTov,
+            seasonTotalFGA: p.seasonTotalFGA,
+            seasonTotalFGM: p.seasonTotalFGM,
+            seasonTotalTPA: p.seasonTotalTPA,
+            seasonTotalTPM: p.seasonTotalTPM,
+            seasonTotalFTA: p.seasonTotalFTA,
+            seasonTotalFTM: p.seasonTotalFTM,
+            seasonTripleDoubles: p.seasonTripleDoubles,
+            seasonDoubleDoubles: p.seasonDoubleDoubles,
+            seasonQuadDoubles: p.seasonQuadDoubles,
 
-                    allNBAFirst: p.allNBAFirst,
-                    allNBASecond: p.allNBASecond,
-                    allNBAThird: p.allNBAThird,
-                    allDefensiveFirst: p.allDefensiveFirst,
-                    allDefensiveSecond: p.allDefensiveSecond,
-                    allDefensiveThird: p.allDefensiveThird,
-                    allStar: p.allStar,
+            careerGamesPlayed: p.careerGamesPlayed,
+            careerGamesStarted: p.careerGamesStarted,
+            careerAvgMin: p.careerAvgMin,
+            careerAvgPts: p.careerAvgPts,
+            careerAvgAst: p.careerAvgAst,
+            careerAvgOReb: p.careerAvgOReb,
+            careerAvgDReb: p.careerAvgDReb,
+            careerAvgStl: p.careerAvgStl,
+            careerAvgBlk: p.careerAvgBlk,
+            careerAvgFls: p.careerAvgFls,
+            careerAvgTov: p.careerAvgTov,
+            careerAvgFG: p.careerAvgFG,
+            careerAvgTP: p.careerAvgTP,
+            careerAvgFT: p.careerAvgFT,
+            careerTotalMin: p.careerTotalMin,
+            careerTotalPts: p.careerTotalPts,
+            careerTotalAst: p.careerTotalAst,
+            careerTotalOReb: p.careerTotalOReb,
+            careerTotalDReb: p.careerTotalDReb,
+            careerTotalStl: p.careerTotalStl,
+            careerTotalBlk: p.careerTotalBlk,
+            careerTotalFls: p.careerTotalFls,
+            careerTotalTov: p.careerTotalTov,
+            careerTotalFGA: p.careerTotalFGA,
+            careerTotalFGM: p.careerTotalFGM,
+            careerTotalTPA: p.careerTotalTPA,
+            careerTotalTPM: p.careerTotalTPM,
+            careerTotalFTA: p.careerTotalFTA,
+            careerTotalFTM: p.careerTotalFTM,
+            careerTripleDoubles: p.careerTripleDoubles,
+            careerDoubleDoubles: p.careerDoubleDoubles,
+            careerQuadDoubles: p.careerQuadDoubles,
 
-                    scoringChamp: p.scoringChamp,
-                    assistChamp: p.assistChamp,
-                    reboundChamp: p.reboundChamp,
-                    stealChamp: p.stealChamp,
-                    blockChamp: p.blockChamp,
+            totalMVPS: p.totalMVPS,
+            totalDPOYs: p.totalDPOYs,
+            totalROTYs: p.totalROTYs,
+            totalSMOTY: p.totalSMOTY,
+            mvpNum: p.mvpNum,
+            dpoyNum: p.dpoyNum,
 
-                    teamName: p.team,
+            allNBAFirst: p.allNBAFirst,
+            allNBASecond: p.allNBASecond,
+            allNBAThird: p.allNBAThird,
+            allDefensiveFirst: p.allDefensiveFirst,
+            allDefensiveSecond: p.allDefensiveSecond,
+            allDefensiveThird: p.allDefensiveThird,
+            allStar: p.allStar,
 
-                    championships: p.championships,
-                    finalsMVP: p.finalsMVP
-                });
+            scoringChamp: p.scoringChamp,
+            assistChamp: p.assistChamp,
+            reboundChamp: p.reboundChamp,
+            stealChamp: p.stealChamp,
+            blockChamp: p.blockChamp,
 
-                return player;
-            });
-            allPlayers.splice(0, allPlayers.length);
-            allPlayers = [...players];
-            allPlayers.forEach(player => {
-                for (let i = 0; i < allTeams.length; i++){
-                    if (player.name === allTeams[i].startingLineupName1 || player.name === allTeams[i].startingLineupName2 || player.name === allTeams[i].startingLineupName3 || player.name === allTeams[i].startingLineupName4 || player.name === allTeams[i].startingLineupName5){
-                        allTeams[i].startingLineup.push(player);
-                    }
-                    if(player.teamName === allTeams[i].abr){
-                        player.team = allTeams[i];
-                        allTeams[i].players.push(player);
-                        break;
-                    }
-                }
-                });
-            allTeamsTemp = [...allTeams];
+            teamName: p.team,
+
+            championships: p.championships,
+            finalsMVP: p.finalsMVP
         });
+
+        return player;
+    });
+    allPlayers.splice(0, allPlayers.length);
+    allPlayers = [...players];
+    allPlayers.forEach(player => {
+        for (let i = 0; i < allTeams.length; i++){
+            if (player.name === allTeams[i].startingLineupName1 || player.name === allTeams[i].startingLineupName2 || player.name === allTeams[i].startingLineupName3 || player.name === allTeams[i].startingLineupName4 || player.name === allTeams[i].startingLineupName5){
+                allTeams[i].startingLineup.push(player);
+            }
+            if(player.teamName === allTeams[i].abr){
+                player.team = allTeams[i];
+                allTeams[i].players.push(player);
+                break;
+            }
+        }
+        });
+    allTeamsTemp = [...allTeams];
+    console.log("loaded")
 }
 
 window.loading = function (){
@@ -522,7 +548,7 @@ window.testP = function(){
     playOffs();
 }
 
-function aGame(chosenTeam1, chosenTeam2){
+export function aGame(chosenTeam1, chosenTeam2, playOff = false){
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
@@ -622,7 +648,7 @@ function aGame(chosenTeam1, chosenTeam2){
         }
     }
 
-    displayGame(team1, team2, teamScores[0], teamScores[1]);
+    displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
 
     team1.players.forEach(player => {
         player.statsUpdate();
@@ -655,7 +681,7 @@ function playOffs(){
     tempPlayers[0].blockChamp += 1;
 
     allTeams.forEach(team => {
-        team.calcSeed(allTeams);
+        team.calcSeed([...allTeams]);
     });
 
     //MVP and DPOY
@@ -694,6 +720,7 @@ function playOffs(){
 
     saving();
 
-    window.location.href = "/playoff.html";
 }
+
+
 

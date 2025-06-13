@@ -11,7 +11,9 @@ export class Team{
         this.oldLosses = 0;
 
         this.seed = 0;
+        this.confSeed = 0;
         this.oldSeed = 0;
+        this.oldConfSeed = 0;
         
 
         //Lineup
@@ -211,6 +213,22 @@ export class Team{
         for (let i = 0; i < allTeams.length; i++){
             if (this === allTeams[i]){
                 this.seed = (i + 1);
+                console.log(i)
+                console.log(this.seed)
+            }
+        }
+
+        let confTeams = []
+        allTeams.forEach(team => {
+            if (team.inEast === this.inEast){
+                confTeams.push(team);
+            }
+        });
+
+        confTeams.sort((a,b) => b.wins - a.wins);
+        for (let i = 0; i < confTeams.length; i++){
+            if (this === confTeams[i]){
+                this.confSeed = (i + 1);
             }
         }
     }

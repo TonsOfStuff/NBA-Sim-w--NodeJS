@@ -96,15 +96,16 @@ export async function saveTeams(team){
     startingLineupFour, startingLineupFive, ptsAvg, astAvg, rebAvg, blkAvg, stlAvg, 
     fg, tp, ft, playOffAppearances, finalsAppearances, championships, ptsLeader,
     ptsLeaderVal, astLeader, astLeaderVal, rebLeader, rebLeaderVal, stlLeader, stlLeaderVal,
-    blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses
-  ) VALUES (${Array(39).fill('?').join(',')})`;
+    blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses, 
+    confSeed, oldConfSeed
+  ) VALUES (${Array(41).fill('?').join(',')})`;
 
   const values = [team.name, team.inEast, team.abr, team.wins, team.losses, team.oldWins, team.oldLosses,
     team.seed, team.oldSeed, team.startingLineupName1, team.startingLineupName2, team.startingLineupName3, team.startingLineupName4, team.startingLineupName5,
     team.ptsAvg, team.astAvg, team.rebAvg, team.blkAvg, team.stlAvg, team.fg, team.tp, team.ft, team.playOffAppearances, team.finalsAppearances,
     team.championships, team.ptsLeader, team.ptsLeaderVal, team.astLeader, team.astLeaderVal, team.rebLeader, team.rebLeaderVal,
     team.stlLeader, team.stlLeaderVal, team.blkLeader, team.blkLeaderVal, team.franchiseWins, team.franchiseLosses, team.playOffWins,
-    team.playerOffLosses
+    team.playerOffLosses, team.confSeed, team.oldConfSeed
   ];
 
   await connection.execute(sql, values);
