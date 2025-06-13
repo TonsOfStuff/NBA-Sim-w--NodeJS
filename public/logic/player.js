@@ -205,20 +205,35 @@ export class Player{
         if (this.passedFromSomeone === false){
             defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 2);
         }else{
-            defensiveImpact = this.offensiveAbility + this.passedFromSomeone.passingAccuracy - this.defensiveAbility * (Math.random() + 1.4)
+            defensiveImpact = this.offensiveAbility + (this.passedFromSomeone.passingAccuracy - Math.random() * 30) - this.defensiveAbility * (Math.random() + 1.4)
         }
         let factor = 0;
         if (time > 180){
             factor = Math.round(this.clutch * 0.3);
         }
-        const insideStress = 110;
+        let shootTend = 100;
+        
+        let insideStress = 120;
         const twoStress = 150;
         const threeStress = 250;
-        const drawFreeThrowAmount = 50;
+        let drawFreeThrowAmount = 50;
         const freeThrowDiff = 110;
 
+        //Archetype Effect
+        if (this.arch.includes("Shooter")){
+            shootTend += 10;
+        }
+        if (this.arch.includes("Two-Way")){
+            shootTend += 5;
+        }
+        if (this.arch.includes("Post-player")){
+            insideStress -= 10;
+        }
+        if (this.arch.includes("Slasher")){
+            drawFreeThrowAmount -= 10;
+        }
 
-        if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * 100)){
+        if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * shootTend)){
             if(defense.takeCharges > Math.random() * 10000){
                 this.fls += 1;
                 return true;
@@ -269,7 +284,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * shootTend)){
             if(defense.takeCharges > Math.random() * 10000){
                 this.fls += 1;
                 return true;
@@ -320,7 +335,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -367,7 +382,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -414,7 +429,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -461,7 +476,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -508,7 +523,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             if(defense.block(this)){
                 return false;
@@ -555,7 +570,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             this.tpa += 1;
             if(defense.block(this, true)){
@@ -610,7 +625,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             this.tpa += 1;
             if(defense.block(this, true)){
@@ -665,7 +680,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             this.tpa += 1;
             if(defense.block(this, true)){
@@ -720,7 +735,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             this.tpa += 1;
             if(defense.block(this, true)){
@@ -775,7 +790,7 @@ export class Player{
                 return false;
             }
         }
-        else if (this.location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * 100)){
+        else if (this.location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * shootTend)){
             this.fga += 1;
             this.tpa += 1;
             if(defense.block(this, true)){
@@ -942,6 +957,12 @@ export class Player{
         if (three === true){
             blockFactor = 100;
         }
+        if (this.arch.includes("Defensive")){
+            blockFactor -= 20;
+        }
+        if (this.arch.includes("Two-way")){
+            blockFactor -= 10;
+        }
         if (Math.pow(this.blockTen, 1.5) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 7000){
             this.blk += 1;
             return true;
@@ -957,6 +978,9 @@ export class Player{
                 continue;
             }
             let passingAmount = this.otherTeammates[i].passTo;
+            if (this.otherTeammates[i].arch.includes("All")){
+                passingAmount += 1;
+            }
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
                 passingAmount -= 1;
@@ -1005,12 +1029,12 @@ export class Player{
         let oPToReb = null;
         let dPToReb = null;
 
-        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + Math.pow(p.offensiveReb, 1.5) + Math.pow(p.height, 1.5), 0);
+        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + Math.pow(p.offensiveReb, 1.5) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
         let rand = Math.random() * totalWeight;
 
         let runningSum = 0;
         for (let player of this.otherTeammates) {
-            runningSum += Math.pow(player.offensiveReb, 1.5) + Math.pow(player.height, 1.5);
+            runningSum += Math.pow(player.offensiveReb, 1.5) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
             if (rand < runningSum){
                 oPToReb = player;
                 break;
@@ -1018,19 +1042,18 @@ export class Player{
         }
 
 
-        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + Math.pow(p.defensiveReb, 1.5) + Math.pow(p.height, 1.5), 0);
+        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + Math.pow(p.defensiveReb, 1.5) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
         rand = Math.random() * totalWeight;
 
         runningSum = 0;
         for (let player of defense.otherTeammates) {
-            runningSum += Math.pow(player.defensiveReb, 1.5) + Math.pow(player.height, 1.5);
+            runningSum += Math.pow(player.defensiveReb, 1.5) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
             if (rand < runningSum){
                 dPToReb = player;
                 break;
             }
         }
-
-        rand = Math.random() * (oPToReb.offensiveReb + dPToReb.defensiveReb * 5);
+        rand = Math.random() * (oPToReb.offensiveReb * (oPToReb.arch.includes("Inside") ? 2 : 1) + dPToReb.defensiveReb * (dPToReb.arch.includes("Inside") ? 7 : 5));
         if (rand < dPToReb.defensiveReb) {
             oPToReb.oReb += 1;
             return oPToReb;
@@ -1042,7 +1065,15 @@ export class Player{
 
     playerPossesion(defense, time){
         this.moving(defense);
-        if (this.passingTen + this.fga > Math.random() * 100 && this.team.shotClock < 24){
+        let passTen = 100;
+        if (this.arch.includes("Playermaker")){
+            passTen -= 30;
+        }
+        if (this.passedFromSomeone !== false){
+            passTen += this.passedFromSomeone.passingAccuracy / 2
+        }
+			
+        if (this.passingTen + this.fga > Math.random() * passTen && this.team.shotClock < 5){
             this.pass(defense);
             this.team.shotClock += 1;
         }else{

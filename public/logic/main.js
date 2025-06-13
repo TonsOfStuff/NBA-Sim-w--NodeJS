@@ -439,6 +439,7 @@ function subbing(quarter, time, team1, team2, possesion, insertStart = false){
     team2.setOpponentsAndTeammates(team1);
 
     hasBallPlayer = possesion.lineup[Math.floor(Math.random() * 5)];
+    //hasBallPlayer = possesion.pg;
     hasBallPlayer.hasBall = true;
 }
 
@@ -467,11 +468,11 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-loading();
+//loading();
 
 window.test = function(){
     console.log(allTeams);
-    for(let i = 0; i<1 * allTeams.length / 2;i++){
+    for(let i = 0; i<82 * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
