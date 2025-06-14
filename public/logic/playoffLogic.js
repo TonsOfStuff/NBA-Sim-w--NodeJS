@@ -90,7 +90,7 @@ for (let i = 0; i < 8; i++) {
 
         const newSimButton = simButton.cloneNode(true);
         const newSimSeriesButton = simSeriesButton.cloneNode(true);
-        const newSimPlayoffsButton = panel.children[1].children[2];
+        const newSimPlayoffsButton = simPlayoffsButton.cloneNode(true);
         simButton.replaceWith(newSimButton);
         simSeriesButton.replaceWith(newSimSeriesButton);
         simPlayoffsButton.replaceWith(newSimPlayoffsButton);
@@ -101,8 +101,8 @@ for (let i = 0; i < 8; i++) {
         
         newSimButton.addEventListener("click", simHandler);
         newSimSeriesButton.addEventListener("click", simSeriesHandler);
-        const simPlayoffsHandler = () => {simPlayoffs(newSimSeriesButton); };
-        simPlayoffsButton.addEventListener("click", simPlayoffsHandler)
+        const simPlayoffsHandler = () => {simPlayoffs(); };
+        newSimPlayoffsButton.addEventListener("click", simPlayoffsHandler)
     });
 }
 
@@ -113,17 +113,22 @@ function addButtonFunc(series, button){
 
         const simButton = panel.children[1].children[0];
         const simSeriesButton = panel.children[1].children[1];
+        const simPlayoffsButton = panel.children[1].children[2];
 
         const newSimButton = simButton.cloneNode(true);
         const newSimSeriesButton = simSeriesButton.cloneNode(true);
+        const newSimPlayoffsButton = simPlayoffsButton.cloneNode(true);
         simButton.replaceWith(newSimButton);
         simSeriesButton.replaceWith(newSimSeriesButton);
+        simPlayoffsButton.replaceWith(newSimPlayoffsButton);
 
         const simHandler = () => {simAPlayOffGame(series[0], series[1], button.textContent); checkDone(series[0], series[1], newSimButton, simHandler, button)};
         const simSeriesHandler = () => {simSeries(series[0], series[1], button.textContent); checkDone(series[0], series[1], newSimSeriesButton, simHandler, button)};
         
         newSimButton.addEventListener("click", simHandler);
         newSimSeriesButton.addEventListener("click", simSeriesHandler);
+        const simPlayoffsHandler = () => {simPlayoffs(); };
+        newSimPlayoffsButton.addEventListener("click", simPlayoffsHandler)
     });
 }
 
@@ -246,7 +251,6 @@ function simSeries(team1, team2, panel){
 
 function simPlayoffs(){
     for (let i = 0; i < 14; i++){
-        console.log(i);
         buttons[i].click();
         panel.children[1].children[1].click()
     }
