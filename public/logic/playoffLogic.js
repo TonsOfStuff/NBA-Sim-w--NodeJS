@@ -3,6 +3,9 @@ await load();
 
 
 const panel = document.getElementById("controlPanel");
+const statsPanel = document.getElementById("statsPanel");
+const checkOtherTeam = document.getElementById("checkOtherTeam");
+
 const firstRound = document.querySelectorAll("#firstRound");
 const secondRound = document.querySelectorAll("#secondRound");
 const confFinals = document.querySelectorAll("#confFinals");
@@ -87,20 +90,24 @@ for (let i = 0; i < 8; i++) {
         const simButton = panel.children[1].children[0];
         const simSeriesButton = panel.children[1].children[1];
         const simPlayoffsButton = panel.children[1].children[2];
+        const viewStats = panel.children[1].children[3];
 
         const newSimButton = simButton.cloneNode(true);
         const newSimSeriesButton = simSeriesButton.cloneNode(true);
         const newSimPlayoffsButton = simPlayoffsButton.cloneNode(true);
+        const newViewStats = viewStats.cloneNode(true);
         simButton.replaceWith(newSimButton);
         simSeriesButton.replaceWith(newSimSeriesButton);
         simPlayoffsButton.replaceWith(newSimPlayoffsButton);
+        viewStats.replaceWith(newViewStats);
 
-        const simHandler = () => {simAPlayOffGame(series[0], series[1], buttons[i].textContent); checkDone(series[0], series[1], newSimButton, simHandler, buttons[i])};
-        const simSeriesHandler = () => {simSeries(series[0], series[1], buttons[i].textContent); checkDone(series[0], series[1], newSimSeriesButton, simHandler, buttons[i])};
-        
+        const simHandler = () => {simAPlayOffGame(series[0], series[1], buttons[i].textContent, 1); checkDone(series[0], series[1], newSimButton, simHandler, buttons[i])};
+        const simSeriesHandler = () => {simSeries(series[0], series[1], buttons[i].textContent, 1); checkDone(series[0], series[1], newSimSeriesButton, simHandler, buttons[i])};
+        const viewStatsHandler = () => {openStatsMenu(series[0], series[1], 1)}
         
         newSimButton.addEventListener("click", simHandler);
         newSimSeriesButton.addEventListener("click", simSeriesHandler);
+        newViewStats.addEventListener("click", viewStatsHandler);
         const simPlayoffsHandler = () => {simPlayoffs(); };
         newSimPlayoffsButton.addEventListener("click", simPlayoffsHandler)
     });
@@ -121,9 +128,17 @@ function addButtonFunc(series, button){
         simButton.replaceWith(newSimButton);
         simSeriesButton.replaceWith(newSimSeriesButton);
         simPlayoffsButton.replaceWith(newSimPlayoffsButton);
+        let seriesNum = 1
+        if (series === series9 || series === series10 || series === series11 || series === 12){
+            seriesNum = 2
+        }else if(series === series13 || series === series14){
+            seriesNum = 3
+        }else{
+            seriesNum = 4
+        }
 
-        const simHandler = () => {simAPlayOffGame(series[0], series[1], button.textContent); checkDone(series[0], series[1], newSimButton, simHandler, button)};
-        const simSeriesHandler = () => {simSeries(series[0], series[1], button.textContent); checkDone(series[0], series[1], newSimSeriesButton, simHandler, button)};
+        const simHandler = () => {simAPlayOffGame(series[0], series[1], button.textContent, seriesNum); checkDone(series[0], series[1], newSimButton, simHandler, button)};
+        const simSeriesHandler = () => {simSeries(series[0], series[1], button.textContent, seriesNum); checkDone(series[0], series[1], newSimSeriesButton, simHandler, button)};
         
         newSimButton.addEventListener("click", simHandler);
         newSimSeriesButton.addEventListener("click", simSeriesHandler);
@@ -228,7 +243,133 @@ function checkDone(team1, team2, simButton, newHandler, buttonSeries){
 
 
 //Panel controls
-function simAPlayOffGame(team1, team2, panel){
+let checkerTeam = null;
+function openStatsMenu(team1, team2, series){
+    panel.style.display = "none";
+    statsPanel.style.display = "block";
+
+    checkOtherTeam.onclick = () => openStatsMenu(team1, team2, series);
+
+    while (statsPanel.children[0].children[1].firstChild){
+        statsPanel.children[0].children[1].removeChild(statsPanel.children[0].children[1].firstChild);
+    }
+    if (checkerTeam === team2){
+        team1.players.forEach(player => {
+            const row = document.createElement("tr");
+            
+            const name = document.createElement("td");
+            const avgMin = document.createElement("td");
+            const avgPts = document.createElement('td');
+            const avgReb = document.createElement('td');
+            const avgDReb = document.createElement('td');
+            const avgOReb = document.createElement('td');
+            const avgAst = document.createElement("td");
+            const avgBlk = document.createElement('td');
+            const avgStl = document.createElement('td');
+            const avgFls = document.createElement('td');
+            const avgTov = document.createElement('td');
+            const fgp = document.createElement('td');
+            const tpp = document.createElement('td');
+            const ftp = document.createElement('td');
+
+            name.innerText = player.name;
+            if (series === 1){
+                avgMin.innerText = player.avgP1Min;
+                avgPts.innerText = player.avgP1Pts;
+                avgReb.innerText = Number((player.avgP1OReb + player.avgP1DReb).toFixed(1));
+                avgDReb.innerText = player.avgP1DReb;
+                avgOReb.innerText = player.avgP1OReb;
+                avgAst.innerText = player.avgP1Ast;
+                avgStl.innerText = player.avgP1Stl;
+                avgBlk.innerText = player.avgP1Blk;
+                avgFls.innerText = player.avgP1Fls;
+                avgTov.innerText = player.avgP1Tov;
+                fgp.innerText = player.fgpP1;
+                tpp.innerText = player.tppP1;
+                ftp.innerText = player.ftpP1;
+            }
+            
+
+            row.appendChild(name);
+            row.appendChild(avgMin);
+            row.appendChild(avgPts);
+            row.appendChild(avgReb);
+            row.appendChild(avgDReb);
+            row.appendChild(avgOReb);
+            row.appendChild(avgAst);
+            row.appendChild(avgStl);
+            row.appendChild(avgBlk);
+            row.appendChild(avgFls);
+            row.appendChild(avgTov);
+            row.appendChild(fgp);
+            row.appendChild(tpp);
+            row.appendChild(ftp);
+            
+
+            statsPanel.children[0].children[1].appendChild(row);
+        });
+        checkerTeam = team1;
+    }else{
+        team2.players.forEach(player => {
+            const row = document.createElement("tr");
+            const name = document.createElement("td");
+            const avgMin = document.createElement("td");
+            const avgPts = document.createElement('td');
+            const avgReb = document.createElement('td');
+            const avgDReb = document.createElement('td');
+            const avgOReb = document.createElement('td');
+            const avgAst = document.createElement("td");
+            const avgBlk = document.createElement('td');
+            const avgStl = document.createElement('td');
+            const avgFls = document.createElement('td');
+            const avgTov = document.createElement('td');
+            const fgp = document.createElement('td');
+            const tpp = document.createElement('td');
+            const ftp = document.createElement('td');
+
+            name.innerText = player.name;
+            if (series === 1){
+                avgMin.innerText = player.avgP1Min;
+                avgPts.innerText = player.avgP1Pts;
+                avgReb.innerText = Number((player.avgP1OReb + player.avgP1DReb).toFixed(1));
+                avgDReb.innerText = player.avgP1DReb;
+                avgOReb.innerText = player.avgP1OReb;
+                avgAst.innerText = player.avgP1Ast;
+                avgStl.innerText = player.avgP1Stl;
+                avgBlk.innerText = player.avgP1Blk;
+                avgFls.innerText = player.avgP1Fls;
+                avgTov.innerText = player.avgP1Tov;
+                fgp.innerText = player.fgpP1;
+                tpp.innerText = player.tppP1;
+                ftp.innerText = player.ftpP1;
+            }
+            
+
+            row.appendChild(name);
+            row.appendChild(avgMin);
+            row.appendChild(avgPts);
+            row.appendChild(avgReb);
+            row.appendChild(avgDReb);
+            row.appendChild(avgOReb);
+            row.appendChild(avgAst);
+            row.appendChild(avgStl);
+            row.appendChild(avgBlk);
+            row.appendChild(avgFls);
+            row.appendChild(avgTov);
+            row.appendChild(fgp);
+            row.appendChild(tpp);
+            row.appendChild(ftp);
+            
+
+            statsPanel.children[0].children[1].appendChild(row);
+        });
+        checkerTeam = team2;
+    }
+    
+}
+
+
+function simAPlayOffGame(team1, team2, panel, series){
     if (panel.includes("4:") || panel.includes(":4")){
         return;
     }
@@ -237,15 +378,15 @@ function simAPlayOffGame(team1, team2, panel){
         team1 = team2;
         team2 = sub;
     }
-    aGame(team1, team2, true);
+    aGame(team1, team2, true, series);
 }
 
-function simSeries(team1, team2, panel){
+function simSeries(team1, team2, panel, series){
     if (panel.includes("4:") || panel.includes(":4")){
         return;
     }
     while (team1.playOffWinTemp !== 4 && team2.playOffWinTemp !== 4){
-        simAPlayOffGame(team1, team2, panel);
+        simAPlayOffGame(team1, team2, panel, series);
     }
 }
 
@@ -257,7 +398,8 @@ function simPlayoffs(){
     
 }
 
-
 window.closePanel = function(){
     panel.style.display = "none";
+    statsPanel.style.display = "none";
+    
 }

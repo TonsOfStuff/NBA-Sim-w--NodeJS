@@ -548,7 +548,7 @@ window.testP = function(){
     playOffs();
 }
 
-export function aGame(chosenTeam1, chosenTeam2, playOff = false, display = true){
+export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true){
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
@@ -673,10 +673,19 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, display = true)
     }
 
     team1.players.forEach(player => {
-        player.statsUpdate();
+        if (!playOff){
+            player.statsUpdate();
+        }else{
+            player.statsPlayoffs(series)
+        }
+        
     });
     team2.players.forEach(player => {
-        player.statsUpdate();
+        if (!playOff){
+            player.statsUpdate();
+        }else{
+            player.statsPlayoffs(series)
+        }
     });
 }
 

@@ -187,6 +187,38 @@ export class Player{
 
         this.championships = 0;
         this.finalsMVP = 0;
+
+        //Playoff stats
+        this.playoffP1GamesPlayed = 0;
+
+        this.avgP1Min = 0;
+        this.avgP1Pts = 0;
+        this.avgP1Ast = 0;
+        this.avgP1DReb = 0;
+        this.avgP1OReb = 0;
+        this.avgP1Stl = 0;
+        this.avgP1Blk = 0;
+        this.avgP1Fls = 0;
+        this.avgP1Tov = 0;
+        this.fgpP1 = 0;
+        this.tppP1 = 0;
+        this.ftpP1 = 0;
+
+        this.p1TotalMin = 0;
+        this.p1TotalPts = 0;
+        this.p1TotalAst = 0;
+        this.p1TotalOReb = 0;
+        this.p1TotalDReb = 0;
+        this.p1TotalStl = 0;
+        this.p1TotalBlk = 0;
+        this.p1TotalFls = 0;
+        this.p1TotalTov = 0;
+        this.p1TotalFGA = 0;
+        this.p1TotalFGM = 0;
+        this.p1TotalTPA = 0;
+        this.p1TotalTPM = 0;
+        this.p1TotalFTA = 0;
+        this.p1TotalFTM = 0;
     }
 
     calcOvr() {
@@ -1189,6 +1221,15 @@ export class Player{
             this.tpp = Number((this.seasonTotalTPM / this.seasonTotalTPA).toFixed(2));
             this.ftp = Number((this.seasonTotalFTM / this.seasonTotalFTA).toFixed(2));
 
+            if (this.fgp === Infinity || isNaN(this.fgp)){
+                this.fgp = 0;
+            }
+            if (this.tpp === Infinity || isNaN(this.tpp)){
+                this.tpp = 0;
+            }
+            if (this.ftp === Infinity || isNaN(this.ftp)){
+                this.ftp = 0;
+            }
 
             //Career updates
             this.careerTotalMin += this.min;
@@ -1220,6 +1261,15 @@ export class Player{
             this.careerAvgTP = Number((this.careerTotalTPM / this.careerTotalTPA).toFixed(2));
             this.careerAvgFT = Number((this.careerTotalFTM / this.careerTotalFTA).toFixed(2));
 
+            if (this.careerAvgFG === Infinity || isNaN(this.careerAvgFG)){
+                this.careerAvgFG = 0;
+            }
+            if (this.careerAvgTP === Infinity || isNaN(this.careerAvgTP)){
+                this.careerAvgTP = 0;
+            }
+            if (this.careerAvgFT === Infinity || isNaN(this.careerAvgFT)){
+                this.careerAvgFT = 0;
+            }
 
 
             //Reset game stats
@@ -1240,5 +1290,70 @@ export class Player{
             this.ftm = 0;
             this.boxMinus = 0;
         }
+    }
+
+    statsPlayoffs(series){
+        if (this.min != 0){
+            if (series === 1){
+                this.playoffP1GamesPlayed += 1;
+
+                this.p1TotalMin += this.min;
+                this.p1TotalPts += this.pts;
+                this.p1TotalDReb += this.dReb;
+                this.p1TotalOReb += this.oReb;
+                this.p1TotalAst += this.ast;
+                this.p1TotalStl += this.stl;
+                this.p1TotalBlk += this.blk;
+                this.p1TotalFls += this.fls;
+                this.p1TotalTov += this.tov;
+                this.p1TotalFGA += this.fga;
+                this.p1TotalFGM += this.fgm;
+                this.p1TotalTPA += this.tpa;
+                this.p1TotalTPM += this.tpm;
+                this.p1TotalFTA += this.fta;
+                this.p1TotalFTM += this.ftm;
+
+                this.avgP1Min = Number((this.p1TotalMin / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Pts = Number((this.p1TotalPts / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Ast = Number((this.p1TotalAst / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1DReb = Number((this.p1TotalDReb / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1OReb = Number((this.p1TotalOReb / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Stl = Number((this.p1TotalStl / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Blk = Number((this.p1TotalBlk / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Fls = Number((this.p1TotalFls / this.playoffP1GamesPlayed).toFixed(1));
+                this.avgP1Tov = Number((this.p1TotalTov / this.playoffP1GamesPlayed).toFixed(1));
+                this.fgpP1 = Number((this.p1TotalFGM / this.p1TotalFGA).toFixed(2));
+                this.tppP1 = Number((this.p1TotalTPM / this.p1TotalTPA).toFixed(2));
+                this.ftpP1 = Number((this.p1TotalFTA / this.p1TotalFTM).toFixed(2));
+
+                if (this.fgpP1 === Infinity || isNaN(this.fgpP1)){
+                    this.fgpP1 = 0;
+                }
+                if (this.tppP1 === Infinity || isNaN(this.tppP1)){
+                    this.tppP1 = 0;
+                }
+                if (this.ftpP1 === Infinity || isNaN(this.ftpP1)){
+                    this.ftpP1 = 0;
+                }
+            }
+        }
+
+        //Reset game stats
+        this.min = 0;
+        this.pts = 0;
+        this.ast = 0;
+        this.dReb = 0;
+        this.oReb = 0;
+        this.stl = 0;
+        this.blk = 0;
+        this.fls = 0;
+        this.tov = 0;
+        this.fga = 0;
+        this.fgm = 0;
+        this.tpa = 0;
+        this.tpm = 0;
+        this.fta = 0;
+        this.ftm = 0;
+        this.boxMinus = 0;
     }
 }

@@ -29,7 +29,7 @@ header a{
     font-size: 13px;
 }
 
-th, td{
+#statsPage th, #statsPage td{
     border: 1px solid rgb(69, 69, 69);
 }
 
@@ -37,11 +37,11 @@ td.highlight, th.highlight {
     background-color: #a6993b; /* soft yellow, change if you want */
 }
 
-th,td{
+#statsPage th, #statsPage td{
     padding: 4px;
 }
 
-th{
+#statsPage th{
     min-width: 130px;
 }
 
@@ -57,6 +57,26 @@ th{
 
 
 /*Playoff UI*/
+#statsPanel{
+    position: absolute;
+    position-area: center;
+
+    background-color: rgba(255, 255, 255, 0.895);
+    height: 65%;
+    width: 50%;
+    padding: 15px;
+    font-size: 12px;
+    overflow-y: scroll;
+}
+
+#statsPanel th, #statsPanel td{
+    border: 1px solid rgb(69, 69, 69);
+}
+
+#statsBox{
+    width: 100%;
+}
+
 #controlPanel{
     position: absolute;
     position-area: center;
