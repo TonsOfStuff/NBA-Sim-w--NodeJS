@@ -5,6 +5,7 @@ await load();
 const panel = document.getElementById("controlPanel");
 const statsPanel = document.getElementById("statsPanel");
 const checkOtherTeam = document.getElementById("checkOtherTeam");
+const contButton = document.getElementById("contButton");
 
 const firstRound = document.querySelectorAll("#firstRound");
 const secondRound = document.querySelectorAll("#secondRound");
@@ -67,6 +68,7 @@ const series13 = []
 const series14 = []
 
 const series15 = []
+let finalsWinner = null;
 
 
 firstRound1Button.innerHTML = series1[0].abr + "(" + series1[0].confSeed + ")" + " v " + series1[1].abr + "(" + series1[1].confSeed + ")<br>" + series1[0].playOffWinTemp + ":" + series1[1].playOffWinTemp
@@ -235,6 +237,10 @@ function checkDone(team1, team2, simButton, newHandler, buttonSeries){
                 series15.push(winTeam);
                 addButtonFunc(series15, buttons[14]);
             }
+        }
+        else{
+            finalsWinner = winTeam;
+            contButton.style.display = "block";
         }
         
     }else{
@@ -502,4 +508,19 @@ window.closePanel = function(){
     panel.style.display = "none";
     statsPanel.style.display = "none";
     
+}
+
+window.offSeason = function(){
+    endSeason();
+}
+
+function endSeason(){
+    finalsWinner.players.forEach(player => {
+        player.calcFinalsMVP();
+    });
+
+    finalsWinner.players.sort((a,b) => b.finalsMVPNum - a.finalsMVPNum);
+    finalsWinner.players[0].finalsMVP += 1;
+
+    console.log(finalsWinner.players[0].name);
 }

@@ -191,7 +191,7 @@ export class Team{
         this.lineup.splice(0, this.lineup.length);
 
         if (insertStart === false){
-            const top = this.players.sort((a, b) => (b.stamina + b.boxMinus * 2) - (a.stamina + a.boxMinus * 2)).slice(0, smartSubNum);
+            const top = this.players.sort((a, b) => (b.stamina - b.min + b.fgm) - (a.stamina - a.min + a.fgm)).slice(0, smartSubNum);
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]

@@ -315,6 +315,8 @@ export class Player{
         this.p4TotalTPM = 0;
         this.p4TotalFTA = 0;
         this.p4TotalFTM = 0;
+
+        this.finalsMVPNum = 0;
     }
 
     calcOvr() {
@@ -327,8 +329,12 @@ export class Player{
     }
 
     calcAwardsVal(){
-        this.mvpNum = Number((this.avgPts + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 + this.fgp / 15 + this.tpp / 7 + this.ftp / 30 - this.avgFls - this.avgTov).toFixed(3));
+        this.mvpNum = Number((this.avgPts + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 - this.avgFls - this.avgTov).toFixed(3));
         this.dpoyNum = Number((this.avgStl * 2 + this.avgBlk * 9 + this.avgDReb * 3 + this.avgOReb + 2).toFixed(3));
+    }
+
+    calcFinalsMVP(){
+        this.finalsMVPNum = Number((this.avgP4Pts + this.avgP4Ast * 1.1 + this.avgP4DReb * 1.05 + this.avgP4OReb * 1.05 + this.avgP4Stl * 2 + this.avgP4Blk * 3.4 - this.avgP4Fls - this.avgP4Tov).toFixed(3));
     }
 
     shooting(defense, time){
@@ -344,10 +350,10 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 87;
-        const twoStress = 180;
-        const threeStress = 255;
-        let drawFreeThrowAmount = 50;
+        let insideStress = 1400;
+        const twoStress = 1500;
+        const threeStress = 2400;
+        let drawFreeThrowAmount = 45;
         const freeThrowDiff = 110;
 
         //Archetype Effect
@@ -373,7 +379,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.inside + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
+            if (Math.pow(this.inside, 1.5) + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -424,7 +430,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.inside + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
+            if (Math.pow(this.inside, 1.5) + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -471,7 +477,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -518,7 +524,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -565,7 +571,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -612,7 +618,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -659,7 +665,7 @@ export class Player{
             if(defense.block(this)){
                 return false;
             }
-            if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                 this.fgm += 1;
                 this.pts += 2;
                 this.team.calcBoxMinus(2);
@@ -707,7 +713,7 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
+            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
@@ -762,7 +768,7 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
+            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
@@ -817,7 +823,7 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
+            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
@@ -872,7 +878,7 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
+            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
@@ -927,7 +933,7 @@ export class Player{
             if(defense.block(this, true)){
                 return false;
             }
-            if (this.threePt + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
+            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
                 this.fgm += 1;
                 this.tpm += 1;
                 this.pts += 3;
@@ -978,7 +984,7 @@ export class Player{
         }else{
             if (Math.round(Math.random() * 5) === 1){
                 this.fga += 1;
-                if (this.twoPt + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+                if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                     this.fgm += 1;
                     this.pts += 2;
                     this.team.calcBoxMinus(2);
@@ -1135,13 +1141,13 @@ export class Player{
             }
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 1;
+                passingAmount -= 5;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 3;
+                passingAmount -= 8;
             }
             else if (this.otherTeammates[i].fga > 40){
-                passingAmount -= 5;
+                passingAmount -= 10;
             }
             if (passingAmount < 0){
                 passingAmount = 0;
@@ -1210,7 +1216,9 @@ export class Player{
             oPToReb.oReb += 1;
             return oPToReb;
         } else {
-            dPToReb.dReb += 1;
+            if (Math.round(Math.random() * 8) > 1){
+                dPToReb.dReb += 1;
+            }   
             return dPToReb;
         }
     }
