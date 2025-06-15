@@ -9,12 +9,12 @@ router.post("/saveTeams", async (req, res) => {
         await connection.execute("DELETE FROM teams");
 
         for (const team of teams) {
-            try {
-                await saveTeams(team);
-            } catch (err) {
-                console.error("Error saving team:", team.name, err);
-                throw err; 
-            }
+          try {
+              await saveTeams(team);
+          } catch (err) {
+              console.error("Error saving team:", team.name, err);
+              throw err; 
+          }
         }
 
         res.status(200).json({ message: 'Teams saved successfully' });

@@ -90,6 +90,7 @@ export async function savePlayer(player) {
 
 
 export async function saveTeams(team){
+
   const sql = `INSERT INTO teams (
     name, inEast, abr, wins, losses, oldWins, oldLosses, seed,
     oldSeed, startingLineupOne, startingLineupTwo, startingLineupThree,

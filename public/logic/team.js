@@ -215,8 +215,6 @@ export class Team{
         for (let i = 0; i < allTeams.length; i++){
             if (this === allTeams[i]){
                 this.seed = (i + 1);
-                console.log(i)
-                console.log(this.seed)
             }
         }
 

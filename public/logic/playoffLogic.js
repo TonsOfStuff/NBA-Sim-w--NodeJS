@@ -231,10 +231,12 @@ function checkDone(team1, team2, simButton, newHandler, buttonSeries){
         else if (buttonSeries === buttons[12] || buttonSeries === buttons[13]){
             if (!buttons[14].textContent.includes("(")){
                 buttons[14].innerHTML = winTeam.abr + "(" + winTeam.confSeed + ")"
+                winTeam.finalsAppearances += 1;
                 series15.push(winTeam);
             }else{
                 buttons[14].innerHTML += " v " + winTeam.abr + "(" + winTeam.confSeed + ")<br> 0:0"
                 series15.push(winTeam);
+                winTeam.finalsAppearances += 1;
                 addButtonFunc(series15, buttons[14]);
             }
         }
@@ -515,6 +517,8 @@ window.offSeason = function(){
 }
 
 function endSeason(){
+    finalsWinner.championships += 1;
+
     finalsWinner.players.forEach(player => {
         player.calcFinalsMVP();
     });

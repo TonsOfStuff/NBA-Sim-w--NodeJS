@@ -20,6 +20,10 @@ app.get("/stats", async (req, res) => {
     res.send ( await readFile ('./public/stats.html', "utf8"));
 });
 
+app.get("/teamStats", async (req, res) => {
+    res.send ( await readFile ('./public/teamStats.html', "utf8"));
+});
+
 app.get("/playoffs", async (req, res) => {
     res.send( await readFile ('./public/playoff.html', "utf8"));
 });
@@ -29,6 +33,16 @@ app.get("/api/stats", async (req, res) => {
         const [rows] = await connection.query('SELECT * FROM players');
         res.json(rows);
     } catch (err) {
+        console.error(err);
+        res.status(500).send("Error loading data");
+    }
+});
+
+app.get("/api/teamStats", async (req, res) => {
+    try{
+        const [rows] = await connection.query("SELECT * FROM teams");
+        res.json(rows);
+    }catch (err){
         console.error(err);
         res.status(500).send("Error loading data");
     }
