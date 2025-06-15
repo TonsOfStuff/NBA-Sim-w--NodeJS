@@ -219,6 +219,102 @@ export class Player{
         this.p1TotalTPM = 0;
         this.p1TotalFTA = 0;
         this.p1TotalFTM = 0;
+
+
+        this.playoffP2GamesPlayed = 0;
+
+        this.avgP2Min = 0;
+        this.avgP2Pts = 0;
+        this.avgP2Ast = 0;
+        this.avgP2DReb = 0;
+        this.avgP2OReb = 0;
+        this.avgP2Stl = 0;
+        this.avgP2Blk = 0;
+        this.avgP2Fls = 0;
+        this.avgP2Tov = 0;
+        this.fgpP2 = 0;
+        this.tppP2 = 0;
+        this.ftpP2 = 0;
+
+        this.p2TotalMin = 0;
+        this.p2TotalPts = 0;
+        this.p2TotalAst = 0;
+        this.p2TotalOReb = 0;
+        this.p2TotalDReb = 0;
+        this.p2TotalStl = 0;
+        this.p2TotalBlk = 0;
+        this.p2TotalFls = 0;
+        this.p2TotalTov = 0;
+        this.p2TotalFGA = 0;
+        this.p2TotalFGM = 0;
+        this.p2TotalTPA = 0;
+        this.p2TotalTPM = 0;
+        this.p2TotalFTA = 0;
+        this.p2TotalFTM = 0;
+
+
+        this.playoffP3GamesPlayed = 0;
+
+        this.avgP3Min = 0;
+        this.avgP3Pts = 0;
+        this.avgP3Ast = 0;
+        this.avgP3DReb = 0;
+        this.avgP3OReb = 0;
+        this.avgP3Stl = 0;
+        this.avgP3Blk = 0;
+        this.avgP3Fls = 0;
+        this.avgP3Tov = 0;
+        this.fgpP3 = 0;
+        this.tppP3 = 0;
+        this.ftpP3 = 0;
+
+        this.p3TotalMin = 0;
+        this.p3TotalPts = 0;
+        this.p3TotalAst = 0;
+        this.p3TotalOReb = 0;
+        this.p3TotalDReb = 0;
+        this.p3TotalStl = 0;
+        this.p3TotalBlk = 0;
+        this.p3TotalFls = 0;
+        this.p3TotalTov = 0;
+        this.p3TotalFGA = 0;
+        this.p3TotalFGM = 0;
+        this.p3TotalTPA = 0;
+        this.p3TotalTPM = 0;
+        this.p3TotalFTA = 0;
+        this.p3TotalFTM = 0;
+
+
+        this.playoffP4GamesPlayed = 0;
+
+        this.avgP4Min = 0;
+        this.avgP4Pts = 0;
+        this.avgP4Ast = 0;
+        this.avgP4DReb = 0;
+        this.avgP4OReb = 0;
+        this.avgP4Stl = 0;
+        this.avgP4Blk = 0;
+        this.avgP4Fls = 0;
+        this.avgP4Tov = 0;
+        this.fgpP4 = 0;
+        this.tppP4 = 0;
+        this.ftpP4 = 0;
+
+        this.p4TotalMin = 0;
+        this.p4TotalPts = 0;
+        this.p4TotalAst = 0;
+        this.p4TotalOReb = 0;
+        this.p4TotalDReb = 0;
+        this.p4TotalStl = 0;
+        this.p4TotalBlk = 0;
+        this.p4TotalFls = 0;
+        this.p4TotalTov = 0;
+        this.p4TotalFGA = 0;
+        this.p4TotalFGM = 0;
+        this.p4TotalTPA = 0;
+        this.p4TotalTPM = 0;
+        this.p4TotalFTA = 0;
+        this.p4TotalFTM = 0;
     }
 
     calcOvr() {
@@ -1324,7 +1420,7 @@ export class Player{
                 this.avgP1Tov = Number((this.p1TotalTov / this.playoffP1GamesPlayed).toFixed(1));
                 this.fgpP1 = Number((this.p1TotalFGM / this.p1TotalFGA).toFixed(2));
                 this.tppP1 = Number((this.p1TotalTPM / this.p1TotalTPA).toFixed(2));
-                this.ftpP1 = Number((this.p1TotalFTA / this.p1TotalFTM).toFixed(2));
+                this.ftpP1 = Number((this.p1TotalFTM / this.p1TotalFTA).toFixed(2));
 
                 if (this.fgpP1 === Infinity || isNaN(this.fgpP1)){
                     this.fgpP1 = 0;
@@ -1334,6 +1430,129 @@ export class Player{
                 }
                 if (this.ftpP1 === Infinity || isNaN(this.ftpP1)){
                     this.ftpP1 = 0;
+                }
+            }else if (series === 2){
+                this.playoffP2GamesPlayed += 1;
+
+                this.p2TotalMin += this.min;
+                this.p2TotalPts += this.pts;
+                this.p2TotalDReb += this.dReb;
+                this.p2TotalOReb += this.oReb;
+                this.p2TotalAst += this.ast;
+                this.p2TotalStl += this.stl;
+                this.p2TotalBlk += this.blk;
+                this.p2TotalFls += this.fls;
+                this.p2TotalTov += this.tov;
+                this.p2TotalFGA += this.fga;
+                this.p2TotalFGM += this.fgm;
+                this.p2TotalTPA += this.tpa;
+                this.p2TotalTPM += this.tpm;
+                this.p2TotalFTA += this.fta;
+                this.p2TotalFTM += this.ftm;
+
+                this.avgP2Min = Number((this.p2TotalMin / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Pts = Number((this.p2TotalPts / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Ast = Number((this.p2TotalAst / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2DReb = Number((this.p2TotalDReb / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2OReb = Number((this.p2TotalOReb / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Stl = Number((this.p2TotalStl / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Blk = Number((this.p2TotalBlk / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Fls = Number((this.p2TotalFls / this.playoffP2GamesPlayed).toFixed(1));
+                this.avgP2Tov = Number((this.p2TotalTov / this.playoffP2GamesPlayed).toFixed(1));
+                this.fgpP2 = Number((this.p2TotalFGM / this.p2TotalFGA).toFixed(2));
+                this.tppP2 = Number((this.p2TotalTPM / this.p2TotalTPA).toFixed(2));
+                this.ftpP2 = Number((this.p2TotalFTM / this.p2TotalFTA).toFixed(2));
+
+                if (this.fgpP2 === Infinity || isNaN(this.fgpP2)){
+                    this.fgpP2 = 0;
+                }
+                if (this.tppP2 === Infinity || isNaN(this.tppP2)){
+                    this.tppP2 = 0;
+                }
+                if (this.ftpP2 === Infinity || isNaN(this.ftpP2)){
+                    this.ftpP2 = 0;
+                }
+            }else if (series === 3){
+                this.playoffP3GamesPlayed += 1;
+
+                this.p3TotalMin += this.min;
+                this.p3TotalPts += this.pts;
+                this.p3TotalDReb += this.dReb;
+                this.p3TotalOReb += this.oReb;
+                this.p3TotalAst += this.ast;
+                this.p3TotalStl += this.stl;
+                this.p3TotalBlk += this.blk;
+                this.p3TotalFls += this.fls;
+                this.p3TotalTov += this.tov;
+                this.p3TotalFGA += this.fga;
+                this.p3TotalFGM += this.fgm;
+                this.p3TotalTPA += this.tpa;
+                this.p3TotalTPM += this.tpm;
+                this.p3TotalFTA += this.fta;
+                this.p3TotalFTM += this.ftm;
+
+                this.avgP3Min = Number((this.p3TotalMin / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Pts = Number((this.p3TotalPts / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Ast = Number((this.p3TotalAst / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3DReb = Number((this.p3TotalDReb / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3OReb = Number((this.p3TotalOReb / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Stl = Number((this.p3TotalStl / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Blk = Number((this.p3TotalBlk / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Fls = Number((this.p3TotalFls / this.playoffP3GamesPlayed).toFixed(1));
+                this.avgP3Tov = Number((this.p3TotalTov / this.playoffP3GamesPlayed).toFixed(1));
+                this.fgpP3 = Number((this.p3TotalFGM / this.p3TotalFGA).toFixed(2));
+                this.tppP3 = Number((this.p3TotalTPM / this.p3TotalTPA).toFixed(2));
+                this.ftpP3 = Number((this.p3TotalFTM / this.p3TotalFTA).toFixed(2));
+
+                if (this.fgpP3 === Infinity || isNaN(this.fgpP3)){
+                    this.fgpP3 = 0;
+                }
+                if (this.tppP3 === Infinity || isNaN(this.tppP3)){
+                    this.tppP3 = 0;
+                }
+                if (this.ftpP3 === Infinity || isNaN(this.ftpP3)){
+                    this.ftpP3 = 0;
+                }
+            }else if (series === 4){
+                this.playoffP4GamesPlayed += 1;
+
+                this.p4TotalMin += this.min;
+                this.p4TotalPts += this.pts;
+                this.p4TotalDReb += this.dReb;
+                this.p4TotalOReb += this.oReb;
+                this.p4TotalAst += this.ast;
+                this.p4TotalStl += this.stl;
+                this.p4TotalBlk += this.blk;
+                this.p4TotalFls += this.fls;
+                this.p4TotalTov += this.tov;
+                this.p4TotalFGA += this.fga;
+                this.p4TotalFGM += this.fgm;
+                this.p4TotalTPA += this.tpa;
+                this.p4TotalTPM += this.tpm;
+                this.p4TotalFTA += this.fta;
+                this.p4TotalFTM += this.ftm;
+
+                this.avgP4Min = Number((this.p4TotalMin / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Pts = Number((this.p4TotalPts / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Ast = Number((this.p4TotalAst / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4DReb = Number((this.p4TotalDReb / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4OReb = Number((this.p4TotalOReb / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Stl = Number((this.p4TotalStl / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Blk = Number((this.p4TotalBlk / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Fls = Number((this.p4TotalFls / this.playoffP4GamesPlayed).toFixed(1));
+                this.avgP4Tov = Number((this.p4TotalTov / this.playoffP4GamesPlayed).toFixed(1));
+                this.fgpP4 = Number((this.p4TotalFGM / this.p4TotalFGA).toFixed(2));
+                this.tppP4 = Number((this.p4TotalTPM / this.p4TotalTPA).toFixed(2));
+                this.ftpP4 = Number((this.p4TotalFTM / this.p4TotalFTA).toFixed(2));
+
+                if (this.fgpP4 === Infinity || isNaN(this.fgpP4)){
+                    this.fgpP4 = 0;
+                }
+                if (this.tppP4 === Infinity || isNaN(this.tppP4)){
+                    this.tppP4 = 0;
+                }
+                if (this.ftpP4 === Infinity || isNaN(this.ftpP4)){
+                    this.ftpP4 = 0;
                 }
             }
         }

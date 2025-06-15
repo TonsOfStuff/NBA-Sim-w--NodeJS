@@ -60,6 +60,7 @@ td.highlight, th.highlight {
 #statsPanel{
     position: absolute;
     position-area: center;
+    display: none;
 
     background-color: rgba(255, 255, 255, 0.895);
     height: 65%;
@@ -73,6 +74,10 @@ td.highlight, th.highlight {
     border: 1px solid rgb(69, 69, 69);
 }
 
+#statsPanel button{
+
+}
+
 #statsBox{
     width: 100%;
 }
@@ -80,13 +85,13 @@ td.highlight, th.highlight {
 #controlPanel{
     position: absolute;
     position-area: center;
+    display: none;
 
     background-color: rgba(134, 134, 134, 0.703);
     height: 65%;
     width: 50%;
     padding: 15px;
-
-    display: grid;
+    
     grid-template-columns: 1fr 1fr;
 }
 

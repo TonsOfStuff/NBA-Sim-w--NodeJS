@@ -121,13 +121,17 @@ function addButtonFunc(series, button){
         const simButton = panel.children[1].children[0];
         const simSeriesButton = panel.children[1].children[1];
         const simPlayoffsButton = panel.children[1].children[2];
+        const viewStats = panel.children[1].children[3];
 
         const newSimButton = simButton.cloneNode(true);
         const newSimSeriesButton = simSeriesButton.cloneNode(true);
         const newSimPlayoffsButton = simPlayoffsButton.cloneNode(true);
+        const newViewStats = viewStats.cloneNode(true);
         simButton.replaceWith(newSimButton);
         simSeriesButton.replaceWith(newSimSeriesButton);
         simPlayoffsButton.replaceWith(newSimPlayoffsButton);
+        viewStats.replaceWith(newViewStats);
+
         let seriesNum = 1
         if (series === series9 || series === series10 || series === series11 || series === 12){
             seriesNum = 2
@@ -139,9 +143,11 @@ function addButtonFunc(series, button){
 
         const simHandler = () => {simAPlayOffGame(series[0], series[1], button.textContent, seriesNum); checkDone(series[0], series[1], newSimButton, simHandler, button)};
         const simSeriesHandler = () => {simSeries(series[0], series[1], button.textContent, seriesNum); checkDone(series[0], series[1], newSimSeriesButton, simHandler, button)};
-        
+        const viewStatsHandler = () => {openStatsMenu(series[0], series[1], seriesNum)}
+
         newSimButton.addEventListener("click", simHandler);
         newSimSeriesButton.addEventListener("click", simSeriesHandler);
+        newViewStats.addEventListener("click", viewStatsHandler);
         const simPlayoffsHandler = () => {simPlayoffs(); };
         newSimPlayoffsButton.addEventListener("click", simPlayoffsHandler)
     });
@@ -250,10 +256,15 @@ function openStatsMenu(team1, team2, series){
 
     checkOtherTeam.onclick = () => openStatsMenu(team1, team2, series);
 
-    while (statsPanel.children[0].children[1].firstChild){
-        statsPanel.children[0].children[1].removeChild(statsPanel.children[0].children[1].firstChild);
+    while (statsPanel.children[1].children[1].firstChild){
+        statsPanel.children[1].children[1].removeChild(statsPanel.children[1].children[1].firstChild);
     }
     if (checkerTeam === team2){
+        statsPanel.children[0].innerText = team1.name;
+        if (series === 1) team1.players.sort((a,b) => b.avgP1Pts - a.avgP1Pts)
+        if (series === 2) team1.players.sort((a,b) => b.avgP2Pts - a.avgP2Pts)
+        if (series === 3) team1.players.sort((a,b) => b.avgP3Pts - a.avgP3Pts)
+        if (series === 4) team1.players.sort((a,b) => b.avgP4Pts - a.avgP4Pts)
         team1.players.forEach(player => {
             const row = document.createElement("tr");
             
@@ -287,6 +298,48 @@ function openStatsMenu(team1, team2, series){
                 fgp.innerText = player.fgpP1;
                 tpp.innerText = player.tppP1;
                 ftp.innerText = player.ftpP1;
+            }else if (series === 2){
+                avgMin.innerText = player.avgP2Min;
+                avgPts.innerText = player.avgP2Pts;
+                avgReb.innerText = Number((player.avgP2OReb + player.avgP2DReb).toFixed(1));
+                avgDReb.innerText = player.avgP2DReb;
+                avgOReb.innerText = player.avgP2OReb;
+                avgAst.innerText = player.avgP2Ast;
+                avgStl.innerText = player.avgP2Stl;
+                avgBlk.innerText = player.avgP2Blk;
+                avgFls.innerText = player.avgP2Fls;
+                avgTov.innerText = player.avgP2Tov;
+                fgp.innerText = player.fgpP2;
+                tpp.innerText = player.tppP2;
+                ftp.innerText = player.ftpP2;
+            }else if (series === 3){
+                avgMin.innerText = player.avgP3Min;
+                avgPts.innerText = player.avgP3Pts;
+                avgReb.innerText = Number((player.avgP3OReb + player.avgP3DReb).toFixed(1));
+                avgDReb.innerText = player.avgP3DReb;
+                avgOReb.innerText = player.avgP3OReb;
+                avgAst.innerText = player.avgP3Ast;
+                avgStl.innerText = player.avgP3Stl;
+                avgBlk.innerText = player.avgP3Blk;
+                avgFls.innerText = player.avgP3Fls;
+                avgTov.innerText = player.avgP3Tov;
+                fgp.innerText = player.fgpP3;
+                tpp.innerText = player.tppP3;
+                ftp.innerText = player.ftpP3;
+            }else if (series === 4){
+                avgMin.innerText = player.avgP4Min;
+                avgPts.innerText = player.avgP4Pts;
+                avgReb.innerText = Number((player.avgP4OReb + player.avgP4DReb).toFixed(1));
+                avgDReb.innerText = player.avgP4DReb;
+                avgOReb.innerText = player.avgP4OReb;
+                avgAst.innerText = player.avgP4Ast;
+                avgStl.innerText = player.avgP4Stl;
+                avgBlk.innerText = player.avgP4Blk;
+                avgFls.innerText = player.avgP4Fls;
+                avgTov.innerText = player.avgP4Tov;
+                fgp.innerText = player.fgpP4;
+                tpp.innerText = player.tppP4;
+                ftp.innerText = player.ftpP4;
             }
             
 
@@ -306,10 +359,15 @@ function openStatsMenu(team1, team2, series){
             row.appendChild(ftp);
             
 
-            statsPanel.children[0].children[1].appendChild(row);
+            statsPanel.children[1].children[1].appendChild(row);
         });
         checkerTeam = team1;
     }else{
+        statsPanel.children[0].innerText = team2.name;
+        if (series === 1) team2.players.sort((a,b) => b.avgP1Pts - a.avgP1Pts)
+        if (series === 2) team2.players.sort((a,b) => b.avgP2Pts - a.avgP2Pts)
+        if (series === 3) team2.players.sort((a,b) => b.avgP3Pts - a.avgP3Pts)
+        if (series === 4) team2.players.sort((a,b) => b.avgP4Pts - a.avgP4Pts)
         team2.players.forEach(player => {
             const row = document.createElement("tr");
             const name = document.createElement("td");
@@ -342,6 +400,48 @@ function openStatsMenu(team1, team2, series){
                 fgp.innerText = player.fgpP1;
                 tpp.innerText = player.tppP1;
                 ftp.innerText = player.ftpP1;
+            }else if (series === 2){
+                avgMin.innerText = player.avgP2Min;
+                avgPts.innerText = player.avgP2Pts;
+                avgReb.innerText = Number((player.avgP2OReb + player.avgP2DReb).toFixed(1));
+                avgDReb.innerText = player.avgP2DReb;
+                avgOReb.innerText = player.avgP2OReb;
+                avgAst.innerText = player.avgP2Ast;
+                avgStl.innerText = player.avgP2Stl;
+                avgBlk.innerText = player.avgP2Blk;
+                avgFls.innerText = player.avgP2Fls;
+                avgTov.innerText = player.avgP2Tov;
+                fgp.innerText = player.fgpP2;
+                tpp.innerText = player.tppP2;
+                ftp.innerText = player.ftpP2;
+            }else if (series === 3){
+                avgMin.innerText = player.avgP3Min;
+                avgPts.innerText = player.avgP3Pts;
+                avgReb.innerText = Number((player.avgP3OReb + player.avgP3DReb).toFixed(1));
+                avgDReb.innerText = player.avgP3DReb;
+                avgOReb.innerText = player.avgP3OReb;
+                avgAst.innerText = player.avgP3Ast;
+                avgStl.innerText = player.avgP3Stl;
+                avgBlk.innerText = player.avgP3Blk;
+                avgFls.innerText = player.avgP3Fls;
+                avgTov.innerText = player.avgP3Tov;
+                fgp.innerText = player.fgpP3;
+                tpp.innerText = player.tppP3;
+                ftp.innerText = player.ftpP3;
+            }else if (series === 4){
+                avgMin.innerText = player.avgP4Min;
+                avgPts.innerText = player.avgP4Pts;
+                avgReb.innerText = Number((player.avgP4OReb + player.avgP4DReb).toFixed(1));
+                avgDReb.innerText = player.avgP4DReb;
+                avgOReb.innerText = player.avgP4OReb;
+                avgAst.innerText = player.avgP4Ast;
+                avgStl.innerText = player.avgP4Stl;
+                avgBlk.innerText = player.avgP4Blk;
+                avgFls.innerText = player.avgP4Fls;
+                avgTov.innerText = player.avgP4Tov;
+                fgp.innerText = player.fgpP4;
+                tpp.innerText = player.tppP4;
+                ftp.innerText = player.ftpP4;
             }
             
 
@@ -361,7 +461,7 @@ function openStatsMenu(team1, team2, series){
             row.appendChild(ftp);
             
 
-            statsPanel.children[0].children[1].appendChild(row);
+            statsPanel.children[1].children[1].appendChild(row);
         });
         checkerTeam = team2;
     }
