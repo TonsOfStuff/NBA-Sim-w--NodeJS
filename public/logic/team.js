@@ -86,6 +86,7 @@ export class Team{
     updateMin(){
         this.lineup.forEach(player => {
             player.min += 1;
+            player.energyUsed += 5;
         });
     }
 
@@ -109,7 +110,7 @@ export class Team{
         });
 
         let sub = [...this.players];
-        sub.sort((a,b) => (b.mvpNum + b.fgp) - (a.mvpNum + a.fgp));
+        sub.sort((a,b) => ((b.mvpNum) / b.avgMin) - ((a.mvpNum) / a.avgMin));
 
         this.startingLineup = [];
 
@@ -191,16 +192,24 @@ export class Team{
         this.lineup.splice(0, this.lineup.length);
 
         if (insertStart === false){
-            const top = this.players.sort((a, b) => (b.stamina - b.min + b.fgm) - (a.stamina - a.min + a.fgm)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus) - (a.stamina - a.energyUsed - a.min + a.boxMinus)).slice(0, smartSubNum);
+            top.push(top[0]);
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]
                 this.lineup.push(chosen);
-                top.splice(top.indexOf(chosen), 1);
+                top = top.filter(p => p !== chosen);
             }
         }else{
             this.lineup = [...this.startingLineup];
         }
+        //Reset energy used
+        this.players.forEach(player => {
+            if (!this.lineup.includes(player)){
+                player.energyUsed = 0;
+            }
+        })
+
         this.setPositions()
     }
 

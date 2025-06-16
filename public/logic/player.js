@@ -85,6 +85,8 @@ export class Player{
         this.ftm = 0;
         this.boxMinus = 0;
 
+        this.energyUsed = 0;
+
         //Season stats
         this.gamesPlayed = 0;
         this.gamesStarted = 0;
@@ -1394,6 +1396,8 @@ export class Player{
             this.fta = 0;
             this.ftm = 0;
             this.boxMinus = 0;
+
+            this.energyUsed = 0;
         }
     }
 
@@ -1583,6 +1587,8 @@ export class Player{
         this.fta = 0;
         this.ftm = 0;
         this.boxMinus = 0;
+
+        this.energyUsed = 0;
     }
 
 
@@ -1868,5 +1874,47 @@ export class Player{
                 }
             }
         }
+
+        if (this.twoPt > 99) this.twoPt = 99;
+        else if (this.threePt > 99) this.threePt = 99;
+        else if (this.freeThrow > 99) this.freeThrow = 99;
+        else if (this.inside > 99) this.inside = 99;
+        else if (this.insideTen > 99) this.insideTen = 99;
+        else if (this.closeTen > 99) this.closeTen = 99;
+        else if (this.passingAccuracy > 99) this.passingAccuracy = 99;
+        else if (this.defensiveReb > 99) this.defensiveReb = 99;
+        else if (this.offensiveReb > 99) this.offensiveReb = 99;
+        else if (this.offensiveAbility > 99) this.offensiveAbility = 99;
+        else if (this.defensiveAbility > 99) this.defensiveAbility = 99;
+        else if (this.blockTen > 99) this.blockTen = 99;
+        else if (this.stealTen > 99) this.stealTen = 99;
+        else if (this.stamina > 99) this.stamina = 99;
+        else if (this.hustle > 99) this.hustle = 99;
+        else if (this.vertical > 99) this.vertical = 99;
+        else if (this.ballControl > 99) this.ballControl = 99;
+        else if (this.catching > 99) this.catching = 99;
+        else if (this.drawFoul > 99) this.drawFoul = 99;
+
+        if (this.twoPt < 0) this.twoPt = 0;
+        else if (this.threePt < 0) this.threePt = 0;
+        else if (this.freeThrow < 0) this.freeThrow = 0;
+        else if (this.inside < 0) this.inside = 0;
+        else if (this.insideTen < 0) this.insideTen = 0;
+        else if (this.closeTen < 0) this.closeTen = 0;
+        else if (this.passingAccuracy < 0) this.passingAccuracy = 0;
+        else if (this.defensiveReb < 0) this.defensiveReb = 0;
+        else if (this.offensiveReb < 0) this.offensiveReb = 0;
+        else if (this.offensiveAbility < 0) this.offensiveAbility = 0;
+        else if (this.defensiveAbility < 0) this.defensiveAbility = 0;
+        else if (this.blockTen < 0) this.blockTen = 0;
+        else if (this.stealTen < 0) this.stealTen = 0;
+        else if (this.stamina < 0) this.stamina = 0;
+        else if (this.hustle < 0) this.hustle = 0;
+        else if (this.vertical < 0) this.vertical = 0;
+        else if (this.ballControl < 0) this.ballControl = 0;
+        else if (this.catching < 0) this.catching = 0;
+        else if (this.drawFoul < 0) this.drawFoul = 0;
+
+        this.calcOvr();
     }
 }

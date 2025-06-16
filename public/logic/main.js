@@ -466,11 +466,23 @@ export async function load(){
     console.log("loaded")
 }
 
-window.loading = function (){
-    load();
+window.loading = async function (){
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.textContent = "Loading...";
+    loadingScreen.style.display = "flex"; 
+
+    await load();
+
+    loadingScreen.style.display = "none";
 }
-window.saving = function(){
-    save(allPlayers, allTeams);
+window.saving = async function(){
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.textContent = "Saving...";
+    loadingScreen.style.display = "flex"; 
+
+    await save(allPlayers, allTeams);
+
+    loadingScreen.style.display = "none";
 }
 
 //Function for subbing
@@ -478,7 +490,7 @@ function subbing(quarter, time, team1, team2, possesion, insertStart = false){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
-    if (insertStart === false && Math.random() * 3 < 1){
+    if (insertStart === false && Math.random() * 7 < 1){
         insertStart = true;
     }
     team1.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
@@ -522,10 +534,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Redirected from playoffs");
         await load()
         sessionStorage.removeItem("redirect");
+        console.log(allTeams)
+        console.log(allPlayers);
     }
 
-    console.log(allTeams);
-    console.log(allPlayers);
 });
 
 window.test = function(){
@@ -571,7 +583,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     const team2 = chosenTeam2;
     let quarter = 1;
     const theTime = 12 * 17;
-    const subFreq = 80;
+    const subFreq = 100;
     
     //Init teams
     if (day % 20 === 0){
@@ -599,7 +611,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
-    subbing(quarter + 1, 0, team1, team2, team1, true);
+    subbing(quarter + 1, 0, team1, team2, team1);
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 2
@@ -625,7 +637,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
-    subbing(quarter + 1, 0, team1, team2, team2, true);
+    subbing(quarter + 1, 0, team1, team2, team2);
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 4
