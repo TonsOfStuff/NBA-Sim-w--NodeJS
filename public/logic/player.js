@@ -45,6 +45,7 @@ export class Player{
         this.hustle = hustle;
         this.stamina = stamina;
         this.height = height;
+        this.age = Math.round((Math.random() * 4)) + 18 
 
         //Misc
         this.foul = foul;
@@ -1149,8 +1150,8 @@ export class Player{
             else if (this.otherTeammates[i].fga > 40){
                 passingAmount -= 10;
             }
-            if (passingAmount < 0){
-                passingAmount = 0;
+            if (passingAmount <= 0){
+                passingAmount = 1;
             }
             passingList.push(...Array(passingAmount).fill(this.otherTeammates[i]));
         }
@@ -1582,5 +1583,290 @@ export class Player{
         this.fta = 0;
         this.ftm = 0;
         this.boxMinus = 0;
+    }
+
+
+    resetSeason(){
+        this.age += 1;
+
+        this.gamesPlayed = 0;
+        this.gamesStarted = 0;
+
+        this.avgMin = 0;
+        this.avgPts = 0;
+        this.avgAst = 0;
+        this.avgDReb = 0;
+        this.avgOReb = 0;
+        this.avgStl = 0;
+        this.avgBlk = 0;
+        this.avgFls = 0;
+        this.avgTov = 0;
+        this.fgp = 0;
+        this.tpp = 0;
+        this.ftp = 0;
+
+        this.seasonTotalMin = 0;
+        this.seasonTotalPts = 0;
+        this.seasonTotalAst = 0;
+        this.seasonTotalOReb = 0;
+        this.seasonTotalDReb = 0;
+        this.seasonTotalStl = 0;
+        this.seasonTotalBlk = 0;
+        this.seasonTotalFls = 0;
+        this.seasonTotalTov = 0;
+        this.seasonTotalFGA = 0;
+        this.seasonTotalFGM = 0;
+        this.seasonTotalTPA = 0;
+        this.seasonTotalTPM = 0;
+        this.seasonTotalFTA = 0;
+        this.seasonTotalFTM = 0;
+
+        this.seasonTripleDoubles = 0;
+        this.seasonDoubleDoubles = 0;
+        this.seasonQuadDoubles = 0;
+
+        this.playoffP1GamesPlayed = 0;
+
+        this.avgP1Min = 0;
+        this.avgP1Pts = 0;
+        this.avgP1Ast = 0;
+        this.avgP1DReb = 0;
+        this.avgP1OReb = 0;
+        this.avgP1Stl = 0;
+        this.avgP1Blk = 0;
+        this.avgP1Fls = 0;
+        this.avgP1Tov = 0;
+        this.fgpP1 = 0;
+        this.tppP1 = 0;
+        this.ftpP1 = 0;
+
+        this.p1TotalMin = 0;
+        this.p1TotalPts = 0;
+        this.p1TotalAst = 0;
+        this.p1TotalOReb = 0;
+        this.p1TotalDReb = 0;
+        this.p1TotalStl = 0;
+        this.p1TotalBlk = 0;
+        this.p1TotalFls = 0;
+        this.p1TotalTov = 0;
+        this.p1TotalFGA = 0;
+        this.p1TotalFGM = 0;
+        this.p1TotalTPA = 0;
+        this.p1TotalTPM = 0;
+        this.p1TotalFTA = 0;
+        this.p1TotalFTM = 0;
+
+
+        this.playoffP2GamesPlayed = 0;
+
+        this.avgP2Min = 0;
+        this.avgP2Pts = 0;
+        this.avgP2Ast = 0;
+        this.avgP2DReb = 0;
+        this.avgP2OReb = 0;
+        this.avgP2Stl = 0;
+        this.avgP2Blk = 0;
+        this.avgP2Fls = 0;
+        this.avgP2Tov = 0;
+        this.fgpP2 = 0;
+        this.tppP2 = 0;
+        this.ftpP2 = 0;
+
+        this.p2TotalMin = 0;
+        this.p2TotalPts = 0;
+        this.p2TotalAst = 0;
+        this.p2TotalOReb = 0;
+        this.p2TotalDReb = 0;
+        this.p2TotalStl = 0;
+        this.p2TotalBlk = 0;
+        this.p2TotalFls = 0;
+        this.p2TotalTov = 0;
+        this.p2TotalFGA = 0;
+        this.p2TotalFGM = 0;
+        this.p2TotalTPA = 0;
+        this.p2TotalTPM = 0;
+        this.p2TotalFTA = 0;
+        this.p2TotalFTM = 0;
+
+
+        this.playoffP3GamesPlayed = 0;
+
+        this.avgP3Min = 0;
+        this.avgP3Pts = 0;
+        this.avgP3Ast = 0;
+        this.avgP3DReb = 0;
+        this.avgP3OReb = 0;
+        this.avgP3Stl = 0;
+        this.avgP3Blk = 0;
+        this.avgP3Fls = 0;
+        this.avgP3Tov = 0;
+        this.fgpP3 = 0;
+        this.tppP3 = 0;
+        this.ftpP3 = 0;
+
+        this.p3TotalMin = 0;
+        this.p3TotalPts = 0;
+        this.p3TotalAst = 0;
+        this.p3TotalOReb = 0;
+        this.p3TotalDReb = 0;
+        this.p3TotalStl = 0;
+        this.p3TotalBlk = 0;
+        this.p3TotalFls = 0;
+        this.p3TotalTov = 0;
+        this.p3TotalFGA = 0;
+        this.p3TotalFGM = 0;
+        this.p3TotalTPA = 0;
+        this.p3TotalTPM = 0;
+        this.p3TotalFTA = 0;
+        this.p3TotalFTM = 0;
+
+
+        this.playoffP4GamesPlayed = 0;
+
+        this.avgP4Min = 0;
+        this.avgP4Pts = 0;
+        this.avgP4Ast = 0;
+        this.avgP4DReb = 0;
+        this.avgP4OReb = 0;
+        this.avgP4Stl = 0;
+        this.avgP4Blk = 0;
+        this.avgP4Fls = 0;
+        this.avgP4Tov = 0;
+        this.fgpP4 = 0;
+        this.tppP4 = 0;
+        this.ftpP4 = 0;
+
+        this.p4TotalMin = 0;
+        this.p4TotalPts = 0;
+        this.p4TotalAst = 0;
+        this.p4TotalOReb = 0;
+        this.p4TotalDReb = 0;
+        this.p4TotalStl = 0;
+        this.p4TotalBlk = 0;
+        this.p4TotalFls = 0;
+        this.p4TotalTov = 0;
+        this.p4TotalFGA = 0;
+        this.p4TotalFGM = 0;
+        this.p4TotalTPA = 0;
+        this.p4TotalTPM = 0;
+        this.p4TotalFTA = 0;
+        this.p4TotalFTM = 0;
+
+        this.finalsMVPNum = 0;
+
+        this.progressionAndRegression();
+    }
+
+    progressionAndRegression(){
+        if (this.age > 33 + Math.round(this.potential / 27)){
+            //Regress
+            for (let i = 0; i < 5; i++){
+                const counter = Math.round(Math.random() * 9)
+                if (counter === 0){
+                    this.twoPt -= 2
+                    this.threePt -= 2
+                    this.freeThrow -= 2
+                }else if(counter === 1){
+                    this.inside -= 2
+                    this.insideTen -= 1;
+                    this.closeTen -= 1;
+                }else if(counter === 2){
+                    this.passingAccuracy -= 2
+                }else if(counter === 3){
+                    this.defensiveReb -= 2
+                    this.offensiveReb -= 2
+                }else if (counter === 4){
+                    this.offensiveAbility -= 2
+                }else if (counter === 5){
+                    this.defensiveAbility -= 2
+                    this.blockTen -= 2
+                    this.stealTen -= 2
+                }else if (counter === 6){
+                    this.stamina -= 2
+                    this.hustle -= 2
+                    this.vertical -= 2
+                }else if (counter === 7){
+                    this.ballControl -= 2
+                    this.catching -= 2
+                }else if (counter === 8){
+                    this.drawFoul -= 2
+                }else{
+                    this.twoPt -= 1;
+                    this.threePt -= 1;
+                    this.freeThrow -= 1;
+                    this.inside -= 1;
+                    this.insideTen -= 1;
+                    this.closeTen -= 1;
+                    this.passingAccuracy -= 1;
+                    this.defensiveReb -= 1;
+                    this.offensiveReb -= 1;
+                    this.offensiveAbility -= 1;
+                    this.defensiveAbility -= 1;
+                    this.blockTen -= 1;
+                    this.stealTen -= 1;
+                    this.stamina -= 1;
+                    this.hustle -= 1;
+                    this.vertical -= 1;
+                    this.ballControl -= 1;
+                    this.catching -= 1;
+                    this.drawFoul -= 1;
+                }
+            }
+        }else{
+            //Progress
+            const progAmount = (this.potential / (Math.round(Math.random() * 10) + 10));
+            for (let i = 0; i < progAmount; i++){
+                const counter = Math.round(Math.random() * 9)
+                if (counter === 0){
+                    this.twoPt += Math.round(this.potential / 33)
+                    this.threePt += Math.round(this.potential / 33)
+                    this.freeThrow += Math.round(this.potential / 33)
+                }else if(counter === 1){
+                    this.inside += Math.round(this.potential / 33)
+                    this.insideTen += 3;
+                    this.closeTen += 3;
+                }else if(counter === 2){
+                    this.passingAccuracy += Math.round(this.potential / 33)
+                }else if(counter === 3){
+                    this.defensiveReb += Math.round(this.potential / 33)
+                    this.offensiveReb += Math.round(this.potential / 33)
+                }else if (counter === 4){
+                    this.offensiveAbility += Math.round(this.potential / 33)
+                }else if (counter === 5){
+                    this.defensiveAbility += Math.round(this.potential / 33)
+                    this.blockTen += Math.round(this.potential / 33)
+                    this.stealTen += Math.round(this.potential / 33)
+                }else if (counter === 6){
+                    this.stamina += Math.round(this.potential / 33)
+                    this.hustle += Math.round(this.potential / 33)
+                    this.vertical += Math.round(this.potential / 33)
+                }else if (counter === 7){
+                    this.ballControl += Math.round(this.potential / 33)
+                    this.catching += Math.round(this.potential / 33)
+                }else if (counter === 8){
+                    this.drawFoul += Math.round(this.potential / 33)
+                }else{
+                    this.twoPt += 1;
+                    this.threePt += 1;
+                    this.freeThrow += 1;
+                    this.inside += 1;
+                    this.insideTen += 1;
+                    this.closeTen += 1;
+                    this.passingAccuracy += 1;
+                    this.defensiveReb += 1;
+                    this.offensiveReb += 1;
+                    this.offensiveAbility += 1;
+                    this.defensiveAbility += 1;
+                    this.blockTen += 1;
+                    this.stealTen += 1;
+                    this.stamina += 1;
+                    this.hustle += 1;
+                    this.vertical += 1;
+                    this.ballControl += 1;
+                    this.catching += 1;
+                    this.drawFoul += 1;
+                }
+            }
+        }
     }
 }

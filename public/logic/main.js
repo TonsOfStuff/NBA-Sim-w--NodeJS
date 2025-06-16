@@ -237,7 +237,7 @@ export function save(players, teams){
         return copy;
     });
 
-    fetch('/api/save-player', {
+    const playerPromise = fetch('/api/save-player', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(strippedPlayers)
@@ -264,7 +264,7 @@ export function save(players, teams){
         return copy;
     });
 
-    fetch('/api/saveTeams', {
+    const teamPromise = fetch('/api/saveTeams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(strippedTeams)
@@ -272,6 +272,8 @@ export function save(players, teams){
     .then(res => res.json())
     .then(data => console.log(data.message))
     .catch(err => console.error(err));
+
+    return Promise.all([playerPromise, teamPromise])
 }
 
 export async function load(){
@@ -348,6 +350,8 @@ export async function load(){
             p.hustle, p.stamina, p.height, p.foul, p.drawFoul, p.clutch, p.potential
         );
         Object.assign(player, {
+            age: p.age,
+
             gamesPlayed: p.gamesPlayed,
             gamesStarted: p.gamesStarted,
             avgMin: p.avgMin,
@@ -513,7 +517,16 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].setPositions();
 }
 
-//loading();
+document.addEventListener("DOMContentLoaded", async () => {
+    if (sessionStorage.getItem("redirect") === "finals") {
+        console.log("Redirected from playoffs");
+        await load()
+        sessionStorage.removeItem("redirect");
+    }
+
+    console.log(allTeams);
+    console.log(allPlayers);
+});
 
 window.test = function(){
     day += 82;

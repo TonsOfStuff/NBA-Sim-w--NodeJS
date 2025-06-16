@@ -1,4 +1,4 @@
-import { load, allTeams, allPlayers, aGame } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame } from "./main.js";
 await load();
 
 
@@ -521,10 +521,39 @@ function endSeason(){
 
     finalsWinner.players.forEach(player => {
         player.calcFinalsMVP();
+        player.championships += 1;
     });
 
     finalsWinner.players.sort((a,b) => b.finalsMVPNum - a.finalsMVPNum);
     finalsWinner.players[0].finalsMVP += 1;
 
-    console.log(finalsWinner.players[0].name);
+    const playOffPanel = document.getElementById("playOffPanel");
+    const displayGame = document.getElementById("displayGame");
+    while (playOffPanel.firstChild){
+        playOffPanel.removeChild(playOffPanel.firstChild);
+    }
+    while (displayGame.firstChild){
+        displayGame.removeChild(displayGame.firstChild);
+    }
+
+    const displayFinalsMVP = document.createElement("div");
+    displayFinalsMVP.innerText = finalsWinner.players[0].name + "|Min:" + finalsWinner.players[0].avgP4Min + "|Pts:" + finalsWinner.players[0].avgP4Pts + "|Reb:" + Number((finalsWinner.players[0].avgP4OReb + finalsWinner.players[0].avgP4DReb).toFixed(1)) + "|DReb:" + finalsWinner.players[0].avgP4DReb + "|OReb:" + finalsWinner.players[0].avgP4OReb + "|Ast:" + finalsWinner.players[0].avgP4Ast + "|Stl:" + finalsWinner.players[0].avgP4Stl + "|Blk:" + finalsWinner.players[0].avgP4Blk + "|Fls:" + finalsWinner.players[0].avgP4Fls + "|Tov:" + finalsWinner.players[0].avgP4Tov + "|FG%:" + finalsWinner.players[0].fgpP4 + "|3P%:" + finalsWinner.players[0].tppP4 + "|FT%:" + finalsWinner.players[0].ftpP4;
+    playOffPanel.appendChild(displayFinalsMVP);
+    playOffPanel.style.display = "block";
+
+    allPlayers.forEach(player => {
+        player.resetSeason();
+    });
+    allTeams.forEach(team => {
+        team.resetSeason();
+    });
+
+    const contButton = document.getElementById("contButton");
+    contButton.onclick = () => goBackHome();
+}
+
+async function goBackHome(){
+    await save(allPlayers, allTeams);
+    sessionStorage.setItem("redirect", "finals");
+    window.location.href = "/";
 }

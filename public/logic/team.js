@@ -232,4 +232,25 @@ export class Team{
             }
         }
     }
+
+    resetSeason(){
+        this.oldWins = this.wins;
+        this.oldLosses = this.losses;
+        this.oldSeed = this.seed;
+        this.oldConfSeed = this.confSeed;
+
+        this.seed = 0;
+        this.confSeed = 0;
+        this.wins = 0;
+        this.losses = 0;
+
+        this.ptsAvg = 0;
+        this.astAvg = 0;
+        this.rebAvg = 0;
+        this.blkAvg = 0;
+        this.stlAvg = 0;
+        this.fg = 0;
+        this.tp = 0;
+        this.ft = 0;
+    }
 }

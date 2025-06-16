@@ -11,11 +11,11 @@
     </head>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const table = document.getElementById("teamTable").querySelector("tbody");;
+            const table = document.getElementById("teamTable").querySelector("tbody");
             fetch("/api/teamStats").then(res => res.json()).then(data => {
                 //console.log(data[0]);
                 const columns = [
-                    "name", "seed", "confSeed", "wins", "losses", "ptsAvg", "rebAvg", "astAvg", "stlAvg", "blkAvg", "fg", "tp", "ft",
+                    "name", "seed", "confSeed", "wins", "losses", "oldSeed", "oldConfSeed", "oldWins", "oldLosses", "ptsAvg", "rebAvg", "astAvg", "stlAvg", "blkAvg", "fg", "tp", "ft",
                     "playOffAppearances", "finalsAppearances", "championships"
                 ]
 
@@ -33,27 +33,41 @@
                 });
             })
 
-            function sortBasedOnClick(column){
-                let rows = Array.from(table.querySelectorAll(`tr`));
+            function sortBasedOnClick(columnIndex) {
+                const fullTable = document.getElementById("teamTable");
+                const tableBody = fullTable.querySelector("tbody");
+                const headerCell = fullTable.querySelector(`thead th:nth-child(${columnIndex + 1})`);
+                if (!headerCell) return;
 
-                let qs = `td:nth-child(${column + 1})`;
-                const firstVal = rows[0].querySelector(qs).textContent.trim();
+                const headerText = headerCell.textContent.toLowerCase();
+                const isSeedColumn = headerText.includes("seed");
+
+                let rows = Array.from(tableBody.querySelectorAll("tr"));
+                const selector = `td:nth-child(${columnIndex + 1})`;
+
+                if (!rows.length || !rows[0].querySelector(selector)) return;
+
+                const firstVal = rows[0].querySelector(selector).textContent.trim();
                 const isNumeric = !isNaN(parseFloat(firstVal));
 
                 rows.sort((a, b) => {
-                    let t1 = a.querySelector(qs).textContent.trim();
-                    let t2 = b.querySelector(qs).textContent.trim();
+                    let valA = a.querySelector(selector).textContent.trim();
+                    let valB = b.querySelector(selector).textContent.trim();
 
                     if (isNumeric) {
-                        return parseFloat(t2) - parseFloat(t1);
+                        const numA = parseFloat(valA);
+                        const numB = parseFloat(valB);
+                        return isSeedColumn ? numA - numB : numB - numA;
                     } else {
-                        return t1.localeCompare(t2); 
+                        return valA.localeCompare(valB);
                     }
                 });
 
-                rows.forEach(row => table.appendChild(row));
-                
+                rows.forEach(row => tableBody.appendChild(row)); // ✅ re-add sorted rows to tbody
             }
+
+
+
 
             attachColumnClickHighlighting()
 
@@ -110,13 +124,15 @@
         <header>
             <a href = "index.html">Home</a>
             <a href = "stats.html">Stats</a>
+            <a href = "teamStats.html">Team Stats</a>
         </header>
 
 
         <table id = "teamTable">
             <thead>
                 <tr>
-                    <th style = "min-width: 200px;">Name</th><th>Seed</th><th>Conf Seed</th><th>Wins</th><th>Losses</th><th>Avg Pts</th><th>Avg Reb</th><th>Avg Ast</th><th>Avg Stl</th><th>Avg Blk</th><th>FG%</th><th>3P%</th><th>FT%</th>
+                    <th style = "min-width: 200px;">Name</th><th>Seed</th><th>Conf Seed</th><th>Wins</th><th>Losses</th><th>Old Seed</th><th>Old Conf Seed</th><th>Old Wins</th><th>Old Losses</th>
+                    <th>Avg Pts</th><th>Avg Reb</th><th>Avg Ast</th><th>Avg Stl</th><th>Avg Blk</th><th>FG%</th><th>3P%</th><th>FT%</th>
                     <th style="min-width: 150px;">Playoff Apperances</th><th style="min-width: 150px">Finals Appearances</th><th>Championships</th>
                 </tr>
             </thead>

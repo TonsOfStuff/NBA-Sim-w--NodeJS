@@ -43,8 +43,8 @@ export async function savePlayer(player) {
       allNBAFirst, allNBASecond, allNBAThird, allDefensiveFirst, allDefensiveSecond,
       allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp,
 
-      team, championships, finalsMVP
-    ) VALUES (${Array(122).fill('?').join(',')})
+      team, championships, finalsMVP, age
+    ) VALUES (${Array(123).fill('?').join(',')})
   `;
 
   const values = [
@@ -81,7 +81,7 @@ export async function savePlayer(player) {
     player.allStar, player.scoringChamp, player.assistChamp, player.reboundChamp,
     player.stealChamp, player.blockChamp,
 
-    player.teamName, player.championships, player.finalsMVP
+    player.teamName, player.championships, player.finalsMVP, player.age
   ];
 
 
