@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame, genPlayer } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear } from "./main.js";
 await load();
 
 
@@ -650,6 +650,7 @@ function offSeasonUI(){
 }
 
 async function goBackHome(){
+    setYear(1)
     const loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.textContent = "Saving...";
     loadingScreen.style.display = "flex"; 

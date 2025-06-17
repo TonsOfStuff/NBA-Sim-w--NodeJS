@@ -116,3 +116,13 @@ export async function saveTeams(team){
 
   await connection.execute(sql, values);
 }
+
+export async function saveGeneral(items){
+  const sql = `
+    INSERT INTO generals (
+      days, years
+    ) VALUES (${items.map(() => '?').join(', ')})
+  `;
+
+  await connection.execute(sql, items);
+};

@@ -15,6 +15,9 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     if (playOff === false){
         const dayCounter = document.getElementById("dayCounter");
         dayCounter.innerText = "Day: " + day;
+
+        const yearCounter = document.getElementById("yearCounter");
+        yearCounter.innerText = "Year: " + year;
     }
     
 
@@ -110,6 +113,14 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty){
     main.appendChild(contButton)
 }
 
+function updateDayAndYearUI(){
+    const dayCounter = document.getElementById("dayCounter");
+    dayCounter.innerText = "Day: " + day;
+
+    const yearCounter = document.getElementById("yearCounter");
+    yearCounter.innerText = "Year: " + year;
+}
+
 
 
 //Players
@@ -161,6 +172,9 @@ export function hasBallPlayerSetter(player){
 
 let day = 0;
 let year = 0;
+export function setYear(yearSet){
+    year += yearSet;
+}
 
 //Generate Players
 function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
@@ -285,17 +299,30 @@ export function save(players, teams){
     .then(data => console.log(data.message))
     .catch(err => console.error(err));
 
-    return Promise.all([playerPromise, teamPromise])
+    const generalsPromise = fetch('/api/saveGeneral', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([day, year])
+    }).then(res => res.json()).then(data =>console.log(data.message)).catch(err => console.error(err));
+
+    return Promise.all([playerPromise, teamPromise, generalsPromise])
 }
 
 export async function load(){
-    const [teamsRes, playersRes] = await Promise.all([
+    const [teamsRes, playersRes, generalRes] = await Promise.all([
         fetch("/api/loadTeams"),
-        fetch("/api/load-players")
+        fetch("/api/load-players"),
+        fetch("/api/loadGeneral")
     ]);
 
     const teamData = await teamsRes.json();
     const playerData = await playersRes.json();
+    const generalData = await generalRes.json();
+    
+    //Load general data here
+    day = generalData[0]["days"];
+    year = generalData[0]["years"];
+
 
     const teams = teamData.map(p => {
         const team = new Team(p.name, p.inEast, p.abr, []);
@@ -558,6 +585,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         sessionStorage.removeItem("redirect");
         console.log(allTeams)
         console.log(allPlayers);
+        updateDayAndYearUI();
     }
 
 });
