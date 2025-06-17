@@ -519,6 +519,7 @@ window.loading = async function (){
     loadingScreen.style.display = "flex"; 
 
     await load();
+    updateDayAndYearUI();
 
     loadingScreen.style.display = "none";
 }
