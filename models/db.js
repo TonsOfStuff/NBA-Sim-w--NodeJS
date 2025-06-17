@@ -43,8 +43,11 @@ export async function savePlayer(player) {
       allNBAFirst, allNBASecond, allNBAThird, allDefensiveFirst, allDefensiveSecond,
       allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp,
 
-      team, championships, finalsMVP, age
-    ) VALUES (${Array(123).fill('?').join(',')})
+      team, championships, finalsMVP, age, yearsPro,
+
+      happiness, contractYears, money, yearsIntoContract
+      
+    ) VALUES (${Array(128).fill('?').join(',')})
   `;
 
   const values = [
@@ -81,7 +84,9 @@ export async function savePlayer(player) {
     player.allStar, player.scoringChamp, player.assistChamp, player.reboundChamp,
     player.stealChamp, player.blockChamp,
 
-    player.teamName, player.championships, player.finalsMVP, player.age
+    player.teamName, player.championships, player.finalsMVP, player.age, player.yearsPro,
+
+    player.happiness, player.contractYears, player.money, player.yearsIntoContract
   ];
 
 
@@ -98,15 +103,15 @@ export async function saveTeams(team){
     fg, tp, ft, playOffAppearances, finalsAppearances, championships, ptsLeader,
     ptsLeaderVal, astLeader, astLeaderVal, rebLeader, rebLeaderVal, stlLeader, stlLeaderVal,
     blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses, 
-    confSeed, oldConfSeed
-  ) VALUES (${Array(41).fill('?').join(',')})`;
+    confSeed, oldConfSeed, money
+  ) VALUES (${Array(42).fill('?').join(',')})`;
 
   const values = [team.name, team.inEast, team.abr, team.wins, team.losses, team.oldWins, team.oldLosses,
     team.seed, team.oldSeed, team.startingLineupName1, team.startingLineupName2, team.startingLineupName3, team.startingLineupName4, team.startingLineupName5,
     team.ptsAvg, team.astAvg, team.rebAvg, team.blkAvg, team.stlAvg, team.fg, team.tp, team.ft, team.playOffAppearances, team.finalsAppearances,
     team.championships, team.ptsLeader, team.ptsLeaderVal, team.astLeader, team.astLeaderVal, team.rebLeader, team.rebLeaderVal,
     team.stlLeader, team.stlLeaderVal, team.blkLeader, team.blkLeaderVal, team.franchiseWins, team.franchiseLosses, team.playOffWins,
-    team.playerOffLosses, team.confSeed, team.oldConfSeed
+    team.playerOffLosses, team.confSeed, team.oldConfSeed, team.money
   ];
 
   await connection.execute(sql, values);

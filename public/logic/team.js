@@ -71,6 +71,7 @@ export class Team{
 
         //Misc
         this.shotClock = 0;
+        this.money = 100000000;
     }
 
     setOpponentsAndTeammates(opposingTeam){

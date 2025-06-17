@@ -52,7 +52,7 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     main.appendChild(teamStuff)
 }
 
-function displayAwards(mvp, dpoy, tempList, dpoyTempList){
+function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty){
     while (main.firstChild){
         main.removeChild(main.firstChild);
     }
@@ -61,9 +61,17 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList){
     mvpStats.innerText = "MVP: " + mvp.name + "|Min:" + mvp.avgMin + "|Pts:" + mvp.avgPts + "|Reb:" + (mvp.avgOReb + mvp.avgDReb).toFixed(1) + "|DReb:" + mvp.avgDReb + "|OReb:" + mvp.avgOReb + "|Ast:" + mvp.avgAst + "|Stl:" + mvp.avgStl + "|Blk:" + mvp.avgBlk + "|Fls" + mvp.avgFls + "|Tov:" + mvp.avgTov + "|FG%:" + mvp.fgp + "|3P%:" + mvp.tpp + "|FT%:" + mvp.ftp;
     const dpoyStats = document.createElement("div");
     dpoyStats.innerText = "DPOY: " + dpoy.name + "|Min:" + dpoy.avgMin + "|Pts:" + dpoy.avgPts + "|Reb:" + (dpoy.avgOReb + dpoy.avgDReb).toFixed(1) + "|DReb:" + dpoy.avgDReb + "|OReb:" + dpoy.avgOReb + "|Ast:" + dpoy.avgAst + "|Stl:" + dpoy.avgStl + "|Blk:" + dpoy.avgBlk + "|Fls" + dpoy.avgFls + "|Tov:" + dpoy.avgTov + "|FG%:" + dpoy.fgp + "|3P%:" + dpoy.tpp + "|FT%:" + dpoy.ftp;
+    const rotyStats = document.createElement("div");
+    if (roty !== null){
+        rotyStats.innerText = "ROTY: " + roty.name + "|Min:" + roty.avgMin + "|Pts:" + roty.avgPts + "|Reb:" + (roty.avgOReb + roty.avgDReb).toFixed(1) + "|DReb:" + roty.avgDReb + "|OReb:" + roty.avgOReb + "|Ast:" + roty.avgAst + "|Stl:" + roty.avgStl + "|Blk:" + roty.avgBlk + "|Fls" + roty.avgFls + "|Tov:" + roty.avgTov + "|FG%:" + roty.fgp + "|3P%:" + roty.tpp + "|FT%:" + roty.ftp;
+    }else{
+        rotyStats.innerText = "ROTY: N/A"
+    }
+    
 
     main.appendChild(mvpStats);
     main.appendChild(dpoyStats);
+    main.appendChild(rotyStats);
 
 
     const allNBA1stText = document.createElement("div");
@@ -334,7 +342,9 @@ export async function load(){
             franchiseWins: p.franchiseWins,
             franchiseLosses: p.franchiseLosses,
             playOffWins: p.playOffWins,
-            playerOffLosses: p.playerOffLosses
+            playerOffLosses: p.playerOffLosses,
+
+            money: p.money
         });
 
         return team;
@@ -355,6 +365,7 @@ export async function load(){
         );
         Object.assign(player, {
             age: p.age,
+            yearsPro: p.yearsPro,
 
             gamesPlayed: p.gamesPlayed,
             gamesStarted: p.gamesStarted,
@@ -447,7 +458,12 @@ export async function load(){
             teamName: p.team,
 
             championships: p.championships,
-            finalsMVP: p.finalsMVP
+            finalsMVP: p.finalsMVP,
+
+            happiness: p.happiness,
+            contractYears: p.contractYears,
+            money: p.money,
+            yearsIntoContract: p.yearsIntoContract
         });
 
         return player;
@@ -731,6 +747,7 @@ function playOffs(){
     //Calc awards
     let mvp = null;
     let dpoy = null;
+    let roty = null;
 
     allPlayers.forEach(player => {
         player.calcAwardsVal();
@@ -783,8 +800,18 @@ function playOffs(){
         }
     }
 
+    const rookies = allPlayers.filter(player => player.yearsPro <= 1);
+    if (rookies.length !== 0){
+        rookies.sort((a,b) => b.mvpNum - a.mvpNum)
+        rookies[0].totalROTYs += 1;
+        roty = rookies[0];
+    }else{
+        roty = null;
+    }
+    
 
-    displayAwards(mvp, dpoy, tempPlayers, dpoyTempList);
+
+    displayAwards(mvp, dpoy, tempPlayers, dpoyTempList, roty);
 
 }
 

@@ -503,7 +503,7 @@ function simPlayoffs(){
         buttons[i].click();
         panel.children[1].children[1].click()
     }
-    
+    panel.style.display = "none";
 }
 
 window.closePanel = function(){
@@ -558,6 +558,10 @@ function offSeasonUI(){
         playOffPanel.removeChild(playOffPanel.firstChild);
     }
     let rookieClass = genPlayer(60);
+    rookieClass.forEach(element => {
+        element.calcOvr();
+    });
+    rookieClass.sort((a,b) => (b.ovr + b.potential) - (a.ovr + a.potential))
 
     const draftOrder = allTeams.slice().sort((a, b) => b.oldSeed - a.oldSeed);
     const lotteryTeams = draftOrder.slice(0, 14);
@@ -585,6 +589,60 @@ function offSeasonUI(){
     const remainingTeams = draftOrder.slice(14); 
     const finalDraftOrder = randomizedDraftOrder.concat(remainingTeams);
 
+    const roundsUI = document.createElement("div");
+    roundsUI.style.display = "grid";
+    roundsUI.style.gridTemplateColumns = "1fr 1fr";
+    const round1 = document.createElement("div");
+    const round2 = document.createElement("div");
+    round1.innerText = "Round 1:"
+    round2.innerText = "Round 2:"
+    roundsUI.appendChild(round1);
+    roundsUI.appendChild(round2);
+    let pick = 0;
+    for (let i = 0; i<finalDraftOrder.length * 2; i++){
+        if (pick >= finalDraftOrder.length){
+            pick = 0;
+        }
+        const draftUI = document.createElement("div");
+        draftUI.style.display = "flex";
+        const pickNum = document.createElement("div");
+        const teamName = document.createElement("div");
+        const nameElement = document.createElement("div");
+        const statsEl = document.createElement("div");
+        pickNum.style.width = "30px";
+        teamName.style.width = "50px";
+        nameElement.style.width = "200px";
+        pickNum.innerText = (i+1) + ") ";
+        teamName.innerText = finalDraftOrder[pick].abr;
+        nameElement.innerText = rookieClass[i].name;
+        statsEl.innerText = "Ovr: " + rookieClass[i].ovr + "  Pot: " + rookieClass[i].potential;
+        
+        
+        draftUI.appendChild(pickNum);
+        draftUI.appendChild(teamName)
+        draftUI.appendChild(nameElement)
+        draftUI.appendChild(statsEl);
+        if (i >= finalDraftOrder.length){
+            round2.appendChild(draftUI);
+        }else{
+            round1.appendChild(draftUI);
+        }
+
+        //Actual drafting into team if money and roster space allow
+        let offeredMoney = 1000000 - i * 100000
+        if (finalDraftOrder[pick].money > offeredMoney && finalDraftOrder[pick].players.length < 15){
+            rookieClass[i].signRookieContract(offeredMoney, Math.round(Math.random() * 4) + 1);
+            rookieClass[i].team = finalDraftOrder[pick];
+            rookieClass[i].teamName = finalDraftOrder[pick].abr;
+
+            finalDraftOrder[pick].players.push(rookieClass[i]);
+            allPlayers.push(rookieClass[i])
+        }
+
+        pick+=1;
+    }
+    
+    playOffPanel.appendChild(roundsUI);
 
 
     const contButton = document.getElementById("contButton");

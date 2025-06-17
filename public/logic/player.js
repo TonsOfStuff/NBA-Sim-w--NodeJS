@@ -46,6 +46,7 @@ export class Player{
         this.stamina = stamina;
         this.height = height;
         this.age = Math.round((Math.random() * 4)) + 18 
+        this.yearsPro = 1;
 
         //Misc
         this.foul = foul;
@@ -320,6 +321,13 @@ export class Player{
         this.p4TotalFTM = 0;
 
         this.finalsMVPNum = 0;
+
+        //Contract details
+        this.happiness = 0;
+
+        this.contractYears = 0;
+        this.money = 0;
+        this.yearsIntoContract = 0;
     }
 
     calcOvr() {
@@ -1595,6 +1603,7 @@ export class Player{
 
     resetSeason(){
         this.age += 1;
+        this.yearsPro += 1;
 
         this.gamesPlayed = 0;
         this.gamesStarted = 0;
@@ -1922,5 +1931,10 @@ export class Player{
         if (this.drawFoul < 0) this.drawFoul = 0;
 
         this.calcOvr();
+    }
+
+    signRookieContract(money, years){
+        this.money = money;
+        this.contractYears = years;
     }
 }
