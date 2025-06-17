@@ -1190,12 +1190,12 @@ export class Player{
         let oPToReb = null;
         let dPToReb = null;
 
-        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + Math.pow(p.offensiveReb, 1.5) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
+        let totalWeight = this.otherTeammates.reduce((sum, p) => sum + Math.pow(p.offensiveReb, 1.7) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
         let rand = Math.random() * totalWeight;
 
         let runningSum = 0;
         for (let player of this.otherTeammates) {
-            runningSum += Math.pow(player.offensiveReb, 1.5) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
+            runningSum += Math.pow(player.offensiveReb, 1.7) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
             if (rand < runningSum){
                 oPToReb = player;
                 break;
@@ -1203,12 +1203,12 @@ export class Player{
         }
 
 
-        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + Math.pow(p.defensiveReb, 1.5) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
+        totalWeight = defense.otherTeammates.reduce((sum, p) => sum + Math.pow(p.defensiveReb, 1.7) + Math.pow(p.height, 1.5) + p.hustle + p.vertical, 0);
         rand = Math.random() * totalWeight;
 
         runningSum = 0;
         for (let player of defense.otherTeammates) {
-            runningSum += Math.pow(player.defensiveReb, 1.5) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
+            runningSum += Math.pow(player.defensiveReb, 1.7) + Math.pow(player.height, 1.5) + player.hustle + player.vertical;
             if (rand < runningSum){
                 dPToReb = player;
                 break;
@@ -1759,6 +1759,8 @@ export class Player{
         this.p4TotalFTM = 0;
 
         this.finalsMVPNum = 0;
+        this.mvpNum = 0;
+        this.dpoyNum = 0;
 
         this.progressionAndRegression();
     }
@@ -1876,44 +1878,44 @@ export class Player{
         }
 
         if (this.twoPt > 99) this.twoPt = 99;
-        else if (this.threePt > 99) this.threePt = 99;
-        else if (this.freeThrow > 99) this.freeThrow = 99;
-        else if (this.inside > 99) this.inside = 99;
-        else if (this.insideTen > 99) this.insideTen = 99;
-        else if (this.closeTen > 99) this.closeTen = 99;
-        else if (this.passingAccuracy > 99) this.passingAccuracy = 99;
-        else if (this.defensiveReb > 99) this.defensiveReb = 99;
-        else if (this.offensiveReb > 99) this.offensiveReb = 99;
-        else if (this.offensiveAbility > 99) this.offensiveAbility = 99;
-        else if (this.defensiveAbility > 99) this.defensiveAbility = 99;
-        else if (this.blockTen > 99) this.blockTen = 99;
-        else if (this.stealTen > 99) this.stealTen = 99;
-        else if (this.stamina > 99) this.stamina = 99;
-        else if (this.hustle > 99) this.hustle = 99;
-        else if (this.vertical > 99) this.vertical = 99;
-        else if (this.ballControl > 99) this.ballControl = 99;
-        else if (this.catching > 99) this.catching = 99;
-        else if (this.drawFoul > 99) this.drawFoul = 99;
+        if (this.threePt > 99) this.threePt = 99;
+        if (this.freeThrow > 99) this.freeThrow = 99;
+        if (this.inside > 99) this.inside = 99;
+        if (this.insideTen > 99) this.insideTen = 99;
+        if (this.closeTen > 99) this.closeTen = 99;
+        if (this.passingAccuracy > 99) this.passingAccuracy = 99;
+        if (this.defensiveReb > 99) this.defensiveReb = 99;
+        if (this.offensiveReb > 99) this.offensiveReb = 99;
+        if (this.offensiveAbility > 99) this.offensiveAbility = 99;
+        if (this.defensiveAbility > 99) this.defensiveAbility = 99;
+        if (this.blockTen > 99) this.blockTen = 99;
+        if (this.stealTen > 99) this.stealTen = 99;
+        if (this.stamina > 99) this.stamina = 99;
+        if (this.hustle > 99) this.hustle = 99;
+        if (this.vertical > 99) this.vertical = 99;
+        if (this.ballControl > 99) this.ballControl = 99;
+        if (this.catching > 99) this.catching = 99;
+        if (this.drawFoul > 99) this.drawFoul = 99;
 
         if (this.twoPt < 0) this.twoPt = 0;
-        else if (this.threePt < 0) this.threePt = 0;
-        else if (this.freeThrow < 0) this.freeThrow = 0;
-        else if (this.inside < 0) this.inside = 0;
-        else if (this.insideTen < 0) this.insideTen = 0;
-        else if (this.closeTen < 0) this.closeTen = 0;
-        else if (this.passingAccuracy < 0) this.passingAccuracy = 0;
-        else if (this.defensiveReb < 0) this.defensiveReb = 0;
-        else if (this.offensiveReb < 0) this.offensiveReb = 0;
-        else if (this.offensiveAbility < 0) this.offensiveAbility = 0;
-        else if (this.defensiveAbility < 0) this.defensiveAbility = 0;
-        else if (this.blockTen < 0) this.blockTen = 0;
-        else if (this.stealTen < 0) this.stealTen = 0;
-        else if (this.stamina < 0) this.stamina = 0;
-        else if (this.hustle < 0) this.hustle = 0;
-        else if (this.vertical < 0) this.vertical = 0;
-        else if (this.ballControl < 0) this.ballControl = 0;
-        else if (this.catching < 0) this.catching = 0;
-        else if (this.drawFoul < 0) this.drawFoul = 0;
+        if (this.threePt < 0) this.threePt = 0;
+        if (this.freeThrow < 0) this.freeThrow = 0;
+        if (this.inside < 0) this.inside = 0;
+        if (this.insideTen < 0) this.insideTen = 0;
+        if (this.closeTen < 0) this.closeTen = 0;
+        if (this.passingAccuracy < 0) this.passingAccuracy = 0;
+        if (this.defensiveReb < 0) this.defensiveReb = 0;
+        if (this.offensiveReb < 0) this.offensiveReb = 0;
+        if (this.offensiveAbility < 0) this.offensiveAbility = 0;
+        if (this.defensiveAbility < 0) this.defensiveAbility = 0;
+        if (this.blockTen < 0) this.blockTen = 0;
+        if (this.stealTen < 0) this.stealTen = 0;
+        if (this.stamina < 0) this.stamina = 0;
+        if (this.hustle < 0) this.hustle = 0;
+        if (this.vertical < 0) this.vertical = 0;
+        if (this.ballControl < 0) this.ballControl = 0;
+        if (this.catching < 0) this.catching = 0;
+        if (this.drawFoul < 0) this.drawFoul = 0;
 
         this.calcOvr();
     }

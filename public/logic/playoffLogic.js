@@ -553,7 +553,12 @@ function endSeason(){
 }
 
 async function goBackHome(){
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.textContent = "Saving...";
+    loadingScreen.style.display = "flex"; 
     await save(allPlayers, allTeams);
+    loadingScreen.style.display = "none";
+    
     sessionStorage.setItem("redirect", "finals");
     window.location.href = "/";
 }

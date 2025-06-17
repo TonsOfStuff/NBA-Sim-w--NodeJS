@@ -94,7 +94,8 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList){
 
     const contButton = document.createElement("button");
     contButton.innerText = "Continue"
-    contButton.addEventListener("click", () => {
+    contButton.addEventListener("click", async () => {
+        await saving();
         window.location.href = "/playoff.html";
     })
 
@@ -776,9 +777,6 @@ function playOffs(){
 
 
     displayAwards(mvp, dpoy, tempPlayers, dpoyTempList);
-
-
-    saving();
 
 }
 

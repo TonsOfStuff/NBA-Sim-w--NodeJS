@@ -24,7 +24,43 @@
 
                     columns.forEach(column => {
                         const cell = document.createElement("td");
-                        cell.innerHTML = player[column];           
+                        if (column === "seed"){
+                            if (player["seed"] > player["oldSeed"]){
+                                cell.innerHTML = player[column] + " ⬇️";
+                            }else if (player["seed"] < player["oldSeed"]){
+                                cell.innerHTML = player[column] + " ⬆️";
+                            }else{
+                                cell.innerHTML = player[column];
+                            }
+                        }else if (column === "confSeed"){
+                            if (player["confSeed"] > player["oldConfSeed"]){
+                                cell.innerHTML = player[column] + " ⬇️";
+                            }else if (player["confSeed"] < player["oldConfSeed"]){
+                                cell.innerHTML = player[column] + " ⬆️";
+                            }else{
+                                cell.innerHTML = player[column];
+                            }
+                        }else if (column === "wins"){
+                            if (player["wins"] > player["oldWins"]){
+                                cell.innerHTML = player[column] + " ⬆️";
+                            }else if (player["wins"] < player["oldWins"]){
+                                cell.innerHTML = player[column] + " ⬇️";
+                            }else{
+                                cell.innerHTML = player[column];
+                            }
+                        }else if (column === "losses"){
+                            if (player["losses"] > player["oldLosses"]){
+                                cell.innerHTML = player[column] + " ⬆️";
+                            }else if (player["losses"] < player["oldLosses"]){
+                                cell.innerHTML = player[column] + " ⬇️";
+                            }else{
+                                cell.innerHTML = player[column];
+                            }
+                        }
+                        else{
+                            cell.innerHTML = player[column]
+                        }
+                                   
                         row.appendChild(cell);
                     });
                     
