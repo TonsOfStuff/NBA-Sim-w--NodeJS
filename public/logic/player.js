@@ -353,11 +353,11 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1400;
-        const twoStress = 1500;
-        const threeStress = 2400;
-        let drawFreeThrowAmount = 45;
-        const freeThrowDiff = 110;
+        let insideStress = 1500;
+        const twoStress = 1600;
+        const threeStress = 2200;
+        let drawFreeThrowAmount = 105;
+        const freeThrowDiff = 107;
 
         //Archetype Effect
         if (this.arch.includes("Shooter")){
@@ -405,6 +405,7 @@ export class Player{
             else{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
+                    ;
                     defense.fls += 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
@@ -1823,6 +1824,9 @@ export class Player{
         }else{
             //Progress
             const progAmount = (this.potential / (Math.round(Math.random() * 10) + 10));
+            if (this.ovr >= this.potential){
+                progAmount = 0;
+            }
             for (let i = 0; i < progAmount; i++){
                 const counter = Math.round(Math.random() * 9)
                 if (counter === 0){

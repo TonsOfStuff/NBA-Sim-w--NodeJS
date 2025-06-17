@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer } from "./main.js";
 await load();
 
 
@@ -549,6 +549,45 @@ function endSeason(){
     });
 
     const contButton = document.getElementById("contButton");
+    contButton.onclick = () => offSeasonUI();
+}
+
+function offSeasonUI(){
+    const playOffPanel = document.getElementById("playOffPanel");
+    while (playOffPanel.firstChild){
+        playOffPanel.removeChild(playOffPanel.firstChild);
+    }
+    let rookieClass = genPlayer(60);
+
+    const draftOrder = allTeams.slice().sort((a, b) => b.oldSeed - a.oldSeed);
+    const lotteryTeams = draftOrder.slice(0, 14);
+    const draftWeights = [14, 10, 9, 8.5, 7, 6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2];
+    let weightedTeams = lotteryTeams.map((team, i) => ({
+        team: team,
+        weight: draftWeights[i]
+    }));
+    let randomizedDraftOrder = [];
+
+    while (weightedTeams.length > 0) {
+        const totalWeight = weightedTeams.reduce((sum, obj) => sum + obj.weight, 0);
+        let rand = Math.random() * totalWeight;
+        let running = 0;
+
+        for (let i = 0; i < weightedTeams.length; i++) {
+            running += weightedTeams[i].weight;
+            if (rand < running) {
+                randomizedDraftOrder.push(weightedTeams[i].team);
+                weightedTeams.splice(i, 1); // Remove chosen team
+                break;
+            }
+        }
+    }
+    const remainingTeams = draftOrder.slice(14); 
+    const finalDraftOrder = randomizedDraftOrder.concat(remainingTeams);
+
+
+
+    const contButton = document.getElementById("contButton");
     contButton.onclick = () => goBackHome();
 }
 
@@ -558,7 +597,7 @@ async function goBackHome(){
     loadingScreen.style.display = "flex"; 
     await save(allPlayers, allTeams);
     loadingScreen.style.display = "none";
-    
+
     sessionStorage.setItem("redirect", "finals");
     window.location.href = "/";
 }

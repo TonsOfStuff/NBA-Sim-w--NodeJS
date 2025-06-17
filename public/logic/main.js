@@ -152,6 +152,7 @@ export function hasBallPlayerSetter(player){
 }
 
 let day = 0;
+let year = 0;
 
 //Generate Players
 function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
@@ -159,7 +160,8 @@ function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99
   const adjustedMax = Math.min(clampMax, max + quality);
   return Math.floor(Math.random() * (adjustedMax - adjustedMin + 1)) + adjustedMin;
 }
-function genPlayer(amount){
+export function genPlayer(amount){
+    let listGen = []
     for (let i = 0; i<amount; i++){
         let archStat = null;
         let gen = null;
@@ -207,9 +209,10 @@ function genPlayer(amount){
             gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 0), randInRangeWithQuality(archStat.threePt, 0), randInRangeWithQuality(archStat.inside, 0), randInRangeWithQuality(archStat.freeThrow, 0), randInRangeWithQuality(archStat.offensiveAbility, 0), randInRangeWithQuality(archStat.defensiveAbility, 0), randInRangeWithQuality(archStat.defensiveReb, 0), randInRangeWithQuality(archStat.offensiveReb, 0), randInRangeWithQuality(archStat.blockTen, 0), randInRangeWithQuality(archStat.stealTen, 0), randInRangeWithQuality(archStat.takeCharges, 0), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 0), randInRangeWithQuality(archStat.ballControl, 0), randInRangeWithQuality(archStat.catching, 0), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 0), randInRangeWithQuality(archStat.hustle, 0), randInRangeWithQuality(archStat.stamina, 0), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 0), randInRangeWithQuality(archStat.clutch, 0), randInRangeWithQuality(archStat.potential, 0));
         }
 
-        allPlayers.push(gen); //Push newly generated player into allPlayer list to be used
-        removePlayers.push(gen);
+        listGen.push(gen); //Push newly generated player into allPlayer list to be used
     }
+
+    return listGen;
 }
 
 //Function for finding totals
@@ -506,7 +509,9 @@ function subbing(quarter, time, team1, team2, possesion, insertStart = false){
 }
 
 //Set teams
-genPlayer(allTeams.length * 12 - allPlayers.length);
+const k = genPlayer(allTeams.length * 12 - allPlayers.length);
+allPlayers.push(...k);
+removePlayers.push(...k);
 for (let i=0;i<allTeams.length;i++){
     for (let k=0;k<12;k++){
         const chosenPlayer = removePlayers[Math.floor(Math.random() * removePlayers.length)];
@@ -542,8 +547,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 window.test = function(){
-    day += 82;
-    for(let i = 0; i<82 * allTeams.length / 2;i++){
+    for(let i = 0; i< (82 - day) * allTeams.length / 2;i++){
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
@@ -557,6 +561,10 @@ window.test = function(){
     for (let i = 0; i < 8; i++){
         console.log(allTeams[i].abr + ": " + allTeams[i].wins + ":" + allTeams[i].losses);
     }
+    
+    day += (82 - day);
+    const dayCounter = document.getElementById("dayCounter");
+    dayCounter.innerText = "Day: " + day;
 }
 
 window.simGame = function(){
