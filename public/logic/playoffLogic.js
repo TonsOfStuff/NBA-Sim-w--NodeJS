@@ -589,6 +589,10 @@ function offSeasonUI(){
     const remainingTeams = draftOrder.slice(14); 
     const finalDraftOrder = randomizedDraftOrder.concat(remainingTeams);
 
+    finalDraftOrder.forEach(team => {
+        team.money += 20000000;
+    });
+
     const roundsUI = document.createElement("div");
     roundsUI.style.display = "grid";
     roundsUI.style.gridTemplateColumns = "1fr 1fr";
@@ -629,7 +633,7 @@ function offSeasonUI(){
         }
 
         //Actual drafting into team if money and roster space allow
-        let offeredMoney = 1000000 - i * 100000
+        let offeredMoney = 1000000;
         if (finalDraftOrder[pick].money > offeredMoney && finalDraftOrder[pick].players.length < 15){
             rookieClass[i].signRookieContract(offeredMoney, Math.round(Math.random() * 4) + 1);
             rookieClass[i].team = finalDraftOrder[pick];
@@ -646,12 +650,14 @@ function offSeasonUI(){
     playOffPanel.appendChild(roundsUI);
 
     allPlayers.forEach(player => {
-        if (player.yearsIntoContract >= player.contractYears){
-            player.yearsIntoContract = 0;
-            freeAgency.push(player);
+        if (player.teamName !== "Free Agency"){
+            if (player.yearsIntoContract >= player.contractYears){
+                player.yearsIntoContract = 0;
+                freeAgency.push(player);
 
-            player.teamName = "Free Agency"
-            player.team.players.splice(player.team.players.indexOf(player), 1);
+                player.teamName = "Free Agency"
+                player.team.players.splice(player.team.players.indexOf(player), 1);
+            }
         }
     });
 
@@ -664,6 +670,9 @@ function offSeasonUI(){
                 let offer = {};
                 offer["team"] = team;
                 let offerMoney = Math.round(player.freeAgentValue * 100000 + player.money)
+                if (offerMoney < 1000000){
+                    offerMoney = 1000000
+                }
                 if (offerMoney > team.money){
                     console.log("3");
                     offerMoney = player.money;

@@ -789,7 +789,7 @@ function playOffs(){
         player.calcAwardsVal();
     });
     
-    const tempPlayers = [...allPlayers];
+    const tempPlayers = allPlayers.filter(player => player.teamName !== "Free Agency");
     //Champs
     tempPlayers.sort((a,b)=>b.avgPts - a.avgPts);
     tempPlayers[0].scoringChamp += 1;
@@ -821,7 +821,7 @@ function playOffs(){
         }
     }
 
-    const dpoyTempList = [...allPlayers];
+    const dpoyTempList = allPlayers.filter(player => player.teamName !== "Free Agency");;
     dpoyTempList.sort((a,b)=>b.dpoyNum - a.dpoyNum);
     dpoyTempList[0].totalDPOYs += 1;
     dpoy = dpoyTempList[0];
