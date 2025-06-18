@@ -126,3 +126,12 @@ export async function saveGeneral(items){
 
   await connection.execute(sql, items);
 };
+
+
+export async function saveNews(item){
+  const sql = `INSERT INTO news (
+    txt
+  ) VALUES (?)`
+
+  await connection.execute(sql, [item]);
+}

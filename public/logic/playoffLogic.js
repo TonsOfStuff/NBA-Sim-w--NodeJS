@@ -37,6 +37,8 @@ const buttons = [firstRound1Button, firstRound2Button, firstRound3Button, firstR
 let east = [];
 let west = [];
 
+let news = [];
+
 allTeams.forEach(team => {
     if (team.inEast === true || team.inEast === 1){
         east.push(team);
@@ -553,6 +555,8 @@ function endSeason(){
 }
 
 function offSeasonUI(){
+    news = [];
+
     const playOffPanel = document.getElementById("playOffPanel");
     while (playOffPanel.firstChild){
         playOffPanel.removeChild(playOffPanel.firstChild);
@@ -674,11 +678,9 @@ function offSeasonUI(){
                     offerMoney = 1000000
                 }
                 if (offerMoney > team.money){
-                    console.log("3");
                     offerMoney = player.money;
                 }
                 if (offerMoney > team.money){
-                    console.log("4");
                     offerMoney = team.money;
                 }
                 offer["money"] = offerMoney;
@@ -691,9 +693,9 @@ function offSeasonUI(){
         const playerChoose = player.selectContract(offers);
         if (playerChoose !== null){
             if (player.team !== playerChoose.team){
-                console.log(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
+                news.push(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
             }else{
-                console.log(player.name + " re-signs with " + playerChoose.team.abr + " to a " + playerChoose.years + " year $" + playerChoose.money + " deal" );
+                news.push(player.name + " re-signs with " + playerChoose.team.abr + " to a " + playerChoose.years + " year $" + playerChoose.money + " deal" );
             }
             
 
@@ -730,7 +732,7 @@ async function goBackHome(){
     const loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.textContent = "Saving...";
     loadingScreen.style.display = "flex"; 
-    await save(allPlayers, allTeams);
+    await save(allPlayers, allTeams, news);
     loadingScreen.style.display = "none";
 
     sessionStorage.setItem("redirect", "finals");

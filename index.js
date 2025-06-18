@@ -3,6 +3,7 @@ import { connection } from "./models/db.js";
 import playerRoutes from "./routes/playerRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
 import generalRoutes from "./routes/generalRoutes.js";
+import newsRoutes from "./routes/newsRoutes.js";
 import compression from 'compression';
 
 
@@ -55,6 +56,7 @@ app.get("/api/teamStats", async (req, res) => {
 app.use('/api', playerRoutes);
 app.use('/api', teamRoutes);
 app.use('/api', generalRoutes);
+app.use("/api", newsRoutes);
 
 
 //Make app available

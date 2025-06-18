@@ -121,6 +121,18 @@ function updateDayAndYearUI(){
     yearCounter.innerText = "Year: " + year;
 }
 
+window.displayNews = function (){
+    while (main.firstChild){
+        main.removeChild(main.firstChild);
+    }
+
+    news.forEach(txt => {
+        const txtEl = document.createElement("div");
+        txtEl.innerText = txt;
+
+        main.appendChild(txtEl);
+    });
+}
 
 
 //Players
@@ -164,6 +176,7 @@ const magic = new Team("Orlando Magic", true, "ORL", []);
 export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic];
 let allTeamsTemp = [...allTeams];
 export let freeAgency = [];
+let news = [];
 
 //Global variables
 let hasBallPlayer = null;
@@ -257,7 +270,7 @@ function findTotalScore(team1, team2){
 }
 
 //Saving and loading
-export function save(players, teams){
+export function save(players, teams, news = false){
     const strippedPlayers = players.map(player => {
         const copy = { ...player};
         delete copy.team;
@@ -308,24 +321,45 @@ export function save(players, teams){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify([day, year])
     }).then(res => res.json()).then(data =>console.log(data.message)).catch(err => console.error(err));
+    
+    if (news !== false){
+        const newsPromise = fetch("/api/saveNews", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(news)
+        }).then(res => res.json()).then(data =>console.log(data.message)).catch(err => console.error(err));
 
-    return Promise.all([playerPromise, teamPromise, generalsPromise])
+        return Promise.all([playerPromise, teamPromise, generalsPromise, newsPromise])
+    }else{
+        return Promise.all([playerPromise, teamPromise, generalsPromise])
+    }
+
+    
 }
 
 export async function load(){
-    const [teamsRes, playersRes, generalRes] = await Promise.all([
+    const [teamsRes, playersRes, generalRes, newsRes] = await Promise.all([
         fetch("/api/loadTeams"),
         fetch("/api/load-players"),
-        fetch("/api/loadGeneral")
+        fetch("/api/loadGeneral"),
+        fetch("/api/loadNews")
     ]);
 
     const teamData = await teamsRes.json();
     const playerData = await playersRes.json();
     const generalData = await generalRes.json();
+    const loadNews = await newsRes.json();
     
     //Load general data here
     day = generalData[0]["days"];
     year = generalData[0]["years"];
+
+    if (loadNews.length !== 0){
+        loadNews.forEach(txt => {
+            news.push(txt.txt);
+        });
+    }
+    console.log(news);
 
 
     const teams = teamData.map(p => {

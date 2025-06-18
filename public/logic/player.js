@@ -1957,15 +1957,15 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 10;
+                want += 8;
             }else if (item["team"].oldSeed < 10){
-                want += 5;
+                want += 1;
             }else{
                 want -= 1;
             }
 
             if (item["money"] > this.money){
-                want += 10;
+                want += 12;
             }else{
                 want -= 3;
             }
