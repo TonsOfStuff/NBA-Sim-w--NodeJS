@@ -163,6 +163,7 @@ const magic = new Team("Orlando Magic", true, "ORL", []);
 
 export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic];
 let allTeamsTemp = [...allTeams];
+export let freeAgency = [];
 
 //Global variables
 let hasBallPlayer = null;
@@ -171,6 +172,9 @@ export function hasBallPlayerSetter(player){
 }
 
 let day = 0;
+export function setDay(daySet){
+    day = daySet;
+}
 let year = 0;
 export function setYear(yearSet){
     year += yearSet;
@@ -563,6 +567,9 @@ for (let i=0;i<allTeams.length;i++){
         chosenPlayer.calcOvr();
         chosenPlayer.team = allTeams[i];
         chosenPlayer.teamName = chosenPlayer.team.abr;
+        chosenPlayer.money = 1000000
+        chosenPlayer.contractYears = Math.round(Math.random() * 4) + 1;
+        allTeams[i].money -= chosenPlayer.money;
         removePlayers.splice(removePlayers.indexOf(chosenPlayer), 1);
     }
 

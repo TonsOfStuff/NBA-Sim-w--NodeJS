@@ -173,6 +173,7 @@ export class Player{
 
         this.mvpNum = 0;
         this.dpoyNum = 0;
+        this.freeAgentValue = 0;
 
         this.allNBAFirst = 0;
         this.allNBASecond = 0;
@@ -323,7 +324,7 @@ export class Player{
         this.finalsMVPNum = 0;
 
         //Contract details
-        this.happiness = 0;
+        this.happiness = 10;
 
         this.contractYears = 0;
         this.money = 0;
@@ -1605,6 +1606,8 @@ export class Player{
         this.age += 1;
         this.yearsPro += 1;
 
+        this.yearsIntoContract += 1;
+
         this.gamesPlayed = 0;
         this.gamesStarted = 0;
 
@@ -1769,6 +1772,7 @@ export class Player{
         this.p4TotalFTM = 0;
 
         this.finalsMVPNum = 0;
+        this.freeAgentValue = this.mvpNum;
         this.mvpNum = 0;
         this.dpoyNum = 0;
 
@@ -1936,5 +1940,46 @@ export class Player{
     signRookieContract(money, years){
         this.money = money;
         this.contractYears = years;
+    }
+
+    determineHappiness(){
+
+    }
+
+    selectContract(offers){
+        if (!offers || offers.length === 0) return null;
+
+        let interest = [];
+        offers.forEach(item => {
+            let want = 0;
+            if (item["team"] === this.team){
+                want += this.happiness;
+            }
+
+            if (item["team"].oldSeed < 5){
+                want += 10;
+            }else if (item["team"].oldSeed < 10){
+                want += 5;
+            }else{
+                want -= 1;
+            }
+
+            if (item["money"] > this.money){
+                want += 10;
+            }else{
+                want -= 3;
+            }
+
+            if (item["years"] > 3){
+                want -= 1
+            }else{
+                want += 2
+            }
+
+            interest.push({offer: item, score: want});
+        });
+
+        interest.sort((a,b) => b.score - a.score);
+        return interest[0].offer;
     }
 }

@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, setDay, freeAgency } from "./main.js";
 await load();
 
 
@@ -636,6 +636,7 @@ function offSeasonUI(){
             rookieClass[i].teamName = finalDraftOrder[pick].abr;
 
             finalDraftOrder[pick].players.push(rookieClass[i]);
+            finalDraftOrder[pick].money -= offeredMoney;
             allPlayers.push(rookieClass[i])
         }
 
@@ -644,6 +645,71 @@ function offSeasonUI(){
     
     playOffPanel.appendChild(roundsUI);
 
+    allPlayers.forEach(player => {
+        if (player.yearsIntoContract >= player.contractYears){
+            player.yearsIntoContract = 0;
+            freeAgency.push(player);
+
+            player.teamName = "Free Agency"
+            player.team.players.splice(player.team.players.indexOf(player), 1);
+        }
+    });
+
+    freeAgency.sort((a,b) => b.freeAgentValue - a.freeAgentValue);
+    let signedPlayers = [];
+    freeAgency.forEach(player =>{
+        let offers = [];
+        allTeams.forEach(team => {
+            if (team.money > 0 && team.players.length < 15){
+                let offer = {};
+                offer["team"] = team;
+                let offerMoney = Math.round(player.freeAgentValue * 100000 + player.money)
+                if (offerMoney > team.money){
+                    console.log("3");
+                    offerMoney = player.money;
+                }
+                if (offerMoney > team.money){
+                    console.log("4");
+                    offerMoney = team.money;
+                }
+                offer["money"] = offerMoney;
+                offer["years"] = Math.round(Math.random() * 4) + 1;
+
+                offers.push(offer);
+            }
+        });
+
+        const playerChoose = player.selectContract(offers);
+        if (playerChoose !== null){
+            if (player.team !== playerChoose.team){
+                console.log(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
+            }else{
+                console.log(player.name + " re-signs with " + playerChoose.team.abr + " to a " + playerChoose.years + " year $" + playerChoose.money + " deal" );
+            }
+            
+
+            player.team = playerChoose.team;
+            player.teamName = playerChoose.team.abr;
+            player.money = playerChoose.money;
+            player.contractYears = playerChoose.years;
+
+            playerChoose.team.money -= playerChoose.money;
+            playerChoose.team.players.push(player);
+
+            signedPlayers.push(player);
+
+            
+        }
+    });
+    for (let i = freeAgency.length - 1; i >= 0; i--) {
+        if (signedPlayers.includes(freeAgency[i])) {
+            freeAgency.splice(i, 1);
+        }
+    }
+    
+    allTeams.forEach(team => {
+        team.changeStart(true);
+    });
 
     const contButton = document.getElementById("contButton");
     contButton.onclick = () => goBackHome();
@@ -651,6 +717,7 @@ function offSeasonUI(){
 
 async function goBackHome(){
     setYear(1)
+    setDay(0);
     const loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.textContent = "Saving...";
     loadingScreen.style.display = "flex"; 
@@ -660,3 +727,4 @@ async function goBackHome(){
     sessionStorage.setItem("redirect", "finals");
     window.location.href = "/";
 }
+

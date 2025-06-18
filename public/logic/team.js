@@ -105,13 +105,18 @@ export class Team{
         this.startingLineupName5 = this.startingLineup[4].name;
     }
 
-    changeStart(){
+    changeStart(endOfYear = false){
         this.players.forEach(player => {
             player.calcAwardsVal();
         });
 
         let sub = [...this.players];
-        sub.sort((a,b) => ((b.mvpNum) / b.avgMin) - ((a.mvpNum) / a.avgMin));
+        if (endOfYear === false){
+            sub.sort((a,b) => ((b.mvpNum) / b.avgMin) - ((a.mvpNum) / a.avgMin));
+        }else{
+            sub.sort((a,b) => (b.freeAgentValue - a.freeAgentValue));
+        }
+        
 
         this.startingLineup = [];
 
