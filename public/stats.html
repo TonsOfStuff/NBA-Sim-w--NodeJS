@@ -26,7 +26,7 @@
                     "careerQuadDoubles", "careerTotalMin", "careerTotalPts", "careerTotalReb", "careerTotalDReb",
                     "careerTotalOReb", "careerTotalAst", "careerTotalStl", "careerTotalBlk", "careerTotalFls",
                     "careerTotalTov", "careerTotalFGA", "careerTotalFGM", "careerTotalTPA", "careerTotalTPM",
-                    "careerTotalFTA", "careerTotalFTM", "twoPt", "threePt", "inside", "freeThrow",
+                    "careerTotalFTA", "careerTotalFTM", "ovr", "twoPt", "threePt", "inside", "freeThrow",
                     "offensiveAbility", "defensiveAbility", "defensiveReb", "offensiveReb", "stealTen", "blockTen",
                     "takeCharges", "passingTen", "passingAccuracy", "ballControl", "catching", "insideTen",
                     "closeTen", "leftElbow", "rightElbow", "leftCorner", "rightCorner", "leftWing", "rightWing",
@@ -54,6 +54,45 @@
                             }
                             cell.innerHTML = numberWithCommas(player[column]);
                             cell.setAttribute("data-value", player[column]);
+                        }else if (column === "name"){
+                            cell.innerHTML = player[column];
+                            cell.addEventListener("click", () => {
+                                const panel = document.getElementById("playerPanel");
+                                panel.style.display = "block";
+
+                                const cardInfo = document.getElementById("cardInfo");
+
+                                const name = document.getElementById("name");
+                                const arch = document.getElementById("arch");
+                                const height = document.getElementById("height");
+                                const age = document.getElementById("age");
+                                const yearsPro = document.getElementById("yearsPro");
+                                const ovr = document.getElementById("ovr");
+
+                                const heightInFeet = Math.floor(player.height / 12);
+                                const heightInches = player.height - heightInFeet * 12;
+
+                                name.placeholder = player.name;
+                                arch.innerText = player.arch.split(" ").join(", ");
+                                height.innerText = heightInFeet + `' ` + heightInches + `"`;
+                                age.innerText = player.age;
+                                yearsPro.innerText = player.yearsPro;
+                                ovr.innerText = player.ovr;
+
+                                while(cardInfo.firstChild){
+                                    cardInfo.removeChild(cardInfo.firstChild);
+                                }
+                                
+                                const career = JSON.parse(player.career)
+                                career.forEach(element => {
+                                    const row = document.createElement("div");
+                                    row.style.marginTop = "3px";
+                                    row.innerText = element;
+
+                                    cardInfo.appendChild(row);
+                                });
+                                
+                            })
                         }else{
                             cell.innerHTML = player[column];           
                         }
@@ -150,6 +189,12 @@
             document.querySelectorAll("#playerTable thead th").forEach((th, position) => {
                 th.addEventListener(`click`, evt => sortBasedOnClick(position));
             });
+
+
+            window.closePlayerStatPanel = function(){
+                const panel = document.getElementById("playerPanel");
+                panel.style.display = "none";
+            }
         });
     </script>
     
@@ -168,7 +213,7 @@
                     <th>3pM</th><th>FTA</th><th>FTM</th><th style = "min-width: 150px;">Career Games Played</th><th style = "min-width: 150px;">Career Games Started</th><th style = "min-width: 160px;">Career Double Doubles</th><th style = "min-width: 155px;">Career Triple Doubles</th><th style = "min-width: 200px;">Career Quadruple Doubles</th>
                     <th>Career Min</th><th>Career Pts</th><th>Career Reb</th><th>Career DReb</th><th>Career OReb</th><th>Career Ast</th><th>Career Stl</th><th>Career Blk</th>
                     <th>Career Fls</th><th>Career Tov</th><th>Career FGA</th><th>Career FGM</th><th>Career 3pA</th><th>Career 3pM</th><th>Career FTA</th><th>Career FTM</th>
-                    <th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
+                    <th>Ovr</th><th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
                     <th>Vertical</th><th>Hustle</th><th>Stamina</th><th>Height (in)</th><th>Age</th><th>Years Pro</th><th>Foul Tendency</th><th>Draw Fouls</th><th>Clutch</th><th>Potential</th><th>All Star</th><th>MVPs</th><th>DPOYs</th><th>ROTYs</th><th>SMOTYs</th><th>All-NBA 1st</th><th>All-NBA 2nd</th><th>All-NBA 3rd</th><th>All-Def 1st</th><th>All-Def 2nd</th><th>All-Def 3rd</th>
                     <th>Scoring Titles</th><th>Rebound Titles</th><th>Assist Title</th><th>Steal Titles</th><th>Block Titles</th><th>Championships</th><th>Finals MVP</th><th>Contract Money</th>
                 </tr>
@@ -177,5 +222,17 @@
 
             </tbody>
         </table>
+
+
+        <div id = "playerPanel">
+            <div id = "titleInfo">
+                <input id = "name"><button onclick="closePlayerStatPanel()" id = "playerPanelClose">Close</button>
+                <div id = "archL">Archetype:</div><div id = "heightL">Height:</div><div id = "ageL">Age:</div><div id = "yearsProL">Years Pro:</div><div id = "ovrL">Overall:</div>
+                <div id = "arch"></div><div id = "height"></div><div id = "age"></div><div id = "yearsPro"></div><div id = "ovr"></div>
+            </div>
+
+            <div id = "cardInfo"></div>
+            
+        </div>
     </body>
 </html>

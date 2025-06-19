@@ -68,6 +68,9 @@ export class Player{
         this.passToOg = 1;
         this.passedFromSomeone = false;
 
+        //History
+        this.career = [];
+
         //Game stats
         this.min = 0;
         this.pts = 0;
@@ -1981,5 +1984,9 @@ export class Player{
 
         interest.sort((a,b) => b.score - a.score);
         return interest[0].offer;
+    }
+
+    addToCareer(year){
+        this.career.push(year + "|" + this.team.abr + "|Min:" + this.avgMin + "|Pts:" + this.avgPts + "|Reb:" + Number((this.avgOReb + this.avgDReb).toFixed(1)) + "|DReb:" + this.avgDReb + "|OReb:" + this.avgOReb + "|Ast:" + this.avgAst + "|Stl:" + this.avgStl + "|Blk:" + this.avgBlk + "|Fls:" + this.avgFls + "|Tov:" + this.avgTov + "|FG%:" + this.fgp + "|3P%:" + this.tpp + "|FT%:" + this.ftp);
     }
 }

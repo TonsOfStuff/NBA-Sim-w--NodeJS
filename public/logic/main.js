@@ -188,7 +188,7 @@ let day = 0;
 export function setDay(daySet){
     day = daySet;
 }
-let year = 0;
+export let year = 0;
 export function setYear(yearSet){
     year += yearSet;
 }
@@ -249,6 +249,7 @@ export function genPlayer(amount){
         }
 
         listGen.push(gen); //Push newly generated player into allPlayer list to be used
+        gen.calcOvr();
     }
 
     return listGen;
@@ -446,6 +447,8 @@ export async function load(){
             fgp: p.fgp,
             tpp: p.tpp,
             ftp: p.ftp,
+
+            career: JSON.parse(p.career),
 
             seasonTotalMin: p.seasonTotalMin,
             seasonTotalPts: p.seasonTotalPts,

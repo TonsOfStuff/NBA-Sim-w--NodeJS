@@ -51,14 +51,96 @@ td.highlight, th.highlight {
     z-index: 2; 
 }
 
+#playerPanel{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
 
+    background-color: rgba(255, 255, 255, 0.895);
+    color: black;
+    height: 69%;
+    width: 60%;
+    padding: 15px;
+    font-size: 12px;
+
+    overflow-y: scroll;
+}
+
+#titleInfo{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 3fr 1fr 3fr;
+    grid-template-areas: 
+        "name name name name name name close close"
+        "archL archL archL archL heightL ageL yearsProL ovrL"
+        "arch arch arch arch height age yearsPro ovr";
+    gap: 3px;
+    font-size: 14px;
+}
+
+#cardInfo{
+    font-size: 12px;
+    gap: 10px;
+}
+
+#name{
+    grid-area: name;
+}
+
+#playerPanelClose{
+    grid-area: close;
+}
+
+#arch{
+    grid-area: arch;
+}
+#archL{
+    grid-area: archL;
+}
+
+#height{
+    grid-area: height;
+}
+#heightL{
+    grid-area: heightL;
+}
+
+#age{
+    grid-area: age;
+}
+#ageL{
+    grid-area: ageL;
+}
+
+#yearsPro{
+    grid-area: yearsPro;
+}
+#yearsProL{
+    grid-area: yearsProL;
+}
+
+#ovr{
+    grid-area: ovr;
+}
+#ovrL{
+    grid-area: ovrL;
+}
+
+#archL, #heightL, #ageL, #yearsProL, #ovrL{
+    font-size: 10px;
+    color: rgb(56, 56, 56);
+}
 
 
 
 /*Playoff UI*/
 #statsPanel{
     position: absolute;
-    position-area: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: none;
 
     background-color: rgba(255, 255, 255, 0.895);
@@ -82,7 +164,9 @@ td.highlight, th.highlight {
 
 #controlPanel{
     position: absolute;
-    position-area: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: none;
 
     background-color: rgba(134, 134, 134, 0.703);

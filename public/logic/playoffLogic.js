@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, setDay, freeAgency } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setDay, freeAgency } from "./main.js";
 await load();
 
 
@@ -544,6 +544,7 @@ function endSeason(){
     playOffPanel.style.display = "block";
 
     allPlayers.forEach(player => {
+        player.addToCareer(year);
         player.resetSeason();
     });
     allTeams.forEach(team => {
