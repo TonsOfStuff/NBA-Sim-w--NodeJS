@@ -61,6 +61,13 @@ const series6 = [west[1], west[6]];
 const series7 = [west[2], west[5]];
 const series8 = [west[3], west[4]];
 
+for (let i = 0; i < 8; i++){
+    east[i].playOffAppearances += 1;
+}
+for (let i = 0; i < 8; i++){
+    west[i].playOffAppearances += 1;
+}
+
 const series9 = []
 const series10 = []
 const series11 = []

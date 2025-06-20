@@ -149,8 +149,10 @@ const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 0, 99, 78
 const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 99, 65, 84, 99, 99, 99, 99, 80, 77, 52, 83, 43, 77, 91, 99, 99, 21, 20, 0,0, 0, 0, 10, 15, 14, 0, 82, 65, 81, 82, 40, 40, 87, 99);
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 33, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 99);
 const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 31, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 99);
+const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 89, 98, 84, 97, 99, 71, 55, 99, 82, 22, 38, 83, 34, 90, 82, 98, 81, 41, 33, 10, 12, 78, 92, 90, 14, 23, 94, 53, 77, 82, 90, 42, 38, 96, 99);
+const doncic = new Player("Luka Doncic", "All Playmakers", 96, 95, 94, 82, 99, 48, 78, 66, 32, 44, 12, 41, 98, 90, 82, 88, 99, 92, 20, 12, 95, 90, 86, 88, 91, 90, 32, 99, 42, 33, 74, 78, 38, 43, 99, 99);
 
-export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant];
+export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant, wemby, doncic];
 let removePlayers = [...allPlayers];
 
 
@@ -172,8 +174,18 @@ const cavs = new Team("Cleveland Caveliers", true, "CLE", []);
 const rockets = new Team("Houston Rockets", false, "HOU", []);
 const spurs = new Team("San Antonio Spurs", false, "SAS", []);
 const magic = new Team("Orlando Magic", true, "ORL", []);
+const sixers = new Team("Philadelphia 76ers", true, "PHI", []);
+const grizzlies = new Team("Memphis Grizzlies", false, "MEM", []);
+const warriors = new Team("Golden State Warriors", false, "GSW", []);
+const bucks = new Team("Milwaukee Bucks", true, "MIL", []);
+const pistons = new Team("Detroit Pistons", true, "DET", []);
+const hawks = new Team("Atlanta Hawks", true, "ATL", []);
+const nuggets = new Team("Denver Nuggets", false, "DEN", []);
+const mavs = new Team("Dallas Mavericks", false, "DAL", []);
 
-export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic];
+export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic, sixers, grizzlies, warriors, 
+    bucks, pistons, hawks, nuggets, mavs
+];
 let allTeamsTemp = [...allTeams];
 export let freeAgency = [];
 let news = [];
