@@ -637,6 +637,9 @@ function offSeasonUI(){
         teamName.innerText = finalDraftOrder[pick].abr;
         nameElement.innerText = rookieClass[i].name;
         statsEl.innerText = "Ovr: " + rookieClass[i].ovr + "  Pot: " + rookieClass[i].potential;
+
+        rookieClass[i].pickNum = (i + 1);
+        rookieClass[i].pickTeam = finalDraftOrder[pick].abr;
         
         
         draftUI.appendChild(pickNum);
@@ -731,12 +734,110 @@ function offSeasonUI(){
         }
     }
     
+    for (let i = 0; i < allTeams.length; i++){
+        let possibles = [...allTeams]
+        let chosen1 = possibles[Math.floor(Math.random() * possibles.length)];
+        possibles.splice(possibles.indexOf(chosen1), 1);
+        let chosen2 = possibles[Math.floor(Math.random() * possibles.length)];
+
+        let trades = tradePlayer(chosen1, chosen2);
+        if (trades !== null){
+            news.push(chosen1.abr + " traded " + trades[0].map(p => p.name).join(", ") + " to " + chosen2.abr + " for " + trades[1].map(p => p.name).join(", "));
+        }
+    }
+    
+
+
     allTeams.forEach(team => {
         team.changeStart(true);
     });
 
     const contButton = document.getElementById("contButton");
     contButton.onclick = () => goBackHome();
+}
+
+
+function tradePlayer(team1, team2){
+    let team1TradeMenu = null;
+    team1.players.sort((a,b) => (b.freeAgentValue - a.freeAgentValue));
+    team2.players.sort((a,b) => (b.freeAgentValue - a.freeAgentValue));
+    
+    //Team 1 chooses 1 player to trade
+    for (let i = 0; i < team1.players.length; i++){
+        if (i !== 0){
+            if (Math.round(Math.random() * 2) === 1){
+                team1TradeMenu = team1.players[i];
+            }
+        }
+    }
+    if (team1TradeMenu === null){
+        return null;
+    }
+
+    //Team 2 offers their players
+    let team2Trades = [];
+    let valSum = 0;
+    for (let i = 0; i < team2.players.length; i++){
+        let selected = team2.players[Math.floor(Math.random() * team2.players.length)];
+
+        if (!team2Trades.includes(selected)){
+            team2Trades.push(selected);
+            
+            team2Trades.forEach(player => {
+                valSum += player.freeAgentValue;
+            });
+            if (team2Trades.length > team2.players.length - 8){
+                return null;
+            }
+            if (valSum > team1TradeMenu.freeAgentValue){
+                break;
+            }
+        }
+    }
+
+    //Team 1 now tries to match it
+    let team1Trades = [team1TradeMenu];
+    let valSumTeam = 0;
+    for (let i = 0; i < team1.players.length; i++){
+        let selected = team1.players[Math.floor(Math.random() * team1.players.length)];
+
+        if (!team1Trades.includes(selected)){
+            team1Trades.push(selected);
+            team1Trades.forEach(player => {
+                valSumTeam += player.freeAgentValue;
+            });
+            if (team1Trades.length > team1.players.length - 8){
+                return null;
+            }
+            if (Math.abs(valSumTeam - valSum) > 20 || team1Trades.length - team2Trades.length + team2.players.length > 15 || team2Trades.length - team1Trades.length + team1.players.length > 15){
+                return null;
+            }
+            if (Math.abs(valSumTeam - valSum) < 20){
+                break;
+            }
+        }
+    }
+
+    if (Math.abs(valSumTeam - valSum) > 20){
+        return null;
+    }
+
+    //Proceed with trade
+    team1Trades.forEach(player => {
+        player.teamName = team2.abr;
+        player.team = team2;
+
+        team2.players.push(player);
+        team1.players.splice(team1.players.indexOf(player), 1);
+    });
+    team2Trades.forEach(player => {
+        player.teamName = team1.abr;
+        player.team = team1;
+
+        team1.players.push(player);
+        team2.players.splice(team2.players.indexOf(player), 1)
+    });
+    return [team1Trades, team2Trades];
 }
 
 async function goBackHome(){

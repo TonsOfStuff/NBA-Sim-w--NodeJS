@@ -432,6 +432,8 @@ export async function load(){
         Object.assign(player, {
             age: p.age,
             yearsPro: p.yearsPro,
+            pickNum: p.pickNum,
+            pickTeam: p.draftTeam,
 
             gamesPlayed: p.gamesPlayed,
             gamesStarted: p.gamesStarted,

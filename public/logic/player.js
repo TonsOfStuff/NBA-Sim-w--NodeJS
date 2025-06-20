@@ -71,6 +71,8 @@ export class Player{
 
         //History
         this.career = [];
+        this.pickNum = 0;
+        this.pickTeam = ""
 
         //Game stats
         this.min = 0;
