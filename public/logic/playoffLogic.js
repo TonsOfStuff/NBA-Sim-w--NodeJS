@@ -543,11 +543,23 @@ function endSeason(){
     playOffPanel.appendChild(displayFinalsMVP);
     playOffPanel.style.display = "block";
 
+    //Reset news
+    news = [];
+
     allPlayers.forEach(player => {
-        player.addToCareer(year);
-        player.resetSeason();
+        if (player.teamName !== "FA"){
+            player.addToCareer(year);
+            player.determineHappiness();
+            player.resetSeason();
+        }
     });
     allTeams.forEach(team => {
+        const releaseNews = team.releasePlayer();
+        if (releaseNews !== null){
+            releaseNews[0].yearsIntoContract = 0;
+            freeAgency.push(releaseNews[0]);
+            news.push(releaseNews[1]);
+        }
         team.resetSeason();
     });
 
@@ -556,7 +568,7 @@ function endSeason(){
 }
 
 function offSeasonUI(){
-    news = [];
+    
 
     const playOffPanel = document.getElementById("playOffPanel");
     while (playOffPanel.firstChild){
@@ -655,12 +667,12 @@ function offSeasonUI(){
     playOffPanel.appendChild(roundsUI);
 
     allPlayers.forEach(player => {
-        if (player.teamName !== "Free Agency"){
+        if (player.teamName !== "FA"){
             if (player.yearsIntoContract >= player.contractYears){
                 player.yearsIntoContract = 0;
                 freeAgency.push(player);
 
-                player.teamName = "Free Agency"
+                player.teamName = "FA"
                 player.team.players.splice(player.team.players.indexOf(player), 1);
             }
         }

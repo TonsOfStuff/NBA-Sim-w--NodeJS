@@ -538,10 +538,16 @@ export async function load(){
     });
     allPlayers.splice(0, allPlayers.length);
     allPlayers = [...players];
+    freeAgency = [];
     allPlayers.forEach(player => {
+        if (player.teamName === "FA"){
+            freeAgency.push(player);
+        }
         for (let i = 0; i < allTeams.length; i++){
             if (player.name === allTeams[i].startingLineupName1 || player.name === allTeams[i].startingLineupName2 || player.name === allTeams[i].startingLineupName3 || player.name === allTeams[i].startingLineupName4 || player.name === allTeams[i].startingLineupName5){
-                allTeams[i].startingLineup.push(player);
+                if (player.teamName === allTeams[i].abr){
+                    allTeams[i].startingLineup.push(player);
+                }
             }
             if(player.teamName === allTeams[i].abr){
                 player.team = allTeams[i];
@@ -549,7 +555,8 @@ export async function load(){
                 break;
             }
         }
-        });
+       
+    });
     allTeamsTemp = [...allTeams];
     console.log("loaded")
 }
@@ -826,7 +833,7 @@ function playOffs(){
         player.calcAwardsVal();
     });
     
-    const tempPlayers = allPlayers.filter(player => player.teamName !== "Free Agency");
+    const tempPlayers = allPlayers.filter(player => player.teamName !== "FA");
     //Champs
     tempPlayers.sort((a,b)=>b.avgPts - a.avgPts);
     tempPlayers[0].scoringChamp += 1;
@@ -858,7 +865,7 @@ function playOffs(){
         }
     }
 
-    const dpoyTempList = allPlayers.filter(player => player.teamName !== "Free Agency");;
+    const dpoyTempList = allPlayers.filter(player => player.teamName !== "FA");;
     dpoyTempList.sort((a,b)=>b.dpoyNum - a.dpoyNum);
     dpoyTempList[0].totalDPOYs += 1;
     dpoy = dpoyTempList[0];

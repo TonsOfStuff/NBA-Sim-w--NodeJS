@@ -1233,7 +1233,7 @@ export class Player{
             oPToReb.oReb += 1;
             return oPToReb;
         } else {
-            if (Math.round(Math.random() * 8) > 1){
+            if (Math.round(Math.random() * 5) > 1){
                 dPToReb.dReb += 1;
             }   
             return dPToReb;
@@ -1842,7 +1842,7 @@ export class Player{
             }
         }else{
             //Progress
-            const progAmount = (this.potential / (Math.round(Math.random() * 10) + 10));
+            let progAmount = (this.potential / (Math.round(Math.random() * 10) + 10));
             if (this.ovr >= this.potential){
                 progAmount = 0;
             }
@@ -1953,7 +1953,9 @@ export class Player{
     }
 
     determineHappiness(){
-
+        if (this.avgMin < 15){
+            this.happiness -= 1;
+        }
     }
 
     selectContract(offers){
@@ -1967,7 +1969,7 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 8;
+                want += 3;
             }else if (item["team"].oldSeed < 10){
                 want += 1;
             }else{

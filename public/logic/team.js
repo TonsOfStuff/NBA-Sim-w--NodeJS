@@ -195,7 +195,7 @@ export class Team{
             player.otherTeammates.splice(0, player.otherTeammates.length);
             player.opponents.splice(0, player.opponents.length);
         });
-        this.lineup.splice(0, this.lineup.length);
+        this.lineup = [];
 
         if (insertStart === false){
             let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus) - (a.stamina - a.energyUsed - a.min + a.boxMinus)).slice(0, smartSubNum);
@@ -215,7 +215,7 @@ export class Team{
                 player.energyUsed = 0;
             }
         })
-
+        
         this.setPositions()
     }
 
@@ -267,5 +267,18 @@ export class Team{
         this.fg = 0;
         this.tp = 0;
         this.ft = 0;
+    }
+
+    releasePlayer(){
+        for (let i = 0; i < this.players.length; i++){
+            if (this.players[i].freeAgentValue < 2){
+                this.players[i].teamName = "FA";
+
+                const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
+                console.log(splicedPlayer[0].name + " was released by " + this.abr)
+                return [splicedPlayer[0], splicedPlayer[0].name + " was released by " + this.abr];
+            }
+        }
+        return null;
     }
 }
