@@ -87,7 +87,7 @@ export class Team{
     updateMin(){
         this.lineup.forEach(player => {
             player.min += 1;
-            player.energyUsed += 5;
+            player.energyUsed += 10;
         });
     }
 

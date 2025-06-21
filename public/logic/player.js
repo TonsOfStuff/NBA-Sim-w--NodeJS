@@ -1160,13 +1160,13 @@ export class Player{
             }
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 8;
-            }
-            else if (this.otherTeammates[i].fga > 30){
                 passingAmount -= 9;
             }
+            else if (this.otherTeammates[i].fga > 30){
+                passingAmount -= 15;
+            }
             else if (this.otherTeammates[i].fga > 40){
-                passingAmount -= 10;
+                passingAmount -= 30;
             }
             if (passingAmount <= 0){
                 passingAmount = 1;
