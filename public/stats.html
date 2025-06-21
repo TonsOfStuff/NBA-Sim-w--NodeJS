@@ -81,18 +81,113 @@
                                 yearsPro.innerText = player.yearsPro;
                                 ovr.innerText = player.ovr;
 
-                                while(cardInfo.firstChild){
-                                    cardInfo.removeChild(cardInfo.firstChild);
+                                page1();
+                                //Different pages within the player card
+                                function page1(){
+                                    while(cardInfo.firstChild){
+                                        cardInfo.removeChild(cardInfo.firstChild);
+                                    }
+                                    
+                                    const label = document.createElement("div");
+                                    label.innerHTML = "<b>Season:</b>";
+                                    cardInfo.appendChild(label);
+
+                                    const seasonAvgs = document.createElement("div");
+                                    seasonAvgs.innerText = "MIN: " + player.avgMin + "|PTS: " + player.avgPts + "|REB: " + Number((player.avgDReb + player.avgOReb).toFixed(1)) + "|DREB: " + player.avgDReb + "|OREB: " + player.avgOReb + "|AST: " + player.avgAst + "|STL: " + player.avgStl + "|BLK: " + player.avgBlk + "|FLS: " + player.avgFls + "|TOV: " + player.avgTov + "|FG%: " + player.fgp + "|3P%: " + player.tpp + "|FT%: " + player.ftp;
+                                    cardInfo.appendChild(seasonAvgs);
+
+                                    const nextPage = document.getElementById("nextPage");
+                                    nextPage.onclick = () => page2();
+                                }
+
+                                function page2(){
+                                    while(cardInfo.firstChild){
+                                        cardInfo.removeChild(cardInfo.firstChild);
+                                    }
+                                    
+                                    const label = document.createElement("div");
+                                    label.innerHTML = "<b>Awards:</b>";
+                                    cardInfo.appendChild(label);
+
+                                    const allStars = document.createElement("div");
+                                    allStars.innerText = "MVPs: " + player.allStar + "x";
+                                    cardInfo.appendChild(allStars);
+
+                                    const mvpAwards = document.createElement("div");
+                                    mvpAwards.innerText = "MVPs: " + player.totalMVPS + "x";
+                                    cardInfo.appendChild(mvpAwards);
+                                    const dpoyAwards = document.createElement("div");
+                                    dpoyAwards.innerText = "DPOYs: " + player.totalDPOYs + "x";
+                                    cardInfo.appendChild(dpoyAwards);
+                                    const rotyAwards = document.createElement("div");
+                                    rotyAwards.innerText = "ROTYs: " + player.totalROTYs + "x";
+                                    cardInfo.appendChild(rotyAwards);
+                                    const smotyAwards = document.createElement("div");
+                                    smotyAwards.innerText = "SMOTYs: " + player.totalSMOTY + "x";
+                                    cardInfo.appendChild(smotyAwards);
+
+                                    const allNBAFirst = document.createElement("div");
+                                    allNBAFirst.innerText = "All NBA 1st: " + player.allNBAFirst + "x";
+                                    cardInfo.appendChild(allNBAFirst);
+                                    const allNBASecond = document.createElement("div");
+                                    allNBASecond.innerText = "All NBA 2nd: " + player.allNBASecond + "x";
+                                    cardInfo.appendChild(allNBASecond);
+                                    const allNBAThird = document.createElement("div");
+                                    allNBAThird.innerText = "All NBA 3rd: " + player.allNBAThird + "x";
+                                    cardInfo.appendChild(allNBAThird);
+
+                                    const allDefensiveFirst = document.createElement("div");
+                                    allDefensiveFirst.innerText = "All Def 1st: " + player.allDefensiveFirst + "x";
+                                    cardInfo.appendChild(allDefensiveFirst);
+                                    const allDefensiveSecond = document.createElement("div");
+                                    allDefensiveSecond.innerText = "All Def 2nd: " + player.allDefensiveSecond + "x";
+                                    cardInfo.appendChild(allDefensiveSecond);
+                                    const allDefensiveThird= document.createElement("div");
+                                    allDefensiveThird.innerText = "All Def 3rd " + player.allDefensiveThird + "x";
+                                    cardInfo.appendChild(allDefensiveThird);
+
+                                    const scoring = document.createElement("div");
+                                    scoring.innerText = "Scoring Champ: " + player.scoringChamp + "x";
+                                    cardInfo.appendChild(scoring);
+                                    const assists = document.createElement("div");
+                                    assists.innerText = "Assists Champ: " + player.assistChamp + "x";
+                                    cardInfo.appendChild(assists);
+                                    const rebounds = document.createElement("div");
+                                    rebounds.innerText = "Rebound Champ: " + player.reboundChamp + "x";
+                                    cardInfo.appendChild(rebounds);
+                                    const steal = document.createElement("div");
+                                    steal.innerText = "Steal Champ: " + player.stealChamp + "x";
+                                    cardInfo.appendChild(steal);
+                                    const block = document.createElement("div");
+                                    block.innerText = "Block Champ: " + player.blockChamp + "x";
+                                    cardInfo.appendChild(block);
+
+                                    const nextPage = document.getElementById("nextPage");
+                                    nextPage.onclick = () => page3();
+                                }
+
+                                function page3(){
+                                    while(cardInfo.firstChild){
+                                        cardInfo.removeChild(cardInfo.firstChild);
+                                    }
+                                    
+                                    const label = document.createElement("div");
+                                    label.innerHTML = "<b>History:</b>";
+                                    cardInfo.appendChild(label);
+
+                                    const career = JSON.parse(player.career)
+                                    career.forEach(element => {
+                                        const row = document.createElement("div");
+                                        row.style.marginTop = "3px";
+                                        row.innerText = element;
+
+                                        cardInfo.appendChild(row);
+                                    });
+
+                                    const nextPage = document.getElementById("nextPage");
+                                    nextPage.onclick = () => page1();
                                 }
                                 
-                                const career = JSON.parse(player.career)
-                                career.forEach(element => {
-                                    const row = document.createElement("div");
-                                    row.style.marginTop = "3px";
-                                    row.innerText = element;
-
-                                    cardInfo.appendChild(row);
-                                });
                                 
                             })
                         }else{
@@ -234,6 +329,7 @@
             </div>
 
             <div id = "cardInfo"></div>
+            <button id = "nextPage" style="margin-top: 10px">Next Page</button>
             
         </div>
     </body>
