@@ -1160,13 +1160,13 @@ export class Player{
             }
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 9;
+                passingAmount -= 2;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 15;
+                passingAmount -= 5;
             }
             else if (this.otherTeammates[i].fga > 40){
-                passingAmount -= 30;
+                passingAmount -= 15;
             }
             if (passingAmount <= 0){
                 passingAmount = 1;
@@ -1250,6 +1250,9 @@ export class Player{
         }
         if (this.passedFromSomeone !== false){
             passTen += this.passedFromSomeone.passingAccuracy / 2
+        }
+        if (this.fga > 25){
+            passTen -= 50;
         }
 			
         if (this.passingTen + this.fga > Math.random() * passTen && this.team.shotClock < 5){
