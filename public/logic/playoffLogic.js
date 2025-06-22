@@ -2,6 +2,7 @@ import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setD
 await load();
 
 
+
 const panel = document.getElementById("controlPanel");
 const statsPanel = document.getElementById("statsPanel");
 const checkOtherTeam = document.getElementById("checkOtherTeam");
@@ -555,7 +556,6 @@ function endSeason(){
 
     allPlayers.forEach(player => {
         if (player.teamName !== "FA"){
-            player.addToCareer(year);
             player.determineHappiness();
             player.resetSeason();
         }

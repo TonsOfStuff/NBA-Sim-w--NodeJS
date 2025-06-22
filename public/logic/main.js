@@ -106,6 +106,10 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     main.appendChild(allDef2ndText);
     main.appendChild(allDef3rdText);
 
+    allPlayers.forEach(player => {
+        player.addToCareer(year);
+    });
+
     const contButton = document.createElement("button");
     contButton.innerText = "Continue"
     contButton.addEventListener("click", async () => {
@@ -206,7 +210,7 @@ let day = 0;
 export function setDay(daySet){
     day = daySet;
 }
-export let year = 0;
+export let year = 1;
 export function setYear(yearSet){
     year += yearSet;
 }
@@ -703,6 +707,8 @@ window.test = function(){
     day += (82 - day);
     const dayCounter = document.getElementById("dayCounter");
     dayCounter.innerText = "Day: " + day;
+
+    document.getElementById("allStarButton").style.display = "block";
 }
 
 window.simGame = function(){
@@ -775,6 +781,8 @@ window.allStars = function(){
     for (let i = 0; i < playerOrder.length; i++){
         playerOrder[i].team = savedTeam[i];
     }
+
+    document.getElementById("allStarButton").style.display = "none";
 }
 
 export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true, allStar = false){
@@ -931,9 +939,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         });
     }
 
-    if (day > 42){
-        document.getElementById("allStarButton").style.display = "block";
+    if (playOff === false){
+        if (day > 42){
+            document.getElementById("allStarButton").style.display = "block";
+        }
     }
+    
     
 }
 
