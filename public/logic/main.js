@@ -77,7 +77,7 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     main.appendChild(mvpStats);
     main.appendChild(dpoyStats);
     main.appendChild(rotyStats);
-    main.appendChild(smotyStats)
+    main.appendChild(smotyStats);
 
 
     const allNBA1stText = document.createElement("div");
@@ -378,7 +378,6 @@ export async function load(){
             news.push(txt.txt);
         });
     }
-    console.log(news);
 
 
     const teams = teamData.map(p => {
@@ -725,7 +724,60 @@ window.testP = function(){
     playOffs();
 }
 
-export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true){
+window.allStars = function(){
+    allPlayers.forEach(player => {
+        player.calcAwardsVal();
+    });
+
+    let savedTeam = [];
+    let playerOrder = [];
+
+    allPlayers.sort((a,b) => b.mvpNum - a.mvpNum);
+
+    let allStarTeam1 = [];
+    let allStarTeam2 = [];
+    for (let i = 0; i < 24; i++){
+        playerOrder.push(allPlayers[i]);
+        savedTeam.push(allPlayers[i].team);
+        allPlayers[i].allStar += 1;
+        if (i < 12){
+            allStarTeam1.push(allPlayers[i]);
+        }else{
+            allStarTeam2.push(allPlayers[i]);
+        }
+    }
+
+    const starTeam1 = new Team("All Star East", true, "ASE", allStarTeam1);
+    const starTeam2 = new Team("All Star West", false, "ASW", allStarTeam2);
+
+    starTeam1.players.forEach(player => {
+        player.team = starTeam1;
+    });
+
+    starTeam2.players.forEach(player => {
+        player.team = starTeam2;
+;    })
+
+    starTeam1.players.sort((a, b) => b.mvpNum - a.mvpNum);
+    starTeam1.startingLineup.push(...starTeam1.players.slice(0, 5));
+    starTeam1.lineup = [...starTeam1.startingLineup];
+
+    starTeam2.players.sort((a, b) => b.mvpNum - a.mvpNum);
+    starTeam2.startingLineup.push(...starTeam2.players.slice(0, 5));
+    starTeam2.lineup = [...starTeam2.startingLineup];
+
+    starTeam1.setPositions();
+    starTeam2.setPositions();
+    
+
+    aGame(starTeam1, starTeam2, false, 0, true, true);
+
+    for (let i = 0; i < playerOrder.length; i++){
+        playerOrder[i].team = savedTeam[i];
+    }
+}
+
+export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true, allStar = false){
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
@@ -744,6 +796,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team2.lineup = [...team2.startingLineup];
     team1.setOpponentsAndTeammates(team2);
     team2.setOpponentsAndTeammates(team1);
+
 
     team1.setPositions();
     team2.setPositions();
@@ -849,24 +902,39 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
     }
 
-    team1.calcTeamAvg();
-    team2.calcTeamAvg();
+    if (allStar === false){
+        team1.calcTeamAvg();
+        team2.calcTeamAvg();
 
-    team1.players.forEach(player => {
-        if (!playOff){
-            player.statsUpdate();
-        }else{
-            player.statsPlayoffs(series)
-        }
-        
-    });
-    team2.players.forEach(player => {
-        if (!playOff){
-            player.statsUpdate();
-        }else{
-            player.statsPlayoffs(series)
-        }
-    });
+        team1.players.forEach(player => {
+            if (!playOff){
+                player.statsUpdate();
+            }else{
+                player.statsPlayoffs(series)
+            }
+            
+        });
+        team2.players.forEach(player => {
+            if (!playOff){
+                player.statsUpdate();
+            }else{
+                player.statsPlayoffs(series)
+            }
+        });
+    }else{
+        team1.players.forEach(player => {
+            player.resetAllStar();
+        });
+
+        team2.players.forEach(player => {
+            player.resetAllStar();
+        });
+    }
+
+    if (day > 42){
+        document.getElementById("allStarButton").style.display = "block";
+    }
+    
 }
 
 function playOffs(){
@@ -950,6 +1018,7 @@ function playOffs(){
     displayAwards(mvp, dpoy, tempPlayers, dpoyTempList, roty, smoty);
 
 }
+
 
 
 

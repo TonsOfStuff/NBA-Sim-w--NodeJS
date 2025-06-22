@@ -1611,6 +1611,28 @@ export class Player{
     }
 
 
+    resetAllStar(){
+        this.min = 0;
+        this.pts = 0;
+        this.ast = 0;
+        this.dReb = 0;
+        this.oReb = 0;
+        this.stl = 0;
+        this.blk = 0;
+        this.fls = 0;
+        this.tov = 0;
+        this.fga = 0;
+        this.fgm = 0;
+        this.tpa = 0;
+        this.tpm = 0;
+        this.fta = 0;
+        this.ftm = 0;
+        this.boxMinus = 0;
+
+        this.energyUsed = 0;
+    }
+
+
     resetSeason(){
         this.age += 1;
         this.yearsPro += 1;
