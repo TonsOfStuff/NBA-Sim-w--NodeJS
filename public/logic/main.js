@@ -55,7 +55,7 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     main.appendChild(teamStuff)
 }
 
-function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty){
+function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     while (main.firstChild){
         main.removeChild(main.firstChild);
     }
@@ -70,11 +70,14 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty){
     }else{
         rotyStats.innerText = "ROTY: N/A"
     }
+    const smotyStats = document.createElement("div");
+    smotyStats.innerText = "SMOTY: " + smoty.name + "|Min:" + smoty.avgMin + "|Pts:" + smoty.avgPts + "|Reb:" + (smoty.avgOReb + smoty.avgDReb).toFixed(1) + "|DReb:" + smoty.avgDReb + "|OReb:" + smoty.avgOReb + "|Ast:" + smoty.avgAst + "|Stl:" + smoty.avgStl + "|Blk:" + smoty.avgBlk + "|Fls" + smoty.avgFls + "|Tov:" + smoty.avgTov + "|FG%:" + smoty.fgp + "|3P%:" + smoty.tpp + "|FT%:" + smoty.ftp;
     
 
     main.appendChild(mvpStats);
     main.appendChild(dpoyStats);
     main.appendChild(rotyStats);
+    main.appendChild(smotyStats)
 
 
     const allNBA1stText = document.createElement("div");
@@ -871,6 +874,7 @@ function playOffs(){
     let mvp = null;
     let dpoy = null;
     let roty = null;
+    let smoty = null;
 
     allPlayers.forEach(player => {
         player.calcAwardsVal();
@@ -922,7 +926,7 @@ function playOffs(){
             dpoyTempList[i].allDefensiveThird += 1;
         }
     }
-
+    //ROTY and SMOTY
     const rookies = allPlayers.filter(player => player.yearsPro <= 1);
     if (rookies.length !== 0){
         rookies.sort((a,b) => b.mvpNum - a.mvpNum)
@@ -931,10 +935,19 @@ function playOffs(){
     }else{
         roty = null;
     }
+
+    let smotyList = [];
+    allTeams.forEach(team => {
+        smotyList.push(team.sixthMan);
+    });
+    
+    smotyList.sort((a,b) => b.mvpNum - a.mvpNum);
+    smoty = smotyList[0];
+    smoty.totalSMOTY += 1;
     
 
 
-    displayAwards(mvp, dpoy, tempPlayers, dpoyTempList, roty);
+    displayAwards(mvp, dpoy, tempPlayers, dpoyTempList, roty, smoty);
 
 }
 
