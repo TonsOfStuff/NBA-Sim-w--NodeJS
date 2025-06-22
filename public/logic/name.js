@@ -3,7 +3,7 @@ export let fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious",
     "Winston", "Wilbur", "William", "Will", "Blake", "John", "Joe", "Vlad", "Henry", "Harry", 
     "Henrick", "Harold", "Ronald", "Donald", "Douglass", "Jack", "Jake", "Lou", "Bob", "Xavier", 
     "Bobby", "Michael", "Jordan", "Magnus", "Johnny", "Damien", "Pedro", "Alex", "Alexander", "Bill", 
-    "Billy", "Gordan", "Freddy", "Eric", "Rob", "Robert", "Richard", "Stanley", "Miles", "Harold", "Dio", 
+    "Billy", "Gordan", "Freddy", "Eric", "Rob", "Richard", "Stanley", "Miles", "Harold", "Dio", 
     "Patrick", "Scott", "Scottie", "Barry", "Larry", "Jamal", "Tyron", "Mitch", "Mitchell", "Jimmy", 
     "Jim", "Nolan", "Chandler", "Chris", "Christopher", "Marcus", "Emmett", "Evan", "Dirk", "Sean", 
     "Shane", "Shean", "Kevin", "Kassius", "Toby", "Tobin", "Tobius", "Gerald", "Ford", "Smith", 
@@ -19,7 +19,9 @@ export let fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious",
     "Ed", "Eddie", "Travis", "Triston", "Christian", "Howard", "Devin", "Jason", "Jody", "Nikola", 
     "Russell", "Buddy", "Bud", "Duncan", "Coby", "Ferdinand", "Karl", "Carl", "Abe", "Aaron", "Eren", 
     "Terry", "Garry", "Woodrow", "Clark", "Sebastion", "Steve", "Steven", "Chuck", "Zane", "Ty", "Tyrone", "Luca",
-    "Lance", "Stephon", "Stephen"]
+    "Lance", "Stephon", "Stephen", "Rudy", "Clyde", "Dexter", "Jaylen", "Hayden", "Jalen", "Terrance", "Dante",
+    "Andre", "Steph", "Cam"
+]
 
 export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mase", "Hilm", "Monroe", "Obama", 
     "Trump", "McDonald", "McArthur", "Jones Jr", "Alpine", "Doe", "Harris", "Harrison", "Lindenburg", 
@@ -33,4 +35,6 @@ export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mas
     "Wattney", "Oakley", "Rivers", "Franklin", "Edwards", "Earl", "Washington", "Jones", "Garnett", 
     "Sterling", "Scott", "Thomas", "Parrish", "Hollins", "Watney", "Howard", "Cook", "Brook", "Russell", 
     "Clark", "Perkins", "Hendrick", "Wayne", "Butler", "Lincoln", "Borris", "June", "Terry", "Woodrow", 
-    "Wilson", "Dent", "Adams", "Sharon", "Mullin", "Maw", "Stephonson", "Stevenson"]
+    "Wilson", "Dent", "Adams", "Sharon", "Mullin", "Maw", "Stephonson", "Stevenson", "Robertson", "Christianson",
+    "Hurtz", "Hertz", "Brown", "Bowen", "McConnell", "Shannon", "Shannon Jr", "Quake", "Drummond", "Wilder", "Whitmore"
+]
