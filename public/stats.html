@@ -292,6 +292,18 @@
                 const panel = document.getElementById("playerPanel");
                 panel.style.display = "none";
             }
+
+            document.getElementById("searchBar").addEventListener("input", () => {
+                let searchingForText = document.getElementById("searchBar").value;
+                for (let i = 0; i < table.childElementCount; i++){
+                    if (table.children[i].children[0].textContent.toLowerCase().includes(searchingForText.toLowerCase())){
+                        table.children[i].style.display = "table-row";
+                    }else{
+                        table.children[i].style.display = "none";
+                    }
+                }
+            });
+                        
         });
     </script>
     
@@ -301,36 +313,41 @@
             <a href = "stats.html">Stats</a>
             <a href = "teamStats.html">Team Stats</a>
         </header>
-        <table id = "playerTable">
-            <thead>
-                <tr>
-                    <th style = "min-width: 175px;">Name</th><th style = "min-width: 200px;">Archetype</th><th style="min-width: 50px;">Team</th><th style="min-width: 70px;">MPG</th><th style="min-width: 70px;">PPG</th><th style="min-width: 70px;">RPG</th><th style="min-width: 70px;">DRPG</th><th style="min-width: 70px;">ORPG</th><th style="min-width: 70px;">APG</th><th style="min-width: 70px;">SPG</th>
-                    <th style="min-width: 70px;">BPG</th><th style="min-width: 70px;">FPG</th><th style="min-width: 70px;">TPG</th><th style="min-width: 70px;">FG%</th><th style="min-width: 70px;">3P%</th><th style="min-width: 70px;">FT%</th><th>Games Played</th><th>Games Started</th><th>Double Doubles</th><th>Triple Doubles</th><th style = "min-width: 155px;">Quadruple Doubles</th><th>Total Min</th><th>Total Pts</th><th>Total Reb</th><th>Total DReb</th>
-                    <th>Total OReb</th><th>Total Ast</th><th>Total Stl</th><th>Total Blk</th><th>Total Fls</th><th>Total Tov</th><th>FGA</th><th>FGM</th><th>3pA</th>
-                    <th>3pM</th><th>FTA</th><th>FTM</th><th style = "min-width: 150px;">Career Games Played</th><th style = "min-width: 150px;">Career Games Started</th><th style = "min-width: 160px;">Career Double Doubles</th><th style = "min-width: 155px;">Career Triple Doubles</th><th style = "min-width: 200px;">Career Quadruple Doubles</th>
-                    <th>Career Min</th><th>Career Pts</th><th>Career Reb</th><th>Career DReb</th><th>Career OReb</th><th>Career Ast</th><th>Career Stl</th><th>Career Blk</th>
-                    <th>Career Fls</th><th>Career Tov</th><th>Career FGA</th><th>Career FGM</th><th>Career 3pA</th><th>Career 3pM</th><th>Career FTA</th><th>Career FTM</th>
-                    <th>Ovr</th><th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Passing Efficiency</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
-                    <th>Vertical</th><th>Hustle</th><th>Stamina</th><th>Height (in)</th><th>Age</th><th>Years Pro</th><th>Foul Tendency</th><th>Draw Fouls</th><th>Clutch</th><th>Potential</th><th>All Star</th><th>MVPs</th><th>DPOYs</th><th>ROTYs</th><th>SMOTYs</th><th>All-NBA 1st</th><th>All-NBA 2nd</th><th>All-NBA 3rd</th><th>All-Def 1st</th><th>All-Def 2nd</th><th>All-Def 3rd</th>
-                    <th>Scoring Titles</th><th>Rebound Titles</th><th>Assist Title</th><th>Steal Titles</th><th>Block Titles</th><th>Championships</th><th>Finals MVP</th><th>Contract Money</th>
-                </tr>
-            </thead>
-            <tbody>
+        <article>
+            <input id = "searchBar" type = "search" placeholder="Search player...">
 
-            </tbody>
-        </table>
+            <table id = "playerTable">
+                <thead>
+                    <tr>
+                        <th style = "min-width: 175px;">Name</th><th style = "min-width: 200px;">Archetype</th><th style="min-width: 50px;">Team</th><th style="min-width: 70px;">MPG</th><th style="min-width: 70px;">PPG</th><th style="min-width: 70px;">RPG</th><th style="min-width: 70px;">DRPG</th><th style="min-width: 70px;">ORPG</th><th style="min-width: 70px;">APG</th><th style="min-width: 70px;">SPG</th>
+                        <th style="min-width: 70px;">BPG</th><th style="min-width: 70px;">FPG</th><th style="min-width: 70px;">TPG</th><th style="min-width: 70px;">FG%</th><th style="min-width: 70px;">3P%</th><th style="min-width: 70px;">FT%</th><th>Games Played</th><th>Games Started</th><th>Double Doubles</th><th>Triple Doubles</th><th style = "min-width: 155px;">Quadruple Doubles</th><th>Total Min</th><th>Total Pts</th><th>Total Reb</th><th>Total DReb</th>
+                        <th>Total OReb</th><th>Total Ast</th><th>Total Stl</th><th>Total Blk</th><th>Total Fls</th><th>Total Tov</th><th>FGA</th><th>FGM</th><th>3pA</th>
+                        <th>3pM</th><th>FTA</th><th>FTM</th><th style = "min-width: 150px;">Career Games Played</th><th style = "min-width: 150px;">Career Games Started</th><th style = "min-width: 160px;">Career Double Doubles</th><th style = "min-width: 155px;">Career Triple Doubles</th><th style = "min-width: 200px;">Career Quadruple Doubles</th>
+                        <th>Career Min</th><th>Career Pts</th><th>Career Reb</th><th>Career DReb</th><th>Career OReb</th><th>Career Ast</th><th>Career Stl</th><th>Career Blk</th>
+                        <th>Career Fls</th><th>Career Tov</th><th>Career FGA</th><th>Career FGM</th><th>Career 3pA</th><th>Career 3pM</th><th>Career FTA</th><th>Career FTM</th>
+                        <th>Ovr</th><th>Mid Range</th><th>Three Pointer</th><th>Inside</th><th>Free Throw</th><th>Offense</th><th>Defense</th><th>D Rebounding</th><th>O Rebounding</th><th>Steal</th><th>Block</th><th>Take Charges</th><th>Passing Tendency</th><th>Passing Accuracy</th><th>Passing Efficiency</th><th>Ball Control</th><th>Catching</th><th>Inside Tendency</th><th>Close Tendency</th><th>Left Elbow Tend</th><th>Right Elbow Tend</th><th>Left Corner Tend</th><th>Right Corner Tend</th><th>Left Wing Tend</th><th>Right Wing Tend</th><th>Left Tend</th><th>Right Tend</th><th>Center Tend</th><th>Center Three Tend</th>
+                        <th>Vertical</th><th>Hustle</th><th>Stamina</th><th>Height (in)</th><th>Age</th><th>Years Pro</th><th>Foul Tendency</th><th>Draw Fouls</th><th>Clutch</th><th>Potential</th><th>All Star</th><th>MVPs</th><th>DPOYs</th><th>ROTYs</th><th>SMOTYs</th><th>All-NBA 1st</th><th>All-NBA 2nd</th><th>All-NBA 3rd</th><th>All-Def 1st</th><th>All-Def 2nd</th><th>All-Def 3rd</th>
+                        <th>Scoring Titles</th><th>Rebound Titles</th><th>Assist Title</th><th>Steal Titles</th><th>Block Titles</th><th>Championships</th><th>Finals MVP</th><th>Contract Money</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
 
 
-        <div id = "playerPanel">
-            <div id = "titleInfo">
-                <input id = "name"><button onclick="closePlayerStatPanel()" id = "playerPanelClose">Close</button>
-                <div id = "archL">Archetype:</div><div id = "pickL">Pick:</div><div id = "heightL">Height:</div><div id = "ageL">Age:</div><div id = "yearsProL">Years Pro:</div><div id = "ovrL">Overall:</div>
-                <div id = "arch"></div><div id = "pick"></div><div id = "height"></div><div id = "age"></div><div id = "yearsPro"></div><div id = "ovr"></div>
+            <div id = "playerPanel">
+                <div id = "titleInfo">
+                    <input id = "name"><button onclick="closePlayerStatPanel()" id = "playerPanelClose">Close</button>
+                    <div id = "archL">Archetype:</div><div id = "pickL">Pick:</div><div id = "heightL">Height:</div><div id = "ageL">Age:</div><div id = "yearsProL">Years Pro:</div><div id = "ovrL">Overall:</div>
+                    <div id = "arch"></div><div id = "pick"></div><div id = "height"></div><div id = "age"></div><div id = "yearsPro"></div><div id = "ovr"></div>
+                </div>
+                <button id = "nextPage" style="margin-bottom: 10px;">Next Page</button>
+                <div id = "cardInfo"></div>
+                
+                
             </div>
-            <button id = "nextPage" style="margin-bottom: 10px;">Next Page</button>
-            <div id = "cardInfo"></div>
-            
-            
-        </div>
+        </article>
+        
     </body>
 </html>
