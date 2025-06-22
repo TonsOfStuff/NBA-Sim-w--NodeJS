@@ -395,6 +395,9 @@ export async function load(){
             startingLineupName3: p.startingLineupThree,
             startingLineupName4: p.startingLineupFour,
             startingLineupName5: p.startingLineupFive,
+            sixManName: p.sixManName,
+
+            games: p.games,
 
             ptsAvg: p.ptsAvg,
             astAvg: p.astAvg,
@@ -404,6 +407,18 @@ export async function load(){
             fg: p.fg,
             tp: p.tp,
             ft: p.ft,
+
+            totalPts: p.totalPts,
+            totalAst: p.totalAst,
+            totalReb: p.totalReb,
+            totalStl: p.totalStl,
+            totalBlk: p.totalBlk,
+            totalFGA: p.totalFGA,
+            totalFGM: p.totalFGM,
+            totalTPA: p.totalTPA,
+            totalTPM: p.totalTPM,
+            totalFTA: p.totalFTA,
+            totalFTM: p.totalFTM,
 
             playOffAppearances: p.playOffAppearances,
             finalsAppearances: p.finalsAppearances,
@@ -568,6 +583,9 @@ export async function load(){
                     allTeams[i].startingLineup.push(player);
                 }
             }
+            if (allTeams[i].sixManName === player.name && player.teamName === allTeams[i].abr){
+                allTeams[i].sixthMan = player;
+            }
             if(player.teamName === allTeams[i].abr){
                 player.team = allTeams[i];
                 allTeams[i].players.push(player);
@@ -644,6 +662,9 @@ for (let i=0;i<allTeams.length;i++){
     allTeams[i].startingLineupName3 = allTeams[i].startingLineup[2].name;
     allTeams[i].startingLineupName4 = allTeams[i].startingLineup[3].name;
     allTeams[i].startingLineupName5 = allTeams[i].startingLineup[4].name;
+    allTeams[i].sixthMan = allTeams[i].players[5];
+    allTeams[i].sixManName = allTeams[i].players[5].name;
+    
 
     allTeams[i].startingLineupBoost();
     allTeams[i].setPositions();
@@ -824,6 +845,9 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     if (display === true){
         displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
     }
+
+    team1.calcTeamAvg();
+    team2.calcTeamAvg();
 
     team1.players.forEach(player => {
         if (!playOff){

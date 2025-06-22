@@ -24,6 +24,7 @@ export class Team{
         this.startingLineupName3 = "";
         this.startingLineupName4 = "";
         this.startingLineupName5 = "";
+        this.sixManName = "";
 
         this.pg = null;
         this.sg = null;
@@ -33,6 +34,8 @@ export class Team{
         this.sixthMan = null;
         
         //Team averages in season
+        this.games = 0;
+
         this.ptsAvg = 0;
         this.astAvg = 0;
         this.rebAvg = 0;
@@ -41,6 +44,18 @@ export class Team{
         this.fg = 0;
         this.tp = 0;
         this.ft = 0;
+
+        this.totalPts = 0;
+        this.totalAst = 0;
+        this.totalReb = 0;
+        this.totalStl = 0;
+        this.totalBlk = 0;
+        this.totalFGA = 0;
+        this.totalFGM = 0;
+        this.totalTPA = 0;
+        this.totalTPM = 0;
+        this.totalFTA = 0;
+        this.totalFTM = 0;
 
 
         //Franchise stats
@@ -127,6 +142,9 @@ export class Team{
         this.startingLineupName3 = this.startingLineup[2].name;
         this.startingLineupName4 = this.startingLineup[3].name;
         this.startingLineupName5 = this.startingLineup[4].name;
+
+        this.sixManName = sub[5].name;
+        this.sixthMan = sub[5];
 
         this.startingLineupBoost();
         this.setPositions();
@@ -248,6 +266,32 @@ export class Team{
         }
     }
 
+    calcTeamAvg(){
+        this.games += 1;
+        
+        this.totalPts += this.players.reduce((sum, p) => sum + p.pts, 0);
+        this.totalAst += this.players.reduce((sum, p) => sum + p.ast, 0);
+        this.totalReb += this.players.reduce((sum, p) => sum + (p.oReb + p.dReb), 0);
+        this.totalStl += this.players.reduce((sum, p) => sum + p.stl, 0);
+        this.totalBlk += this.players.reduce((sum, p) => sum + p.blk, 0);
+        this.totalFGA += this.players.reduce((sum, p) => sum + p.fga, 0);
+        this.totalFGM += this.players.reduce((sum, p) => sum + p.fgm, 0);
+        this.totalTPA += this.players.reduce((sum, p) => sum + p.tpa, 0);
+        this.totalTPM += this.players.reduce((sum, p) => sum + p.tpm, 0);
+        this.totalFTA += this.players.reduce((sum, p) => sum + p.fta, 0);
+        this.totalFTM += this.players.reduce((sum, p) => sum + p.ftm, 0);
+
+        this.ptsAvg = Number((this.totalPts / this.games).toFixed(1));
+        this.astAvg = Number((this.totalAst / this.games).toFixed(1));
+        this.rebAvg = Number((this.totalReb / this.games).toFixed(1));
+        this.stlAvg = Number((this.totalStl / this.games).toFixed(1));
+        this.blkAvg = Number((this.totalBlk / this.games).toFixed(1));
+        this.fg = Number((this.totalFGM / this.totalFGA).toFixed(2));
+        this.tp = Number((this.totalTPM / this.totalTPA).toFixed(2));
+        this.ft = Number((this.totalFTM / this.totalFTA).toFixed(2));
+
+    }
+
     resetSeason(){
         this.oldWins = this.wins;
         this.oldLosses = this.losses;
@@ -259,6 +303,8 @@ export class Team{
         this.wins = 0;
         this.losses = 0;
 
+        this.games = 0;
+
         this.ptsAvg = 0;
         this.astAvg = 0;
         this.rebAvg = 0;
@@ -267,6 +313,18 @@ export class Team{
         this.fg = 0;
         this.tp = 0;
         this.ft = 0;
+
+        this.totalPts = 0;
+        this.totalAst = 0;
+        this.totalReb = 0;
+        this.totalStl = 0;
+        this.totalBlk = 0;
+        this.totalFGA = 0;
+        this.totalFGM = 0;
+        this.totalTPA = 0;
+        this.totalTPM = 0;
+        this.totalFTA = 0;
+        this.totalFTM = 0;
     }
 
     releasePlayer(){
