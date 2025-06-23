@@ -465,7 +465,7 @@ export async function load(){
             playOffWins: p.playOffWins,
             playerOffLosses: p.playerOffLosses,
 
-            money: p.money
+            money: p.money,
         });
 
         return team;
@@ -590,7 +590,9 @@ export async function load(){
             happiness: p.happiness,
             contractYears: p.contractYears,
             money: p.money,
-            yearsIntoContract: p.yearsIntoContract
+            yearsIntoContract: p.yearsIntoContract,
+
+            yearsInFA: p.yearsInFA
         });
 
         return player;

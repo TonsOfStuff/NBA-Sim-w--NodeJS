@@ -335,6 +335,8 @@ export class Player{
         this.contractYears = 0;
         this.money = 0;
         this.yearsIntoContract = 0;
+
+        this.yearsInFA = 0;
     }
 
     calcOvr() {
@@ -1251,7 +1253,7 @@ export class Player{
         if (this.passedFromSomeone !== false){
             passTen += this.passedFromSomeone.passingAccuracy / 2
         }
-        if (this.fga > 25){
+        if (this.fga > 25 || this.pts > 33){
             passTen -= 50;
         }
 			
@@ -1636,8 +1638,11 @@ export class Player{
     resetSeason(){
         this.age += 1;
         this.yearsPro += 1;
-
-        this.yearsIntoContract += 1;
+        if (this.teamName === "FA"){
+            this.yearsIntoContract += 1;
+            this.yearsInFA += 1;
+        }
+        
 
         this.gamesPlayed = 0;
         this.gamesStarted = 0;

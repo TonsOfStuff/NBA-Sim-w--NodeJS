@@ -45,9 +45,9 @@ export async function savePlayer(player) {
 
       team, championships, finalsMVP, age, yearsPro,
 
-      happiness, contractYears, money, yearsIntoContract, career, ovr, passingEff, pickNum, draftTeam
+      happiness, contractYears, money, yearsIntoContract, career, ovr, passingEff, pickNum, draftTeam, yearsInFA
       
-    ) VALUES (${Array(133).fill('?').join(',')})
+    ) VALUES (${Array(134).fill('?').join(',')})
   `;
 
   const values = [
@@ -87,7 +87,7 @@ export async function savePlayer(player) {
     player.teamName, player.championships, player.finalsMVP, player.age, player.yearsPro,
 
     player.happiness, player.contractYears, player.money, player.yearsIntoContract, JSON.stringify(player.career), player.ovr, player.passingEff, 
-    player.pickNum, player.pickTeam
+    player.pickNum, player.pickTeam, player.yearsInFA
   ];
 
 

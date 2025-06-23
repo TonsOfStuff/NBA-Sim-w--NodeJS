@@ -728,6 +728,7 @@ function offSeasonUI(){
             player.teamName = playerChoose.team.abr;
             player.money = playerChoose.money;
             player.contractYears = playerChoose.years;
+            player.yearsInFA = 0;
 
             playerChoose.team.money -= playerChoose.money;
             playerChoose.team.players.push(player);
@@ -760,6 +761,17 @@ function offSeasonUI(){
     allTeams.forEach(team => {
         team.changeStart(true);
     });
+
+    let toRemove = [];
+    allPlayers.forEach(player=>{
+        if (player.teamName === "FA" && player.yearsInFA >= 5){
+            toRemove.push(player);
+        }
+    })
+    const survivors = allPlayers.filter(player => !toRemove.includes(player));
+    allPlayers.length = 0;
+    allPlayers.push(...survivors);
+
 
     const contButton = document.getElementById("contButton");
     contButton.onclick = () => goBackHome();
