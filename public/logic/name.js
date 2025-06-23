@@ -20,7 +20,7 @@ export let fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious",
     "Russell", "Buddy", "Bud", "Duncan", "Coby", "Ferdinand", "Karl", "Carl", "Abe", "Aaron", "Eren", 
     "Terry", "Garry", "Woodrow", "Clark", "Sebastion", "Steve", "Steven", "Chuck", "Zane", "Ty", "Tyrone", "Luca",
     "Lance", "Stephon", "Stephen", "Rudy", "Clyde", "Dexter", "Jaylen", "Hayden", "Jalen", "Terrance", "Dante",
-    "Andre", "Steph", "Cam"
+    "Andre", "Steph", "Cam", "Kendrick"
 ]
 
 export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mase", "Hilm", "Monroe", "Obama", 
