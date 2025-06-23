@@ -233,6 +233,10 @@ export let year = 1;
 export function setYear(yearSet){
     year += yearSet;
 }
+let simmedAllStar = false;
+export function setAllStarSimmed(val){
+    simmedAllStar = val;
+}
 
 //Generate Players
 function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
@@ -361,7 +365,7 @@ export function save(players, teams, news = false){
     const generalsPromise = fetch('/api/saveGeneral', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify([day, year])
+        body: JSON.stringify([day, year, simmedAllStar])
     }).then(res => res.json()).then(data =>console.log(data.message)).catch(err => console.error(err));
     
     if (news !== false){
@@ -395,6 +399,7 @@ export async function load(){
     //Load general data here
     day = generalData[0]["days"];
     year = generalData[0]["years"];
+    simmedAllStar = generalData[0]["simmedAllStar"];
 
     if (loadNews.length !== 0){
         loadNews.forEach(txt => {
@@ -728,8 +733,10 @@ window.test = function(){
     day += (82 - day);
     const dayCounter = document.getElementById("dayCounter");
     dayCounter.innerText = "Day: " + day;
-
-    document.getElementById("allStarButton").style.display = "block";
+    
+    if (simmedAllStar === false || simmedAllStar === 0){
+        document.getElementById("allStarButton").style.display = "block";
+    }
 }
 
 window.simGame = function(){
@@ -803,6 +810,7 @@ window.allStars = function(){
         playerOrder[i].team = savedTeam[i];
     }
 
+    simmedAllStar = true;
     document.getElementById("allStarButton").style.display = "none";
 }
 
@@ -961,7 +969,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     }
 
     if (playOff === false){
-        if (day > 42){
+        if (day > 42 && (simmedAllStar === false || simmedAllStar === 0)){
             document.getElementById("allStarButton").style.display = "block";
         }
     }

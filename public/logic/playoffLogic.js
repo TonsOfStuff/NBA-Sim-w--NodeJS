@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setDay, freeAgency } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setDay, freeAgency, setAllStarSimmed } from "./main.js";
 await load();
 
 
@@ -864,6 +864,7 @@ function tradePlayer(team1, team2){
 async function goBackHome(){
     setYear(1)
     setDay(0);
+    setAllStarSimmed(false);
     const loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.textContent = "Saving...";
     loadingScreen.style.display = "flex"; 

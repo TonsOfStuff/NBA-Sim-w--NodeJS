@@ -121,7 +121,7 @@ export async function saveTeams(team){
 export async function saveGeneral(items){
   const sql = `
     INSERT INTO generals (
-      days, years
+      days, years, simmedAllStar
     ) VALUES (${items.map(() => '?').join(', ')})
   `;
 
