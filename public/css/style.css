@@ -87,6 +87,11 @@ td.highlight, th.highlight {
 
 #name{
     grid-area: name;
+
+    font-size: 16px;
+}
+::placeholder{
+    color: black;
 }
 
 #playerPanelClose{

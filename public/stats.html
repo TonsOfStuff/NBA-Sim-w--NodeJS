@@ -73,7 +73,7 @@
                                 const heightInFeet = Math.floor(player.height / 12);
                                 const heightInches = player.height - heightInFeet * 12;
 
-                                name.placeholder = player.name;
+                                name.placeholder = player.name + " (" + player.team + ")";
                                 arch.innerText = player.arch.split(" ").join(", ");
                                 pick.innerText = player.draftTeam + " " + player.pickNum;
                                 height.innerText = heightInFeet + `' ` + heightInches + `"`;
@@ -183,6 +183,81 @@
 
                                         cardInfo.appendChild(row);
                                     });
+
+                                    const nextPage = document.getElementById("nextPage");
+                                    nextPage.onclick = () => page4();
+                                }
+
+                                function page4(){
+                                    while(cardInfo.firstChild){
+                                        cardInfo.removeChild(cardInfo.firstChild);
+                                    }
+                                    const label = document.createElement("div");
+                                    label.innerHTML = "<b>Career:</b>";
+                                    cardInfo.appendChild(label);
+
+                                    const careerGamesPlayed = document.createElement("div");
+                                    careerGamesPlayed.innerText = "Games Played: " + player.careerGamesPlayed;
+                                    const careerGamesStarted= document.createElement("div");
+                                    careerGamesStarted.innerText = "Games Started: " + player.careerGamesStarted;
+                                    const careerPts = document.createElement("div");
+                                    careerPts.innerText = "Pts: " + player.careerTotalPts;
+                                    const careerReb = document.createElement("div");
+                                    careerReb.innerText = "Reb: " + (player.careerTotalDReb + player.careerTotalOReb);
+                                    const careerDReb = document.createElement("div");
+                                    careerDReb.innerText = "DReb: " + player.careerTotalDReb;
+                                    const careerOReb = document.createElement("div");
+                                    careerOReb.innerText = "OReb: " + player.careerTotalOReb;
+                                    const careerAst = document.createElement("div");
+                                    careerAst.innerText = "Ast: " + player.careerTotalAst;
+                                    const careerStl = document.createElement("div");
+                                    careerStl.innerText = "Stl: " + player.careerTotalStl;
+                                    const careerBlk = document.createElement("div");
+                                    careerBlk.innerText = "Blk: " + player.careerTotalBlk;
+                                    const careerFls = document.createElement("div");
+                                    careerFls.innerText = "Fls: " + player.careerTotalFls;
+                                    const careerTov = document.createElement("div");
+                                    careerTov.innerText = "Tov: " + player.careerTotalTov;
+                                    const careerFG = document.createElement("div");
+                                    careerFG.innerText = "FG%: " + Number((player.careerTotalFGM / player.careerTotalFGA).toFixed(2));
+                                    const careerTP = document.createElement("div");
+                                    careerTP.innerText = "3P%: " + Number((player.careerTotalTPM / player.careerTotalTPA).toFixed(2));
+                                    const careerFT = document.createElement("div");
+                                    careerFT.innerText = "FT%: " + Number((player.careerTotalFTM / player.careerTotalFTA).toFixed(2));
+                                    const careerFGM = document.createElement("div");
+                                    careerFGM.innerText = "FGM: " + player.careerTotalFGM;
+                                    const careerFGA = document.createElement("div");
+                                    careerFGA.innerText = "FGA: " + player.careerTotalFGA;
+                                    const careerTPM = document.createElement("div");
+                                    careerTPM.innerText = "3PM: " + player.careerTotalTPM;
+                                    const careerTPA = document.createElement("div");
+                                    careerTPA.innerText = "3PA: " + player.careerTotalTPA;
+                                    const careerFTM = document.createElement("div");
+                                    careerFTM.innerText = "FTM: " + player.careerTotalFTM;
+                                    const careerFTA = document.createElement("div");
+                                    careerFTA.innerText = "FTA: " + player.careerTotalFTA;
+
+                                    cardInfo.appendChild(careerGamesPlayed);
+                                    cardInfo.appendChild(careerGamesStarted);
+                                    cardInfo.appendChild(careerPts);
+                                    cardInfo.appendChild(careerReb);
+                                    cardInfo.appendChild(careerDReb);
+                                    cardInfo.appendChild(careerOReb);
+                                    cardInfo.appendChild(careerAst);
+                                    cardInfo.appendChild(careerStl);
+                                    cardInfo.appendChild(careerBlk);
+                                    cardInfo.appendChild(careerFls);
+                                    cardInfo.appendChild(careerTov);
+                                    cardInfo.appendChild(careerFG);
+                                    cardInfo.appendChild(careerTP);
+                                    cardInfo.appendChild(careerFT);
+                                    cardInfo.appendChild(careerFGM);
+                                    cardInfo.appendChild(careerFGA);
+                                    cardInfo.appendChild(careerTPM);
+                                    cardInfo.appendChild(careerTPA);
+                                    cardInfo.appendChild(careerFTM);
+                                    cardInfo.appendChild(careerFTA);
+
 
                                     const nextPage = document.getElementById("nextPage");
                                     nextPage.onclick = () => page1();

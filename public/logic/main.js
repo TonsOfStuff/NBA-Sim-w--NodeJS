@@ -164,10 +164,17 @@ const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92
 const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 34, 24, 75, 79, 44, 37, 82, 35, 82, 90, 94, 90, 86, 72, 13, 15, 82, 80, 34, 90, 32, 99, 75, 63, 81, 80, 40, 34, 89, 97);
 const ant = new Player("Anthony Edwards", "Slasher Shooter", 92, 96, 97, 83, 96, 80, 23, 19, 80, 75, 10, 34, 56, 28, 93, 90, 99, 93, 25, 29, 39, 59, 90, 82, 98, 93, 70, 34, 96, 22, 90, 76, 41, 39, 93, 99);
 const oscar = new Player("Oscar Robertson", "All Playmaker", 94, 83, 97, 90, 97, 53, 60, 32, 33, 72, 10, 48, 94, 96, 92, 87, 90, 97, 94, 99, 32, 10, 4, 7, 30, 33, 55, 11, 66, 69, 77, 77, 33, 37, 92, 99);
-
+const dirk = new Player("Dirk Nowitzki", "Shooter", 96, 92, 90, 87, 97, 68, 42, 10, 70, 75, 18, 38, 42, 53, 88, 94, 92, 93, 99, 90, 13, 10, 32, 11, 56, 78, 77, 80, 32, 43, 80, 84, 40, 38, 95, 99);
+const iverson = new Player("Allen Iverson", "Slasher Shooter", 94, 89, 91, 81, 97, 58, 15, 9, 20, 96, 58, 34, 88, 11, 99, 85, 88, 87, 90, 82, 77, 80, 89, 91, 88, 87, 85, 88, 90, 95, 90, 72, 30, 38, 99, 99);
+const stockton = new Player("John Stockton", "Playmaker Defensive", 90, 85, 87, 86, 88, 89, 24, 18, 24, 99, 90, 50, 98, 99, 89, 83, 70, 68, 74, 73, 69, 26, 31, 53, 80, 80, 78, 72, 74, 91, 84, 73, 28, 31, 95, 98);
+const malone = new Player("Karl Malone", "Inside Post-player", 97, 0, 99, 76, 96, 87, 68, 65, 76, 38, 22, 33, 40, 38, 77, 85, 94, 96, 75, 71, 0, 0, 0, 0, 93, 88, 94, 0, 84, 79, 89, 85, 35, 38, 93, 98);
+const drexler = new Player("Clyde Drexler", "Slasher Two-way", 95, 89, 94, 78, 95, 84, 35, 24, 40, 81, 45, 36, 60, 67, 88, 84, 85, 83, 87, 81, 64, 68, 77, 80, 78, 80, 79, 82, 89, 87, 82, 78, 36, 34, 92, 97);
+const isiah = new Player("Isiah Thomas", "Playmaker", 93, 81, 95, 85, 94, 79, 20, 12, 18, 93, 71, 44, 93, 95, 91, 85, 86, 84, 85, 84, 74, 76, 81, 79, 83, 84, 81, 75, 85, 88, 85, 74, 32, 35, 95, 97);
+const pippen = new Player("Scottie Pippen", "All Defensive", 93, 88, 92, 79, 87, 98, 50, 42, 88, 88, 55, 41, 74, 50, 82, 83, 86, 85, 83, 88, 82, 80, 84, 86, 82, 85, 84, 88, 86, 90, 90, 79, 33, 36, 90, 98);
+const moses = new Player("Moses Malone", "Inside Post-player", 90, 0, 99, 78, 97, 87, 92, 99, 68, 33, 22, 36, 30, 16, 65, 90, 99, 99, 65, 62, 0, 0, 0, 0, 94, 92, 91, 0, 87, 76, 89, 84, 41, 37, 88, 97);
 
 export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant, wemby, doncic, jokic, giannis, shai,
-    tatum, ant, oscar
+    tatum, ant, oscar, dirk, iverson, stockton, malone, drexler, isiah, pippen, moses
 ];
 let removePlayers = [...allPlayers];
 

@@ -1996,9 +1996,9 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 3;
+                want += 4;
             }else if (item["team"].oldSeed < 10){
-                want += 1;
+                want += 2;
             }else{
                 want -= 1;
             }
@@ -2023,6 +2023,11 @@ export class Player{
     }
 
     addToCareer(year){
-        this.career.push(year + "|" + this.team.abr + "|Min:" + this.avgMin + "|Pts:" + this.avgPts + "|Reb:" + Number((this.avgOReb + this.avgDReb).toFixed(1)) + "|DReb:" + this.avgDReb + "|OReb:" + this.avgOReb + "|Ast:" + this.avgAst + "|Stl:" + this.avgStl + "|Blk:" + this.avgBlk + "|Fls:" + this.avgFls + "|Tov:" + this.avgTov + "|FG%:" + this.fgp + "|3P%:" + this.tpp + "|FT%:" + this.ftp);
+        if (this.team !== null){
+            this.career.push(year + "|" + this.team.abr + "|Min:" + this.avgMin + "|Pts:" + this.avgPts + "|Reb:" + Number((this.avgOReb + this.avgDReb).toFixed(1)) + "|DReb:" + this.avgDReb + "|OReb:" + this.avgOReb + "|Ast:" + this.avgAst + "|Stl:" + this.avgStl + "|Blk:" + this.avgBlk + "|Fls:" + this.avgFls + "|Tov:" + this.avgTov + "|FG%:" + this.fgp + "|3P%:" + this.tpp + "|FT%:" + this.ftp);
+        }else{
+            this.career.push("Free Agency")
+        }
+        
     }
 }

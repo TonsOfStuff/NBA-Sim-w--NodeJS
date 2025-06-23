@@ -11,7 +11,7 @@ import express from "express";
 const app = express();
 
 app.use(compression());
-app.use(express.json({limit: '2mb'}));
+app.use(express.json({limit: '10mb'}));
 app.use(express.static('public'));
 
 app.get("/", async (req, res) => {
