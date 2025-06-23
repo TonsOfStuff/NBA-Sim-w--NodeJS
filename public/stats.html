@@ -162,6 +162,13 @@
                                     block.innerText = "Block Champ: " + player.blockChamp + "x";
                                     cardInfo.appendChild(block);
 
+                                    const champ = document.createElement("div");
+                                    champ.innerText = "Championships: " + player.championships + "x";
+                                    cardInfo.appendChild(champ);
+                                    const finalsMVP = document.createElement("div");
+                                    finalsMVP.innerText = "Finals MVP: " + player.finalsMVP + "x";
+                                    cardInfo.appendChild(finalsMVP);
+
                                     const nextPage = document.getElementById("nextPage");
                                     nextPage.onclick = () => page3();
                                 }

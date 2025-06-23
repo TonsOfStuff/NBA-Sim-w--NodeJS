@@ -670,7 +670,7 @@ function offSeasonUI(){
             finalDraftOrder[pick].money -= offeredMoney;
             allPlayers.push(rookieClass[i])
 
-            news.push(finalDraftOrder[pick].abr + " draft " + rookieClass[i].name + " at " + (i + 1).toString());
+            news.push(finalDraftOrder[pick].abr + " drafts " + rookieClass[i].name + " at " + (i + 1).toString());
         }
 
         pick+=1;
