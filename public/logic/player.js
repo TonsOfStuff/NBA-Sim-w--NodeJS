@@ -1641,11 +1641,14 @@ export class Player{
     resetSeason(){
         this.age += 1;
         this.yearsPro += 1;
+        this.yearsIntoContract += 1;
         if (this.teamName === "FA"){
-            this.yearsIntoContract += 1;
             this.yearsInFA += 1;
+            
         }
-        
+        if (this.teamName !== "FA"){
+            this.freeAgentValue = this.mvpNum;
+        }
 
         this.gamesPlayed = 0;
         this.gamesStarted = 0;
@@ -1811,7 +1814,6 @@ export class Player{
         this.p4TotalFTM = 0;
 
         this.finalsMVPNum = 0;
-        this.freeAgentValue = this.mvpNum;
         this.mvpNum = 0;
         this.dpoyNum = 0;
 

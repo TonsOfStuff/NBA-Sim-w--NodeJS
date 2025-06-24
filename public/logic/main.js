@@ -735,8 +735,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-window.test = function(){
-    for(let i = 0; i< (82 - day) * allTeams.length / 2;i++){
+window.simSeason = async function(){
+    const totalGames = (82 - day) * allTeams.length / 2;
+    let gamesSimulated = 0;
+    const chosenTeam = allTeams[Math.floor(Math.random() * allTeams.length)];
+
+    while (gamesSimulated < totalGames) {
         if (allTeamsTemp.length === 0){
             allTeamsTemp = [...allTeams];
         }
@@ -745,13 +749,18 @@ window.test = function(){
         const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
         allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
 
-        aGame(chosenTeam1, chosenTeam2);
+        aGame(chosenTeam1, chosenTeam2, false, 0, false);
+
+        gamesSimulated++;
+        if (gamesSimulated % 15 === 0){
+            day++;
+        }
+        main.innerText = chosenTeam.abr + "  " + chosenTeam.wins + ":" + chosenTeam.losses; 
+
+        if (gamesSimulated % 5 === 0) {
+            await new Promise(res => setTimeout(res, 0));
+        }
     }
-    for (let i = 0; i < 8; i++){
-        console.log(allTeams[i].abr + ": " + allTeams[i].wins + ":" + allTeams[i].losses);
-    }
-    
-    day += (82 - day);
     const dayCounter = document.getElementById("dayCounter");
     dayCounter.innerText = "Day: " + day;
     

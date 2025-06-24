@@ -100,11 +100,11 @@ for (let i = 0; i < 8; i++) {
         //panel.children[0].textContent = buttons[i].textContent;
         panel.children[0].children[0].children[0].src = `../images/${series[0].abr}.svg`;
         panel.children[0].children[0].children[1].innerText = series[0].name + " (" + series[0].confSeed + ")";
-        panel.children[0].children[1].innerText = series[0].playOffWinTemp;
+        panel.children[0].children[1].innerText = buttons[i].innerText[16]
         panel.children[0].children[2].innerText = "vs."
         panel.children[0].children[4].children[0].src = `../images/${series[1].abr}.svg`;
         panel.children[0].children[4].children[1].innerText = series[1].name + " (" + series[1].confSeed + ")";;
-        panel.children[0].children[5].innerText = series[1].playOffWinTemp;
+        panel.children[0].children[5].innerText = buttons[i].innerText[18]
 
         const simButton = panel.children[1].children[0];
         const simSeriesButton = panel.children[1].children[1];
@@ -137,11 +137,11 @@ function addButtonFunc(series, button){
         panel.style.display = "grid";
         panel.children[0].children[0].children[0].src = `../images/${series[0].abr}.svg`;
         panel.children[0].children[0].children[1].innerText = series[0].name + " (" + series[0].confSeed + ")";;
-        panel.children[0].children[1].innerText = series[0].playOffWinTemp;
+        panel.children[0].children[1].innerText = button.innerText[16];
         panel.children[0].children[2].innerText = "vs."
         panel.children[0].children[4].children[0].src = `../images/${series[1].abr}.svg`;
         panel.children[0].children[4].children[1].innerText = series[1].name + " (" + series[1].confSeed + ")";;
-        panel.children[0].children[5].innerText = series[1].playOffWinTemp;
+        panel.children[0].children[5].innerText = button.innerText[18];
 
         const simButton = panel.children[1].children[0];
         const simSeriesButton = panel.children[1].children[1];
@@ -180,7 +180,7 @@ function addButtonFunc(series, button){
 
 function checkDone(team1, team2, simButton, newHandler, buttonSeries){
     if (team1.playOffWinTemp === 4 || team2.playOffWinTemp === 4){
-        buttonSeries.innerHTML = team1.abr + " (" + team1.confSeed + ")" + " v " + team2.abr + "(" + team2.confSeed + ")<br>" + team1.playOffWinTemp + ":" + team2.playOffWinTemp
+        buttonSeries.innerHTML = team1.abr + "(" + team1.confSeed + ")" + " v " + team2.abr + "(" + team2.confSeed + ")<br>" + team1.playOffWinTemp + ":" + team2.playOffWinTemp
         panel.children[0].children[0].children[0].src = `../images/${team1.abr}.svg`;
         panel.children[0].children[0].children[1].innerText = team1.name + "(" + team1.confSeed + ")";
         panel.children[0].children[1].innerText = team1.playOffWinTemp;
@@ -278,7 +278,7 @@ function checkDone(team1, team2, simButton, newHandler, buttonSeries){
         
     }else{
         if (!(buttonSeries.innerHTML.includes(":4") || buttonSeries.innerHTML.includes("4:"))){
-            buttonSeries.innerHTML = team1.abr + " (" + team1.confSeed + ")" + " v " + team2.abr + "(" + team2.confSeed + ")<br>" + team1.playOffWinTemp + ":" + team2.playOffWinTemp
+            buttonSeries.innerHTML = team1.abr + "(" + team1.confSeed + ")" + " v " + team2.abr + "(" + team2.confSeed + ")<br>" + team1.playOffWinTemp + ":" + team2.playOffWinTemp
             panel.children[0].children[0].children[0].src = `../images/${team1.abr}.svg`;
             panel.children[0].children[0].children[1].innerText = team1.name + "(" + team1.confSeed + ")";
             panel.children[0].children[1].innerText = team1.playOffWinTemp;
