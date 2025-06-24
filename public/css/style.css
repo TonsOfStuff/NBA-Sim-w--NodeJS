@@ -181,7 +181,7 @@ td.highlight, th.highlight {
     transform: translate(-50%, -50%);
     display: none;
 
-    background-color: rgba(134, 134, 134, 0.703);
+    background-color: rgba(177, 177, 177, 0.912);
     height: 65%;
     width: 50%;
     padding: 15px;
@@ -197,6 +197,18 @@ td.highlight, th.highlight {
 #control button{
     font-size: 15px;
     height: 20%;
+}
+
+#showPanel{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 4fr 1fr 4fr;
+    row-gap: 10px;
+}
+
+#team1Playoff, #team2Playoff{
+    align-self: center;
+    justify-items: center;
 }
 
 #playOffPanel{
