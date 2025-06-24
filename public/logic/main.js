@@ -4,7 +4,6 @@ import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStat
 import { fn, ln } from "./name.js";
 
 
-
 //DOM elements
 let main = document.getElementById("main");
 
@@ -35,7 +34,18 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
         main.appendChild(boxScoreRow);
     });
     let teamStuff = document.createElement("div");
-    teamStuff.innerText = team1.name + ": " + team1Score;
+    teamStuff.style.display = "flex";
+    teamStuff.style.alignItems = "center";
+    teamStuff.style.columnGap = "30px";
+    let teamImg = document.createElement("img");
+    let teamStat = document.createElement("div");
+    teamStat.style.fontSize = "20px";
+    teamImg.style.width = "50px";
+    teamImg.src = `../images/${team1.abr}.svg`;
+    teamStat.innerText = team1.name + ": " + team1Score;
+
+    teamStuff.appendChild(teamImg);
+    teamStuff.appendChild(teamStat);
     main.appendChild(teamStuff)
 
     const space = document.createElement("div");
@@ -51,7 +61,18 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
         main.appendChild(boxScoreRow);
     });
     teamStuff = document.createElement("div");
-    teamStuff.innerText = team2.name + ": " + team2Score;
+    teamStuff.style.display = "flex";
+    teamStuff.style.alignItems = "center";
+    teamStuff.style.columnGap = "30px";
+    teamStat = document.createElement('div');
+    teamImg = document.createElement('img');
+    teamStat.style.fontSize = "20px";
+    teamImg.style.width = "50px";
+    teamImg.src = `../images/${team2.abr}.svg`;
+    teamStat.innerText = team2.name + ": " + team2Score;
+
+    teamStuff.appendChild(teamImg);
+    teamStuff.appendChild(teamStat);
     main.appendChild(teamStuff)
 }
 
