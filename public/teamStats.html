@@ -56,6 +56,14 @@
                             }else{
                                 cell.innerHTML = player[column];
                             }
+                        }else if(column === "name"){
+                            cell.style.display = "flex";
+                            cell.style.justifyContent = "space-between";
+                            cell.innerHTML = player[column]
+                            const img = document.createElement("img");
+                            img.src = `/images/${player.abr}.svg`
+                            img.style.width = "15px";
+                            cell.appendChild(img);
                         }
                         else{
                             cell.innerHTML = player[column]
