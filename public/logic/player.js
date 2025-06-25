@@ -1823,7 +1823,7 @@ export class Player{
     progressionAndRegression(){
         if (this.age > 33 + Math.round(this.potential / 27)){
             //Regress
-            for (let i = 0; i < 20; i++){
+            for (let i = 0; i < 25; i++){
                 const counter = Math.round(Math.random() * 9)
                 if (counter === 0){
                     this.twoPt -= 2
