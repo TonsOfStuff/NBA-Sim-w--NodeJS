@@ -760,6 +760,7 @@ function offSeasonUI(){
         if (playerChoose !== null){
             if (player.team !== playerChoose.team){
                 news.push(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
+                player.happiness = 10;
             }else{
                 news.push(player.name + " re-signs with " + playerChoose.team.abr + " to a " + playerChoose.years + " year $" + playerChoose.money + " deal" );
             }

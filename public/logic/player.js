@@ -46,7 +46,7 @@ export class Player{
         this.hustle = hustle;
         this.stamina = stamina;
         this.height = height;
-        this.age = Math.round((Math.random() * 4)) + 18 
+        this.age = Math.round((Math.random() * 4)) + 19 
         this.yearsPro = 1;
 
         //Misc
@@ -1256,7 +1256,7 @@ export class Player{
         if (this.fga > 25){
             passTen -= 80;
         }
-        if (this.pts > 33){
+        if (this.pts > 25){
             passTen -= 20;
         }
 			
@@ -1823,7 +1823,7 @@ export class Player{
     progressionAndRegression(){
         if (this.age > 33 + Math.round(this.potential / 27)){
             //Regress
-            for (let i = 0; i < 5; i++){
+            for (let i = 0; i < 20; i++){
                 const counter = Math.round(Math.random() * 9)
                 if (counter === 0){
                     this.twoPt -= 2
@@ -1993,6 +1993,9 @@ export class Player{
         if (this.avgMin < 15){
             this.happiness -= 1;
         }
+        if (this.team.oldConfSeed > 8){
+            this.happiness -= 1;
+        }
     }
 
     selectContract(offers){
@@ -2006,9 +2009,9 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 4;
+                want += 8;
             }else if (item["team"].oldSeed < 10){
-                want += 2;
+                want += 5;
             }else{
                 want -= 1;
             }
@@ -2042,20 +2045,20 @@ export class Player{
     }
 
     retire(){
-        if (this.age > 41 || this.yearsInFA > 5){
+        if (this.age >= 41 || this.yearsInFA > 5){
             console.log("old")
             return true;
-        }else if (this.age > 38 || this.yearsInFA > 4){
-            if (Math.round(Math.random() * (this.freeAgentValue)) === 0){
+        }else if (this.age >= 38 || this.yearsInFA > 4){
+            if (Math.round(Math.random() * (this.freeAgentValue)) <= 30){
                 return true;
             }
-        }else if (this.age > 36 || this.yearsInFA > 3){
-            if (Math.round(Math.random() * (this.freeAgentValue + 1)) === 0){
+        }else if (this.age >= 36 || this.yearsInFA > 3){
+            if (Math.round(Math.random() * (this.freeAgentValue + 10)) <= 30){
                 return true;
             }
         }
-        else if (this.age > 34 || this.yearsInFA > 2){
-            if (Math.round(Math.random() * this.freeAgentValue + 5) === 0){
+        else if (this.age >= 34 || this.yearsInFA > 2){
+            if (Math.round(Math.random() * this.freeAgentValue + 30) <= 30){
                 return true;
             }
         }

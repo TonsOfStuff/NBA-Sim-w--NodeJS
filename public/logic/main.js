@@ -1036,7 +1036,7 @@ function playOffs(){
     });
 
     //MVP and DPOY
-    tempPlayers.sort((a,b)=>(b.mvpNum - b.team.seed) - (a.mvpNum - a.team.seed));
+    tempPlayers.sort((a,b)=>(b.mvpNum - b.team.seed - b.totalMVPS) - (a.mvpNum - a.team.seed - a.totalMVPS));
     tempPlayers[0].totalMVPS += 1;
     mvp = tempPlayers[0];
 

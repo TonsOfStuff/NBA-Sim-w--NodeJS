@@ -328,13 +328,15 @@ export class Team{
     }
 
     releasePlayer(){
-        for (let i = 0; i < this.players.length; i++){
-            if (this.players[i].freeAgentValue < 2){
-                this.players[i].teamName = "FA";
+        if (this.players.length > 12){
+            for (let i = 0; i < this.players.length; i++){
+                if (this.players[i].freeAgentValue < 2){
+                    this.players[i].teamName = "FA";
 
-                const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
-                console.log(splicedPlayer[0].name + " was released by " + this.abr)
-                return [splicedPlayer[0], splicedPlayer[0].name + " was released by " + this.abr];
+                    const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
+                    console.log(splicedPlayer[0].name + " was released by " + this.abr)
+                    return [splicedPlayer[0], splicedPlayer[0].name + " was released by " + this.abr];
+                }
             }
         }
         return null;
