@@ -82,17 +82,17 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     }
 
     const mvpStats = document.createElement("div");
-    mvpStats.innerText = "MVP: " + mvp.name + "|Min:" + mvp.avgMin + "|Pts:" + mvp.avgPts + "|Reb:" + (mvp.avgOReb + mvp.avgDReb).toFixed(1) + "|DReb:" + mvp.avgDReb + "|OReb:" + mvp.avgOReb + "|Ast:" + mvp.avgAst + "|Stl:" + mvp.avgStl + "|Blk:" + mvp.avgBlk + "|Fls" + mvp.avgFls + "|Tov:" + mvp.avgTov + "|FG%:" + mvp.fgp + "|3P%:" + mvp.tpp + "|FT%:" + mvp.ftp;
+    mvpStats.innerText = "MVP: " + mvp.name + "|Min:" + mvp.avgMin + "|Pts:" + mvp.avgPts + "|Reb:" + (mvp.avgOReb + mvp.avgDReb).toFixed(1) + "|DReb:" + mvp.avgDReb + "|OReb:" + mvp.avgOReb + "|Ast:" + mvp.avgAst + "|Stl:" + mvp.avgStl + "|Blk:" + mvp.avgBlk + "|Fls:" + mvp.avgFls + "|Tov:" + mvp.avgTov + "|FG%:" + mvp.fgp + "|3P%:" + mvp.tpp + "|FT%:" + mvp.ftp;
     const dpoyStats = document.createElement("div");
-    dpoyStats.innerText = "DPOY: " + dpoy.name + "|Min:" + dpoy.avgMin + "|Pts:" + dpoy.avgPts + "|Reb:" + (dpoy.avgOReb + dpoy.avgDReb).toFixed(1) + "|DReb:" + dpoy.avgDReb + "|OReb:" + dpoy.avgOReb + "|Ast:" + dpoy.avgAst + "|Stl:" + dpoy.avgStl + "|Blk:" + dpoy.avgBlk + "|Fls" + dpoy.avgFls + "|Tov:" + dpoy.avgTov + "|FG%:" + dpoy.fgp + "|3P%:" + dpoy.tpp + "|FT%:" + dpoy.ftp;
+    dpoyStats.innerText = "DPOY: " + dpoy.name + "|Min:" + dpoy.avgMin + "|Pts:" + dpoy.avgPts + "|Reb:" + (dpoy.avgOReb + dpoy.avgDReb).toFixed(1) + "|DReb:" + dpoy.avgDReb + "|OReb:" + dpoy.avgOReb + "|Ast:" + dpoy.avgAst + "|Stl:" + dpoy.avgStl + "|Blk:" + dpoy.avgBlk + "|Fls:" + dpoy.avgFls + "|Tov:" + dpoy.avgTov + "|FG%:" + dpoy.fgp + "|3P%:" + dpoy.tpp + "|FT%:" + dpoy.ftp;
     const rotyStats = document.createElement("div");
     if (roty !== null){
-        rotyStats.innerText = "ROTY: " + roty.name + "|Min:" + roty.avgMin + "|Pts:" + roty.avgPts + "|Reb:" + (roty.avgOReb + roty.avgDReb).toFixed(1) + "|DReb:" + roty.avgDReb + "|OReb:" + roty.avgOReb + "|Ast:" + roty.avgAst + "|Stl:" + roty.avgStl + "|Blk:" + roty.avgBlk + "|Fls" + roty.avgFls + "|Tov:" + roty.avgTov + "|FG%:" + roty.fgp + "|3P%:" + roty.tpp + "|FT%:" + roty.ftp;
+        rotyStats.innerText = "ROTY: " + roty.name + "|Min:" + roty.avgMin + "|Pts:" + roty.avgPts + "|Reb:" + (roty.avgOReb + roty.avgDReb).toFixed(1) + "|DReb:" + roty.avgDReb + "|OReb:" + roty.avgOReb + "|Ast:" + roty.avgAst + "|Stl:" + roty.avgStl + "|Blk:" + roty.avgBlk + "|Fls:" + roty.avgFls + "|Tov:" + roty.avgTov + "|FG%:" + roty.fgp + "|3P%:" + roty.tpp + "|FT%:" + roty.ftp;
     }else{
         rotyStats.innerText = "ROTY: N/A"
     }
     const smotyStats = document.createElement("div");
-    smotyStats.innerText = "SMOTY: " + smoty.name + "|Min:" + smoty.avgMin + "|Pts:" + smoty.avgPts + "|Reb:" + (smoty.avgOReb + smoty.avgDReb).toFixed(1) + "|DReb:" + smoty.avgDReb + "|OReb:" + smoty.avgOReb + "|Ast:" + smoty.avgAst + "|Stl:" + smoty.avgStl + "|Blk:" + smoty.avgBlk + "|Fls" + smoty.avgFls + "|Tov:" + smoty.avgTov + "|FG%:" + smoty.fgp + "|3P%:" + smoty.tpp + "|FT%:" + smoty.ftp;
+    smotyStats.innerText = "SMOTY: " + smoty.name + "|Min:" + smoty.avgMin + "|Pts:" + smoty.avgPts + "|Reb:" + (smoty.avgOReb + smoty.avgDReb).toFixed(1) + "|DReb:" + smoty.avgDReb + "|OReb:" + smoty.avgOReb + "|Ast:" + smoty.avgAst + "|Stl:" + smoty.avgStl + "|Blk:" + smoty.avgBlk + "|Fls:" + smoty.avgFls + "|Tov:" + smoty.avgTov + "|FG%:" + smoty.fgp + "|3P%:" + smoty.tpp + "|FT%:" + smoty.ftp;
     
 
     main.appendChild(mvpStats);
@@ -1018,7 +1018,7 @@ function playOffs(){
         player.calcAwardsVal();
     });
     
-    const tempPlayers = allPlayers.filter(player => player.teamName !== "FA");
+    const tempPlayers = allPlayers.filter(player => player.teamName !== "FA" && player.teamName !== "HOF");
     //Champs
     tempPlayers.sort((a,b)=>b.avgPts - a.avgPts);
     tempPlayers[0].scoringChamp += 1;
@@ -1050,7 +1050,7 @@ function playOffs(){
         }
     }
 
-    const dpoyTempList = allPlayers.filter(player => player.teamName !== "FA");;
+    const dpoyTempList = allPlayers.filter(player => player.teamName !== "FA" && player.teamName !== "HOF");
     dpoyTempList.sort((a,b)=>b.dpoyNum - a.dpoyNum);
     dpoyTempList[0].totalDPOYs += 1;
     dpoy = dpoyTempList[0];

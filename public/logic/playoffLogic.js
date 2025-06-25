@@ -580,13 +580,27 @@ function endSeason(){
 
     //Reset news
     news = [];
-
+    let retired = [];
     allPlayers.forEach(player => {
-        if (player.teamName !== "FA"){
+        if (player.teamName !== "FA" && player.teamName !== "HOF"){
             player.determineHappiness();
-            player.resetSeason();
+        }
+        player.resetSeason();
+        const retirement = player.retire();
+        if (retirement === true){
+            if (player.hallOfFame()){
+                player.teamName = "HOF";
+                news.push(player.name + " made the HOF");
+            }else{
+                retired.push(player);
+                news.push(player.name + " has retired");
+            }
         }
     });
+    const leftover = allPlayers.filter(player => !retired.includes(player));
+    allPlayers.length = 0;
+    allPlayers.push(...leftover);
+
     allTeams.forEach(team => {
         const releaseNews = team.releasePlayer();
         if (releaseNews !== null){
@@ -706,7 +720,7 @@ function offSeasonUI(){
     playOffPanel.appendChild(roundsUI);
 
     allPlayers.forEach(player => {
-        if (player.teamName !== "FA"){
+        if (player.teamName !== "FA" & player.teamName !== "HOF"){
             if (player.yearsIntoContract >= player.contractYears){
                 player.yearsIntoContract = 0;
                 freeAgency.push(player);
@@ -788,17 +802,6 @@ function offSeasonUI(){
     allTeams.forEach(team => {
         team.changeStart(true);
     });
-
-    let toRemove = [];
-    allPlayers.forEach(player=>{
-        if (player.teamName === "FA" && player.yearsInFA >= 5){
-            toRemove.push(player);
-        }
-    })
-    const survivors = allPlayers.filter(player => !toRemove.includes(player));
-    allPlayers.length = 0;
-    allPlayers.push(...survivors);
-
 
     const contButton = document.getElementById("contButton");
     contButton.onclick = () => goBackHome();

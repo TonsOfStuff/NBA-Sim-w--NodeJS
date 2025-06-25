@@ -1641,13 +1641,13 @@ export class Player{
     resetSeason(){
         this.age += 1;
         this.yearsPro += 1;
-        this.yearsIntoContract += 1;
         if (this.teamName === "FA"){
             this.yearsInFA += 1;
             
         }
         if (this.teamName !== "FA"){
             this.freeAgentValue = this.mvpNum;
+            this.yearsIntoContract += 1;
         }
 
         this.gamesPlayed = 0;
@@ -2036,8 +2036,68 @@ export class Player{
         if (this.team !== null){
             this.career.push(year + "|" + this.team.abr + "|Min:" + this.avgMin + "|Pts:" + this.avgPts + "|Reb:" + Number((this.avgOReb + this.avgDReb).toFixed(1)) + "|DReb:" + this.avgDReb + "|OReb:" + this.avgOReb + "|Ast:" + this.avgAst + "|Stl:" + this.avgStl + "|Blk:" + this.avgBlk + "|Fls:" + this.avgFls + "|Tov:" + this.avgTov + "|FG%:" + this.fgp + "|3P%:" + this.tpp + "|FT%:" + this.ftp);
         }else{
-            this.career.push("Free Agency")
+            this.career.push(year + "|Free Agency")
         }
         
+    }
+
+    retire(){
+        if (this.age > 41 || this.yearsInFA > 5){
+            console.log("old")
+            return true;
+        }else if (this.age > 38 || this.yearsInFA > 4){
+            if (Math.round(Math.random() * (this.freeAgentValue)) === 0){
+                return true;
+            }
+        }else if (this.age > 36 || this.yearsInFA > 3){
+            if (Math.round(Math.random() * (this.freeAgentValue + 1)) === 0){
+                return true;
+            }
+        }
+        else if (this.age > 34 || this.yearsInFA > 2){
+            if (Math.round(Math.random() * this.freeAgentValue + 5) === 0){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    hallOfFame(){
+        let points = 0;
+        if (this.careerAvgPts > 25 || this.careerTotalPts > 30000){
+            points += 40
+        }
+        if (this.careerAvgDReb > 7.5 || this.careerTotalDReb > 12000){
+            points += 40
+        }
+        if (this.careerAvgOReb > 1.3 || this.careerTotalOReb > 3000){
+            points += 40
+        }
+        if (this.careerAvgAst >  6.5 || this.careerTotalAst > 1000){
+            points += 40
+        }
+        if (this.careerAvgStl > 1.5 || this.careerTotalStl > 3000){
+            points += 40
+        }
+        if (this.careerAvgBlk > 1.5 || this.careerTotalBlk > 3000){
+            points += 40;
+        }
+        points += this.allStar * 10;
+        points += this.allNBAFirst * 20;
+        points += this.allNBASecond * 15;
+        points += this.allNBAThird * 10
+        points += this.allDefensiveFirst * 15;
+        points += this.allDefensiveSecond * 10;
+        points += this.allDefensiveThird * 5;
+        points += this.totalMVPS * 50;
+        points += this.totalDPOYs * 30;
+        points += this.championships * 40;
+        points += this.finalsMVP * 75;
+
+        if (points > 250){
+            return true;
+        }
     }
 }
