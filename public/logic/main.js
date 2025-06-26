@@ -193,9 +193,22 @@ const drexler = new Player("Clyde Drexler", "Slasher Two-way", 95, 89, 94, 78, 9
 const isiah = new Player("Isiah Thomas", "Playmaker", 93, 81, 95, 85, 94, 79, 20, 12, 18, 93, 71, 44, 93, 95, 91, 85, 86, 84, 85, 84, 74, 76, 81, 79, 83, 84, 81, 75, 85, 88, 85, 74, 32, 35, 95, 97);
 const pippen = new Player("Scottie Pippen", "All Defensive", 93, 88, 92, 79, 87, 98, 50, 42, 88, 88, 55, 41, 74, 50, 82, 83, 86, 85, 83, 88, 82, 80, 84, 86, 82, 85, 84, 88, 86, 90, 90, 79, 33, 36, 90, 98);
 const moses = new Player("Moses Malone", "Inside Post-player", 90, 0, 99, 78, 97, 87, 92, 99, 68, 33, 22, 36, 30, 16, 65, 90, 99, 99, 65, 62, 0, 0, 0, 0, 94, 92, 91, 0, 87, 76, 89, 84, 41, 37, 88, 97);
+const brunson = new Player("Jalen Brunson", "Shooter Slasher", 94, 94, 90, 89, 92, 65, 19, 10, 43, 82, 33, 38, 56, 47, 90, 98, 95, 95, 32, 34, 44, 56, 25, 92, 89, 90, 76, 88, 50, 73, 77, 74, 40, 40, 97, 99);
+const jimmyButler = new Player("Jimmy Butler", "Two-way Slasher", 96, 85, 91, 85, 94, 94, 48, 35, 58, 85, 45, 41, 78, 72, 88, 91, 89, 88, 77, 76, 31, 28, 62, 58, 82, 93, 90, 40, 78, 94, 92, 79, 35, 40, 95, 97);
+const traeYoung = new Player("Trae Young", "Playmaker Shooter", 85, 96, 72, 90, 92, 58, 12, 9, 18, 45, 28, 42, 88, 85, 98, 80, 70, 58, 64, 69, 93, 87, 92, 91, 55, 42, 70, 95, 32, 41, 85, 73, 20, 32, 89, 96);
+const demarDeRozan = new Player("DeMar DeRozan", "Slasher Shooter", 98, 75, 93, 84, 92, 73, 22, 18, 22, 50, 30, 36, 58, 60, 86, 88, 93, 91, 95, 93, 35, 38, 72, 70, 92, 88, 86, 20, 74, 65, 90, 78, 30, 33, 90, 94);
+const paulGeorge = new Player("Paul George", "Two-way Shooter", 92, 91, 86, 87, 91, 92, 42, 9, 52, 87, 35, 40, 58, 32, 87, 90, 84, 84, 89, 87, 91, 90, 84, 81, 84, 83, 83, 64, 76, 70, 87, 80, 32, 36, 92, 95);
+const kawhiLeonard = new Player("Kawhi Leonard", "Two-way Defensive", 94, 91, 92, 85, 89, 97, 64, 40, 78, 90, 22, 37, 85, 30, 84, 89, 92, 92, 90, 89, 62, 64, 86, 87, 83, 80, 86, 47, 77, 72, 85, 78, 28, 30, 97, 99);
+const dame = new Player("Damian Lillard", "Shooter Slasher", 96, 97, 83, 89, 95, 60, 12, 6, 24, 60, 29, 38, 82, 90, 91, 87, 86, 82, 91, 93, 94, 93, 90, 89, 76, 75, 70, 95, 65, 58, 89, 78, 33, 39, 95, 98);
+const pennyHardaway = new Player("Penny Hardaway", "All Playmaker", 94, 82, 92, 86, 92, 74, 44, 22, 45, 65, 40, 39, 87, 40, 91, 84, 86, 87, 89, 88, 50, 55, 70, 68, 88, 85, 85, 48, 78, 80, 85, 80, 36, 38, 91, 96);
+const reggieMiller = new Player("Reggie Miller", "Shooter", 95, 99, 70, 92, 92, 65, 24, 9, 20, 44, 22, 36, 79, 28, 82, 83, 70, 68, 89, 91, 99, 97, 84, 85, 74, 73, 76, 99, 54, 50, 84, 78, 34, 34, 89, 94);
+const yaoMing = new Player("Yao Ming", "Inside Post-player", 92, 0, 99, 83, 88, 80, 95, 84, 76, 25, 12, 40, 60, 55, 52, 82, 98, 96, 65, 67, 0, 0, 0, 0, 66, 61, 78, 0, 40, 38, 72, 90, 44, 36, 84, 91);
+const benWallace = new Player("Ben Wallace", "Defensive Post-player", 72, 0, 95, 42, 66, 99, 99, 98, 92, 66, 45, 36, 80, 48, 52, 70, 91, 90, 20, 22, 0, 0, 0, 0, 40, 35, 52, 0, 90, 99, 87, 81, 47, 25, 88, 89);
+
 
 export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant, wemby, doncic, jokic, giannis, shai,
-    tatum, ant, oscar, dirk, iverson, stockton, malone, drexler, isiah, pippen, moses
+    tatum, ant, oscar, dirk, iverson, stockton, malone, drexler, isiah, pippen, moses, brunson, jimmyButler, traeYoung, demarDeRozan, paulGeorge, kawhiLeonard, dame, pennyHardaway, reggieMiller,
+    yaoMing, benWallace
 ];
 let removePlayers = [...allPlayers];
 
@@ -767,6 +780,8 @@ window.simSeason = async function(){
     if (simmedAllStar === false || simmedAllStar === 0){
         document.getElementById("allStarButton").style.display = "block";
     }
+
+    await saving();
 }
 
 window.simGame = function(){

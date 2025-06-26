@@ -370,9 +370,9 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1500;
+        let insideStress = 1550;
         const twoStress = 1600;
-        const threeStress = 2200;
+        const threeStress = 2100;
         let drawFreeThrowAmount = 105;
         const freeThrowDiff = 107;
 
@@ -2009,9 +2009,9 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 8;
+                want += 6;
             }else if (item["team"].oldSeed < 10){
-                want += 5;
+                want += 3;
             }else{
                 want -= 1;
             }
@@ -2022,7 +2022,7 @@ export class Player{
                 want -= 3;
             }
 
-            if (item["years"] > 3){
+            if (item["years"] > 4){
                 want -= 1
             }else{
                 want += 2
@@ -2038,7 +2038,7 @@ export class Player{
     addToCareer(year){
         if (this.team !== null){
             this.career.push(year + "|" + this.team.abr + "|Min:" + this.avgMin + "|Pts:" + this.avgPts + "|Reb:" + Number((this.avgOReb + this.avgDReb).toFixed(1)) + "|DReb:" + this.avgDReb + "|OReb:" + this.avgOReb + "|Ast:" + this.avgAst + "|Stl:" + this.avgStl + "|Blk:" + this.avgBlk + "|Fls:" + this.avgFls + "|Tov:" + this.avgTov + "|FG%:" + this.fgp + "|3P%:" + this.tpp + "|FT%:" + this.ftp);
-        }else{
+        }else if (this.teamName === "FA"){
             this.career.push(year + "|Free Agency")
         }
         

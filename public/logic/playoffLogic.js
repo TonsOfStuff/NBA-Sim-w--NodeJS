@@ -586,14 +586,16 @@ function endSeason(){
             player.determineHappiness();
         }
         player.resetSeason();
-        const retirement = player.retire();
-        if (retirement === true){
-            if (player.hallOfFame()){
-                player.teamName = "HOF";
-                news.push(player.name + " made the HOF");
-            }else{
-                retired.push(player);
-                news.push(player.name + " has retired");
+        if (player.teamName !== "HOF"){
+            const retirement = player.retire();
+            if (retirement === true){
+                if (player.hallOfFame()){
+                    player.teamName = "HOF";
+                    news.push(player.name + " made the HOF");
+                }else{
+                    retired.push(player);
+                    news.push(player.name + " has retired");
+                }
             }
         }
     });
