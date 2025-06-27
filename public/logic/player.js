@@ -2066,7 +2066,6 @@ export class Player{
         return false;
     }
 
-
     hallOfFame(){
         let points = 0;
         if (this.careerAvgPts > 25 || this.careerTotalPts > 30000){

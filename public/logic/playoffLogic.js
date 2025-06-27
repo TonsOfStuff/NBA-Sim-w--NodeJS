@@ -591,6 +591,7 @@ function endSeason(){
             if (retirement === true){
                 if (player.hallOfFame()){
                     player.teamName = "HOF";
+                    player.team.players.splice(player.team.players.splice(player), 1);
                     news.push(player.name + " made the HOF");
                 }else{
                     retired.push(player);
