@@ -16,6 +16,15 @@ header a{
     color: rgb(70, 166, 255);
 }
 
+#calender{
+    width: 100%;
+}
+
+#calender th{
+    width: 14.28%;
+    border: 1px solid black;
+}
+
 /*Player and team stats page*/
 #statsPage{
     background-color: rgb(43, 43, 43);

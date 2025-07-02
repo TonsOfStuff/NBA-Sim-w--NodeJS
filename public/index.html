@@ -18,11 +18,19 @@
             <a href = "stats.html">Stats</a>
             <a href = "teamStats.html">Team Stats</a>
         </header>
-        <main>
+        <article>
             <div id = "yearCounter">Year: 1</div>
             <div id = "dayCounter">Day: 0</div>
-            
+
             <div id = "main"></div>
+            <table id = "calender">
+                <thead>
+                    <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
             <button onclick="simGame()">Sim Game</button>
             <button onclick="simSeason()">Sim Season</button>
             <button onclick="testP()">Playoffs</button>
@@ -30,7 +38,7 @@
             <button onclick="loading()">Load</button>
             <button onclick="displayNews()">News</button>
             <button onclick="allStars()" id = "allStarButton" style="display: none;">All Star</button>
-        </main>
+        </article>
         <footer></footer>
 
         <div id="loadingScreen" style="display:none; position:fixed; top:0; left:0; 
