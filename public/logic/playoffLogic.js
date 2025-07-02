@@ -591,7 +591,9 @@ function endSeason(){
             if (retirement === true){
                 if (player.hallOfFame()){
                     player.teamName = "HOF";
-                    player.team.players.splice(player.team.players.splice(player), 1);
+                    if (player.team !== null){
+                        player.team.players.splice(player.team.players.splice(player), 1);
+                    }
                     news.push(player.name + " made the HOF");
                 }else{
                     retired.push(player);
@@ -742,7 +744,7 @@ function offSeasonUI(){
             if (team.money > 0 && team.players.length < 15){
                 let offer = {};
                 offer["team"] = team;
-                let offerMoney = Math.round(player.freeAgentValue * 100000 + player.money)
+                let offerMoney = Math.round(player.freeAgentValue * 1000000 + player.money)
                 if (offerMoney < 1000000){
                     offerMoney = 1000000
                 }

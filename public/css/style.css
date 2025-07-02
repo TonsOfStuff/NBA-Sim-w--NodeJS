@@ -208,7 +208,7 @@ td.highlight, th.highlight {
 
 #team1Playoff, #team2Playoff{
     align-self: center;
-    justify-items: center;
+    text-align: center;
 }
 
 #playOffPanel{

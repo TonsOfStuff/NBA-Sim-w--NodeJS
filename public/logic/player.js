@@ -2016,7 +2016,7 @@ export class Player{
                 want -= 1;
             }
 
-            if (item["money"] > this.money){
+            if (item["money"] > this.money + 10000000){
                 want += 12;
             }else{
                 want -= 3;
