@@ -73,7 +73,15 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
 
     teamStuff.appendChild(teamImg);
     teamStuff.appendChild(teamStat);
-    main.appendChild(teamStuff)
+    main.appendChild(teamStuff);
+
+
+
+    const calender = document.getElementById("calenderBody");
+    while (calender.firstChild){
+        calender.removeChild(calender.firstChild);
+    }
+    updateCalender();
 }
 
 function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
@@ -161,7 +169,6 @@ window.displayNews = function (){
         main.appendChild(txtEl);
     });
 }
-
 
 //Players
 const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 27, 56, 52, 96, 95, 99, 99, 92, 96, 25, 22, 50, 50, 94, 75, 79, 55, 99, 52, 87, 78, 34, 48, 99, 99)
@@ -281,6 +288,48 @@ let simmedAllStar = false;
 export function setAllStarSimmed(val){
     simmedAllStar = val;
 }
+
+//Update calender
+function updateCalender(){
+    let dayCounter = 0;
+    if (day < 41){
+        const calender = document.getElementById("calenderBody");
+        for (let i = 0; i < 6; i++){
+            const row = document.createElement("tr");
+            for (let k = 0; k < 7; k++){
+                dayCounter += 1;
+                if (dayCounter > 41){
+                    break;
+                }
+                const td = document.createElement("td");
+                td.className = "calenderDate";
+                if (dayCounter <= day){
+                    td.classList.add("calenderPast")
+                }
+
+                const container = document.createElement("div");
+                container.className = "calenderContainer"
+                const dateNum = document.createElement("div");
+                dateNum.style.position = "absolute";
+                dateNum.style.top = "0";
+                dateNum.innerText = dayCounter;
+                container.appendChild(dateNum);
+                const dateInfo = document.createElement("div");
+                dateInfo.innerText = "wow"
+                container.appendChild(dateInfo);
+
+                td.appendChild(container);
+                row.appendChild(td);
+            }
+            
+            
+            calender.appendChild(row);
+        }
+
+    }
+}
+updateCalender();
+
 
 //Generate Players
 function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
@@ -683,6 +732,8 @@ window.loading = async function (){
     updateDayAndYearUI();
 
     loadingScreen.style.display = "none";
+
+    updateCalender();
 }
 window.saving = async function(){
     const loadingScreen = document.getElementById('loadingScreen');
