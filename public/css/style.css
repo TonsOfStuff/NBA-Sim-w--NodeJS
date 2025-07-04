@@ -21,6 +21,15 @@ header a{
     justify-self: center;
 }
 
+#nextCalenderPage{
+    border: 1px solid black;
+    height: 30px;
+    width: 30px;
+    place-self: center;
+    text-align: center;
+    align-content: center;
+}
+
 #calender th{
     width: 14.28%;
     border: 1px solid black;
@@ -46,6 +55,8 @@ header a{
 
 .arrow{
     border: 1px solid black;
+    width: 20px;
+    text-align: center;
 }
 
 /*Player and team stats page*/

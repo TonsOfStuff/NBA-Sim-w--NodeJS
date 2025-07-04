@@ -329,7 +329,8 @@ function prevTeam(){
 
 
 //Update calender
-function updateCalender(chosenTeam = null){
+let pageNum = 1;
+function updateCalender(chosenTeam = null, page = 0){
     if (chosenTeam === null){
         allTeams.forEach(team => {
             if (team.abr === "BOS"){
@@ -337,9 +338,21 @@ function updateCalender(chosenTeam = null){
             }
         });;
     }
-
     if (day < 42){
+        pageNum = 1;
+    }else{
+        pageNum = 2;
+    }
+    if (page === 2){
+        pageNum = 2;
+    }else if (page === 1){
+        pageNum = 1;
+    }
+    document.getElementById("nextCalenderPage").innerText = pageNum;
+
+    if (pageNum === 1){
         let dayCounter = 0;
+        pageNum = 2;
         const calender = document.getElementById("calenderBody");
         while (calender.firstChild){
             calender.removeChild(calender.firstChild);
@@ -403,7 +416,7 @@ function updateCalender(chosenTeam = null){
                     td.appendChild(container);
                     row.appendChild(td);
 
-                    if (simmedAllStar === true){
+                    if (simmedAllStar === true || simmedAllStar === 1){
                         td.style.backgroundColor = "rgba(0, 0, 0, 0.26)";
                     }
 
@@ -480,6 +493,7 @@ function updateCalender(chosenTeam = null){
 
     }else{
         let dayCounter = 41;
+        pageNum = 1;
         const calender = document.getElementById("calenderBody");
         while (calender.firstChild){
             calender.removeChild(calender.firstChild);
@@ -570,6 +584,9 @@ if (!window.location.pathname.includes("playoff.html")){
     })
     document.getElementById("prev").addEventListener("click", () => {
         prevTeam();
+    })
+    document.getElementById("nextCalenderPage").addEventListener("click", () => {
+        updateCalender(focusedTeam, pageNum);
     })
 }
 
