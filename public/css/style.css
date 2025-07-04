@@ -33,7 +33,20 @@ header a{
     position: relative;
 }
 
+#changeTeam{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+}
 
+#changeTeamImg{
+    height: 50px;
+}
+
+.arrow{
+    border: 1px solid black;
+}
 
 /*Player and team stats page*/
 #statsPage{

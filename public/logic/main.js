@@ -76,7 +76,7 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     main.appendChild(teamStuff);
 
     if (!window.location.pathname.includes("playoff.html")){
-        updateCalender();
+        updateCalender(focusedTeam);
     }
 }
 
@@ -305,6 +305,28 @@ function genComp(){
 }
 genComp();
 
+let focusNum = 0;
+let focusedTeam = allTeams[focusNum];
+function nextTeam(){
+    focusNum += 1;
+    if (focusNum >= 30){
+        focusNum = 0;
+    }
+    focusedTeam = allTeams[focusNum];
+    document.getElementById("changeTeamImg").src = `../images/${focusedTeam.abr}.svg`
+    updateCalender(focusedTeam);
+}
+function prevTeam(){
+    focusNum -= 1;
+    if (focusNum < 0){
+        focusNum = 29;
+    }
+    focusedTeam = allTeams[focusNum];
+    document.getElementById("changeTeamImg").src = `../images/${focusedTeam.abr}.svg`
+    updateCalender(focusedTeam);
+}
+
+
 
 //Update calender
 function updateCalender(chosenTeam = null){
@@ -482,7 +504,15 @@ function updateCalender(chosenTeam = null){
     }
 }
 if (!window.location.pathname.includes("playoff.html")){
-    updateCalender();
+    updateCalender(focusedTeam);
+    document.getElementById("changeTeamImg").src = `../images/${focusedTeam.abr}.svg`
+
+    document.getElementById("next").addEventListener("click", () => {
+        nextTeam();
+    })
+    document.getElementById("prev").addEventListener("click", () => {
+        prevTeam();
+    })
 }
 
 
@@ -900,7 +930,8 @@ window.loading = async function (){
 
     loadingScreen.style.display = "none";
 
-    updateCalender();
+    focusedTeam = allTeams[focusNum];
+    updateCalender(focusedTeam);
 }
 window.saving = async function(){
     const loadingScreen = document.getElementById('loadingScreen');
@@ -968,9 +999,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sessionStorage.getItem("redirect") === "finals") {
         console.log("Redirected from playoffs");
         await load()
+
+        focusedTeam = allTeams[focusNum];
+        updateCalender(focusedTeam);
+
         sessionStorage.removeItem("redirect");
-        console.log(allTeams)
-        console.log(allPlayers);
+
         updateDayAndYearUI();
     }
 
@@ -981,7 +1015,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 window.simSeason = async function(){
     const totalGames = (82 - day) * allTeams.length / 2;
     let gamesSimulated = 0;
-    const chosen = allTeams[Math.floor(Math.random() * allTeams.length)];
 
     while (gamesSimulated < totalGames) {
         const chosenTeam1 = assignments[(day + 1).toString()][gamesSimulated % 15][0];
@@ -992,9 +1025,9 @@ window.simSeason = async function(){
         if (gamesSimulated % 15 === 0){
             day++;
         }
-        updateCalender();
+        updateCalender(focusedTeam);
 
-        main.innerText = chosen.abr + "  " + chosen.wins + ":" + chosen.losses; 
+        main.innerText = focusedTeam.abr + "  " + focusedTeam.wins + ":" + focusedTeam.losses; 
 
         if (gamesSimulated % 5 === 0){
             await new Promise(res => setTimeout(res, 0));
@@ -1085,7 +1118,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
     let quarter = 1;
-    const theTime = 12 * 17;
+    const theTime = 12 * 15;
     const subFreq = 100;
     
     //Init teams
