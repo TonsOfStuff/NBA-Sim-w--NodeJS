@@ -338,7 +338,7 @@ function updateCalender(chosenTeam = null){
         });;
     }
 
-    if (day < 41){
+    if (day < 42){
         let dayCounter = 0;
         const calender = document.getElementById("calenderBody");
         while (calender.firstChild){
@@ -349,6 +349,64 @@ function updateCalender(chosenTeam = null){
             for (let k = 0; k < 7; k++){
                 dayCounter += 1;
                 if (dayCounter > 41){
+                    const td = document.createElement("td");
+                    td.className = "calenderDate";
+
+                    const container = document.createElement("div");
+                    container.className = "calenderContainer"
+                    const dateNum = document.createElement("div");
+                    dateNum.style.position = "absolute";
+                    dateNum.style.top = "0";
+                    dateNum.style.fontSize = "1vw";
+                    dateNum.innerText = "All Star";
+                    container.appendChild(dateNum);
+                    const dateInfo = document.createElement("div");
+                    dateInfo.style.display = "flex";
+                    dateInfo.style.justifyContent = "space-around";
+                    dateInfo.style.alignItems = "center";
+                    const text = document.createElement("div");
+                    text.style.fontSize = "1.2vw";
+                    text.innerText = "vs"
+                    
+                    const team1Img = document.createElement("img");
+                    const team2Img = document.createElement("img");
+                    const team1Cap = document.createElement("figcaption");
+                    const team2Cap = document.createElement("figcaption");
+                    const team1Fig = document.createElement("figure");
+                    const team2Fig = document.createElement("figure");
+                    team1Fig.appendChild(team1Img);
+                    team1Fig.appendChild(team1Cap);
+                    team2Fig.appendChild(team2Img);
+                    team2Fig.appendChild(team2Cap);
+                    team1Fig.style.margin = "0px";
+                    team2Fig.style.margin = "0px";
+                    team1Fig.style.justifyItems = "center";
+                    team2Fig.style.justifyItems = "center";
+                    team1Cap.style.fontSize = "0.8vw";
+                    team2Cap.style.fontSize = "0.8vw";
+
+
+                    dateInfo.appendChild(team1Fig);
+                    dateInfo.appendChild(text);
+                    dateInfo.appendChild(team2Fig);
+
+                    team1Img.style.width = "3vw";
+                    team1Img.src = `../images/ASE.svg`
+                    team1Cap.innerText = "EAST";
+
+                    team2Img.style.width = "3vw";
+                    team2Img.src = `../images/ASW.svg`
+                    team2Cap.innerText = "WEST";
+
+                    container.appendChild(dateInfo);
+
+                    td.appendChild(container);
+                    row.appendChild(td);
+
+                    if (simmedAllStar === true){
+                        td.style.backgroundColor = "rgba(0, 0, 0, 0.26)";
+                    }
+
                     break;
                 }
                 const td = document.createElement("td");
@@ -1017,6 +1075,10 @@ window.simSeason = async function(){
     let gamesSimulated = 0;
 
     while (gamesSimulated < totalGames) {
+        if (day === 41 && (simmedAllStar === false || simmedAllStar === 0)){
+            allStars();
+            continue;
+        }
         const chosenTeam1 = assignments[(day + 1).toString()][gamesSimulated % 15][0];
         const chosenTeam2 = assignments[(day + 1).toString()][gamesSimulated % 15][1];
 
@@ -1044,6 +1106,11 @@ window.simSeason = async function(){
 }
 
 window.simGame = function(){
+    console.log(simmedAllStar)
+    if (day === 41 && (simmedAllStar === false || simmedAllStar === 0)){
+        allStars();
+        return;
+    }
     day += 1;
     for(let i = 0; i<15;i++){
         const chosenTeam1 = assignments[day.toString()][i][0];
@@ -1111,6 +1178,8 @@ window.allStars = function(){
 
     simmedAllStar = true;
     document.getElementById("allStarButton").style.display = "none";
+
+    updateCalender(focusedTeam)
 }
 
 export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true, allStar = false){
