@@ -75,12 +75,6 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     teamStuff.appendChild(teamStat);
     main.appendChild(teamStuff);
 
-
-
-    const calender = document.getElementById("calenderBody");
-    while (calender.firstChild){
-        calender.removeChild(calender.firstChild);
-    }
     updateCalender();
 }
 
@@ -289,11 +283,43 @@ export function setAllStarSimmed(val){
     simmedAllStar = val;
 }
 
+//Generate the calender and what teams play who at what date
+const assignments = {};
+function genComp(){
+    for(let k = 0; k < 82; k++){
+        assignments[(k + 1).toString()] = [];
+        for(let i = 0; i<1 * allTeams.length / 2;i++){
+            if (allTeamsTemp.length === 0){
+                allTeamsTemp = [...allTeams];
+            }
+            const chosenTeam1 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+            allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam1), 1);
+            const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
+            allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
+
+            assignments[(k + 1).toString()].push([chosenTeam1, chosenTeam2]);
+        }
+    }
+}
+genComp();
+
+
 //Update calender
-function updateCalender(){
-    let dayCounter = 0;
+function updateCalender(chosenTeam = null){
+    if (chosenTeam === null){
+        allTeams.forEach(team => {
+            if (team.abr === "BOS"){
+                chosenTeam = team;
+            }
+        });;
+    }
+
     if (day < 41){
+        let dayCounter = 0;
         const calender = document.getElementById("calenderBody");
+        while (calender.firstChild){
+            calender.removeChild(calender.firstChild);
+        }
         for (let i = 0; i < 6; i++){
             const row = document.createElement("tr");
             for (let k = 0; k < 7; k++){
@@ -312,10 +338,50 @@ function updateCalender(){
                 const dateNum = document.createElement("div");
                 dateNum.style.position = "absolute";
                 dateNum.style.top = "0";
+                dateNum.style.fontSize = "1vw";
                 dateNum.innerText = dayCounter;
                 container.appendChild(dateNum);
                 const dateInfo = document.createElement("div");
-                dateInfo.innerText = "wow"
+                dateInfo.style.display = "flex";
+                dateInfo.style.justifyContent = "space-around";
+                dateInfo.style.alignItems = "center";
+                const text = document.createElement("div");
+                text.style.fontSize = "1.2vw";
+                text.innerText = "vs"
+                
+                const team1Img = document.createElement("img");
+                const team2Img = document.createElement("img");
+                const team1Cap = document.createElement("figcaption");
+                const team2Cap = document.createElement("figcaption");
+                const team1Fig = document.createElement("figure");
+                const team2Fig = document.createElement("figure");
+                team1Fig.appendChild(team1Img);
+                team1Fig.appendChild(team1Cap);
+                team2Fig.appendChild(team2Img);
+                team2Fig.appendChild(team2Cap);
+                team1Fig.style.margin = "0px";
+                team2Fig.style.margin = "0px";
+                team1Fig.style.justifyItems = "center";
+                team2Fig.style.justifyItems = "center";
+                team1Cap.style.fontSize = "0.8vw";
+                team2Cap.style.fontSize = "0.8vw";
+
+
+                dateInfo.appendChild(team1Fig);
+                dateInfo.appendChild(text);
+                dateInfo.appendChild(team2Fig);
+
+                assignments[dayCounter.toString()].forEach(teams => {
+                    if (teams.includes(chosenTeam)){
+                        team1Img.style.width = "3vw";
+                        team1Img.src = `../images/${teams[0].abr}.svg`
+                        team1Cap.innerText = teams[0].abr;
+
+                        team2Img.style.width = "3vw";
+                        team2Img.src = `../images/${teams[1].abr}.svg`
+                        team2Cap.innerText = teams[1].abr;
+                    }
+                });
                 container.appendChild(dateInfo);
 
                 td.appendChild(container);
@@ -326,6 +392,83 @@ function updateCalender(){
             calender.appendChild(row);
         }
 
+    }else{
+        let dayCounter = 41;
+        const calender = document.getElementById("calenderBody");
+        while (calender.firstChild){
+            calender.removeChild(calender.firstChild);
+        }
+        for (let i = 0; i < 6; i++){
+            const row = document.createElement("tr");
+            for (let k = 0; k < 7; k++){
+                dayCounter += 1;
+                if (dayCounter > 82){
+                    break;
+                }
+                const td = document.createElement("td");
+                td.className = "calenderDate";
+                if (dayCounter <= day){
+                    td.classList.add("calenderPast")
+                }
+
+                const container = document.createElement("div");
+                container.className = "calenderContainer"
+                const dateNum = document.createElement("div");
+                dateNum.style.position = "absolute";
+                dateNum.style.top = "0";
+                dateNum.style.fontSize = "1vw";
+                dateNum.innerText = dayCounter;
+                container.appendChild(dateNum);
+                const dateInfo = document.createElement("div");
+                dateInfo.style.display = "flex";
+                dateInfo.style.justifyContent = "space-around";
+                dateInfo.style.alignItems = "center";
+                const text = document.createElement("div");
+                text.style.fontSize = "1.2vw";
+                text.innerText = "vs"
+                
+                const team1Img = document.createElement("img");
+                const team2Img = document.createElement("img");
+                const team1Cap = document.createElement("figcaption");
+                const team2Cap = document.createElement("figcaption");
+                const team1Fig = document.createElement("figure");
+                const team2Fig = document.createElement("figure");
+                team1Fig.appendChild(team1Img);
+                team1Fig.appendChild(team1Cap);
+                team2Fig.appendChild(team2Img);
+                team2Fig.appendChild(team2Cap);
+                team1Fig.style.margin = "0px";
+                team2Fig.style.margin = "0px";
+                team1Fig.style.justifyItems = "center";
+                team2Fig.style.justifyItems = "center";
+                team1Cap.style.fontSize = "0.8vw";
+                team2Cap.style.fontSize = "0.8vw";
+
+
+                dateInfo.appendChild(team1Fig);
+                dateInfo.appendChild(text);
+                dateInfo.appendChild(team2Fig);
+                assignments[dayCounter.toString()].forEach(teams => {
+                    if (teams.includes(chosenTeam)){
+                        //dateInfo.innerText = teams[0].abr + " vs " + teams[1].abr;
+                        team1Img.style.width = "3vw";
+                        team1Img.src = `../images/${teams[0].abr}.svg`
+                        team1Cap.innerText = teams[0].abr;
+
+                        team2Img.style.width = "3vw";
+                        team2Img.src = `../images/${teams[1].abr}.svg`
+                        team2Cap.innerText = teams[1].abr;
+                    }
+                });
+                container.appendChild(dateInfo);
+
+                td.appendChild(container);
+                row.appendChild(td);
+            }
+            
+            
+            calender.appendChild(row);
+        }
     }
 }
 updateCalender();
@@ -565,12 +708,19 @@ export async function load(){
 
             money: p.money,
         });
-
         return team;
     });
     allTeams.splice(0, allTeams.length);
     allTeams = [...teams];
 
+    Object.keys(assignments).forEach(dayKey => {
+        assignments[dayKey] = assignments[dayKey].map(([team1, team2]) => {
+            const newTeam1 = allTeams.find(t => t.abr === team1.abr);
+            const newTeam2 = allTeams.find(t => t.abr === team2.abr);
+            console.log(newTeam1)
+            return [newTeam1, newTeam2];
+        });
+    });
 
     const players = playerData.map(p => {
         const player = new Player(
@@ -720,7 +870,6 @@ export async function load(){
        
     });
     allTeamsTemp = [...allTeams];
-    console.log("loaded")
 }
 
 window.loading = async function (){
@@ -809,29 +958,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
+
+
 window.simSeason = async function(){
     const totalGames = (82 - day) * allTeams.length / 2;
     let gamesSimulated = 0;
-    const chosenTeam = allTeams[Math.floor(Math.random() * allTeams.length)];
+    const chosen = allTeams[Math.floor(Math.random() * allTeams.length)];
 
     while (gamesSimulated < totalGames) {
-        if (allTeamsTemp.length === 0){
-            allTeamsTemp = [...allTeams];
-        }
-        const chosenTeam1 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
-        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam1), 1);
-        const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
-        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
+        const chosenTeam1 = assignments[(day + 1).toString()][gamesSimulated % 15][0];
+        const chosenTeam2 = assignments[(day + 1).toString()][gamesSimulated % 15][1];
 
         aGame(chosenTeam1, chosenTeam2, false, 0, false);
-
         gamesSimulated++;
         if (gamesSimulated % 15 === 0){
             day++;
         }
-        main.innerText = chosenTeam.abr + "  " + chosenTeam.wins + ":" + chosenTeam.losses; 
+        updateCalender();
 
-        if (gamesSimulated % 5 === 0) {
+        main.innerText = chosen.abr + "  " + chosen.wins + ":" + chosen.losses; 
+
+        if (gamesSimulated % 5 === 0){
             await new Promise(res => setTimeout(res, 0));
         }
     }
@@ -847,15 +994,10 @@ window.simSeason = async function(){
 
 window.simGame = function(){
     day += 1;
-    for(let i = 0; i<1 * allTeams.length / 2;i++){
-        if (allTeamsTemp.length === 0){
-            allTeamsTemp = [...allTeams];
-        }
-        const chosenTeam1 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
-        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam1), 1);
-        const chosenTeam2 = allTeamsTemp[Math.floor(Math.random() * allTeamsTemp.length)];
-        allTeamsTemp.splice(allTeamsTemp.indexOf(chosenTeam2), 1);
-
+    for(let i = 0; i<15;i++){
+        const chosenTeam1 = assignments[day.toString()][i][0];
+        const chosenTeam2 = assignments[day.toString()][i][1];
+        
         aGame(chosenTeam1, chosenTeam2);
     }
 }
