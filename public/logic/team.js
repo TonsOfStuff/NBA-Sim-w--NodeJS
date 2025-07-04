@@ -32,6 +32,9 @@ export class Team{
         this.pf = null;
         this.c = null;
         this.sixthMan = null;
+
+        //Random
+        this.trackWins = [];
         
         //Team averages in season
         this.games = 0;
@@ -325,6 +328,8 @@ export class Team{
         this.totalTPM = 0;
         this.totalFTA = 0;
         this.totalFTM = 0;
+
+        this.trackWins.length = 0;
     }
 
     releasePlayer(){

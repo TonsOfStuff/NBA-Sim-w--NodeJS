@@ -33,9 +33,7 @@ header a{
     position: relative;
 }
 
-.calenderPast{
-    background-color: rgba(0, 0, 0, 0.255);
-}
+
 
 /*Player and team stats page*/
 #statsPage{

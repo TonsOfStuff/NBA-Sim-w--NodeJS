@@ -75,7 +75,9 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     teamStuff.appendChild(teamStat);
     main.appendChild(teamStuff);
 
-    updateCalender();
+    if (!window.location.pathname.includes("playoff.html")){
+        updateCalender();
+    }
 }
 
 function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
@@ -330,7 +332,11 @@ function updateCalender(chosenTeam = null){
                 const td = document.createElement("td");
                 td.className = "calenderDate";
                 if (dayCounter <= day){
-                    td.classList.add("calenderPast")
+                    if (chosenTeam.trackWins[dayCounter - 1] === "W"){
+                        td.style.backgroundColor = "rgba(9, 255, 0, 0.255)";
+                    }else{
+                        td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
+                    }
                 }
 
                 const container = document.createElement("div");
@@ -408,7 +414,11 @@ function updateCalender(chosenTeam = null){
                 const td = document.createElement("td");
                 td.className = "calenderDate";
                 if (dayCounter <= day){
-                    td.classList.add("calenderPast")
+                    if (chosenTeam.trackWins[dayCounter - 1] === "W"){
+                        td.style.backgroundColor = "rgba(9, 255, 0, 0.255)";
+                    }else{
+                        td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
+                    }
                 }
 
                 const container = document.createElement("div");
@@ -471,7 +481,10 @@ function updateCalender(chosenTeam = null){
         }
     }
 }
-updateCalender();
+if (!window.location.pathname.includes("playoff.html")){
+    updateCalender();
+}
+
 
 
 //Generate Players
@@ -665,6 +678,8 @@ export async function load(){
 
             games: p.games,
 
+            trackWins: JSON.parse(p.trackWins),
+
             ptsAvg: p.ptsAvg,
             astAvg: p.astAvg,
             rebAvg: p.rebAvg,
@@ -713,14 +728,17 @@ export async function load(){
     allTeams.splice(0, allTeams.length);
     allTeams = [...teams];
 
-    Object.keys(assignments).forEach(dayKey => {
-        assignments[dayKey] = assignments[dayKey].map(([team1, team2]) => {
-            const newTeam1 = allTeams.find(t => t.abr === team1.abr);
-            const newTeam2 = allTeams.find(t => t.abr === team2.abr);
-            console.log(newTeam1)
-            return [newTeam1, newTeam2];
+    try{
+        Object.keys(assignments).forEach(dayKey => {
+            assignments[dayKey] = assignments[dayKey].map(([team1, team2]) => {
+                const newTeam1 = allTeams.find(t => t.abr === team1.abr);
+                const newTeam2 = allTeams.find(t => t.abr === team2.abr);
+                return [newTeam1, newTeam2];
+            });
         });
-    });
+    }catch{
+
+    }
 
     const players = playerData.map(p => {
         const player = new Player(
@@ -1142,7 +1160,9 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         if (teamScores[0] > teamScores[1]){
             if (!playOff){
                 team1.wins += 1;
+                team1.trackWins.push("W");
                 team2.losses += 1;
+                team2.trackWins.push("L");
                 team1.franchiseWins += 1;
                 team2.franchiseLosses += 1;
             }else{
@@ -1155,7 +1175,9 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         }else if (teamScores[0] < teamScores[1]){
             if (!playOff){
                 team1.losses += 1;
+                team1.trackWins.push("L");
                 team2.wins += 1;
+                team2.trackWins.push("W");
                 team1.franchiseLosses += 1;
                 team2.franchiseWins += 1;
             }else{
