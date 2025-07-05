@@ -167,7 +167,7 @@ window.displayNews = function (){
 }
 
 //Players
-const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 89, 96, 90, 99, 96, 32, 21, 52, 87, 12, 27, 56, 52, 96, 95, 99, 99, 92, 96, 25, 22, 50, 50, 94, 75, 79, 55, 99, 52, 87, 78, 34, 48, 99, 99)
+const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 90, 99, 93, 99, 99, 39, 21, 82, 97, 12, 26, 56, 52, 96, 95, 99, 99, 92, 96, 45, 22, 50, 50, 94, 95, 99, 55, 99, 52, 90, 78, 34, 48, 99, 99)
 const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21, 88, 45, 42, 35, 94, 81, 97, 99, 95, 91, 82, 87, 32, 32, 82, 85, 82, 90, 98, 95, 83, 79, 92, 81, 37, 42, 99, 99)
 const kareem = new Player("Kareem Abdul-Jabbar", "Inside Post-player", 92, 0, 99, 73, 99, 99, 93, 87, 94, 31, 2, 30, 13, 12,57, 78, 96, 99, 42, 49, 0, 0, 0, 0, 95, 96, 62, 0, 54, 21, 78, 85, 40, 40, 95, 99);
 const duncan = new Player("Tim Duncan", "Inside Defensive", 96, 50, 99, 80, 95, 99, 80, 90, 95, 82, 76, 35, 42, 48,52, 80, 91, 97, 96, 90, 0, 0, 1, 1, 92, 90, 97, 0, 31, 27, 76, 83, 38, 39, 93, 99);
@@ -199,16 +199,16 @@ const moses = new Player("Moses Malone", "Inside Post-player", 90, 0, 99, 78, 97
 const brunson = new Player("Jalen Brunson", "Shooter Slasher", 94, 94, 90, 89, 92, 65, 19, 10, 43, 82, 33, 38, 56, 47, 90, 98, 95, 95, 32, 34, 44, 56, 25, 92, 89, 90, 76, 88, 50, 73, 77, 74, 40, 40, 97, 99);
 const jimmyButler = new Player("Jimmy Butler", "Two-way Slasher", 96, 85, 91, 85, 94, 94, 48, 35, 58, 85, 45, 41, 78, 72, 88, 91, 89, 88, 77, 76, 31, 28, 62, 58, 82, 93, 90, 40, 78, 94, 92, 79, 35, 40, 95, 97);
 const traeYoung = new Player("Trae Young", "Playmaker Shooter", 85, 96, 72, 90, 92, 58, 12, 9, 18, 45, 28, 42, 88, 85, 98, 80, 70, 58, 64, 69, 93, 87, 92, 91, 55, 42, 70, 95, 32, 41, 85, 73, 20, 32, 89, 96);
-const demarDeRozan = new Player("DeMar DeRozan", "Slasher Shooter", 98, 75, 93, 84, 92, 73, 22, 18, 22, 50, 30, 36, 58, 60, 86, 88, 93, 91, 95, 93, 35, 38, 72, 70, 92, 88, 86, 20, 74, 65, 90, 78, 30, 33, 90, 94);
+const demarDeRozan = new Player("DeMar DeRozan", "Slasher Shooter", 95, 75, 93, 84, 92, 73, 22, 18, 22, 50, 30, 36, 58, 60, 86, 88, 93, 91, 95, 93, 35, 38, 72, 70, 92, 88, 86, 20, 74, 65, 90, 78, 30, 33, 90, 94);
 const paulGeorge = new Player("Paul George", "Two-way Shooter", 92, 91, 86, 87, 91, 92, 42, 9, 52, 87, 35, 40, 58, 32, 87, 90, 84, 84, 89, 87, 91, 90, 84, 81, 84, 83, 83, 64, 76, 70, 87, 80, 32, 36, 92, 95);
 const kawhiLeonard = new Player("Kawhi Leonard", "Two-way Defensive", 94, 91, 92, 85, 89, 97, 64, 40, 78, 90, 22, 37, 85, 30, 84, 89, 92, 92, 90, 89, 62, 64, 86, 87, 83, 80, 86, 47, 77, 72, 85, 78, 28, 30, 97, 99);
-const dame = new Player("Damian Lillard", "Shooter Slasher", 96, 97, 83, 89, 93, 60, 12, 6, 24, 60, 29, 39, 82, 90, 91, 87, 86, 82, 81, 83, 94, 93, 90, 89, 76, 75, 70, 90, 65, 58, 89, 78, 33, 39, 95, 98);
+const dame = new Player("Damian Lillard", "Shooter Slasher", 96, 97, 80, 89, 93, 60, 12, 6, 24, 60, 29, 39, 82, 90, 91, 87, 86, 82, 81, 83, 94, 93, 90, 89, 76, 75, 70, 90, 65, 58, 89, 78, 33, 39, 95, 98);
 const pennyHardaway = new Player("Penny Hardaway", "All Playmaker", 94, 82, 92, 86, 92, 74, 44, 22, 45, 65, 40, 39, 87, 40, 91, 84, 86, 87, 89, 88, 50, 55, 70, 68, 88, 85, 85, 48, 78, 80, 85, 80, 36, 38, 91, 96);
 const reggieMiller = new Player("Reggie Miller", "Shooter", 95, 99, 70, 92, 92, 65, 24, 9, 20, 44, 22, 36, 79, 28, 82, 83, 70, 68, 89, 91, 99, 97, 84, 85, 74, 73, 76, 99, 54, 50, 84, 78, 34, 34, 89, 94);
 const yaoMing = new Player("Yao Ming", "Inside Post-player", 92, 0, 99, 83, 88, 80, 95, 84, 76, 25, 12, 40, 60, 55, 52, 82, 98, 96, 65, 67, 0, 0, 0, 0, 66, 61, 78, 0, 40, 38, 72, 90, 44, 36, 84, 91);
 const benWallace = new Player("Ben Wallace", "Defensive Post-player", 72, 0, 95, 42, 66, 99, 99, 98, 92, 66, 45, 36, 80, 48, 52, 70, 91, 90, 20, 22, 0, 0, 0, 0, 40, 35, 52, 0, 90, 99, 87, 81, 47, 25, 88, 89);
 const joelEmbiid = new Player("Joel Embiid", "Inside Post-player", 94, 85, 99, 81, 95, 88, 90, 88, 91, 38, 20, 36, 54, 38, 75, 82, 98, 96, 63, 66, 20, 18, 30, 34, 78, 75, 85, 50, 72, 72, 88, 84, 42, 42, 93, 98);
-const zachLaVine = new Player("Zach LaVine", "Slasher Shooter", 94, 93, 89, 85, 90, 65, 20, 14, 38, 58, 21, 35, 67, 42, 91, 86, 87, 84, 89, 91, 80, 78, 85, 88, 81, 77, 75, 88, 98, 72, 85, 77, 34, 36, 90, 93);
+const zachLaVine = new Player("Zach LaVine", "Slasher Shooter", 91, 90, 89, 85, 90, 65, 20, 14, 38, 58, 21, 35, 67, 42, 91, 86, 87, 84, 81, 90, 80, 70, 80, 78, 71, 67, 75, 88, 98, 72, 85, 77, 34, 36, 90, 93);
 const chrisPaul = new Player("Chris Paul", "Playmaker", 92, 91, 75, 93, 90, 82, 11, 2, 20, 95, 66, 47, 97, 99, 94, 85, 72, 70, 76, 77, 84, 82, 78, 80, 68, 70, 65, 84, 62, 70, 86, 72, 30, 30, 88, 91);
 const russellWestbrook = new Player("Russell Westbrook", "Slasher Playmaker", 90, 80, 99, 76, 92, 75, 45, 38, 58, 60, 35, 40, 86, 87, 94, 88, 97, 97, 62, 73, 21, 27, 46, 48, 76, 74, 73, 75, 99, 99, 84, 76, 40, 38, 94, 96);
 const chrisWebber = new Player("Chris Webber", "Inside Playmaker", 93, 40, 94, 79, 89, 82, 74, 66, 65, 42, 20, 35, 60, 48, 74, 82, 92, 90, 55, 60, 14, 11, 30, 25, 77, 70, 76, 20, 74, 72, 86, 82, 38, 37, 89, 91);

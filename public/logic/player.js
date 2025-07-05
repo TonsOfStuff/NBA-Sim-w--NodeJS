@@ -350,7 +350,7 @@ export class Player{
 
     calcAwardsVal(){
         this.mvpNum = Number((this.avgPts + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 - this.avgFls - this.avgTov).toFixed(3));
-        this.dpoyNum = Number((this.avgStl * 6 + this.avgBlk * 9 + this.avgDReb + 3 + this.avgOReb + 2).toFixed(3));
+        this.dpoyNum = Number((this.avgStl * 8 + this.avgBlk * 9 + this.avgDReb + 3 + this.avgOReb + 2).toFixed(3));
     }
 
     calcFinalsMVP(){
