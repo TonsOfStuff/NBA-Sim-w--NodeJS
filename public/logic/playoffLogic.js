@@ -744,7 +744,7 @@ function offSeasonUI(){
             if (team.money > 0 && team.players.length < 15){
                 let offer = {};
                 offer["team"] = team;
-                let offerMoney = Math.round(player.freeAgentValue * 1000000 + player.money)
+                let offerMoney = Math.round(Math.pow(player.freeAgentValue, 1.5) * 100000 + player.money)
                 if (offerMoney < 1000000){
                     offerMoney = 1000000
                 }
@@ -752,7 +752,11 @@ function offSeasonUI(){
                     offerMoney = player.money;
                 }
                 if (offerMoney > team.money){
-                    offerMoney = team.money;
+                    if (player.freeAgentValue > 80){
+                        offerMoney = team.money;
+                    }else{
+                        return;
+                    }
                 }
                 offer["money"] = offerMoney;
                 offer["years"] = Math.round(Math.random() * 4) + 1;
@@ -803,6 +807,31 @@ function offSeasonUI(){
         }
     }
     
+    allTeams.forEach(team => {
+        if (team.players.length < 8){
+            let signed = [];
+            for (let i = 0; i < freeAgency.length; i++){
+                freeAgency[i].team = team;
+                freeAgency[i].teamName = team.abr;
+                freeAgency[i].money = 100000;
+                freeAgency[i].contractYears = 1;
+                freeAgency[i].yearsInFA = 0;
+                
+                team.players.push(freeAgency[i]);
+                news.push(team.abr + " signed " + freeAgency[i].name + " to a 1 year $1000000 deal");
+                signed.push(freeAgency[i]);
+
+                if (team.players.length >= 8){
+                    break;
+                }
+            }
+            for (let i = freeAgency.length - 1; i >= 0; i--) {
+                if (signed.includes(freeAgency[i])) {
+                    freeAgency.splice(i, 1);
+                }
+            }
+        }
+    });
 
 
     allTeams.forEach(team => {

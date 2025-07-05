@@ -2009,17 +2009,17 @@ export class Player{
             }
 
             if (item["team"].oldSeed < 5){
-                want += 6;
+                want += 4;
             }else if (item["team"].oldSeed < 10){
-                want += 3;
+                want += 2;
             }else{
                 want -= 1;
             }
 
-            if (item["money"] > this.money + 10000000){
+            if (item["money"] > this.money){
                 want += 12;
             }else{
-                want -= 3;
+                want -= 6;
             }
 
             if (item["years"] > 4){
