@@ -418,6 +418,27 @@ function updateCalender(chosenTeam = null, page = 0){
 
                     if (simmedAllStar === true || simmedAllStar === 1){
                         td.style.backgroundColor = "rgba(0, 0, 0, 0.26)";
+                    }else{
+                        td.addEventListener("click", () => {
+                            const panel = document.getElementById("controlPanel");
+                            panel.style.display = "grid";
+                            panel.children[1].children[2].onclick = () => {
+                                panel.style.display = "none";
+                            }
+                            panel.children[0].children[0].children[0].style.height = "9vw";
+                            panel.children[0].children[0].children[0].src = `../images/ASE.svg`
+                            panel.children[0].children[0].children[1].innerText = "ASE"
+
+                            panel.children[0].children[2].children[0].style.height = "9vw";
+                            panel.children[0].children[2].children[0].src = `../images/ASW.svg`
+                            panel.children[0].children[2].children[1].innerText = "ASW"
+
+                            panel.children[0].children[1].textContent = "All Star Break";
+
+
+                            panel.children[1].children[0].onclick = () => simToDay(41, false);
+                            panel.children[1].children[1].onclick = () => simToDay(41, true);
+                        });
                     }
 
                     break;
@@ -430,6 +451,33 @@ function updateCalender(chosenTeam = null, page = 0){
                     }else{
                         td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
                     }
+                }else{
+                    const thisDay = dayCounter;
+                    td.addEventListener("click", () => {
+                        const panel = document.getElementById("controlPanel");
+                        panel.style.display = "grid";
+                        panel.children[1].children[2].onclick = () => {
+                            panel.style.display = "none";
+                        }
+                        assignments[thisDay.toString()].forEach(teams => {
+                            if (teams.includes(chosenTeam)){
+                                panel.children[0].children[0].children[0].style.height = "9vw";
+                                panel.children[0].children[0].children[0].src = `../images/${teams[0].abr}.svg`
+                                panel.children[0].children[0].children[1].innerText = teams[0].abr
+
+                                panel.children[0].children[2].children[0].style.height = "9vw";
+                                panel.children[0].children[2].children[0].src = `../images/${teams[1].abr}.svg`
+                                panel.children[0].children[2].children[1].innerText = teams[1].abr
+
+                                panel.children[0].children[1].textContent = "Day " + thisDay;
+
+
+                                panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
+                                panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
+                            }
+                        });
+                        
+                    })
                 }
 
                 const container = document.createElement("div");
@@ -513,6 +561,33 @@ function updateCalender(chosenTeam = null, page = 0){
                     }else{
                         td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
                     }
+                }else{
+                    const thisDay = dayCounter;
+                    td.addEventListener("click", () => {
+                        const panel = document.getElementById("controlPanel");
+                        panel.style.display = "grid";
+                        panel.children[1].children[2].onclick = () => {
+                            panel.style.display = "none";
+                        }
+                        assignments[thisDay.toString()].forEach(teams => {
+                            if (teams.includes(chosenTeam)){
+                                panel.children[0].children[0].children[0].style.height = "9vw";
+                                panel.children[0].children[0].children[0].src = `../images/${teams[0].abr}.svg`
+                                panel.children[0].children[0].children[1].innerText = teams[0].abr
+
+                                panel.children[0].children[2].children[0].style.height = "9vw";
+                                panel.children[0].children[2].children[0].src = `../images/${teams[1].abr}.svg`
+                                panel.children[0].children[2].children[1].innerText = teams[1].abr
+
+                                panel.children[0].children[1].textContent = "Day " + thisDay;
+
+
+                                panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
+                                panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
+                            }
+                        });
+                        
+                    })
                 }
 
                 const container = document.createElement("div");
@@ -1087,10 +1162,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-window.simSeason = async function(){
-    const totalGames = (82 - day) * allTeams.length / 2;
+async function simToDay(dayTo, show){
+    let totalGames = (dayTo - day) * allTeams.length / 2;
     let gamesSimulated = 0;
-
     while (gamesSimulated < totalGames) {
         if (day === 41 && (simmedAllStar === false || simmedAllStar === 0)){
             allStars();
@@ -1099,43 +1173,39 @@ window.simSeason = async function(){
         const chosenTeam1 = assignments[(day + 1).toString()][gamesSimulated % 15][0];
         const chosenTeam2 = assignments[(day + 1).toString()][gamesSimulated % 15][1];
 
-        aGame(chosenTeam1, chosenTeam2, false, 0, false);
+        if (show === false){
+            aGame(chosenTeam1, chosenTeam2, false, 0, false);
+        }else{
+            aGame(chosenTeam1, chosenTeam2);
+        }
+        
         gamesSimulated++;
         if (gamesSimulated % 15 === 0){
             day++;
         }
         updateCalender(focusedTeam);
 
-        main.innerText = focusedTeam.abr + "  " + focusedTeam.wins + ":" + focusedTeam.losses; 
+        if (show === false){
+            main.innerText = focusedTeam.abr + "  " + focusedTeam.wins + ":" + focusedTeam.losses;
+        }
+         
 
         if (gamesSimulated % 5 === 0){
             await new Promise(res => setTimeout(res, 0));
         }
     }
-    const dayCounter = document.getElementById("dayCounter");
-    dayCounter.innerText = "Day: " + day;
-    
-    if (simmedAllStar === false || simmedAllStar === 0){
-        document.getElementById("allStarButton").style.display = "block";
+    if (dayTo === 41){
+        if (day === 41 && (simmedAllStar === false || simmedAllStar === 0)){
+            allStars();
+        }
     }
 
+    const dayCounter = document.getElementById("dayCounter");
+    dayCounter.innerText = "Day: " + day;
     await saving();
 }
 
-window.simGame = function(){
-    console.log(simmedAllStar)
-    if (day === 41 && (simmedAllStar === false || simmedAllStar === 0)){
-        allStars();
-        return;
-    }
-    day += 1;
-    for(let i = 0; i<15;i++){
-        const chosenTeam1 = assignments[day.toString()][i][0];
-        const chosenTeam2 = assignments[day.toString()][i][1];
-        
-        aGame(chosenTeam1, chosenTeam2);
-    }
-}
+
 
 window.testP = function(){
     playOffs();
@@ -1194,7 +1264,6 @@ window.allStars = function(){
     }
 
     simmedAllStar = true;
-    document.getElementById("allStarButton").style.display = "none";
 
     updateCalender(focusedTeam)
 }
@@ -1355,15 +1424,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         team2.players.forEach(player => {
             player.resetAllStar();
         });
-    }
-
-    if (playOff === false){
-        if (day > 42 && (simmedAllStar === false || simmedAllStar === 0)){
-            document.getElementById("allStarButton").style.display = "block";
-        }
-    }
-    
-    
+    }    
 }
 
 function playOffs(){

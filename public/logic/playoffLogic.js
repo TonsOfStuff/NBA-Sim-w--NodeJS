@@ -660,7 +660,7 @@ function offSeasonUI(){
     const finalDraftOrder = randomizedDraftOrder.concat(remainingTeams);
 
     finalDraftOrder.forEach(team => {
-        team.money += 20000000;
+        team.money += 20000000 + 350000 * team.oldSeed;
     });
 
     const roundsUI = document.createElement("div");

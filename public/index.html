@@ -18,7 +18,7 @@
             <a href = "stats.html">Stats</a>
             <a href = "teamStats.html">Team Stats</a>
         </header>
-        <article>
+        <article style="overflow-x: hidden;">
             <div id = "yearCounter">Year: 1</div>
             <div id = "dayCounter">Day: 0</div>
 
@@ -43,13 +43,30 @@
 
             <div id = "main"></div>
 
-            <button onclick="simGame()">Sim Game</button>
-            <button onclick="simSeason()">Sim Season</button>
+            <div id = "controlPanel" style="transform: translate(-50%, 10%);">
+                <div id = "showPanel" style="grid-template-columns: 1fr;">
+                    <figure id = "team1Playoff" style="margin: 0;">
+                        <img style="width: 9.5vw;">
+                        <figcaption></figcaption>
+                    </figure>
+
+                    <div style="place-self: center;"></div>
+                    <figure id = "team2Playoff" style="margin: 0;">
+                        <img style="width: 9.5vw;">
+                        <figcaption></figcaption>
+                    </figure>
+                </div>
+                <div id = "control">
+                    <button>Sim To Game w/o display</button>
+                    <button>Sim To Game</button>
+                    <button>Close</button>
+                </div>
+            </div>
+
             <button onclick="testP()">Playoffs</button>
             <button onclick="saving()">Save</button>
             <button onclick="loading()">Load</button>
             <button onclick="displayNews()">News</button>
-            <button onclick="allStars()" id = "allStarButton" style="display: none;">All Star</button>
         </article>
         <footer></footer>
 

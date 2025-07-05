@@ -45,6 +45,7 @@ header a{
 #changeTeam{
     display: flex;
     align-items: center;
+    transform: translateX(15%);
     gap: 10px;
     margin: 10px;
 }
