@@ -24,7 +24,12 @@
                         if (column === "Year"){
                             cell.innerText = Object.keys(items)[i];
                         }else{
-                            cell.innerText = Object.values(items)[i][column];
+                            const add = Object.values(items)[i][column];
+                            cell.innerText = add;
+                            if (add === undefined){
+                                cell.innerText = "TBD"
+                            }
+                            
                         }
                         row.appendChild(cell);
                     });

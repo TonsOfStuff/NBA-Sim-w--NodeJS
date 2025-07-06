@@ -221,6 +221,7 @@ export class Team{
         if (insertStart === false){
             let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus) - (a.stamina - a.energyUsed - a.min + a.boxMinus)).slice(0, smartSubNum);
             top.push(top[0]);
+            top.push(top[1]);
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]
@@ -333,9 +334,9 @@ export class Team{
     }
 
     releasePlayer(){
-        if (this.players.length > 12){
+        if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].freeAgentValue < 2){
+                if (this.players[i].freeAgentValue < 2 && this.players[i].yearsPro > 1){
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
