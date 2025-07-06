@@ -50,6 +50,16 @@ app.get("/api/teamStats", async (req, res) => {
     }
 });
 
+app.get("/api/leagueHistory", async (req, res) => {
+    try{
+        const [rows] = await connection.query("SELECT * FROM generals");
+        res.json(rows);
+    }catch (err){
+        console.error(err);
+        res.status(500).send("Error loading data");
+    }
+});
+
 
 
 

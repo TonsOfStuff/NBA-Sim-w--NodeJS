@@ -139,7 +139,7 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     contButton.addEventListener("click", async () => {
         let o = {"MVP": mvp.name, "DPOY": dpoy.name, "ROTY": roty!==null ? roty.name:"N/A", "SMOTY": smoty.name};
         leagueHistory[year] = o;
-        
+
         await saving();
         window.location.href = "/playoff.html";
     })
@@ -836,8 +836,6 @@ export async function load(){
     year = generalData[0]["years"];
     simmedAllStar = generalData[0]["simmedAllStar"];
     leagueHistory = JSON.parse(generalData[0]["leagueHistory"]);
-
-    console.log(leagueHistory)
 
     if (loadNews.length !== 0){
         loadNews.forEach(txt => {

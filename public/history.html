@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" href = "css/style.css" type="text/css">
+        <title>League History</title>
+    </head>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const table = document.getElementById("teamTable").querySelector("tbody");
+            fetch("/api/leagueHistory").then(res => res.json()).then(data => {
+                const items = JSON.parse(data[0]["leagueHistory"])
+                const columns = ["Year", "MVP", "DPOY", "ROTY", "SMOTY", "Finals Winner", "Finals Winner Wins", "Finals Winner Losses", "FMVP"]
+
+                for (let i = 0; i < Object.keys(items).length; i++){
+                    const row = document.createElement("tr");
+
+                    columns.forEach(column => {
+                        const cell = document.createElement("td");
+                        if (column === "Year"){
+                            cell.innerText = Object.keys(items)[i];
+                        }else{
+                            cell.innerText = Object.values(items)[i][column];
+                        }
+                        row.appendChild(cell);
+                    });
+                    
+                    table.appendChild(row);
+                    
+                }
+            })
+
+            function sortBasedOnClick(columnIndex) {
+                const fullTable = document.getElementById("teamTable");
+                const tableBody = fullTable.querySelector("tbody");
+                const headerCell = fullTable.querySelector(`thead th:nth-child(${columnIndex + 1})`);
+                if (!headerCell) return;
+
+                const headerText = headerCell.textContent.toLowerCase();
+                const isSeedColumn = headerText.includes("seed");
+
+                let rows = Array.from(tableBody.querySelectorAll("tr"));
+                const selector = `td:nth-child(${columnIndex + 1})`;
+
+                if (!rows.length || !rows[0].querySelector(selector)) return;
+
+                const firstVal = rows[0].querySelector(selector).textContent.trim();
+                const isNumeric = !isNaN(parseFloat(firstVal));
+
+                rows.sort((a, b) => {
+                    let valA = a.querySelector(selector).textContent.trim();
+                    let valB = b.querySelector(selector).textContent.trim();
+
+                    if (isNumeric) {
+                        const numA = parseFloat(valA);
+                        const numB = parseFloat(valB);
+                        return isSeedColumn ? numA - numB : numB - numA;
+                    } else {
+                        return valA.localeCompare(valB);
+                    }
+                });
+
+                rows.forEach(row => tableBody.appendChild(row)); // ✅ re-add sorted rows to tbody
+            }
+
+
+
+
+            attachColumnClickHighlighting()
+
+
+            function attachColumnClickHighlighting() {
+                const allRows = table.parentElement.querySelectorAll("tr");
+
+                allRows.forEach(row => {
+                    row.querySelectorAll("td").forEach((cell, colIndex) => {
+                        cell.addEventListener("click", () => {
+                            clearColumnHighlights();
+
+                            allRows.forEach(r => {
+                                const cells = r.querySelectorAll("td, th");
+                                if (cells[colIndex]) {
+                                    cells[colIndex].classList.add("highlight");
+                                }
+                            });
+                        });
+                    });
+                });
+
+                // Also add click listeners for headers
+                const headerCells = table.parentElement.querySelectorAll("thead th");
+                headerCells.forEach((th, colIndex) => {
+                    th.addEventListener("click", () => {
+                        clearColumnHighlights();
+
+                        allRows.forEach(r => {
+                            const cells = r.querySelectorAll("td, th");
+                            if (cells[colIndex]) {
+                                cells[colIndex].classList.add("highlight");
+                            }
+                        });
+                    });
+                });
+            }
+
+            function clearColumnHighlights() {
+                table.parentElement.querySelectorAll("td.highlight, th.highlight").forEach(cell => {
+                    cell.classList.remove("highlight");
+                });
+            }
+
+
+            document.querySelectorAll("#teamTable thead th").forEach((th, position) => {
+                th.addEventListener(`click`, evt => sortBasedOnClick(position));
+            });
+        });
+
+        
+    </script>
+    <body id = "statsPage">
+        <header>
+            <a href = "index.html">Home</a>
+            <a href = "stats.html">Stats</a>
+            <a href = "teamStats.html">Team Stats</a>
+        </header>
+
+
+        <table id = "teamTable">
+            <thead>
+                <tr>
+                    <th style="min-width: 60px;">Year</th><th>MVP</th><th>DPOY</th><th>ROTY</th><th>SMOTY</th>
+                    <th>Champ</th><th style="min-width: 80px;">Wins</th><th style="min-width: 80px;">Losses</th><th>FMVP</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+        <footer>
+
+        </footer>
+    </body>
+    
+</html>
