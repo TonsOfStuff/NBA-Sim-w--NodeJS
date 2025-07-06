@@ -105,8 +105,8 @@ export async function saveTeams(team){
     ptsLeaderVal, astLeader, astLeaderVal, rebLeader, rebLeaderVal, stlLeader, stlLeaderVal,
     blkLeader, blkLeaderVal, franchiseWins, franchiseLosses, playOffWins, playerOffLosses, 
     confSeed, oldConfSeed, money, sixManName, games, totalPts, totalAst, totalReb, totalStl, totalBlk, totalFGA, totalFGM, totalTPA, totalTPM, totalFTA, totalFTM,
-    trackWins
-  ) VALUES (${Array(56).fill('?').join(',')})`;
+    trackWins, draftPicks
+  ) VALUES (${Array(57).fill('?').join(',')})`;
 
   const values = [team.name, team.inEast, team.abr, team.wins, team.losses, team.oldWins, team.oldLosses,
     team.seed, team.oldSeed, team.startingLineupName1, team.startingLineupName2, team.startingLineupName3, team.startingLineupName4, team.startingLineupName5,
@@ -114,7 +114,7 @@ export async function saveTeams(team){
     team.championships, team.ptsLeader, team.ptsLeaderVal, team.astLeader, team.astLeaderVal, team.rebLeader, team.rebLeaderVal,
     team.stlLeader, team.stlLeaderVal, team.blkLeader, team.blkLeaderVal, team.franchiseWins, team.franchiseLosses, team.playOffWins,
     team.playerOffLosses, team.confSeed, team.oldConfSeed, team.money, team.sixManName, team.games, team.totalPts, team.totalAst, team.totalReb, team.totalStl, team.totalBlk, team.totalFGA, team.totalFGM, team.totalTPA, team.totalTPM, team.totalFTA, team.totalFTM,
-    JSON.stringify(team.trackWins)
+    JSON.stringify(team.trackWins), JSON.stringify(team.draftPicks)
   ];
 
   await connection.execute(sql, values);

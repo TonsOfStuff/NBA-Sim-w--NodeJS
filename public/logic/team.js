@@ -86,10 +86,11 @@ export class Team{
 
         this.playOffWinTemp = 0;
 
-
         //Misc
         this.shotClock = 0;
         this.money = 100000000;
+
+        this.draftPicks = [];
     }
 
     setOpponentsAndTeammates(opposingTeam){

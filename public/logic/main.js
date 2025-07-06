@@ -909,6 +909,7 @@ export async function load(){
             playerOffLosses: p.playerOffLosses,
 
             money: p.money,
+            draftPicks: JSON.parse(p.draftPicks)
         });
         return team;
     });

@@ -661,7 +661,7 @@ function offSeasonUI(){
             running += weightedTeams[i].weight;
             if (rand < running) {
                 randomizedDraftOrder.push(weightedTeams[i].team);
-                weightedTeams.splice(i, 1); // Remove chosen team
+                weightedTeams.splice(i, 1);
                 break;
             }
         }
@@ -680,9 +680,23 @@ function offSeasonUI(){
     roundsUI.appendChild(round2);
     let pick = 0;
     for (let i = 0; i<finalDraftOrder.length * 2; i++){
+        let fromAnother = false;
         if (pick >= finalDraftOrder.length){
             pick = 0;
         }
+        let picker = finalDraftOrder[pick]
+        picker.draftPicks = picker.draftPicks.filter(p => {
+            if (p.year === year && ((p.round === 1 && i < 29) || (p.round === 2 && i > 29))) {
+                const found = allTeams.find(team => team.abr === p.team);
+                if (found) {
+                    fromAnother = true;
+                    picker = found;
+                }
+                return false;
+            }
+            return true;
+        });
+
         const draftUI = document.createElement("div");
         draftUI.style.display = "flex";
         const pickNum = document.createElement("div");
@@ -690,15 +704,15 @@ function offSeasonUI(){
         const nameElement = document.createElement("div");
         const statsEl = document.createElement("div");
         pickNum.style.width = "30px";
-        teamName.style.width = "50px";
+        teamName.style.width = "100px";
         nameElement.style.width = "200px";
         pickNum.innerText = (i+1) + ") ";
-        teamName.innerText = finalDraftOrder[pick].abr;
+        teamName.innerText = fromAnother ? picker.abr + "(" + finalDraftOrder[pick].abr + ")" : picker.abr;
         nameElement.innerText = rookieClass[i].name;
         statsEl.innerText = "Ovr: " + rookieClass[i].ovr + "  Pot: " + rookieClass[i].potential;
 
         rookieClass[i].pickNum = (i + 1);
-        rookieClass[i].pickTeam = finalDraftOrder[pick].abr;
+        rookieClass[i].pickTeam = picker.abr;
         
         
         draftUI.appendChild(pickNum);
@@ -713,16 +727,21 @@ function offSeasonUI(){
 
         //Actual drafting into team if money and roster space allow
         let offeredMoney = 1000000;
-        if (finalDraftOrder[pick].money > offeredMoney && finalDraftOrder[pick].players.length < 15){
+        if (picker.money > offeredMoney && picker.players.length < 15){
             rookieClass[i].signRookieContract(offeredMoney, Math.round(Math.random() * 4) + 1);
-            rookieClass[i].team = finalDraftOrder[pick];
-            rookieClass[i].teamName = finalDraftOrder[pick].abr;
+            rookieClass[i].team = picker;
+            rookieClass[i].teamName = picker.abr;
 
-            finalDraftOrder[pick].players.push(rookieClass[i]);
-            finalDraftOrder[pick].money -= offeredMoney;
+            picker.players.push(rookieClass[i]);
+            picker.money -= offeredMoney;
             allPlayers.push(rookieClass[i])
 
-            news.push(finalDraftOrder[pick].abr + " drafts " + rookieClass[i].name + " at " + (i + 1).toString());
+            if (fromAnother === false){
+                news.push(picker.abr + " drafts " + rookieClass[i].name + " at " + (i + 1).toString());
+            }else{
+                news.push(picker.abr + "(" + finalDraftOrder[pick].abr +")" + " drafts " + rookieClass[i].name + " at " + (i + 1).toString());
+            }
+            
         }
 
         pick+=1;
@@ -813,7 +832,19 @@ function offSeasonUI(){
 
         let trades = tradePlayer(chosen1, chosen2);
         if (trades !== null){
-            news.push(chosen1.abr + " traded " + trades[0].map(p => p.name).join(", ") + " to " + chosen2.abr + " for " + trades[1].map(p => p.name).join(", "));
+            function getTradeAssetName(asset) {
+                if (asset.type === "pick") {
+                    return `a year ${asset.year + year} ${asset.round === 1 ? "1st" : "2nd"} Round Pick`;
+                } else {
+                    return asset.name;
+                }
+            }
+
+            if (trades !== null) {
+                const fromTeam1 = trades[0].map(getTradeAssetName).join(", ");
+                const fromTeam2 = trades[1].map(getTradeAssetName).join(", ");
+                news.push(`${chosen1.abr} traded ${fromTeam1} to ${chosen2.abr} for ${fromTeam2}`);
+            }
         }
     }
     
@@ -869,20 +900,38 @@ function tradePlayer(team1, team2){
     if (team1TradeMenu === null){
         return null;
     }
+    let team1TotalLength = 1;
 
     //Team 2 offers their players
+    let team2totalLength = 0;
     let team2Trades = [];
     let valSum = 0;
     for (let i = 0; i < team2.players.length; i++){
         let selected = team2.players[Math.floor(Math.random() * team2.players.length)];
+        if (Math.round(Math.random() * 3) === 1){
+            selected = {year: Math.round(Math.random() * 5) + 1, round: Math.round(Math.random()) + 1, type: "pick", money: 0}
+            if (team2Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team2.draftPicks.some(pick => pick.year === selected.year && pick.round === selected.round)) {
+                selected = team2.players[Math.floor(Math.random() * team2.players.length)];
+            }
+        }
+        
 
         if (!team2Trades.includes(selected)){
             team2Trades.push(selected);
-            
+            team2totalLength = 0;
             team2Trades.forEach(player => {
-                valSum += player.freeAgentValue;
+                if (player.type === "pick"){
+                    if (player.round === 1){
+                        valSum += 10 - player.year + 50;
+                    }else{
+                        valSum += 10 - player.year + 9;
+                    }
+                }else{
+                    valSum += player.freeAgentValue;
+                    team2totalLength += 1;
+                }
             });
-            if (team2Trades.length > team2.players.length - 8){
+            if (team2totalLength > team2.players.length - 8){
                 return null;
             }
             if (valSum > team1TradeMenu.freeAgentValue){
@@ -896,16 +945,32 @@ function tradePlayer(team1, team2){
     let valSumTeam = 0;
     for (let i = 0; i < team1.players.length; i++){
         let selected = team1.players[Math.floor(Math.random() * team1.players.length)];
+        if (Math.round(Math.random() * 3) === 1){
+            selected = {year: Math.round(Math.random() * 5) + 1, round: Math.round(Math.random()) + 1, type: "pick", money: 0}
+            if (team1Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team1.draftPicks.some(pick => pick.year === selected.year && pick.round === selected.round)) {
+                selected = team1.players[Math.floor(Math.random() * team1.players.length)];
+            }
+        }
 
         if (!team1Trades.includes(selected)){
             team1Trades.push(selected);
+            team1TotalLength = 0;
             team1Trades.forEach(player => {
-                valSumTeam += player.freeAgentValue;
+                if (player.type === "pick"){
+                    if (player.round === 1){
+                        valSumTeam += 10 - player.year + 50;
+                    }else{
+                        valSumTeam += 10 - player.year + 9;
+                    }
+                }else{
+                    team1TotalLength += 1;
+                    valSumTeam += player.freeAgentValue;
+                }
             });
-            if (team1Trades.length > team1.players.length - 8){
+            if (team1TotalLength > team1.players.length - 8){
                 return null;
             }
-            if (Math.abs(valSumTeam - valSum) > 20 || team1Trades.length - team2Trades.length + team2.players.length > 15 || team2Trades.length - team1Trades.length + team1.players.length > 15){
+            if (Math.abs(valSumTeam - valSum) > 20 || team1TotalLength - team2totalLength + team2.players.length > 15 || team2totalLength - team1TotalLength + team1.players.length > 15){
                 return null;
             }
             if (team1Trades.reduce((sum, player) => sum + player.money, 0) - team2Trades.reduce((sum, player) => sum + player.money, 0) > team2.money || team2Trades.reduce((sum, player) => sum + player.money, 0) - team1Trades.reduce((sum, player) => sum + player.money, 0) > team1.money){
@@ -923,24 +988,34 @@ function tradePlayer(team1, team2){
 
     //Proceed with trade
     team1Trades.forEach(player => {
-        player.teamName = team2.abr;
-        player.team = team2;
+        if (player.type === "pick"){
+            team2.draftPicks.push({team: team1.abr, year: player.year + year, round: player.round})
+            console.log(team2.draftPicks)
+        }else{
+            player.teamName = team2.abr;
+            player.team = team2;
 
-        team2.players.push(player);
-        team1.players.splice(team1.players.indexOf(player), 1);
+            team2.players.push(player);
+            team1.players.splice(team1.players.indexOf(player), 1);
 
-        team2.money -= player.money;
-        team1.money += player.money;
+            team2.money -= player.money;
+            team1.money += player.money;
+        }
     });
     team2Trades.forEach(player => {
-        player.teamName = team1.abr;
-        player.team = team1;
+        if (player.type === "pick"){
+            team1.draftPicks.push({team: team2.abr, year: player.year + year, round: player.round})
+            console.log(team1.draftPicks)
+        }else{
+            player.teamName = team1.abr;
+            player.team = team1;
 
-        team1.players.push(player);
-        team2.players.splice(team2.players.indexOf(player), 1)
+            team1.players.push(player);
+            team2.players.splice(team2.players.indexOf(player), 1)
 
-        team1.money -= player.money;
-        team2.money += player.money;
+            team1.money -= player.money;
+            team2.money += player.money;
+        }
     });
     return [team1Trades, team2Trades];
 }
