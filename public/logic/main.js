@@ -97,7 +97,6 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     }
     const smotyStats = document.createElement("div");
     smotyStats.innerText = "SMOTY: " + smoty.name + "|Min:" + smoty.avgMin + "|Pts:" + smoty.avgPts + "|Reb:" + (smoty.avgOReb + smoty.avgDReb).toFixed(1) + "|DReb:" + smoty.avgDReb + "|OReb:" + smoty.avgOReb + "|Ast:" + smoty.avgAst + "|Stl:" + smoty.avgStl + "|Blk:" + smoty.avgBlk + "|Fls:" + smoty.avgFls + "|Tov:" + smoty.avgTov + "|FG%:" + smoty.fgp + "|3P%:" + smoty.tpp + "|FT%:" + smoty.ftp;
-    
 
     main.appendChild(mvpStats);
     main.appendChild(dpoyStats);
@@ -138,6 +137,9 @@ function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     const contButton = document.createElement("button");
     contButton.innerText = "Continue"
     contButton.addEventListener("click", async () => {
+        let o = {"MVP": mvp.name, "DPOY": dpoy.name, "ROTY": roty!==null ? roty.name:"N/A", "SMOTY": smoty.name};
+        leagueHistory[year] = o;
+        
         await saving();
         window.location.href = "/playoff.html";
     })
@@ -167,7 +169,7 @@ window.displayNews = function (){
 }
 
 //Players
-const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 90, 99, 93, 99, 99, 39, 21, 82, 97, 12, 26, 56, 52, 96, 95, 99, 99, 92, 96, 45, 22, 50, 50, 94, 95, 99, 55, 99, 52, 90, 78, 34, 48, 99, 99)
+const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 90, 99, 93, 99, 99, 39, 21, 82, 97, 12, 26, 56, 52, 96, 95, 99, 99, 92, 96, 55, 62, 57, 72, 94, 95, 99, 65, 99, 52, 90, 78, 34, 48, 99, 99)
 const lebron = new Player("LeBron James", "All", 95, 93, 97, 76, 99, 86, 42, 21, 88, 45, 42, 35, 94, 81, 97, 99, 95, 91, 82, 87, 32, 32, 82, 85, 82, 90, 98, 95, 83, 79, 92, 81, 37, 42, 99, 99)
 const kareem = new Player("Kareem Abdul-Jabbar", "Inside Post-player", 92, 0, 99, 73, 99, 99, 93, 87, 94, 31, 2, 30, 13, 12,57, 78, 96, 99, 42, 49, 0, 0, 0, 0, 95, 96, 62, 0, 54, 21, 78, 85, 40, 40, 95, 99);
 const duncan = new Player("Tim Duncan", "Inside Defensive", 96, 50, 99, 80, 95, 99, 80, 90, 95, 82, 76, 35, 42, 48,52, 80, 91, 97, 96, 90, 0, 0, 1, 1, 92, 90, 97, 0, 31, 27, 76, 83, 38, 39, 93, 99);
@@ -180,7 +182,7 @@ const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 0, 99, 78
 const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 99, 65, 84, 99, 99, 99, 99, 80, 77, 52, 83, 43, 77, 91, 99, 99, 21, 20, 0,0, 0, 0, 10, 15, 14, 0, 82, 65, 81, 82, 40, 40, 87, 99);
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 33, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 99);
 const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 31, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 99);
-const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 98, 84, 97, 99, 71, 55, 99, 82, 22, 38, 83, 34, 90, 82, 98, 99, 71, 63, 50, 12, 88, 92, 99, 74, 83, 99, 53, 77, 82, 90, 42, 38, 96, 99);
+const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 98, 84, 97, 99, 71, 55, 99, 82, 22, 36, 83, 38, 90, 82, 98, 99, 71, 63, 80, 62, 88, 92, 99, 99, 83, 99, 53, 77, 85, 90, 42, 38, 96, 99);
 const doncic = new Player("Luka Doncic", "All Playmakers", 96, 95, 94, 82, 99, 48, 78, 66, 32, 44, 12, 41, 98, 90, 82, 88, 99, 92, 20, 12, 95, 90, 86, 88, 91, 90, 32, 99, 42, 33, 74, 78, 38, 43, 99, 99);
 const jokic = new Player("Nikola Jokic", "Playmaker Inside", 96, 94, 98, 79, 94, 73, 87, 62, 34, 53, 33, 50, 99, 96, 93, 77, 99, 92, 32, 30, 0, 0, 65, 82, 45, 55, 88, 90, 23, 31, 69, 83, 38, 34, 93, 99);
 const giannis = new Player("Giannis Antetokounmpo", "Inside All", 95, 79, 99, 70, 99, 93, 80, 72, 89, 53, 34, 41, 74, 86, 83, 82, 99, 99, 90, 90, 1, 1, 1, 2, 30, 33, 22, 10, 80, 84, 89, 83, 36, 50, 97, 99);
@@ -189,7 +191,7 @@ const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 
 const ant = new Player("Anthony Edwards", "Slasher Shooter", 92, 96, 97, 83, 96, 80, 23, 19, 80, 75, 10, 34, 56, 28, 93, 90, 99, 93, 25, 29, 39, 59, 90, 82, 98, 93, 70, 34, 96, 22, 90, 76, 41, 39, 93, 99);
 const oscar = new Player("Oscar Robertson", "All Playmaker", 94, 83, 97, 90, 97, 53, 60, 32, 33, 72, 10, 48, 94, 96, 92, 87, 90, 97, 94, 99, 32, 10, 4, 7, 30, 33, 55, 11, 66, 69, 77, 77, 33, 37, 92, 99);
 const dirk = new Player("Dirk Nowitzki", "Shooter", 96, 92, 90, 87, 97, 68, 42, 10, 70, 75, 18, 38, 42, 53, 88, 94, 92, 93, 99, 90, 13, 10, 32, 11, 56, 78, 77, 80, 32, 43, 80, 84, 40, 38, 95, 99);
-const iverson = new Player("Allen Iverson", "Slasher Shooter", 94, 89, 91, 81, 97, 58, 15, 9, 20, 96, 58, 34, 88, 11, 99, 85, 88, 87, 90, 82, 77, 80, 89, 91, 88, 87, 85, 88, 90, 95, 90, 72, 30, 38, 99, 99);
+const iverson = new Player("Allen Iverson", "Slasher Shooter", 93, 89, 87, 81, 97, 58, 15, 9, 20, 96, 58, 36, 88, 11, 99, 85, 88, 87, 90, 82, 57, 60, 79, 61, 88, 87, 85, 68, 90, 95, 90, 72, 30, 38, 99, 99);
 const stockton = new Player("John Stockton", "Playmaker Defensive", 90, 85, 87, 86, 88, 89, 24, 18, 24, 99, 90, 50, 98, 99, 89, 83, 70, 68, 74, 73, 69, 26, 31, 53, 80, 80, 78, 72, 74, 91, 84, 73, 28, 31, 95, 98);
 const malone = new Player("Karl Malone", "Inside Post-player", 97, 0, 99, 76, 96, 87, 68, 65, 76, 38, 22, 33, 40, 38, 77, 85, 94, 96, 75, 71, 0, 0, 0, 0, 93, 88, 94, 0, 84, 79, 89, 81, 35, 38, 93, 98);
 const drexler = new Player("Clyde Drexler", "Slasher Two-way", 95, 89, 94, 78, 95, 84, 35, 24, 40, 81, 45, 36, 60, 67, 88, 84, 85, 83, 87, 81, 64, 68, 77, 80, 78, 80, 79, 82, 89, 87, 82, 78, 36, 34, 92, 97);
@@ -265,6 +267,10 @@ export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timbe
 let allTeamsTemp = [...allTeams];
 export let freeAgency = [];
 let news = [];
+let leagueHistory = {};
+export function addLeagueHistory(winner, award, yearT){
+    leagueHistory[yearT][award] = winner;
+}
 
 //Global variables
 let hasBallPlayer = null;
@@ -794,7 +800,7 @@ export function save(players, teams, news = false){
     const generalsPromise = fetch('/api/saveGeneral', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify([day, year, simmedAllStar])
+        body: JSON.stringify([day, year, simmedAllStar, leagueHistory])
     }).then(res => res.json()).then(data =>console.log(data.message)).catch(err => console.error(err));
     
     if (news !== false){
@@ -829,6 +835,9 @@ export async function load(){
     day = generalData[0]["days"];
     year = generalData[0]["years"];
     simmedAllStar = generalData[0]["simmedAllStar"];
+    leagueHistory = JSON.parse(generalData[0]["leagueHistory"]);
+
+    console.log(leagueHistory)
 
     if (loadNews.length !== 0){
         loadNews.forEach(txt => {
@@ -1161,7 +1170,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-
 async function simToDay(dayTo, show){
     let totalGames = (dayTo - day) * allTeams.length / 2;
     let gamesSimulated = 0;
@@ -1204,7 +1212,6 @@ async function simToDay(dayTo, show){
     dayCounter.innerText = "Day: " + day;
     await saving();
 }
-
 
 
 window.testP = function(){

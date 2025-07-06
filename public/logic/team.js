@@ -339,7 +339,7 @@ export class Team{
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
-                    console.log(splicedPlayer[0].name + " was released by " + this.abr)
+                    this.money += splicedPlayer[0].money;
                     return [splicedPlayer[0], splicedPlayer[0].name + " was released by " + this.abr];
                 }
             }

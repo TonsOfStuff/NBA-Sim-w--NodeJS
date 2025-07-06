@@ -123,11 +123,13 @@ export async function saveTeams(team){
 export async function saveGeneral(items){
   const sql = `
     INSERT INTO generals (
-      days, years, simmedAllStar
+      days, years, simmedAllStar, leagueHistory
     ) VALUES (${items.map(() => '?').join(', ')})
   `;
 
-  await connection.execute(sql, items);
+  const values = [items[0], items[1], items[2], JSON.stringify(items[3])];
+
+  await connection.execute(sql, values);
 };
 
 

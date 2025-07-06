@@ -1,4 +1,4 @@
-import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setDay, freeAgency, setAllStarSimmed } from "./main.js";
+import { load, save, allTeams, allPlayers, aGame, genPlayer, setYear, year, setDay, freeAgency, setAllStarSimmed, addLeagueHistory } from "./main.js";
 await load();
 
 
@@ -564,6 +564,11 @@ function endSeason(){
     finalsWinner.players.sort((a,b) => b.finalsMVPNum - a.finalsMVPNum);
     finalsWinner.players[0].finalsMVP += 1;
 
+    addLeagueHistory(finalsWinner.abr, "Finals Winner", year);
+    addLeagueHistory(finalsWinner.wins, "Finals Winner Wins", year);
+    addLeagueHistory(finalsWinner.losses, "Finals Winner Losses", year);
+    addLeagueHistory(finalsWinner.players[0].name, "FMVP", year);
+
     const playOffPanel = document.getElementById("playOffPanel");
     const displayGame = document.getElementById("displayGame");
     while (playOffPanel.firstChild){
@@ -593,11 +598,16 @@ function endSeason(){
                     player.teamName = "HOF";
                     if (player.team !== null){
                         player.team.players.splice(player.team.players.splice(player), 1);
+                        player.team.money += player.money;
                     }
                     news.push(player.name + " made the HOF");
                 }else{
                     retired.push(player);
                     news.push(player.name + " has retired");
+                    if (player.team !== null){
+                        player.team.players.splice(player.team.players.splice(player), 1);
+                        player.team.money += player.money;
+                    }
                 }
             }
         }
@@ -658,10 +668,6 @@ function offSeasonUI(){
     }
     const remainingTeams = draftOrder.slice(14); 
     const finalDraftOrder = randomizedDraftOrder.concat(remainingTeams);
-
-    finalDraftOrder.forEach(team => {
-        team.money += 20000000 + 350000 * team.oldSeed;
-    });
 
     const roundsUI = document.createElement("div");
     roundsUI.style.display = "grid";
@@ -732,6 +738,7 @@ function offSeasonUI(){
 
                 player.teamName = "FA"
                 player.team.players.splice(player.team.players.indexOf(player), 1);
+                player.team.money += player.money;
             }
         }
     });
@@ -898,6 +905,9 @@ function tradePlayer(team1, team2){
             if (Math.abs(valSumTeam - valSum) > 20 || team1Trades.length - team2Trades.length + team2.players.length > 15 || team2Trades.length - team1Trades.length + team1.players.length > 15){
                 return null;
             }
+            if (team1Trades.reduce((sum, player) => sum + player.money, 0) - team2Trades.reduce((sum, player) => sum + player.money, 0) > team2.money || team2Trades.reduce((sum, player) => sum + player.money, 0) - team1Trades.reduce((sum, player) => sum + player.money, 0) > team1.money){
+                return null;
+            }
             if (Math.abs(valSumTeam - valSum) < 20){
                 break;
             }
@@ -915,6 +925,9 @@ function tradePlayer(team1, team2){
 
         team2.players.push(player);
         team1.players.splice(team1.players.indexOf(player), 1);
+
+        team2.money -= player.money;
+        team1.money += player.money;
     });
     team2Trades.forEach(player => {
         player.teamName = team1.abr;
@@ -922,6 +935,9 @@ function tradePlayer(team1, team2){
 
         team1.players.push(player);
         team2.players.splice(team2.players.indexOf(player), 1)
+
+        team1.money -= player.money;
+        team2.money += player.money;
     });
     return [team1Trades, team2Trades];
 }
