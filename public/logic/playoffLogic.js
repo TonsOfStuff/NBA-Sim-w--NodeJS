@@ -922,7 +922,7 @@ function tradePlayer(team1, team2){
             team2Trades.forEach(player => {
                 if (player.type === "pick"){
                     if (player.round === 1){
-                        valSum += 10 - player.year + 50;
+                        valSum += 10 - player.year + 30;
                     }else{
                         valSum += 10 - player.year + 9;
                     }
@@ -958,7 +958,7 @@ function tradePlayer(team1, team2){
             team1Trades.forEach(player => {
                 if (player.type === "pick"){
                     if (player.round === 1){
-                        valSumTeam += 10 - player.year + 50;
+                        valSumTeam += 10 - player.year + 30;
                     }else{
                         valSumTeam += 10 - player.year + 9;
                     }
@@ -989,7 +989,7 @@ function tradePlayer(team1, team2){
     //Proceed with trade
     team1Trades.forEach(player => {
         if (player.type === "pick"){
-            team2.draftPicks.push({team: team1.abr, year: player.year + year, round: player.round})
+            team1.draftPicks.push({team: team2.abr, year: player.year + year, round: player.round})
             console.log(team2.draftPicks)
         }else{
             player.teamName = team2.abr;
@@ -1004,7 +1004,7 @@ function tradePlayer(team1, team2){
     });
     team2Trades.forEach(player => {
         if (player.type === "pick"){
-            team1.draftPicks.push({team: team2.abr, year: player.year + year, round: player.round})
+            team2.draftPicks.push({team: team1.abr, year: player.year + year, round: player.round})
             console.log(team1.draftPicks)
         }else{
             player.teamName = team1.abr;
