@@ -141,6 +141,10 @@ export class Team{
 
         this.startingLineup.push(...sub.slice(0, 5));
         this.lineup = [...this.startingLineup];
+
+        console.log(sub);
+        console.log(this.players);
+
         this.startingLineupName1 = this.startingLineup[0].name;
         this.startingLineupName2 = this.startingLineup[1].name;
         this.startingLineupName3 = this.startingLineup[2].name;

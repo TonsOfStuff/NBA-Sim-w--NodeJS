@@ -741,7 +741,12 @@ function offSeasonUI(){
             }else{
                 news.push(picker.abr + "(" + finalDraftOrder[pick].abr +")" + " drafts " + rookieClass[i].name + " at " + (i + 1).toString());
             }
-            
+        }else{
+            rookieClass[i].teamName = "FA";
+            allPlayers.push(rookieClass[i]);
+            freeAgency.push(rookieClass[i]);
+
+            rookieClass[i].yearsIntoContract = 0;
         }
 
         pick+=1;
@@ -849,7 +854,7 @@ function offSeasonUI(){
     }
     
     allTeams.forEach(team => {
-        if (team.players.length < 8){
+        if (team.players.length < 10){
             let signed = [];
             for (let i = 0; i < freeAgency.length; i++){
                 freeAgency[i].team = team;
@@ -862,7 +867,7 @@ function offSeasonUI(){
                 news.push(team.abr + " signed " + freeAgency[i].name + " to a 1 year $1000000 deal");
                 signed.push(freeAgency[i]);
 
-                if (team.players.length >= 8){
+                if (team.players.length >= 10){
                     break;
                 }
             }
@@ -910,7 +915,7 @@ function tradePlayer(team1, team2){
         let selected = team2.players[Math.floor(Math.random() * team2.players.length)];
         if (Math.round(Math.random() * 3) === 1){
             selected = {year: Math.round(Math.random() * 5) + 1, round: Math.round(Math.random()) + 1, type: "pick", money: 0}
-            if (team2Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team2.draftPicks.some(pick => pick.year === selected.year && pick.round === selected.round)) {
+            if (team2Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team2.draftPicks.some(pick => pick.year === selected.year + year && pick.round === selected.round)) {
                 selected = team2.players[Math.floor(Math.random() * team2.players.length)];
             }
         }
@@ -947,7 +952,7 @@ function tradePlayer(team1, team2){
         let selected = team1.players[Math.floor(Math.random() * team1.players.length)];
         if (Math.round(Math.random() * 3) === 1){
             selected = {year: Math.round(Math.random() * 5) + 1, round: Math.round(Math.random()) + 1, type: "pick", money: 0}
-            if (team1Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team1.draftPicks.some(pick => pick.year === selected.year && pick.round === selected.round)) {
+            if (team1Trades.some(item => item.type === "pick" && item.year === selected.year && item.round === selected.round) || team1.draftPicks.some(pick => pick.year === selected.year + year && pick.round === selected.round)) {
                 selected = team1.players[Math.floor(Math.random() * team1.players.length)];
             }
         }
