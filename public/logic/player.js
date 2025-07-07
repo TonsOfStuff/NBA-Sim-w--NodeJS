@@ -1251,7 +1251,7 @@ export class Player{
             passTen -= 30;
         }
         if (this.passedFromSomeone !== false){
-            passTen += this.passedFromSomeone.passingAccuracy / 2
+            passTen += this.passedFromSomeone.passingAccuracy / 4 + this.passedFromSomeone.passingEff / 4
         }
         if (this.fga > 25){
             passTen -= 60;
@@ -2002,36 +2002,35 @@ export class Player{
         if (!offers || offers.length === 0) return null;
 
         let interest = [];
+        let count = offers.length * 4;
+        offers.sort((a,b) => b["money"] - a["money"]);
         offers.forEach(item => {
             let want = 0;
+            want += count;
+
             if (item["team"] === this.team){
-                want += this.happiness;
+                want += this.happiness * 2;
             }
 
-            if (item["team"].oldSeed < 5){
+            if (item["team"].oldConfSeed <= 8){
                 want += 4;
-            }else if (item["team"].oldSeed < 10){
-                want += 2;
             }else{
-                want -= 1;
-            }
-
-            if (item["money"] > this.money){
-                want += 12;
-            }else{
-                want -= 6;
+                want += 1;
             }
 
             if (item["years"] > 4){
-                want -= 1
+                want += 1
             }else{
                 want += 2
             }
+
+            count -= 4;
 
             interest.push({offer: item, score: want});
         });
 
         interest.sort((a,b) => b.score - a.score);
+        if (interest[0].offer.team.players.length >= 15) return null; 
         return interest[0].offer;
     }
 

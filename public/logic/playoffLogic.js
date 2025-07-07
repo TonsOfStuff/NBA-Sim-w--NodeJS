@@ -806,7 +806,7 @@ function offSeasonUI(){
         });
 
         const playerChoose = player.selectContract(offers);
-        if (playerChoose !== null){
+        if (playerChoose !== null && playerChoose.team.players.length < 15){
             if (player.team !== playerChoose.team){
                 news.push(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
                 player.happiness = 10;
