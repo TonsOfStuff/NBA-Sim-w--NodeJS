@@ -775,7 +775,7 @@ function offSeasonUI(){
             if (team.money > 0 && team.players.length < 15){
                 let offer = {};
                 offer["team"] = team;
-                let offerMoney = Math.round(Math.pow(player.freeAgentValue, 1.3) * 100000 + Math.random() * (Math.pow(player.freeAgentValue, 1.3) * 10000))
+                let offerMoney = Math.round(Math.pow(player.freeAgentValue, 1.8) * 10000 + Math.random() * (Math.pow(player.freeAgentValue, 1.8) * 1000))
                 if (offerMoney < 1000000){
                     offerMoney = 1000000
                 }
@@ -789,6 +789,12 @@ function offSeasonUI(){
                     if (player.freeAgentValue > 80){
                         offerMoney = team.money;
                     }else{
+                        return;
+                    }
+                }
+                if (offerMoney < 500000){
+                    offerMoney = 500000
+                    if (offerMoney > team.money){
                         return;
                     }
                 }
@@ -877,10 +883,27 @@ function offSeasonUI(){
                 }
             }
         }
+        if (team.players.length < 10){
+            const adding = genPlayer(10 - team.players.length);
+            adding.forEach(player => {
+                allPlayers.push(player);
+                team.players.push(player);
+                if (team.money > 500000){
+                    team.money -= 500000;
+                }
+                
+
+                player.team = team;
+                player.teamName = team.abr;
+                player.contractYears = Math.round(Math.random() * 3) + 1
+                player.money = 500000;
+            });
+        }
     });
 
 
     allTeams.forEach(team => {
+        team.releasePlayer();
         team.changeStart(true);
     });
 
@@ -990,6 +1013,12 @@ function tradePlayer(team1, team2){
     if (Math.abs(valSumTeam - valSum) > 20){
         return null;
     }
+    // Before proceeding with trade
+    if (team1.players.length - team1Trades.filter(p => !p.type).length + team2Trades.filter(p => !p.type).length > 15 ||
+        team2.players.length - team2Trades.filter(p => !p.type).length + team1Trades.filter(p => !p.type).length > 15) {
+        return null;
+    }
+
 
     //Proceed with trade
     team1Trades.forEach(player => {

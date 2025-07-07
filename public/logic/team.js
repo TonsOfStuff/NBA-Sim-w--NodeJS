@@ -339,6 +339,18 @@ export class Team{
     }
 
     releasePlayer(){
+        if (this.money < 3000000){
+            for (let i = 0; i < this.players.length; i++){
+                if (this.players[i].money / this.players[i].freeAgentValue > 0){
+                    this.players[i].teamName = "FA";
+
+                    const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
+                    this.money += splicedPlayer[0].money;
+                    console.log("wow")
+                    return [splicedPlayer[0], splicedPlayer[0].name + " was waived by " + this.abr];
+                }
+            }
+        }
         if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
                 if (this.players[i].freeAgentValue < 2 && this.players[i].yearsPro > 1){
@@ -350,6 +362,7 @@ export class Team{
                 }
             }
         }
+        
         return null;
     }
 }
