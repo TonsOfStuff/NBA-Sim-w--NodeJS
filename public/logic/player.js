@@ -2009,7 +2009,7 @@ export class Player{
             want += count;
 
             if (item["team"] === this.team){
-                want += this.happiness * 2;
+                want += this.happiness * 3;
             }
 
             if (item["team"].oldConfSeed <= 8){
