@@ -1,7 +1,7 @@
 import { hasBallPlayerSetter } from "./main.js";
 
 export class Player{
-    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, potential){
+    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential){
         this.name = name;
         this.arch = arch;
 
@@ -53,6 +53,7 @@ export class Player{
         this.foul = foul;
         this.drawFoul = drawFoul;
         this.clutch = clutch;
+        this.usage = usage;
         this.potential = potential;
 
         //Other stats
@@ -1162,16 +1163,16 @@ export class Player{
             }
             //Progressive slowdown
             if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 1;
+                passingAmount -= 3;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 3;
+                passingAmount -= 5;
             }
             else if (this.otherTeammates[i].fga > 40){
                 passingAmount -= 15;
             }
             if (passingAmount <= 0){
-                passingAmount = 1;
+                passingAmount = 0;
             }
             passingList.push(...Array(passingAmount).fill(this.otherTeammates[i]));
         }
@@ -1246,21 +1247,20 @@ export class Player{
 
     playerPossesion(defense, time){
         this.moving(defense);
-        let passTen = 100;
+        let passTen = 250;
         if (this.arch.includes("Playermaker")){
             passTen -= 30;
         }
         if (this.passedFromSomeone !== false){
             passTen += this.passedFromSomeone.passingAccuracy / 4 + this.passedFromSomeone.passingEff / 4
         }
-        if (this.fga > 25){
+        if (this.fga > 29){
             passTen -= 60;
         }
         if (this.pts > 25){
             passTen -= 10;
         }
-			
-        if (this.passingTen + this.fga > Math.random() * passTen && this.team.shotClock < 5){
+        if (Math.pow(this.passingTen, 1.3) + this.fga * 2 > Math.random() * (passTen + this.usage) && this.team.shotClock < 15){
             this.pass(defense);
             this.team.shotClock += 1;
         }else{
@@ -2002,7 +2002,7 @@ export class Player{
         if (!offers || offers.length === 0) return null;
 
         let interest = [];
-        let count = offers.length * 4;
+        let count = offers.length * 3;
         offers.sort((a,b) => b["money"] - a["money"]);
         offers.forEach(item => {
             let want = 0;
@@ -2024,7 +2024,7 @@ export class Player{
                 want += 2
             }
 
-            count -= 4;
+            count -= 3;
 
             interest.push({offer: item, score: want});
         });

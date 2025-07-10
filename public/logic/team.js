@@ -112,8 +112,8 @@ export class Team{
 
     startingLineupBoost(){
         this.startingLineup.forEach(player => {
-            player.passToOg += 20;
-            player.passTo += 20;
+            player.passToOg += 25;
+            player.passTo += 25;
         });
 
         this.lineup = [...this.startingLineup];
