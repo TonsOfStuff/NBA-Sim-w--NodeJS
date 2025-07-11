@@ -372,9 +372,9 @@ export class Player{
         let shootTend = 100;
         
         let insideStress = 1550;
-        const twoStress = 1600;
-        const threeStress = 2100;
-        let drawFreeThrowAmount = 105;
+        const twoStress = 1620;
+        const threeStress = 2110;
+        let drawFreeThrowAmount = 80;
         const freeThrowDiff = 107;
 
         //Archetype Effect
@@ -1004,7 +1004,7 @@ export class Player{
                 return false;
             }
         }else{
-            if (Math.round(Math.random() * 5) === 1){
+            if (Math.round(Math.random() * 2) === 1){
                 this.fga += 1;
                 if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
                     this.fgm += 1;
@@ -1158,22 +1158,21 @@ export class Player{
                 continue;
             }
             let passingAmount = this.otherTeammates[i].passTo;
+
             if (this.otherTeammates[i].arch.includes("All")){
                 passingAmount += 1;
             }
             //Progressive slowdown
-            if (this.otherTeammates[i].fga > 20){
-                passingAmount -= 3;
+            if (this.otherTeammates[i].fga > 40){
+                passingAmount -= 15;
             }
             else if (this.otherTeammates[i].fga > 30){
                 passingAmount -= 5;
             }
-            else if (this.otherTeammates[i].fga > 40){
-                passingAmount -= 15;
+            else if (this.otherTeammates[i].fga > 20){
+                passingAmount -= 3;
             }
-            if (passingAmount <= 0){
-                passingAmount = 0;
-            }
+            passingAmount = Math.max(0, Math.floor(passingAmount));
             passingList.push(...Array(passingAmount).fill(this.otherTeammates[i]));
         }
 
@@ -1255,12 +1254,12 @@ export class Player{
             passTen += this.passedFromSomeone.passingAccuracy / 4 + this.passedFromSomeone.passingEff / 4
         }
         if (this.fga > 29){
-            passTen -= 60;
+            passTen -= 70;
         }
         if (this.pts > 25){
-            passTen -= 10;
+            passTen -= 45;
         }
-        if (Math.pow(this.passingTen, 1.3) + this.fga * 2 > Math.random() * (passTen + this.usage) && this.team.shotClock < 15){
+        if (Math.exp(this.passingTen / 10) + Math.exp(this.fga / 8.4) > Math.random() * (Math.exp(passTen / 58) + Math.exp(this.usage / 80)) && this.team.shotClock < 15){
             this.pass(defense);
             this.team.shotClock += 1;
         }else{
