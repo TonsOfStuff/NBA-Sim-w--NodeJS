@@ -226,7 +226,6 @@ export class Team{
         if (insertStart === false){
             let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus) - (a.stamina - a.energyUsed - a.min + a.boxMinus)).slice(0, smartSubNum);
             top.push(top[0]);
-            top.push(top[1]);
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]
