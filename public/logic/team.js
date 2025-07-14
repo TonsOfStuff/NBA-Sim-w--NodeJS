@@ -88,6 +88,7 @@ export class Team{
 
         this.totalOffensiveRating = 0;
         this.totalDefensiveRating = 0;
+        this.defCheck = false;
 
 
         //Misc
@@ -284,6 +285,7 @@ export class Team{
     calcTeamAvg(){
         this.totalPossesions += this.possesions;
         this.possesions = 0;
+        this.defCheck = false;
         
         this.totalPts += this.players.reduce((sum, p) => sum + p.pts, 0);
         this.totalAst += this.players.reduce((sum, p) => sum + p.ast, 0);

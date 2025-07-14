@@ -1250,12 +1250,13 @@ export class Player{
     }
 
     playerPossesion(defense, time){
-        if (this.team.possesions === 100){
+        if (this.team.possesions === 100 && this.team.defCheck === false){
             let score = 0;
             this.team.players.forEach(player => {
                 score += player.pts;
             });
             this.team.totalDefensiveRating += Number((score / 100).toFixed(3))
+            this.team.defCheck = true;
         }
 
 

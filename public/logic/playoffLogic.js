@@ -96,6 +96,7 @@ const seriesList = [series1, series4, series3, series2, series5, series8, series
 for (let i = 0; i < 8; i++) {
     const series = seriesList[i];
     buttons[i].addEventListener("click", () => {
+        statsPanel.style.display = "none";
         panel.style.display = "grid";
         //panel.children[0].textContent = buttons[i].textContent;
         panel.children[0].children[0].children[0].src = `../images/${series[0].abr}.svg`;
@@ -134,6 +135,7 @@ for (let i = 0; i < 8; i++) {
 
 function addButtonFunc(series, button){
     button.addEventListener("click", () => {
+        statsPanel.style.display = "none";
         panel.style.display = "grid";
         panel.children[0].children[0].children[0].src = `../images/${series[0].abr}.svg`;
         panel.children[0].children[0].children[1].innerText = series[0].name + " (" + series[0].confSeed + ")";;
