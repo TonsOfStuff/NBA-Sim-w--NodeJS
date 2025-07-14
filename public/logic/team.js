@@ -86,11 +86,17 @@ export class Team{
 
         this.playOffWinTemp = 0;
 
+        this.totalOffensiveRating = 0;
+        this.totalDefensiveRating = 0;
+
+
         //Misc
         this.shotClock = 0;
         this.money = 100000000;
 
         this.draftPicks = [];
+        this.possesions = 0;
+        this.totalPossesions = 0;
     }
 
     setOpponentsAndTeammates(opposingTeam){
@@ -111,6 +117,7 @@ export class Team{
     }
 
     startingLineupBoost(){
+
         this.startingLineup.forEach(player => {
             player.passToOg += 25;
             player.passTo += 25;
@@ -275,7 +282,8 @@ export class Team{
     }
 
     calcTeamAvg(){
-        this.games += 1;
+        this.totalPossesions += this.possesions;
+        this.possesions = 0;
         
         this.totalPts += this.players.reduce((sum, p) => sum + p.pts, 0);
         this.totalAst += this.players.reduce((sum, p) => sum + p.ast, 0);
@@ -305,6 +313,9 @@ export class Team{
         this.oldLosses = this.losses;
         this.oldSeed = this.seed;
         this.oldConfSeed = this.confSeed;
+
+        this.possessions = 0;
+        this.totalPossesions = 0;
 
         this.seed = 0;
         this.confSeed = 0;

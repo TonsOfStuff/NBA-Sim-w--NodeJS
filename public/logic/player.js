@@ -1185,6 +1185,7 @@ export class Player{
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
             hasBallPlayerSetter(newPlayer);
             newPlayer.hasBall = true;
+            newPlayer.team.possesions += 1;
             this.team.shotClock = 0;
         }
         else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 12000){
@@ -1192,6 +1193,7 @@ export class Player{
             this.hasBall = false;
             defense.hasBall = true;
             hasBallPlayerSetter(defense);
+            defense.team.possesions += 1;
             defense.stl += 1;
             this.team.shotClock = 0;
         }
@@ -1239,14 +1241,24 @@ export class Player{
             oPToReb.oReb += 1;
             return oPToReb;
         } else {
-            if (Math.round(Math.random() * 5) > 1){
+            if (Math.round(Math.random() * 4) > 1){
                 dPToReb.dReb += 1;
             }   
+            dPToReb.team.possesions += 1;
             return dPToReb;
         }
     }
 
     playerPossesion(defense, time){
+        if (this.team.possesions === 100){
+            let score = 0;
+            this.team.players.forEach(player => {
+                score += player.pts;
+            });
+            this.team.totalDefensiveRating += Number((score / 100).toFixed(3))
+        }
+
+
         this.moving(defense);
         let passTen = 240;
         if (this.arch.includes("Playermaker")){
@@ -1268,10 +1280,10 @@ export class Player{
         if (this.pts > 35){
             passTen -= 10;
         }
-        const passingInfluence = this.passingTen * 50           // Strong but not explosive
-        const passTenInfluence = Math.exp(passTen / 47);                      // Steady growth
+        const passingInfluence = this.passingTen * 50          
+        const passTenInfluence = Math.exp(passTen / 47);                      
 
-        const usageBias = this.usage                          // Scorers get shooting boost
+        const usageBias = this.usage                          
         const fatiguePenalty = Math.pow(this.fga, 1.4); 
 
         const passAmount = passingInfluence * fatiguePenalty;
@@ -1292,6 +1304,7 @@ export class Player{
                 this.passedFromSomeone = false;
                 this.hasBall = false;
                 const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
+                newPlayer.team.possesions += 1;
                 hasBallPlayerSetter(newPlayer);
                 newPlayer.hasBall = true;
                 this.team.shotClock = 0;

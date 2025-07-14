@@ -15,9 +15,24 @@
             fetch("/api/teamStats").then(res => res.json()).then(data => {
                 //console.log(data[0]);
                 const columns = [
-                    "name", "seed", "confSeed", "wins", "losses", "oldSeed", "oldConfSeed", "oldWins", "oldLosses", "ptsAvg", "rebAvg", "astAvg", "stlAvg", "blkAvg", "fg", "tp", "ft",
+                    "name", "seed", "confSeed", "wins", "losses", "oldSeed", "oldConfSeed", "oldWins", "oldLosses", "ptsAvg", "rebAvg", "astAvg", "stlAvg", "blkAvg", "fg", "tp", "ft", "totalPossesions", "totalOffensiveRating", "totalDefensiveRating",
                     "playOffAppearances", "finalsAppearances", "championships", "money"
                 ]
+
+                const teamStats = data.map(team => ({
+                    name: team.name,
+                    offRat: team.totalOffensiveRating / team.games,
+                    defRat: team.totalDefensiveRating / team.games
+                }));
+                const offRankMap = {};
+                [...teamStats].sort((a, b) => b.offRat - a.offRat)
+                    .forEach((team, i) => offRankMap[team.name] = i + 1);
+
+                const defRankMap = {};
+                [...teamStats].sort((a, b) => a.defRat - b.defRat)
+                    .forEach((team, i) => defRankMap[team.name] = i + 1);
+
+                console.log(offRankMap)
 
                 data.forEach(player => {
                     const row = document.createElement("tr");
@@ -64,6 +79,12 @@
                             img.src = `/images/${player.abr}.svg`
                             img.style.width = "15px";
                             cell.appendChild(img);
+                        }else if (column === "totalPossesions" ){
+                            cell.innerHTML = Number((player[column] / player["games"]).toFixed(3))
+                        }else if (column === "totalDefensiveRating"){
+                            cell.innerHTML = Number((player[column] / player["games"]).toFixed(3)) + " Rank: " + defRankMap[player["name"]];
+                        }else if (column === "totalOffensiveRating"){
+                            cell.innerHTML = Number((player[column] / player["games"]).toFixed(3)) + " Rank: " + offRankMap[player["name"]];
                         }
                         else{
                             cell.innerHTML = player[column]
@@ -84,7 +105,7 @@
                 if (!headerCell) return;
 
                 const headerText = headerCell.textContent.toLowerCase();
-                const isSeedColumn = headerText.includes("seed");
+                const isSeedColumn = headerText.includes("seed") || headerText === "defensive rating";
 
                 let rows = Array.from(tableBody.querySelectorAll("tr"));
                 const selector = `td:nth-child(${columnIndex + 1})`;
@@ -107,7 +128,7 @@
                     }
                 });
 
-                rows.forEach(row => tableBody.appendChild(row)); // ✅ re-add sorted rows to tbody
+                rows.forEach(row => tableBody.appendChild(row));
             }
 
 
@@ -177,7 +198,7 @@
             <thead>
                 <tr>
                     <th style = "min-width: 200px;">Name</th><th>Seed</th><th>Conf Seed</th><th>Wins</th><th>Losses</th><th>Old Seed</th><th>Old Conf Seed</th><th>Old Wins</th><th>Old Losses</th>
-                    <th>Avg Pts</th><th>Avg Reb</th><th>Avg Ast</th><th>Avg Stl</th><th>Avg Blk</th><th>FG%</th><th>3P%</th><th>FT%</th>
+                    <th>Avg Pts</th><th>Avg Reb</th><th>Avg Ast</th><th>Avg Stl</th><th>Avg Blk</th><th>FG%</th><th>3P%</th><th>FT%</th><th>Possesions</th><th>Offensive Rating</th><th>Defensive Rating</th>
                     <th style="min-width: 150px;">Playoff Apperances</th><th style="min-width: 150px">Finals Appearances</th><th>Championships</th><th>Money</th>
                 </tr>
             </thead>

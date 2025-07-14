@@ -909,7 +909,11 @@ export async function load(){
             playerOffLosses: p.playerOffLosses,
 
             money: p.money,
-            draftPicks: JSON.parse(p.draftPicks)
+            draftPicks: JSON.parse(p.draftPicks),
+
+            totalPossesions: p.totalPossesions,
+            totalDefensiveRating: p.totalDefensiveRating,
+            totalOffensiveRating: p.totalOffensiveRating
         });
         return team;
     });
@@ -1278,6 +1282,9 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
+
+    team1.games += 1;
+    team2.games += 1;
     let quarter = 1;
     const theTime = 12 * 15;
     const subFreq = 100;
@@ -1398,6 +1405,13 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             teamScores = findTotalScore(team1, team2);
         }
     }
+
+    let offRate = Number((teamScores[0] / team1.possesions).toFixed(3));
+    team1.totalOffensiveRating += offRate;
+    offRate = Number((teamScores[1] / team2.possesions).toFixed(3));
+    team2.totalOffensiveRating += offRate;
+
+    console.log(team1.totalOffensiveRating / team1.games);
     
     if (display === true){
         displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
