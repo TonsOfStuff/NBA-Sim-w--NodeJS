@@ -29,7 +29,7 @@
                     .forEach((team, i) => offRankMap[team.name] = i + 1);
 
                 const defRankMap = {};
-                [...teamStats].sort((a, b) => a.defRat - b.defRat)
+                [...teamStats].sort((a, b) => b.defRat - a.defRat)
                     .forEach((team, i) => defRankMap[team.name] = i + 1);
 
                 console.log(offRankMap)
@@ -105,7 +105,7 @@
                 if (!headerCell) return;
 
                 const headerText = headerCell.textContent.toLowerCase();
-                const isSeedColumn = headerText.includes("seed") || headerText === "defensive rating";
+                const isSeedColumn = headerText.includes("seed");
 
                 let rows = Array.from(tableBody.querySelectorAll("tr"));
                 const selector = `td:nth-child(${columnIndex + 1})`;

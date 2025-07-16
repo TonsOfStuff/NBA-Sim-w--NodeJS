@@ -607,8 +607,11 @@ function endSeason(){
                     retired.push(player);
                     news.push(player.name + " has retired");
                     if (player.team !== null){
-                        player.team.players.splice(player.team.players.splice(player), 1);
+                        player.team.players.splice(player.team.players.indexOf(player), 1);
                         player.team.money += player.money;
+                    }
+                    if (player.teamName === "FA"){
+                        freeAgency.splice(freeAgency.indexOf(player), 1);
                     }
                 }
             }

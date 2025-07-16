@@ -371,7 +371,7 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1550;
+        let insideStress = 1560;
         const twoStress = 1620;
         const threeStress = 2110;
         let drawFreeThrowAmount = 110;
@@ -1276,10 +1276,10 @@ export class Player{
         }
 
         if (this.fga > 29){
-            passTen -= 50;
+            passTen -= 80;
         }
-        if (this.pts > 35){
-            passTen -= 10;
+        if (this.pts > 30){
+            passTen -= 40;
         }
         const passingInfluence = this.passingTen * 50          
         const passTenInfluence = Math.exp(passTen / 47);                      
