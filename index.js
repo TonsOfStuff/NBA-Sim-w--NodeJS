@@ -70,4 +70,4 @@ app.use("/api", newsRoutes);
 
 
 //Make app available
-app.listen(process.env.PORT || 3000, () => {console.log("Running")})
+app.listen(process.env.PORT || 3000, "0.0.0.0", () => {console.log("Running")})
