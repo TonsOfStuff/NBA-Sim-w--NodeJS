@@ -12,6 +12,13 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const table = document.getElementById("teamTable").querySelector("tbody");
+
+            let playerData;
+            fetch("/api/stats").then(res=> res.json()).then(data=>{ //Load in player data
+                playerData = data;
+            })
+        
+            
             fetch("/api/teamStats").then(res => res.json()).then(data => {
                 //console.log(data[0]);
                 const columns = [
@@ -79,6 +86,72 @@
                             img.src = `/images/${player.abr}.svg`
                             img.style.width = "15px";
                             cell.appendChild(img);
+
+                            cell.addEventListener("click", ()=>{
+                                const panel = document.getElementById("playerPanel");
+                                const body = document.getElementById("teamPlayerTBody")
+                                while (body.firstChild){
+                                    body.removeChild(body.firstChild);
+                                }
+                                
+
+                                panel.style.display = "block";
+
+                                const name = document.getElementById("name");
+                                const seed = document.getElementById("seed");
+                                const wins = document.getElementById("wins");
+                                const losses = document.getElementById("losses");
+                                const money = document.getElementById("money");
+
+                                name.placeholder = player.name;
+                                seed.innerText = player.seed;
+                                wins.innerText = player.wins;
+                                losses.innerText = player.losses;
+                                money.innerText = player.money;
+
+                                playerData.sort((a,b) => b.avgPts - a.avgPts)
+
+                                playerData.forEach(element => {
+                                    if (element.team === player.abr){
+                                        const rowPlayer = document.createElement("tr");
+                                        const rowName = document.createElement("td");
+                                        const rowMPG = document.createElement("td");
+                                        const rowPPG = document.createElement("td");
+                                        const rowRPG = document.createElement("td");
+                                        const rowAPG = document.createElement("td");
+                                        const rowSPG = document.createElement("td");
+                                        const rowBPG = document.createElement("td");
+                                        const rowFG = document.createElement("td");
+                                        const row3P = document.createElement("td");
+                                        const rowFT = document.createElement("td");
+
+                                        rowName.innerText = element.name;
+                                        rowMPG.innerText = element.avgMin;
+                                        rowPPG.innerText = element.avgPts;
+                                        rowRPG.innerText = Number((element.avgOReb + element.avgDReb).toFixed(1));
+                                        rowAPG.innerText = element.avgAst;
+                                        rowSPG.innerText = element.avgStl;
+                                        rowBPG.innerText = element.avgBlk;
+                                        rowFG.innerText = element.fgp;
+                                        row3P.innerText = element.tpp;
+                                        rowFT.innerText = element.ftp;
+                                        
+                                        rowPlayer.appendChild(rowName)
+                                        rowPlayer.appendChild(rowMPG)
+                                        rowPlayer.appendChild(rowPPG)
+                                        rowPlayer.appendChild(rowRPG)
+                                        rowPlayer.appendChild(rowAPG)
+                                        rowPlayer.appendChild(rowSPG)
+                                        rowPlayer.appendChild(rowBPG)
+                                        rowPlayer.appendChild(rowFG)
+                                        rowPlayer.appendChild(row3P)
+                                        rowPlayer.appendChild(rowFT)
+                                        body.appendChild(rowPlayer);
+                                    }
+                                });
+                                
+                            })
+
                         }else if (column === "totalPossesions" ){
                             cell.innerHTML = Number((player[column] / player["games"]).toFixed(3))
                         }else if (column === "totalDefensiveRating"){
@@ -97,6 +170,8 @@
                     table.appendChild(row);
                 });
             })
+
+            
 
             function sortBasedOnClick(columnIndex) {
                 const fullTable = document.getElementById("teamTable");
@@ -131,11 +206,7 @@
                 rows.forEach(row => tableBody.appendChild(row));
             }
 
-
-
-
             attachColumnClickHighlighting()
-
 
             function attachColumnClickHighlighting() {
                 const allRows = table.parentElement.querySelectorAll("tr");
@@ -177,6 +248,12 @@
                 });
             }
 
+            window.closePlayerStatPanel = function(){
+                const panel = document.getElementById("playerPanel");
+                const cardInfo = document.getElementById("cardInfo").childNodes[1]
+
+                panel.style.display = "none";
+            }
 
             document.querySelectorAll("#teamTable thead th").forEach((th, position) => {
                 th.addEventListener(`click`, evt => sortBasedOnClick(position));
@@ -206,6 +283,26 @@
 
             </tbody>
         </table>
+
+        <div id = "playerPanel">
+            <div id = "teamInfo">
+                <input id = "name"><button onclick="closePlayerStatPanel()" id = "playerPanelClose">Close</button>
+                <div id = "seedL">Seed:</div><div id = "winsL">Wins:</div><div id = "lossesL">Losses:</div><div id = "moneyL">Money:</div>
+                <div id = "seed"></div><div id = "wins"></div><div id = "losses"></div><div id = "money"></div>
+            </div>
+            
+            <button id = "editRoster" style="margin-bottom: 10px;">Edit Roster</button>
+            <table id = "cardInfo">
+                <thead>
+                    <th>Name</th><th style="min-width: auto;">MPG</th><th style="min-width: auto;">PPG</th><th style="min-width: auto;">RPG</th><th style="min-width: auto;">APG</th><th style="min-width: auto;">SPG</th><th style="min-width: auto;">BPG</th><th style="min-width: auto;">FG%</th><th style="min-width: auto;">3P%</th><th style="min-width: auto;">FT%</th>
+                </thead>
+                <tbody id = teamPlayerTBody>
+
+                </tbody>
+            </table>
+            
+            
+        </div>
 
 
         <footer>

@@ -124,6 +124,18 @@ td.highlight, th.highlight {
     font-size: 14px;
 }
 
+#teamInfo{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 3fr 1fr 3fr;
+    grid-template-areas: 
+        "name name name name name name close close"
+        "seedL seedL winsL winsL lossesL lossesL moneyL moneyL"
+        "seed seed wins wins losses losses money money";
+    gap: 3px;
+    font-size: 14px;
+}
+
 #cardInfo{
     font-size: 12px;
     gap: 10px;
@@ -184,7 +196,35 @@ td.highlight, th.highlight {
     grid-area: ovrL;
 }
 
-#archL, #heightL, #ageL, #yearsProL, #ovrL{
+#seed{
+    grid-area: seed;
+}
+#seedL{
+    grid-area: seedL;
+}
+
+#wins{
+    grid-area: wins;
+}
+#winsL{
+    grid-area: winsL;
+}
+
+#losses{
+    grid-area: losses;
+}
+#lossesL{
+    grid-area: lossesL;
+}
+
+#money{
+    grid-area: money;
+}
+#moneyL{
+    grid-area: moneyL;
+}
+
+#archL, #heightL, #ageL, #yearsProL, #ovrL, #seedL, #winsL, #lossesL, #moneyL{
     font-size: 10px;
     color: rgb(56, 56, 56);
 }
