@@ -33,22 +33,93 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(offRankMap)
 
         const search = document.getElementById("searchPlayerBar");
-        const field = document.getElementById("listItems")
+        const field = document.getElementById("listItems");
+
         search.addEventListener("input", () => {
+            const value = search.value.toLowerCase();
             let amount = 0;
-            field.childNodes.forEach(element => {
-                element.textContent = ""
-            });
-            for (let i = 0; i<playerData.length; i++){
-                if(playerData[i].name.toLowerCase().includes(search.value.toLowerCase()) && selectedTeam != playerData[i].teamName){
-                    amount += 1
-                    if (amount > 5){
-                        break
-                    }
-                    field.children[amount - 1].textContent = playerData[i].name + "----------" + playerData[i].teamName;
+
+            // clear all children before repopulating
+            field.innerHTML = "";
+
+            for (let i = 0; i < playerData.length; i++) {
+                const player = playerData[i];
+
+                if (player.name.toLowerCase().includes(value) && selectedTeam !== player.teamName) {
+                    amount++;
+                    if (amount > 5) break;
+
+                    const li = document.createElement("li");
+                    li.className = "playerContent"
+                    li.textContent = `${player.name} ---------- ${player.teamName}`;
+
+                    li.addEventListener("click", () => {
+                        addPlayerToRoster(player);
+                    });
+
+                    field.appendChild(li);
                 }
             }
-        })
+        });
+        function addPlayerToRoster(player) {
+            done = false;
+            let count = 0
+            playerData.forEach(pe => {
+                if (pe.teamName === selectedTeam){
+                    count += 1
+                }
+            });
+            if (count >= 15){
+                return
+            }
+
+            // update player team
+            player.teamName = selectedTeam;
+
+            // find full team name from abbreviation
+            const team = allTeams.find(t => t.abr === selectedTeam);
+            if (!team) return;
+            const fullName = team.name;
+            console.log(fullName)
+
+            // re-trigger the click event on the selected team row
+            for (let row of table.children) {
+                if (row.childNodes[0].textContent.toLowerCase() === fullName.toLowerCase()) {
+                    row.childNodes[0].click();
+                    const teamPanel = document.getElementById("playerPanel");
+                    teamPanel.children[1].click();
+                    break;
+                }
+            }
+
+            // clear search field after adding
+            const value = search.value.toLowerCase();
+            let amount = 0;
+
+            // clear all children before repopulating
+            field.innerHTML = "";
+            for (let i = 0; i < playerData.length; i++) {
+                const player = playerData[i];
+
+                if (player.name.toLowerCase().includes(value) && selectedTeam !== player.teamName) {
+                    amount++;
+                    if (amount > 5) break;
+
+                    const li = document.createElement("li");
+                    li.className = "playerContent"
+                    li.textContent = `${player.name} ---------- ${player.teamName}`;
+
+                    li.addEventListener("click", () => {
+                        addPlayerToRoster(player);
+                    });
+
+                    field.appendChild(li);
+                }
+            }
+        }
+
+
+
 
         data.forEach(player => {
             const row = document.createElement("tr");
@@ -204,9 +275,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             }
                         }
 
-                        function addPlayerToRoster(){
-
-                        }
 
                         function removePlayerFromRoster(row){
                             console.log(row)
@@ -231,6 +299,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 };
                                 done = true;
                             }
+                            saveAndExit(false)
+                            editRoster.click();
                         }
 
                         
@@ -257,7 +327,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     })
 
-    window.saveAndExit = async function(){
+    window.saveAndExit = async function(saving = true){
         saveRoster.style.display = "none";
         editRoster.style.display = "block";
     
@@ -275,13 +345,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
 
-        const loadingScreen = document.getElementById('loadingScreen');
-        loadingScreen.textContent = "Saving...";
-        loadingScreen.style.display = "flex"; 
+        if (saving === true){
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.textContent = "Saving...";
+            loadingScreen.style.display = "flex"; 
 
-    
-        await save(playerData, allTeams)
-        loadingScreen.style.display = "none";
+        
+            await save(playerData, allTeams)
+            loadingScreen.style.display = "none";
+        }
     }
 
     function sortBasedOnClick(columnIndex) {
