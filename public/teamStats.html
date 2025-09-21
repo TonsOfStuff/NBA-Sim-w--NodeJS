@@ -89,7 +89,13 @@
 
                             cell.addEventListener("click", ()=>{
                                 const panel = document.getElementById("playerPanel");
-                                const body = document.getElementById("teamPlayerTBody")
+                                const body = document.getElementById("teamPlayerTBody");
+
+                                const editRoster = document.getElementById("editRoster")
+                                const saveRoster = document.getElementById("saveRoster")
+                                editRoster.style.display = "block"
+                                saveRoster.style.display = "none";
+
                                 while (body.firstChild){
                                     body.removeChild(body.firstChild);
                                 }
@@ -149,8 +155,31 @@
                                         body.appendChild(rowPlayer);
                                     }
                                 });
-                                
+                            
+                                editRoster.onclick = () => {
+                                    saveRoster.style.display = "block";
+                                    editRoster.style.display = "none";
+
+                                    for (let i = 0; i<body.children.length; i++){
+                                        const newTD = document.createElement("td");
+                                        newTD.style.minWidth = "15px";
+                                        newTD.style.textAlign = "center";
+                                        newTD.innerText = "-"
+
+                                        body.children[i].appendChild(newTD);
+                                    }
+
+                                    if (body.children.length < 15){
+                                        const addPlayerRow = document.createElement("tr")
+                                        const addPlayerTD = document.createElement("td")
+                                        addPlayerTD.innerText = "Add Player"
+                                        addPlayerRow.appendChild(addPlayerTD);
+                                        body.appendChild(addPlayerRow);
+                                    }
+                                }
+
                             })
+
 
                         }else if (column === "totalPossesions" ){
                             cell.innerHTML = Number((player[column] / player["games"]).toFixed(3))
@@ -292,6 +321,7 @@
             </div>
             
             <button id = "editRoster" style="margin-bottom: 10px;">Edit Roster</button>
+            <button id = "saveRoster" style="margin-bottom: 10px; display: none;">Save</button>
             <table id = "cardInfo">
                 <thead>
                     <th>Name</th><th style="min-width: auto;">MPG</th><th style="min-width: auto;">PPG</th><th style="min-width: auto;">RPG</th><th style="min-width: auto;">APG</th><th style="min-width: auto;">SPG</th><th style="min-width: auto;">BPG</th><th style="min-width: auto;">FG%</th><th style="min-width: auto;">3P%</th><th style="min-width: auto;">FT%</th>
