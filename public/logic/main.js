@@ -656,7 +656,7 @@ function updateCalender(chosenTeam = null, page = 0){
         }
     }
 }
-if (!window.location.pathname.includes("playoff.html")){
+if (!window.location.pathname.includes("playoff.html") && !window.location.pathname.includes("teamStats.html")){
     updateCalender(focusedTeam);
     document.getElementById("changeTeamImg").src = `../images/${focusedTeam.abr}.svg`
 
