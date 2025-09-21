@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let playerData = allPlayers;
     let done = false;
+
+    let selectedTeam = null;
     
     fetch("/api/teamStats").then(res => res.json()).then(data => {
         //console.log(data[0]);
@@ -29,6 +31,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             .forEach((team, i) => defRankMap[team.name] = i + 1);
 
         console.log(offRankMap)
+
+        const search = document.getElementById("searchPlayerBar");
+        const field = document.getElementById("listItems")
+        search.addEventListener("input", () => {
+            let amount = 0;
+            field.childNodes.forEach(element => {
+                element.textContent = ""
+            });
+            for (let i = 0; i<playerData.length; i++){
+                if(playerData[i].name.toLowerCase().includes(search.value.toLowerCase()) && selectedTeam != playerData[i].teamName){
+                    amount += 1
+                    if (amount > 5){
+                        break
+                    }
+                    field.children[amount - 1].textContent = playerData[i].name + "----------" + playerData[i].teamName;
+                }
+            }
+        })
 
         data.forEach(player => {
             const row = document.createElement("tr");
@@ -77,6 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     cell.appendChild(img);
 
                     cell.addEventListener("click", ()=>{
+                        selectedTeam = player.abr;
                         const panel = document.getElementById("playerPanel");
                         const body = document.getElementById("teamPlayerTBody");
 
@@ -171,6 +192,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 const addPlayerRow = document.createElement("tr")
                                 const addPlayerTD = document.createElement("td")
                                 addPlayerTD.innerText = "Add Player"
+
+                                addPlayerTD.onclick = () => {
+                                    document.getElementById("searchPlayerPanel").style.display = "block"
+                                    
+                                }
+                                
+
                                 addPlayerRow.appendChild(addPlayerTD);
                                 body.appendChild(addPlayerRow);
                             }
@@ -335,7 +363,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const panel = document.getElementById("playerPanel");
         const cardInfo = document.getElementById("cardInfo").childNodes[1]
 
+        selectedTeam = null;
         panel.style.display = "none";
+    }
+
+    window.closeSearchBar = function(){
+        document.getElementById("searchPlayerPanel").style.display = "none";
     }
 
     document.querySelectorAll("#teamTable thead th").forEach((th, position) => {
