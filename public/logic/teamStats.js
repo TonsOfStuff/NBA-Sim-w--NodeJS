@@ -45,6 +45,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             for (let i = 0; i < playerData.length; i++) {
                 const player = playerData[i];
 
+                 const team = allTeams.find(t => t.abr === player.teamName);
+                if (team) {
+                    // count how many players are currently on that team
+                    const teamCount = playerData.filter(
+                        p => p.teamName === team.abr
+                    ).length;
+
+                    // skip if that team only has 8 players
+                    if (teamCount <= 8) continue;
+                }
+
                 if (player.name.toLowerCase().includes(value) && selectedTeam !== player.teamName) {
                     amount++;
                     if (amount > 5) break;
@@ -172,6 +183,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                         const panel = document.getElementById("playerPanel");
                         const body = document.getElementById("teamPlayerTBody");
 
+                        const rosterCount = document.getElementById("rosterCount");
+
                         const editRoster = document.getElementById("editRoster")
                         const saveRoster = document.getElementById("saveRoster")
                         editRoster.style.display = "block"
@@ -238,6 +251,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 body.appendChild(rowPlayer);
                             }
                         });
+
+                        rosterCount.innerText = playerInTeam.length + "/15"
                     
                         editRoster.onclick = () => {
                             saveRoster.style.display = "block";
@@ -277,12 +292,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                         function removePlayerFromRoster(row){
-                            console.log(row)
+                            
                             const chosenPlayer = playerInTeam[row];
                             chosenPlayer.teamName = "FA";
                             freeAgency.push(chosenPlayer);
                             playerInTeam.splice(playerInTeam.indexOf(chosenPlayer), 1);
                             body.removeChild(body.children[row]);
+
+                            rosterCount.innerText = playerInTeam.length + "/15"
 
                             //Reset all of the buttons to correct rows
                             if (body.childNodes.length > 9){
