@@ -811,6 +811,7 @@ function offSeasonUI(){
         });
 
         const playerChoose = player.selectContract(offers);
+        console.log(playerChoose);
         if (playerChoose !== null && playerChoose.team.players.length < 15){
             if (player.team !== playerChoose.team){
                 news.push(player.name + " agrees to a " + playerChoose.years + " year deal for $" + playerChoose.money + " to " + playerChoose.team.abr);
@@ -908,6 +909,7 @@ function offSeasonUI(){
 
 
     allTeams.forEach(team => {
+        team.releasePlayer();
         team.releasePlayer();
         team.changeStart(true);
     });

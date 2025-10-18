@@ -363,7 +363,7 @@ export class Team{
         }
         if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].freeAgentValue < 2 && this.players[i].yearsPro > 1){
+                if (this.players[i].freeAgentValue < 3 && this.players[i].yearsPro > 1){
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);

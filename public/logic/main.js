@@ -249,13 +249,15 @@ const zionWilliamson = new Player("Zion Williamson","Slasher Post-player",92,70,
 const dariusGarland = new Player("Darius Garland","Shooter Playmaker",87,90,80,85,86,70,60,55,38,72,65,60,88,82,85,83,80,78,82,81,90,89,84,85,76,75,80,88,80,78,84,77,30,34,89,83,92);
 const pascalSiakam = new Player("Pascal Siakam","Slasher Post-player",86,78,88,80,87,82,84,80,65,72,68,64,74,70,82,80,86,84,78,80,64,62,70,68,84,83,80,70,88,84,86,81,34,37,90,85,92);
 const jarrettAllen = new Player("Jarrett Allen","Defensive Post-player",80,0,90,70,78,95,92,88,90,30,20,35,60,50,70,75,88,85,40,38,0,0,0,0,68,65,72,0,82,80,80,78,40,38,85,80,90);
-
+const draymondGreen = new Player("Draymond Green","Defensive Playmaker",83,74,85,75,78,98,90,55,92,50,43,42,76,60,71,72,90,88,30,22,10,12,30,28,78,75,80,60,76,96,89,78,44,35,72,77,88);
+const klayThompson = new Player("Klay Thompson","Shooter",95,99,80,94,91,76,48,28,20,62,22,36,74,27,81,88,80,38,59,31,99,97,84,85,54,63,76,99,64,55,84,78,33,38,91,90,94);
 
 export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant, wemby, doncic, jokic, giannis, shai,
     tatum, ant, oscar, dirk, iverson, stockton, malone, drexler, isiah, pippen, moses, brunson, jimmyButler, traeYoung, demarDeRozan, paulGeorge, kawhiLeonard, dame, pennyHardaway, reggieMiller,
     yaoMing, benWallace, joelEmbiid, zachLaVine, chrisPaul, russellWestbrook, chrisWebber, kevinGarnett, manuGinobili, kevinMcHale, rudyGobert, andreIguodala, jamesHarden, dennisRodman, 
     devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis, 
-    jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen
+    jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
+    draymondGreen, klayThompson
 ];
 let removePlayers = [...allPlayers];
 
@@ -275,17 +277,17 @@ const raptors = new Team("Toronto Raptors", true, "TOR", []);
 const clippers = new Team("Los Angeles Clippers", false, "LAC", [kawhiLeonard, paulGeorge, chrisPaul, jamesHarden]);
 const jazz = new Team("Utah Jazz", false, "UTA", [malone, stockton]);
 const cavs = new Team("Cleveland Caveliers", true, "CLE", [donovanMitchell, dariusGarland, jarrettAllen]);
-const rockets = new Team("Houston Rockets", false, "HOU", [durant, yaoMing, alperenSengun, amenThompson]);
+const rockets = new Team("Houston Rockets", false, "HOU", [durant, yaoMing, alperenSengun, amenThompson, hakeem]);
 const spurs = new Team("San Antonio Spurs", false, "SAS", [wemby, duncan, manuGinobili]);
 const magic = new Team("Orlando Magic", true, "ORL", [pennyHardaway, franzWagner]);
 const sixers = new Team("Philadelphia 76ers", true, "PHI", [joelEmbiid, iverson, moses, wilt, tyreseMaxey]);
 const grizzlies = new Team("Memphis Grizzlies", false, "MEM", [jaMorant]);
-const warriors = new Team("Golden State Warriors", false, "GSW", [curry, andreIguodala, jimmyButler]);
+const warriors = new Team("Golden State Warriors", false, "GSW", [curry, andreIguodala, jimmyButler, draymondGreen]);
 const bucks = new Team("Milwaukee Bucks", true, "MIL", [oscar, giannis]);
 const pistons = new Team("Detroit Pistons", true, "DET", [isiah, benWallace, ausarThompson]);
 const hawks = new Team("Atlanta Hawks", true, "ATL", [traeYoung]);
 const nuggets = new Team("Denver Nuggets", false, "DEN", [jokic, russellWestbrook]);
-const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, anthonyDavis]);
+const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, anthonyDavis, klayThompson]);
 const nets = new Team("Brooklyn Nets", true, "BKN", []);
 const hornets = new Team("Charlotte Hornets", true, "CHA", [laMeloBall]);
 const wizards = new Team("Washington Wizards", true, "WAS", []);
