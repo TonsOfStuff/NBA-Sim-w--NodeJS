@@ -14,6 +14,8 @@ export class Team{
         this.confSeed = 0;
         this.oldSeed = 0;
         this.oldConfSeed = 0;
+
+        this.yearsInLottery = 0;
         
 
         //Lineup
@@ -317,6 +319,12 @@ export class Team{
         this.possessions = 0;
         this.totalPossesions = 0;
 
+        if (this.seed > 14){
+            this.yearsInLottery += 1;
+        }else{
+            this.yearsInLottery = 0;
+        }
+
         this.seed = 0;
         this.confSeed = 0;
         this.wins = 0;
@@ -349,21 +357,9 @@ export class Team{
     }
 
     releasePlayer(){
-        if (this.money < 3000000){
-            for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].money / this.players[i].freeAgentValue > 0){
-                    this.players[i].teamName = "FA";
-
-                    const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
-                    this.money += splicedPlayer[0].money;
-                    console.log("wow")
-                    return [splicedPlayer[0], splicedPlayer[0].name + " was waived by " + this.abr];
-                }
-            }
-        }
         if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].freeAgentValue < 3 && this.players[i].yearsPro > 1){
+                if (this.players[i].freeAgentValue < 5 + this.yearsInLottery && this.players[i].yearsPro > 2){
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);

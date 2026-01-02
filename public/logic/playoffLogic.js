@@ -599,8 +599,9 @@ function endSeason(){
                 if (player.hallOfFame()){
                     player.teamName = "HOF";
                     if (player.team !== null){
-                        player.team.players.splice(player.team.players.splice(player), 1);
+                        player.team.players.splice(player.team.players.indexOf(player), 1);
                         player.team.money += player.money;
+                        player.team = null;
                     }
                     news.push(player.name + " made the HOF");
                 }else{
@@ -622,11 +623,13 @@ function endSeason(){
     allPlayers.push(...leftover);
 
     allTeams.forEach(team => {
-        const releaseNews = team.releasePlayer();
-        if (releaseNews !== null){
-            releaseNews[0].yearsIntoContract = 0;
-            freeAgency.push(releaseNews[0]);
-            news.push(releaseNews[1]);
+        for (let i = 0; i < 5; i++){ //Can release up to 5 players
+            const releaseNews = team.releasePlayer();
+            if (releaseNews !== null){
+                releaseNews[0].yearsIntoContract = 0;
+                freeAgency.push(releaseNews[0]);
+                news.push(releaseNews[1]);
+            }
         }
         team.resetSeason();
     });
@@ -828,7 +831,9 @@ function offSeasonUI(){
             player.yearsInFA = 0;
 
             playerChoose.team.money -= playerChoose.money;
+            console.log(playerChoose.team.players.length)
             playerChoose.team.players.push(player);
+            console.log(playerChoose.team.players.length)
 
             signedPlayers.push(player);
 
