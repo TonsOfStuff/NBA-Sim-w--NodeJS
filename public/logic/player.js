@@ -374,7 +374,7 @@ export class Player{
         let insideStress = 1560;
         const twoStress = 1620;
         const threeStress = 2110;
-        let drawFreeThrowAmount = 110;
+        let drawFreeThrowAmount = 107;
         const freeThrowDiff = 107;
 
         const passBias = 65;
@@ -1080,7 +1080,7 @@ export class Player{
         }
 
         const chosenPlaceToMove = weightedPlaces[Math.floor(Math.random() * weightedPlaces.length)]
-        const moveStress = 200;
+        const moveStress = 190;
 
         if (chosenPlaceToMove != this.location){
             if (chosenPlaceToMove === "Inside" && this.insideTen >= Math.random() * moveStress){
@@ -1137,7 +1137,7 @@ export class Player{
     block(offense, three = false){
         let blockFactor = 0;
         if (three === true){
-            blockFactor = 100;
+            blockFactor = 80;
         }
         if (this.arch.includes("Defensive")){
             blockFactor -= 20;
@@ -1145,7 +1145,7 @@ export class Player{
         if (this.arch.includes("Two-way")){
             blockFactor -= 10;
         }
-        if (Math.pow(this.blockTen, 1.5) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 6500){
+        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 18000){
             this.blk += 1;
             return true;
         }else{
@@ -1179,7 +1179,7 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (300 - this.passingAccuracy + this.ballControl > Math.random() * 15000){
+        if (300 - this.passingAccuracy + this.ballControl > Math.random() * 12000){
             this.tov += 1;
             this.hasBall = false;
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
@@ -1188,7 +1188,7 @@ export class Player{
             newPlayer.team.possesions += 1;
             this.team.shotClock = 0;
         }
-        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 12000){
+        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 7000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;

@@ -183,9 +183,9 @@ const hakeem = new Player("Hakeem Olajuwan", "Inside Post-player", 94, 0, 99, 78
 const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 99, 65, 84, 99, 99, 99, 99, 80, 77, 52, 83, 43, 77, 91, 99, 99, 21, 20, 0,0, 0, 0, 10, 15, 14, 0, 82, 65, 81, 82, 40, 40, 87, 80, 99);
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 33, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 87, 99);
 const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 31, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 92, 99);
-const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 98, 84, 97, 99, 71, 55, 99, 82, 22, 37, 83, 38, 90, 82, 98, 99, 71, 63, 80, 62, 88, 92, 99, 99, 83, 99, 53, 77, 85, 90, 42, 38, 96, 99, 99);
+const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 99, 93, 97, 99, 71, 55, 99, 82, 22, 37, 83, 38, 90, 82, 98, 99, 81, 93, 70, 62, 88, 92, 99, 99, 83, 99, 53, 77, 85, 90, 42, 38, 96, 99, 99);
 const doncic = new Player("Luka Doncic", "All Playmakers", 96, 95, 94, 82, 99, 48, 78, 66, 32, 44, 12, 41, 98, 90, 82, 88, 99, 92, 20, 12, 95, 90, 86, 88, 91, 90, 32, 99, 42, 33, 74, 78, 38, 43, 99, 95, 99);
-const jokic = new Player("Nikola Jokic", "Playmaker Inside", 96, 94, 98, 79, 99, 73, 87, 62, 34, 53, 33, 50, 99, 99, 93, 77, 99, 99, 72, 80, 0, 0, 65, 82, 45, 55, 88, 90, 23, 31, 69, 83, 38, 34, 93, 99, 99);
+const jokic = new Player("Nikola Jokic", "Playmaker Inside", 99, 94, 98, 84, 99, 73, 87, 62, 34, 53, 33, 50, 99, 99, 93, 77, 99, 99, 72, 80, 0, 0, 65, 82, 45, 55, 88, 90, 23, 31, 69, 83, 38, 34, 93, 99, 99);
 const giannis = new Player("Giannis Antetokounmpo", "Inside All", 95, 79, 99, 70, 99, 93, 80, 72, 89, 53, 34, 41, 74, 86, 83, 82, 99, 99, 90, 90, 1, 1, 1, 2, 30, 33, 22, 10, 80, 84, 89, 83, 36, 50, 97, 97, 99);
 const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92, 71, 25, 17, 46, 80, 21, 37, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 45, 50, 91, 78, 36, 43, 95, 93, 99);
 const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 34, 24, 75, 79, 44, 37, 82, 35, 82, 90, 94, 90, 86, 72, 13, 15, 82, 80, 34, 90, 32, 99, 75, 63, 81, 80, 40, 34, 89, 92, 97);
@@ -231,7 +231,7 @@ const dejounteMurray = new Player("Dejounte Murray", "Playmaker Defensive", 87, 
 const laMeloBall = new Player("LaMelo Ball", "Playmaker Shooter", 88, 91, 82, 86, 88, 70, 32, 22, 46, 74, 35, 41, 93, 92, 90, 81, 76, 70, 80, 81, 90, 87, 88, 86, 64, 62, 72, 92, 75, 68, 84, 76, 32, 36, 91, 84, 95);
 const kyrieIrving = new Player("Kyrie Irving", "Shooter Slasher", 96, 97, 87, 92, 95, 68, 20, 10, 34, 89, 40, 46, 81, 57, 99, 95, 84, 82, 88, 89, 95, 90, 92, 93, 79, 82, 80, 94, 89, 72, 91, 80, 33, 39, 95, 90, 97);
 const tyreseHaliburton = new Player("Tyrese Haliburton", "Playmaker Shooter", 91, 94, 82, 88, 90, 70, 30, 20, 44, 78, 36, 42, 95, 91, 90, 85, 80, 75, 83, 85, 89, 87, 88, 86, 68, 66, 72, 92, 78, 69, 85, 79, 36, 38, 92, 86, 95);
-const chetHolmgren = new Player("Chet Holmgren", "Two-way Defensive", 88, 92, 95, 84, 91, 90, 72, 55, 99, 80, 30, 37, 85, 50, 88, 82, 95, 95, 70, 68, 84, 80, 88, 90, 98, 99, 83, 90, 50, 75, 85, 88, 42, 39, 95, 98, 99);
+const chetHolmgren = new Player("Chet Holmgren", "Two-way Defensive", 88, 92, 95, 84, 91, 90, 72, 55, 99, 80, 30, 37, 85, 50, 88, 82, 95, 95, 70, 68, 84, 80, 88, 90, 98, 99, 83, 90, 50, 75, 85, 85, 42, 39, 95, 98, 99);
 const scootHenderson = new Player("Scoot Henderson", "Slasher Playmaker", 87, 85, 89, 82, 88, 68, 28, 22, 42, 80, 30, 38, 90, 86, 87, 84, 82, 78, 80, 82, 86, 84, 88, 85, 78, 74, 80, 88, 84, 72, 81, 77, 34, 36, 91, 85, 94);
 const franzWagner = new Player("Franz Wagner", "Two-way Shooter", 94, 76, 88, 83, 87, 80, 38, 28, 58, 82, 28, 34, 82, 50, 85, 82, 88, 80, 83, 84, 40, 42, 78, 80, 80, 78, 84, 82, 78, 70, 85, 81, 36, 38, 89, 87, 93);
 const domantasSabonis = new Player("Domantas Sabonis", "Inside Playmaker", 92, 80, 94, 82, 90, 88, 80, 75, 82, 38, 22, 36, 70, 58, 78, 84, 92, 90, 66, 68, 55, 50, 72, 76, 78, 76, 82, 86, 72, 65, 84, 81, 40, 38, 90, 88, 94);
@@ -1340,7 +1340,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team1.games += 1;
     team2.games += 1;
     let quarter = 1;
-    const theTime = 12 * 15;
+    const theTime = 12 * 16;
     const subFreq = 100;
     
     //Init teams

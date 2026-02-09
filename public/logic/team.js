@@ -217,7 +217,7 @@ export class Team{
 
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
-        let smartSubNum = 8;
+        let smartSubNum = 10;
         if (quarter >= 4 && time > 100 && team1Score - team2Score > 15 && team1 === this){
             smartSubNum = this.players.length;
         }
@@ -232,8 +232,9 @@ export class Team{
         this.lineup = [];
 
         if (insertStart === false){
-            let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus) - (a.stamina - a.energyUsed - a.min + a.boxMinus)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus + b.usage / 10) - (a.stamina - a.energyUsed - a.min + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
             top.push(top[0]);
+            top.push(top[1]);
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]
@@ -359,7 +360,7 @@ export class Team{
     releasePlayer(){
         if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].freeAgentValue < 5 + this.yearsInLottery && this.players[i].yearsPro > 2){
+                if (this.players[i].freeAgentValue < 8 + this.yearsInLottery && this.players[i].yearsPro > 2){
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);

@@ -783,7 +783,7 @@ function offSeasonUI(){
             if (team.money > 0 && team.players.length < 15){
                 let offer = {};
                 offer["team"] = team;
-                let offerMoney = Math.round(Math.pow(player.freeAgentValue, 1.8) * 10000 + Math.random() * (Math.pow(player.freeAgentValue, 1.8) * 1000))
+                let offerMoney = Math.round(Math.pow(player.freeAgentValue, 1.8) * 10000 + Math.random() * (Math.pow(player.freeAgentValue, 1.8) * 1000) + (team.money / 100))
                 if (offerMoney < 1000000){
                     offerMoney = 1000000
                 }
