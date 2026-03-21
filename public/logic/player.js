@@ -374,7 +374,13 @@ export class Player{
         let insideStress = 1560;
         const twoStress = 1620;
         const threeStress = 2110;
-        let drawFreeThrowAmount = 107;
+        let drawFreeThrowAmount = 10;
+        this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
+        if (this.team.startingLineup.indexOf(this) === 0){
+            drawFreeThrowAmount -= 60;
+        }else if (this.team.startingLineup.indexOf(this) === 1 || this.team.startingLineup.indexOf(this) === 2){
+            drawFreeThrowAmount -= 30;
+        }
         const freeThrowDiff = 107;
 
         const passBias = 65;
@@ -425,8 +431,8 @@ export class Player{
             else{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
-                    ;
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -478,6 +484,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -525,6 +532,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -572,6 +580,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -619,6 +628,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -666,6 +676,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -713,6 +724,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 2;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -762,6 +774,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 3;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -817,6 +830,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 3;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -872,6 +886,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 3;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -927,6 +942,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 3;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -982,6 +998,7 @@ export class Player{
                 //Fts
                 if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
                     defense.fls += 1;
+                    this.fga -= 1;
                     this.fta += 3;
                     if (this.freeThrow > Math.random() * freeThrowDiff){
                         this.pts += 1;
@@ -1032,6 +1049,7 @@ export class Player{
                     //Fts
                     if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
                         defense.fls += 1;
+                        this.fga -= 1;
                         this.fta += 2;
                         if (this.freeThrow > Math.random() * freeThrowDiff){
                             this.pts += 1;

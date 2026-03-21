@@ -4,6 +4,7 @@ import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStat
 import { fn, ln } from "./name.js";
 
 
+
 //DOM elements
 let main = document.getElementById("main");
 
@@ -184,8 +185,8 @@ const billRussell = new Player("Bill Russell", "Defensive Post-player", 90, 0, 9
 const wilt = new Player("Wilt Chamberlain", "All Post-player", 97, 0, 99, 72, 99, 98, 99, 99, 99, 54, 21, 50, 82, 33, 88, 80, 99, 99, 87, 88, 0, 0, 0, 0, 54, 50, 33, 0, 99, 65, 94, 85, 48, 36, 71, 87, 99);
 const durant = new Player("Kevin Durant", "Two-way Shooter", 98, 98, 90, 95, 97, 81, 54, 40, 77, 62, 12, 33, 47, 31, 91, 82, 93, 47, 90, 90, 32, 21, 99, 80, 76, 80, 89, 99, 76, 22, 78, 83, 41, 38, 92, 92, 99);
 const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 99, 93, 97, 99, 71, 55, 99, 82, 22, 37, 83, 38, 90, 82, 98, 99, 81, 93, 70, 62, 88, 92, 99, 99, 83, 99, 53, 77, 85, 90, 42, 38, 96, 99, 99);
-const doncic = new Player("Luka Doncic", "All Playmakers", 96, 95, 94, 82, 99, 48, 78, 66, 32, 44, 12, 41, 98, 90, 82, 88, 99, 92, 20, 12, 95, 90, 86, 88, 91, 90, 32, 99, 42, 33, 74, 78, 38, 43, 99, 95, 99);
-const jokic = new Player("Nikola Jokic", "Playmaker Inside", 99, 94, 98, 84, 99, 73, 87, 62, 34, 53, 33, 50, 99, 99, 93, 77, 99, 99, 72, 80, 0, 0, 65, 82, 45, 55, 88, 90, 23, 31, 69, 83, 38, 34, 93, 99, 99);
+const doncic = new Player("Luka Doncic", "All Playmakers", 98, 96, 94, 86, 99, 62, 78, 56, 32, 44, 12, 41, 98, 99, 82, 88, 92, 92, 50, 12, 95, 90, 96, 88, 91, 90, 32, 99, 42, 33, 98, 78, 38, 49, 99, 99, 99);
+const jokic = new Player("Nikola Jokic", "Playmaker Inside", 97, 94, 98, 84, 99, 73, 93, 90, 34, 33, 33, 41, 99, 99, 93, 81, 99, 99, 72, 80, 10, 2, 65, 82, 55, 55, 88, 60, 23, 41, 95, 83, 38, 40, 97, 99, 99);
 const giannis = new Player("Giannis Antetokounmpo", "Inside All", 95, 79, 99, 70, 99, 93, 80, 72, 89, 53, 34, 41, 74, 86, 83, 82, 99, 99, 90, 90, 1, 1, 1, 2, 30, 33, 22, 10, 80, 84, 89, 83, 36, 50, 97, 97, 99);
 const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92, 71, 25, 17, 46, 80, 21, 37, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 45, 50, 91, 78, 36, 43, 95, 93, 99);
 const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 34, 24, 75, 79, 44, 37, 82, 35, 82, 90, 94, 90, 86, 72, 13, 15, 82, 80, 34, 90, 32, 99, 75, 63, 81, 80, 40, 34, 89, 92, 97);
@@ -259,7 +260,7 @@ const stephonCastle = new Player("Stephon Castle","Playmaker Slasher",85,80,97,7
 const dylanHarper = new Player("Dylan Harper","Two-way Slasher",84,81,95,78,89,80,28,15,53,86,28,36,80,25,79,78,95,87,60,62,13,21,12,76,60,68,62,45,80,71,77,78,41,39,87,80,95);
 //twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential
 
-
+let era = 7;
 export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohnson, kobe, shaq, curry, hakeem, billRussell, wilt, durant, wemby, doncic, jokic, giannis, shai,
     tatum, ant, oscar, dirk, iverson, stockton, malone, drexler, isiah, pippen, moses, brunson, jimmyButler, traeYoung, demarDeRozan, paulGeorge, kawhiLeonard, dame, pennyHardaway, reggieMiller,
     yaoMing, benWallace, joelEmbiid, zachLaVine, chrisPaul, russellWestbrook, chrisWebber, kevinGarnett, manuGinobili, kevinMcHale, rudyGobert, andreIguodala, jamesHarden, dennisRodman, 
@@ -267,8 +268,32 @@ export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohns
     jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
     draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper
 ];
-let removePlayers = [...allPlayers];
 
+if (era === 2){
+    //1960-70ss
+    allPlayers = [kareem, wilt, billRussell, oscar, moses];
+}else if (era === 3){
+    //1980s
+    allPlayers = [kareem, magicJohnson, bird, isiah, michaelJordan, drexler, stockton, malone, hakeem, moses, kevinMcHale]
+
+}else if (era === 4){
+    //1990s
+    allPlayers = [michaelJordan, pippen, dennisRodman, duncan, kobe, shaq, hakeem, iverson, stockton, malone, drexler, isiah, pennyHardaway, reggieMiller]
+}else if (era === 5){
+    //2000s
+    allPlayers = [kobe, shaq, iverson, dirk, duncan, manuGinobili, kevinGarnett, curry, chrisWebber, andreIguodala, jamesHarden, lebron, durant, demarDeRozan, paulGeorge, kawhiLeonard, yaoMing, benWallace, chrisPaul, russellWestbrook]
+}else if (era === 6){
+    //2010s
+    allPlayers = [lebron, durant, curry, kobe, jamesHarden, kawhiLeonard, dirk, yaoMing, paulGeorge, demarDeRozan, traeYoung, jimmyButler, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, kyrieIrving, jokic, giannis, dame, joelEmbiid,zachLaVine, chrisPaul, russellWestbrook, manuGinobili,andreIguodala, karlAnthonyTowns]
+}else if (era === 7){
+    //2020s
+    allPlayers = [lebron, curry, durant, wemby, doncic, jokic, giannis, shai, tatum, ant, brunson, jimmyButler, traeYoung, demarDeRozan, paulGeorge, kawhiLeonard, dame, joelEmbiid, zachLaVine, chrisPaul, russellWestbrook,
+        rudyGobert, jamesHarden, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis,
+        jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
+        draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper
+    ]
+}
+let removePlayers = [...allPlayers];
 
 
 //Teams
@@ -306,6 +331,11 @@ const trailblazers = new Team("Portland Traiblazers", false, "POR", [dame, drexl
 export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic, sixers, grizzlies, warriors, 
     bucks, pistons, hawks, nuggets, mavs, nets, hornets, wizards, pelicans, suns, trailblazers
 ];
+
+allTeams.forEach(team => {
+    team.players = team.players.filter(player => allPlayers.includes(player));
+});
+
 let allTeamsTemp = [...allTeams];
 export let freeAgency = [];
 let news = [];
