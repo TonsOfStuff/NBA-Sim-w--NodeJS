@@ -967,7 +967,7 @@ function tradePlayer(team1, team2){
                         valSum += 10 - player.year + 9;
                     }
                 }else{
-                    valSum += player.freeAgentValue;
+                    valSum += Math.round(Math.pow(player.freeAgentValue, 1.5) / 3.5);
                     team2totalLength += 1;
                 }
             });
@@ -1004,7 +1004,7 @@ function tradePlayer(team1, team2){
                     }
                 }else{
                     team1TotalLength += 1;
-                    valSumTeam += player.freeAgentValue;
+                    valSumTeam += Math.round(Math.pow(player.freeAgentValue, 1.5) / 3.5);
                 }
             });
             if (team1TotalLength > team1.players.length - 8){

@@ -373,7 +373,7 @@ export class Player{
         
         let insideStress = 1560;
         const twoStress = 1620;
-        const threeStress = 2110;
+        const threeStress = 2210;
         let drawFreeThrowAmount = 10;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
@@ -1294,7 +1294,7 @@ export class Player{
         }
 
         if (this.fga > 29){
-            passTen -= 80;
+            passTen -= 40;
         }
         if (this.pts > 30){
             passTen -= 40;

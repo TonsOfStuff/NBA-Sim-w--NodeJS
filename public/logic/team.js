@@ -115,7 +115,7 @@ export class Team{
     updateMin(){
         this.lineup.forEach(player => {
             player.min += 1;
-            player.energyUsed += 10;
+            player.energyUsed += Math.round(10000 / Math.pow(player.stamina, 1.5));
         });
     }
 
@@ -217,7 +217,7 @@ export class Team{
 
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
-        let smartSubNum = 10;
+        let smartSubNum = 8;
         if (quarter >= 4 && time > 100 && team1Score - team2Score > 15 && team1 === this){
             smartSubNum = this.players.length;
         }
@@ -232,7 +232,7 @@ export class Team{
         this.lineup = [];
 
         if (insertStart === false){
-            let top = this.players.sort((a, b) => (b.stamina - b.energyUsed + b.boxMinus + b.usage / 10) - (a.stamina - a.energyUsed - a.min + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => (b.avgPts / 3 + (b.stamina - b.energyUsed) / 2 + b.boxMinus + b.usage / 10) - (a.avgPts / 3 + (a.stamina - a.energyUsed) / 2 - a.min + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
             top.push(top[0]);
             top.push(top[1]);
 
