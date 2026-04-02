@@ -146,10 +146,11 @@ export class Team{
             sub.sort((a,b) => (b.freeAgentValue - a.freeAgentValue));
         }
         
-
+        this.startingLineup[0].usage -= 20;
         this.startingLineup = [];
 
         this.startingLineup.push(...sub.slice(0, 5));
+        this.startingLineup[0].usage += 20;
         this.lineup = [...this.startingLineup];
 
 
@@ -218,10 +219,10 @@ export class Team{
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
         let smartSubNum = 8;
-        if (quarter >= 4 && time > 100 && team1Score - team2Score > 15 && team1 === this){
+        if (quarter >= 3 && team1Score - team2Score > 15 && team1 === this){
             smartSubNum = this.players.length;
         }
-        if (quarter >= 4 && time > 100 && team2Score - team1Score > 15 && team2 === this){
+        if (quarter >= 3 && team2Score - team1Score > 15 && team2 === this){
             smartSubNum = this.players.length;
         }
         this.lineup.forEach(player => {
@@ -232,7 +233,7 @@ export class Team{
         this.lineup = [];
 
         if (insertStart === false){
-            let top = this.players.sort((a, b) => (b.avgPts / 3 + (b.stamina - b.energyUsed) / 2 + b.boxMinus + b.usage / 10) - (a.avgPts / 3 + (a.stamina - a.energyUsed) / 2 - a.min + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 2 + b.boxMinus + b.usage / 10) - ((a.stamina - a.energyUsed) / 2 + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
             top.push(top[0]);
             top.push(top[1]);
 

@@ -1164,8 +1164,11 @@ export class Player{
             blockFactor -= 10;
         }
         if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 18000){
-            this.blk += 1;
-            return true;
+            if (Math.random() * 100 < this.blockTen){
+                this.blk += 1;
+                return true;
+            }
+            return false;
         }else{
             return false;
         }

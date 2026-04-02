@@ -259,12 +259,13 @@ const camThomas = new Player("Cam Thomas","Shooter",88,93,75,85,87,60,20,15,30,5
 const stephonCastle = new Player("Stephon Castle","Playmaker Slasher",85,80,97,78,91,83,33,30,65,94,31,39,85,60,68,78,96,90,70,88,3,15,11,58,65,62,70,27,91,77,79,78,38,40,83,82,96);
 const dylanHarper = new Player("Dylan Harper","Two-way Slasher",84,81,95,78,89,80,28,15,53,86,28,36,80,25,79,78,95,87,60,62,13,21,12,76,60,68,62,45,80,71,77,78,41,39,87,80,95);
 const jaredMcCain = new Player("Jared McCain","Slasher Shooter",88,90,90,80,88,71,22,10,31,80,36,38,78,50,82,80,85,80,82,84,78,76,82,80,78,76,80,85,90,78,82,75,39,36,90,85,95);
-const luDort = new Player("Lu Dort","Defensive",82,78,88,78,81,90,88,80,85,60,40,30,70,50,75,80,57,68,40,38,60,58,10,18,20,38,22,85,90,95,88,76,49,40,88,71,90);
-const alexCaruso = new Player("Alex Caruso","Defensive Playmaker",80,75,85,78,78,88,80,60,90,50,40,30,70,60,80,78,90,88,30,28,20,18,30,28,78,75,80,85,88,92,85,77,44,38,88,72,90);
-const isiahJoe = new Player("Isiah Joe","Shooter",88,92,80,85,87,60,20,15,30,55,15,24,25,5,78,82,76,70,10,12,88,45,40,78,20,25,30,90,70,50,79,76,31,20,85,70,94);
-const ajayMitchell = new Player("Ajay Mitchell","Shooter Slasher",88,90,86,82,88,70,25,18,40,82,28,36,80,48,87,82,56,62,73,85,82,80,34,32,18,24,59,86,88,72,83,76,35,36,91,86,91);
-const isaiahHartenstein = new Player("Isaiah Hartenstein","Inside Post-player",91,80,92,68,81,82,80,75,82,38,22,42,10,28,45,72,88,86,60,58,15,1,5,3,42,40,38,2,64,60,81,84,45,38,88,81,91);
+const luDort = new Player("Lu Dort","Defensive",82,78,88,78,81,90,88,80,85,60,40,53,70,50,75,80,57,68,40,38,60,58,10,18,20,38,22,85,90,95,88,76,49,40,88,63,90);
+const alexCaruso = new Player("Alex Caruso","Defensive Playmaker",80,75,85,78,78,88,80,60,90,50,77,48,70,60,80,78,90,88,30,28,20,18,30,28,78,75,80,85,88,92,85,77,44,38,88,72,90);
+const isiahJoe = new Player("Isiah Joe","Shooter",88,92,80,85,87,60,20,15,30,55,15,53,25,5,78,82,76,70,10,12,88,45,40,78,20,25,30,90,70,50,79,76,31,20,85,63,94);
+const ajayMitchell = new Player("Ajay Mitchell","Shooter Slasher",88,90,86,82,88,70,25,18,40,82,28,48,30,18,87,82,56,62,73,85,82,80,34,32,18,24,59,86,88,72,83,76,35,36,91,86,91);
+const isaiahHartenstein = new Player("Isaiah Hartenstein","Inside Post-player",87,80,91,68,77,82,80,75,82,38,22,50,10,28,45,72,88,96,10,18,5,1,5,3,2,1,8,2,64,60,73,84,45,38,82,73,91);
 const cadeCunningham = new Player("Cade Cunningham","Playmaker Slasher",93,88,94,88,91,70,64,22,43,77,28,39,92,90,82,80,86,82,78,80,84,82,85,84,78,76,80,86,88,72,83,78,32,42,91,85,95);
+const jalenDuren = new Player("Jalen Duren","Inside Post-player",92,70,95,75,88,91,82,70,83,60,15,40,34,18,62,90,99,88,27,31,0,1,1,3,32,12,3,12,98,88,81,82,42,35,90,85,94);
 //twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential
 
 let era = 7;
@@ -273,7 +274,8 @@ export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohns
     yaoMing, benWallace, joelEmbiid, zachLaVine, chrisPaul, russellWestbrook, chrisWebber, kevinGarnett, manuGinobili, kevinMcHale, rudyGobert, andreIguodala, jamesHarden, dennisRodman, 
     devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis, 
     jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
-    draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham
+    draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
+    jalenDuren
 ];
 
 if (era === 2){
@@ -297,7 +299,8 @@ if (era === 2){
     allPlayers = [lebron, curry, durant, wemby, doncic, jokic, giannis, shai, tatum, ant, brunson, jimmyButler, traeYoung, demarDeRozan, paulGeorge, kawhiLeonard, dame, joelEmbiid, zachLaVine, chrisPaul, russellWestbrook,
         rudyGobert, jamesHarden, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis,
         jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
-        draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham
+        draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
+        jalenDuren
     ]
 }
 let removePlayers = [...allPlayers];
@@ -324,7 +327,7 @@ const sixers = new Team("Philadelphia 76ers", true, "PHI", [joelEmbiid, iverson,
 const grizzlies = new Team("Memphis Grizzlies", false, "MEM", [jaMorant]);
 const warriors = new Team("Golden State Warriors", false, "GSW", [curry, andreIguodala, jimmyButler, draymondGreen]);
 const bucks = new Team("Milwaukee Bucks", true, "MIL", [oscar, giannis]);
-const pistons = new Team("Detroit Pistons", true, "DET", [isiah, benWallace, ausarThompson, cadeCunningham]);
+const pistons = new Team("Detroit Pistons", true, "DET", [isiah, benWallace, ausarThompson, cadeCunningham, jalenDuren]);
 const hawks = new Team("Atlanta Hawks", true, "ATL", [traeYoung]);
 const nuggets = new Team("Denver Nuggets", false, "DEN", [jokic, russellWestbrook]);
 const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, anthonyDavis, klayThompson, cooperFlagg]);
@@ -1378,7 +1381,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team2.games += 1;
     let quarter = 1;
     const theTime = 12 * 16;
-    const subFreq = 100;
+    const subFreq = 10;
     
     //Init teams
     if (day % 20 === 0){
