@@ -1522,7 +1522,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team1.games += 1;
     team2.games += 1;
     let quarter = 1;
-    const theTime = 12 * 16;
+    const theTime = 12 * 15;
     const subFreq = 40;
     
     //Init teams
