@@ -10,6 +10,8 @@ export class Team{
         this.oldWins = 0;
         this.oldLosses = 0;
 
+        this.streakLoss = 0;
+
         this.seed = 0;
         this.confSeed = 0;
         this.oldSeed = 0;
@@ -100,6 +102,8 @@ export class Team{
         this.draftPicks = [];
         this.possesions = 0;
         this.totalPossesions = 0;
+
+        this.storedGames = {};
     }
 
     setOpponentsAndTeammates(opposingTeam){
@@ -218,11 +222,11 @@ export class Team{
 
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
-        let smartSubNum = 8;
-        if (quarter >= 3 && team1Score - team2Score > 15 && team1 === this){
+        let smartSubNum = 6;
+        if (quarter >= 4 && team1Score - team2Score > 15 && team1 === this){
             smartSubNum = this.players.length;
         }
-        if (quarter >= 3 && team2Score - team1Score > 15 && team2 === this){
+        if (quarter >= 4 && team2Score - team1Score > 15 && team2 === this){
             smartSubNum = this.players.length;
         }
         this.lineup.forEach(player => {
@@ -233,9 +237,10 @@ export class Team{
         this.lineup = [];
 
         if (insertStart === false){
-            let top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 2 + b.boxMinus + b.usage / 10) - ((a.stamina - a.energyUsed) / 2 + a.boxMinus + a.usage / 10)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 8 + b.boxMinus * 1.2 + b.usage / 10) - ((a.stamina - a.energyUsed) / 8 + a.boxMinus * 1.2 + a.usage / 10)).slice(0, smartSubNum);
             top.push(top[0]);
             top.push(top[1]);
+
 
             for (let i = 0; i<5; i++){
                 let chosen = top[Math.floor(Math.random() * top.length)]
@@ -313,10 +318,14 @@ export class Team{
     }
 
     resetSeason(){
+        this.storedGames = {};
+
         this.oldWins = this.wins;
         this.oldLosses = this.losses;
         this.oldSeed = this.seed;
         this.oldConfSeed = this.confSeed;
+
+        this.streakLoss = 0;
 
         this.possessions = 0;
         this.totalPossesions = 0;
@@ -361,7 +370,7 @@ export class Team{
     releasePlayer(){
         if (this.players.length > 5){
             for (let i = 0; i < this.players.length; i++){
-                if (this.players[i].freeAgentValue < 8 + this.yearsInLottery && this.players[i].yearsPro > 2){
+                if (this.players[i].freeAgentValue < 11 + this.yearsInLottery && this.players[i].yearsPro > 2){
                     this.players[i].teamName = "FA";
 
                     const splicedPlayer = this.players.splice(this.players.indexOf(this.players[i]), 1);
@@ -372,5 +381,32 @@ export class Team{
         }
         
         return null;
+    }
+
+    storeGame(day, teamScore){
+        let stats = {};
+        this.players.forEach(player => {
+            stats[player.name] ={
+                min: player.min,
+                pts: player.pts,
+                ast: player.ast,
+                dReb: player.dReb,
+                oReb: player.oReb,
+                stl: player.stl,
+                blk: player.blk,
+                fga: player.fga,
+                fgm: player.fgm,
+                tpa: player.tpa,
+                tpm: player.tpm,
+                fta: player.fta,
+                ftm: player.ftm,
+                fls: player.fls,
+                tov: player.tov,
+                boxMinus: player.boxMinus
+            } 
+        });
+
+        this.storedGames[day + 1] = {teamScore: teamScore, boxScore: stats};
+
     }
 }

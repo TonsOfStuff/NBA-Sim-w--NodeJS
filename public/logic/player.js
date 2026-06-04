@@ -350,7 +350,7 @@ export class Player{
     }
 
     calcAwardsVal(){
-        this.mvpNum = Number((this.avgPts * 1.2 + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 - this.avgFls - this.avgTov).toFixed(3));
+        this.mvpNum = Number((this.avgPts * 1.2 + this.avgAst * 1.1 + this.avgDReb * 1.05 + this.avgOReb * 1.05 + this.avgStl * 2 + this.avgBlk * 3.4 - this.avgFls - this.avgTov + this.fgp * 10).toFixed(3));
         this.dpoyNum = Number((this.avgStl * 8 + this.avgBlk * 9 + this.avgDReb + 3 + this.avgOReb + 2).toFixed(3));
     }
 
@@ -373,7 +373,7 @@ export class Player{
         
         let insideStress = 1560;
         const twoStress = 1620;
-        const threeStress = 2210;
+        const threeStress = 2090;
         let drawFreeThrowAmount = 10;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
@@ -387,10 +387,10 @@ export class Player{
 
         //Archetype Effect
         if (this.arch.includes("Shooter")){
-            shootTend += 10;
+            shootTend -= 10;
         }
         if (this.arch.includes("Two-Way")){
-            shootTend += 5;
+            shootTend -= 5;
         }
         if (this.arch.includes("Post-player")){
             insideStress -= 10;
@@ -398,6 +398,7 @@ export class Player{
         if (this.arch.includes("Slasher")){
             drawFreeThrowAmount -= 10;
         }
+
 
         if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * shootTend)){
             if(defense.takeCharges > Math.random() * 10000){
@@ -1075,19 +1076,23 @@ export class Player{
     }
 
     moving(defense){
+        let bonus = 1
+        if (this.threePt >= 95){
+            bonus = 1.5;
+        }
         const placeWeights = {
             "Inside": this.insideTen,
             "Close": this.closeTen,
             "Left Elbow": this.leftElbow,
             "Right Elbow": this.rightElbow,
-            "Left Corner": this.leftCorner,
-            "Right Corner": this.rightCorner,
-            "Left Wing": this.leftWing,
-            "Right Wing": this.rightWing,
+            "Left Corner": this.leftCorner * bonus,
+            "Right Corner": this.rightCorner * bonus,
+            "Left Wing": this.leftWing * bonus,
+            "Right Wing": this.rightWing * bonus,
             "Left": this.leftTwo,
             "Right": this.rightTwo,
             "Center": this.centerTwo,
-            "Center Three": this.centerThree
+            "Center Three": this.centerThree * bonus
         };
         let weightedPlaces = [];
         for (const place in placeWeights) {
@@ -1180,7 +1185,7 @@ export class Player{
             if (this.otherTeammates[i] === this){
                 continue;
             }
-            let passingAmount = this.otherTeammates[i].passTo;
+            let passingAmount = this.otherTeammates[i].passTo + this.otherTeammates[i].usage + this.otherTeammates[i].avgPts;
 
             if (this.otherTeammates[i].arch.includes("All")){
                 passingAmount += 1;
@@ -1667,6 +1672,27 @@ export class Player{
         this.energyUsed = 0;
     }
 
+    resetGame(){
+        //Reset game stats
+        this.min = 0;
+        this.pts = 0;
+        this.ast = 0;
+        this.dReb = 0;
+        this.oReb = 0;
+        this.stl = 0;
+        this.blk = 0;
+        this.fls = 0;
+        this.tov = 0;
+        this.fga = 0;
+        this.fgm = 0;
+        this.tpa = 0;
+        this.tpm = 0;
+        this.fta = 0;
+        this.ftm = 0;
+        this.boxMinus = 0;
+
+        this.energyUsed = 0;
+    }
 
     resetAllStar(){
         this.min = 0;
@@ -2061,7 +2087,7 @@ export class Player{
             want += count;
 
             if (item["team"] === this.team){
-                want += this.happiness * 5;
+                want += this.happiness * 7;
             }
 
             if (item["team"].oldConfSeed <= 8){
@@ -2071,7 +2097,7 @@ export class Player{
             }
 
             if (item["years"] > 4){
-                want += 1
+                want += 3
             }else{
                 want += 2
             }

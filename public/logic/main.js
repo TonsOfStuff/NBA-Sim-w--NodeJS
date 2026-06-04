@@ -81,6 +81,62 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     }
 }
 
+function displayPastGame(team1, team2, dayText){
+    const team1Score = team1.storedGames[dayText]["teamScore"];
+    const team2Score = team2.storedGames[dayText]["teamScore"];
+    const boxScore1 = team1.storedGames[dayText]["boxScore"];
+    const boxScore2 = team2.storedGames[dayText]["boxScore"];
+    //Load all team player stats
+    team1.players.forEach(player => {
+        const stats = boxScore1[player.name];
+        player.min = stats.min;
+        player.pts = stats.pts;
+        player.dReb = stats.dReb;
+        player.oReb = stats.oReb;
+        player.ast = stats.ast;
+        player.stl = stats.stl;
+        player.blk = stats.blk;
+        player.fls = stats.fls;
+        player.tov = stats.tov;
+        player.fgm = stats.fgm;
+        player.fga = stats.fga;
+        player.tpm = stats.tpm;
+        player.tpa = stats.tpa;
+        player.ftm = stats.ftm;
+        player.fta = stats.fta;
+        player.boxMinus = stats.boxMinus;
+    })
+
+    team2.players.forEach(player => {
+        const stats = boxScore2[player.name];
+        player.min = stats.min;
+        player.pts = stats.pts;
+        player.dReb = stats.dReb;
+        player.oReb = stats.oReb;
+        player.ast = stats.ast;
+        player.stl = stats.stl;
+        player.blk = stats.blk;
+        player.fls = stats.fls;
+        player.tov = stats.tov;
+        player.fgm = stats.fgm;
+        player.fga = stats.fga;
+        player.tpm = stats.tpm;
+        player.tpa = stats.tpa;
+        player.ftm = stats.ftm;
+        player.fta = stats.fta;
+        player.boxMinus = stats.boxMinus;
+    })
+
+    displayGame(team1, team2, team1Score, team2Score);
+
+    team1.players.forEach(player => {
+        player.resetGame();
+    })
+    team2.players.forEach(player => {
+        player.resetGame();
+    })
+}
+
 function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     while (main.firstChild){
         main.removeChild(main.firstChild);
@@ -188,7 +244,7 @@ const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 99, 9
 const doncic = new Player("Luka Doncic", "All Playmakers", 98, 96, 94, 86, 99, 62, 78, 56, 32, 44, 12, 41, 98, 99, 82, 88, 92, 92, 50, 12, 95, 90, 96, 88, 91, 90, 32, 99, 42, 33, 98, 78, 38, 49, 99, 99, 99);
 const jokic = new Player("Nikola Jokic", "Playmaker Inside", 97, 94, 98, 84, 99, 73, 93, 90, 34, 33, 33, 41, 99, 99, 93, 81, 99, 99, 72, 80, 10, 2, 65, 82, 55, 55, 88, 60, 23, 41, 95, 83, 38, 40, 97, 99, 99);
 const giannis = new Player("Giannis Antetokounmpo", "Inside All", 95, 79, 99, 70, 99, 93, 80, 72, 89, 53, 34, 41, 74, 86, 83, 82, 99, 99, 90, 90, 1, 1, 1, 2, 30, 33, 22, 10, 80, 84, 89, 83, 36, 50, 97, 97, 99);
-const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92, 71, 25, 17, 46, 80, 21, 37, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 45, 50, 91, 78, 36, 43, 95, 93, 99);
+const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92, 78, 25, 17, 66, 80, 21, 37, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 81, 66, 93, 78, 36, 53, 95, 97, 99);
 const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 34, 24, 75, 79, 44, 37, 82, 35, 82, 90, 94, 90, 86, 72, 13, 15, 82, 80, 34, 90, 32, 99, 75, 63, 81, 80, 40, 34, 89, 92, 97);
 const ant = new Player("Anthony Edwards", "Slasher Shooter", 92, 96, 97, 83, 96, 80, 23, 19, 80, 75, 10, 34, 56, 28, 93, 90, 99, 93, 25, 29, 39, 59, 90, 82, 98, 93, 70, 34, 96, 22, 90, 76, 41, 39, 93, 90, 99);
 const oscar = new Player("Oscar Robertson", "All Playmaker", 94, 83, 97, 90, 97, 53, 60, 32, 33, 72, 10, 48, 94, 96, 92, 87, 90, 97, 94, 99, 32, 10, 4, 7, 30, 33, 55, 11, 66, 69, 77, 77, 33, 37, 92, 96, 99);
@@ -258,14 +314,18 @@ const michaelPorterJr = new Player("Michael Porter Jr","Shooter Slasher",90,91,8
 const camThomas = new Player("Cam Thomas","Shooter",88,93,75,85,87,60,20,15,30,55,15,24,25,5,78,82,76,70,10,12,88,85,80,78,20,25,30,90,70,50,75,75,28,20,85,70,94);
 const stephonCastle = new Player("Stephon Castle","Playmaker Slasher",85,80,97,78,91,83,33,30,65,94,31,39,85,60,68,78,96,90,70,88,3,15,11,58,65,62,70,27,91,77,79,78,38,40,83,82,96);
 const dylanHarper = new Player("Dylan Harper","Two-way Slasher",84,81,95,78,89,80,28,15,53,86,28,36,80,25,79,78,95,87,60,62,13,21,12,76,60,68,62,45,80,71,77,78,41,39,87,80,95);
-const jaredMcCain = new Player("Jared McCain","Slasher Shooter",88,90,90,80,88,71,22,10,31,80,36,38,78,50,82,80,85,80,82,84,78,76,82,80,78,76,80,85,90,78,82,75,39,36,90,85,95);
-const luDort = new Player("Lu Dort","Defensive",82,78,88,78,81,90,88,80,85,60,40,53,70,50,75,80,57,68,40,38,60,58,10,18,20,38,22,85,90,95,88,76,49,40,88,63,90);
-const alexCaruso = new Player("Alex Caruso","Defensive Playmaker",80,75,85,78,78,88,80,60,90,50,77,48,70,60,80,78,90,88,30,28,20,18,30,28,78,75,80,85,88,92,85,77,44,38,88,72,90);
+const jaredMcCain = new Player("Jared McCain","Slasher Shooter",88,90,80,80,82,51,12,10,21,80,16,38,78,50,82,80,85,80,82,84,78,76,82,80,78,76,80,85,90,78,82,75,39,36,90,85,95);
+const luDort = new Player("Lu Dort","Defensive",77,78,78,78,71,90,68,40,65,60,40,63,50,30,75,80,57,68,40,38,60,58,10,18,20,38,22,85,72,95,88,76,49,40,88,63,90);
+const alexCaruso = new Player("Alex Caruso","Defensive Playmaker",76,79,81,78,69,83,60,24,80,50,77,50,53,37,80,78,90,88,30,28,20,18,30,28,78,75,80,85,78,92,85,77,44,38,88,72,90);
 const isiahJoe = new Player("Isiah Joe","Shooter",88,92,80,85,87,60,20,15,30,55,15,53,25,5,78,82,76,70,10,12,88,45,40,78,20,25,30,90,70,50,79,76,31,20,85,63,94);
 const ajayMitchell = new Player("Ajay Mitchell","Shooter Slasher",88,90,86,82,88,70,25,18,40,82,28,48,30,18,87,82,56,62,73,85,82,80,34,32,18,24,59,86,88,72,83,76,35,36,91,86,91);
 const isaiahHartenstein = new Player("Isaiah Hartenstein","Inside Post-player",87,80,91,68,77,82,80,75,82,38,22,50,10,28,45,72,88,96,10,18,5,1,5,3,2,1,8,2,64,60,73,84,45,38,82,73,91);
 const cadeCunningham = new Player("Cade Cunningham","Playmaker Slasher",93,88,94,88,91,70,64,22,43,77,28,39,92,90,82,80,86,82,78,80,84,82,85,84,78,76,80,86,88,72,83,78,32,42,91,85,95);
 const jalenDuren = new Player("Jalen Duren","Inside Post-player",92,70,95,75,88,91,82,70,83,60,15,40,34,18,62,90,99,88,27,31,0,1,1,3,32,12,3,12,98,88,81,82,42,35,90,85,94);
+const derrickWhite = new Player("Derrick White","Defensive Playmaker",88,85,90,83,81,89,33,31,89,82,49,48,70,12,77,78,90,28,10,22,50,52,76,78,38,15,20,89,65,93,80,76,43,35,80,73,92);
+const paoloBanchero = new Player("Paolo Banchero","Two-way Post-player",94,85,90,81,90,73,56,43,72,33,30,38,40,40,78,83,97,92,70,72,30,38,38,42,46,34,78,32,91,68,84,82,45,39,88,83,95);
+const scottieBarnes = new Player("Scottie Barnes", "Defensive Playmaker", 88, 80, 90, 82, 81, 90, 40, 30, 71, 63, 36, 40, 70, 60, 77, 72, 90, 88, 50, 58, 20, 18, 60, 78, 78, 75, 80, 85, 81, 96, 85, 80, 40, 38, 88, 90, 94);
+const lauriMarkkanen = new Player("Lauri Markkanen", "Shooter Post-player", 90, 90, 88, 82, 83, 69, 68, 55, 81, 32, 12, 38, 56, 38, 71, 75, 82, 85, 80, 79, 32, 15, 62, 80, 14, 22, 33, 95, 63, 72, 84, 85, 42, 39, 91, 88, 94);
 //twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential
 
 let era = 7;
@@ -275,7 +335,7 @@ export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohns
     devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis, 
     jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
     draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-    jalenDuren
+    jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen
 ];
 
 if (era === 2){
@@ -300,7 +360,7 @@ if (era === 2){
         rudyGobert, jamesHarden, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis,
         jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
         draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-        jalenDuren
+        jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen
     ]
 }
 let removePlayers = [...allPlayers];
@@ -309,31 +369,31 @@ let removePlayers = [...allPlayers];
 //Teams
 const bulls = new Team("Chicago Bulls", true, "CHI", [michaelJordan, pippen, dennisRodman, joshGiddey]);
 const lakers = new Team("Los Angeles Lakers", false, "LAL", [lebron, kareem, magicJohnson, kobe, shaq, doncic, austinReaves]);
-const celtics = new Team("Boston Celitcs", true, "BOS", [bird, billRussell, jaylenBrown, tatum, kevinMcHale]);
+const celtics = new Team("Boston Celitcs", true, "BOS", [bird, billRussell, jaylenBrown, tatum, kevinMcHale, derrickWhite]);
 const pacers = new Team("Indiana Pacers", true, "IND", [reggieMiller, tyreseHaliburton, pascalSiakam]);
 const kings = new Team("Sacramento Kings", false, "SAC", [zachLaVine, demarDeRozan, chrisWebber, domantasSabonis]);
 const okc = new Team("Oklahoma City Thunder", false, "OKC", [shai, chetHolmgren, jalenWilliams, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein]);
 const knicks = new Team("New York Knicks", true, "NYK", [karlAnthonyTowns, brunson]);
 const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", [ant, kevinGarnett, rudyGobert]);
 const heat = new Team("Miami Heat", true, "MIA", [bamAdebayo]);
-const raptors = new Team("Toronto Raptors", true, "TOR", []);
-const clippers = new Team("Los Angeles Clippers", false, "LAC", [kawhiLeonard, paulGeorge, chrisPaul, jamesHarden]);
-const jazz = new Team("Utah Jazz", false, "UTA", [malone, stockton]);
-const cavs = new Team("Cleveland Caveliers", true, "CLE", [donovanMitchell, dariusGarland, jarrettAllen]);
+const raptors = new Team("Toronto Raptors", true, "TOR", [scottieBarnes]);
+const clippers = new Team("Los Angeles Clippers", false, "LAC", [kawhiLeonard, paulGeorge, chrisPaul, dariusGarland]);
+const jazz = new Team("Utah Jazz", false, "UTA", [malone, stockton, lauriMarkkanen]);
+const cavs = new Team("Cleveland Caveliers", true, "CLE", [donovanMitchell, jarrettAllen, jamesHarden]);
 const rockets = new Team("Houston Rockets", false, "HOU", [durant, yaoMing, alperenSengun, amenThompson, hakeem]);
 const spurs = new Team("San Antonio Spurs", false, "SAS", [wemby, duncan, manuGinobili, deaaronFox, stephonCastle, dylanHarper]);
-const magic = new Team("Orlando Magic", true, "ORL", [pennyHardaway, franzWagner]);
+const magic = new Team("Orlando Magic", true, "ORL", [pennyHardaway, franzWagner, paoloBanchero]);
 const sixers = new Team("Philadelphia 76ers", true, "PHI", [joelEmbiid, iverson, moses, wilt, tyreseMaxey]);
 const grizzlies = new Team("Memphis Grizzlies", false, "MEM", [jaMorant]);
 const warriors = new Team("Golden State Warriors", false, "GSW", [curry, andreIguodala, jimmyButler, draymondGreen]);
 const bucks = new Team("Milwaukee Bucks", true, "MIL", [oscar, giannis]);
 const pistons = new Team("Detroit Pistons", true, "DET", [isiah, benWallace, ausarThompson, cadeCunningham, jalenDuren]);
-const hawks = new Team("Atlanta Hawks", true, "ATL", [traeYoung]);
+const hawks = new Team("Atlanta Hawks", true, "ATL", []);
 const nuggets = new Team("Denver Nuggets", false, "DEN", [jokic, russellWestbrook]);
-const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, anthonyDavis, klayThompson, cooperFlagg]);
+const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, klayThompson, cooperFlagg]);
 const nets = new Team("Brooklyn Nets", true, "BKN", [camThomas, michaelPorterJr]);
 const hornets = new Team("Charlotte Hornets", true, "CHA", [laMeloBall]);
-const wizards = new Team("Washington Wizards", true, "WAS", []);
+const wizards = new Team("Washington Wizards", true, "WAS", [traeYoung, anthonyDavis]);
 const pelicans = new Team("New Orleans Pelicans", false, "NOP", [dejounteMurray, zionWilliamson]);
 const suns = new Team("Phoenix Suns", false, "PHX", [devinBooker, jalenGreen]);
 const trailblazers = new Team("Portland Traiblazers", false, "POR", [dame, drexler, scootHenderson]);
@@ -372,6 +432,8 @@ let simmedAllStar = false;
 export function setAllStarSimmed(val){
     simmedAllStar = val;
 }
+const starTeam1 = new Team("All Star East", true, "ASE", []);
+const starTeam2 = new Team("All Star West", false, "ASW", []);
 
 //Generate the calender and what teams play who at what date
 const assignments = {};
@@ -506,6 +568,27 @@ function updateCalender(chosenTeam = null, page = 0){
 
                     if (simmedAllStar === true || simmedAllStar === 1){
                         td.style.backgroundColor = "rgba(0, 0, 0, 0.26)";
+                        td.addEventListener("click", () => { 
+                            const panel = document.getElementById("controlPanel");
+                            panel.style.display = "grid";
+                            panel.children[1].children[2].onclick = () => {
+                                panel.style.display = "none";
+                            }
+                            panel.children[0].children[0].children[0].style.height = "9vw";
+                            panel.children[0].children[0].children[0].src = `../images/ASE.svg`
+                            panel.children[0].children[0].children[1].innerText = "ASE"
+
+                            panel.children[0].children[2].children[0].style.height = "9vw";
+                            panel.children[0].children[2].children[0].src = `../images/ASW.svg`
+                            panel.children[0].children[2].children[1].innerText = "ASW"
+
+                            panel.children[0].children[1].textContent = "All Star Break";
+
+
+                            panel.children[1].children[0].onclick = () => displayPastGame(starTeam1, starTeam2, 42);
+                            panel.children[1].children[0].innerText = "Box Score"
+                            panel.children[1].children[1].style.display = "none";
+                        });
                     }else{
                         td.addEventListener("click", () => {
                             const panel = document.getElementById("controlPanel");
@@ -539,7 +622,6 @@ function updateCalender(chosenTeam = null, page = 0){
                     }else{
                         td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
                     }
-                }else{
                     const thisDay = dayCounter;
                     td.addEventListener("click", () => {
                         const panel = document.getElementById("controlPanel");
@@ -560,6 +642,35 @@ function updateCalender(chosenTeam = null, page = 0){
                                 panel.children[0].children[1].textContent = "Day " + thisDay;
 
 
+                                panel.children[1].children[0].onclick = () => displayPastGame(teams[0], teams[1], thisDay);
+                                panel.children[1].children[0].innerText = "Box Score"
+                                panel.children[1].children[1].style.display = "none";
+                            }
+                        });
+                        
+                    })
+                }else{
+                    const thisDay = dayCounter;
+                    td.addEventListener("click", () => {
+                        const panel = document.getElementById("controlPanel");
+                        panel.style.display = "grid";
+                        panel.children[1].children[2].onclick = () => {
+                            panel.style.display = "none";
+                        }
+                        assignments[thisDay.toString()].forEach(teams => {
+                            if (teams.includes(chosenTeam)){
+                                panel.children[0].children[0].children[0].style.height = "9vw";
+                                panel.children[0].children[0].children[0].src = `../images/${teams[0].abr}.svg`
+                                panel.children[0].children[0].children[1].innerText = teams[0].abr
+
+                                panel.children[0].children[2].children[0].style.height = "9vw";
+                                panel.children[0].children[2].children[0].src = `../images/${teams[1].abr}.svg`
+                                panel.children[0].children[2].children[1].innerText = teams[1].abr
+
+                                panel.children[0].children[1].textContent = "Day " + thisDay;
+
+                                panel.children[1].children[0].innerText = "Sim To Game w/o display"
+                                panel.children[1].children[1].style.display = "block";
                                 panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
                                 panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
                             }
@@ -649,6 +760,32 @@ function updateCalender(chosenTeam = null, page = 0){
                     }else{
                         td.style.backgroundColor = "rgba(255, 0, 0, 0.255)";
                     }
+                    const thisDay = dayCounter;
+                    td.addEventListener("click", () => {
+                        const panel = document.getElementById("controlPanel");
+                        panel.style.display = "grid";
+                        panel.children[1].children[2].onclick = () => {
+                            panel.style.display = "none";
+                        }
+                        assignments[thisDay.toString()].forEach(teams => {
+                            if (teams.includes(chosenTeam)){
+                                panel.children[0].children[0].children[0].style.height = "9vw";
+                                panel.children[0].children[0].children[0].src = `../images/${teams[0].abr}.svg`
+                                panel.children[0].children[0].children[1].innerText = teams[0].abr
+
+                                panel.children[0].children[2].children[0].style.height = "9vw";
+                                panel.children[0].children[2].children[0].src = `../images/${teams[1].abr}.svg`
+                                panel.children[0].children[2].children[1].innerText = teams[1].abr
+
+                                panel.children[0].children[1].textContent = "Day " + thisDay;
+
+
+                                panel.children[1].children[0].onclick = () => displayPastGame(teams[0], teams[1], thisDay);
+                                panel.children[1].children[0].innerText = "Box Score"
+                                panel.children[1].children[1].style.display = "none";
+                            }
+                        });
+                    })
                 }else{
                     const thisDay = dayCounter;
                     td.addEventListener("click", () => {
@@ -670,6 +807,8 @@ function updateCalender(chosenTeam = null, page = 0){
                                 panel.children[0].children[1].textContent = "Day " + thisDay;
 
 
+                                panel.children[1].children[0].innerText = "Sim To Game w/o display"
+                                panel.children[1].children[1].style.display = "block";
                                 panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
                                 panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
                             }
@@ -1192,7 +1331,7 @@ function subbing(quarter, time, team1, team2, possesion, insertStart = false){
     let teamScores = [];
 
     teamScores = findTotalScore(team1, team2);
-    if (insertStart === false && Math.random() * 7 < 1){
+    if (insertStart === false && Math.random() * 7 <= 2){
         insertStart = true;
     }
     team1.sub(quarter, time, teamScores[0], teamScores[1], team1, team2, insertStart);
@@ -1315,6 +1454,7 @@ window.testP = function(){
     playOffs();
 }
 
+
 window.allStars = function(){
     allPlayers.forEach(player => {
         player.calcAwardsVal();
@@ -1338,8 +1478,10 @@ window.allStars = function(){
         }
     }
 
-    const starTeam1 = new Team("All Star East", true, "ASE", allStarTeam1);
-    const starTeam2 = new Team("All Star West", false, "ASW", allStarTeam2);
+    starTeam1.players = allStarTeam1;
+    starTeam2.players = allStarTeam2;
+    starTeam1.storedGames = {};
+    starTeam2.storedGames = {};
 
     starTeam1.players.forEach(player => {
         player.team = starTeam1;
@@ -1347,7 +1489,7 @@ window.allStars = function(){
 
     starTeam2.players.forEach(player => {
         player.team = starTeam2;
-;    })
+    });
 
     starTeam1.players.sort((a, b) => b.mvpNum - a.mvpNum);
     starTeam1.startingLineup.push(...starTeam1.players.slice(0, 5));
@@ -1381,11 +1523,13 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team2.games += 1;
     let quarter = 1;
     const theTime = 12 * 16;
-    const subFreq = 10;
+    const subFreq = 40;
     
     //Init teams
-    if (day % 20 === 0){
+    if (team1.streakLoss >= 10){
         team1.changeStart();
+    }
+    if (team2.streakLoss >= 10){
         team2.changeStart();
     }
 
@@ -1410,7 +1554,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
-    subbing(quarter + 1, 0, team1, team2, team1);
+    subbing(quarter + 1, 0, team1, team2, team1, true);
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 2
@@ -1456,8 +1600,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             if (!playOff){
                 team1.wins += 1;
                 team1.trackWins.push("W");
+                team1.streakLoss = 0;
+
                 team2.losses += 1;
                 team2.trackWins.push("L");
+                team2.streakLoss += 1;
+
                 team1.franchiseWins += 1;
                 team2.franchiseLosses += 1;
             }else{
@@ -1471,8 +1619,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             if (!playOff){
                 team1.losses += 1;
                 team1.trackWins.push("L");
+                team1.streakLoss += 1;
+
                 team2.wins += 1;
                 team2.trackWins.push("W");
+                team2.streakLoss = 0;
+
                 team1.franchiseLosses += 1;
                 team2.franchiseWins += 1;
             }else{
@@ -1504,9 +1656,10 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team1.totalOffensiveRating += offRate;
     offRate = Number((teamScores[1] / team2.possesions).toFixed(3));
     team2.totalOffensiveRating += offRate;
-
-    console.log(team1.totalOffensiveRating / team1.games);
     
+    team1.storeGame(day, teamScores[0]);
+    team2.storeGame(day, teamScores[1]);
+
     if (display === true){
         displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
     }
