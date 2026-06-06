@@ -326,6 +326,8 @@ const derrickWhite = new Player("Derrick White","Defensive Playmaker",88,85,90,8
 const paoloBanchero = new Player("Paolo Banchero","Two-way Post-player",94,85,90,81,90,73,56,43,72,33,30,38,40,40,78,83,97,92,70,72,30,38,38,42,46,34,78,32,91,68,84,82,45,39,88,83,95);
 const scottieBarnes = new Player("Scottie Barnes", "Defensive Playmaker", 88, 80, 90, 82, 81, 90, 40, 30, 71, 63, 36, 40, 70, 60, 77, 72, 90, 88, 50, 58, 20, 18, 60, 78, 78, 75, 80, 85, 81, 96, 85, 80, 40, 38, 88, 90, 94);
 const lauriMarkkanen = new Player("Lauri Markkanen", "Shooter Post-player", 90, 90, 88, 82, 83, 69, 68, 55, 81, 32, 12, 38, 56, 38, 71, 75, 82, 85, 80, 79, 32, 15, 62, 80, 14, 22, 33, 95, 63, 72, 84, 85, 42, 39, 91, 88, 94);
+const joshHart = new Player("Josh Hart", "Two-way", 80, 74, 83, 81, 79, 86, 93, 42, 62, 82, 58, 54, 20, 30, 72, 71, 61, 48, 10, 21, 12, 18, 24, 38, 68, 55, 80, 25, 63, 98, 92, 77, 41, 31, 73, 81, 87);
+const devinVassell = new Player("Devin Vassell", "Two-way Shooter", 81, 84, 81, 84, 87, 82, 33, 30, 66, 72, 14, 39, 53, 27, 83, 82, 88, 80, 33, 44, 83, 12, 48, 80, 50, 38, 74, 82, 74, 79, 88, 77, 38, 38, 83, 73, 85);
 //twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential
 
 let era = 7;
@@ -335,7 +337,7 @@ export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohns
     devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis, 
     jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
     draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-    jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen
+    jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell
 ];
 
 if (era === 2){
@@ -360,7 +362,7 @@ if (era === 2){
         rudyGobert, jamesHarden, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis,
         jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
         draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-        jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen
+        jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell
     ]
 }
 let removePlayers = [...allPlayers];
@@ -373,7 +375,7 @@ const celtics = new Team("Boston Celitcs", true, "BOS", [bird, billRussell, jayl
 const pacers = new Team("Indiana Pacers", true, "IND", [reggieMiller, tyreseHaliburton, pascalSiakam]);
 const kings = new Team("Sacramento Kings", false, "SAC", [zachLaVine, demarDeRozan, chrisWebber, domantasSabonis]);
 const okc = new Team("Oklahoma City Thunder", false, "OKC", [shai, chetHolmgren, jalenWilliams, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein]);
-const knicks = new Team("New York Knicks", true, "NYK", [karlAnthonyTowns, brunson]);
+const knicks = new Team("New York Knicks", true, "NYK", [karlAnthonyTowns, brunson, joshHart]);
 const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", [ant, kevinGarnett, rudyGobert]);
 const heat = new Team("Miami Heat", true, "MIA", [bamAdebayo]);
 const raptors = new Team("Toronto Raptors", true, "TOR", [scottieBarnes]);
@@ -381,7 +383,7 @@ const clippers = new Team("Los Angeles Clippers", false, "LAC", [kawhiLeonard, p
 const jazz = new Team("Utah Jazz", false, "UTA", [malone, stockton, lauriMarkkanen]);
 const cavs = new Team("Cleveland Caveliers", true, "CLE", [donovanMitchell, jarrettAllen, jamesHarden]);
 const rockets = new Team("Houston Rockets", false, "HOU", [durant, yaoMing, alperenSengun, amenThompson, hakeem]);
-const spurs = new Team("San Antonio Spurs", false, "SAS", [wemby, duncan, manuGinobili, deaaronFox, stephonCastle, dylanHarper]);
+const spurs = new Team("San Antonio Spurs", false, "SAS", [wemby, duncan, manuGinobili, deaaronFox, stephonCastle, dylanHarper, devinVassell]);
 const magic = new Team("Orlando Magic", true, "ORL", [pennyHardaway, franzWagner, paoloBanchero]);
 const sixers = new Team("Philadelphia 76ers", true, "PHI", [joelEmbiid, iverson, moses, wilt, tyreseMaxey]);
 const grizzlies = new Team("Memphis Grizzlies", false, "MEM", [jaMorant]);
@@ -396,7 +398,7 @@ const hornets = new Team("Charlotte Hornets", true, "CHA", [laMeloBall]);
 const wizards = new Team("Washington Wizards", true, "WAS", [traeYoung, anthonyDavis]);
 const pelicans = new Team("New Orleans Pelicans", false, "NOP", [dejounteMurray, zionWilliamson]);
 const suns = new Team("Phoenix Suns", false, "PHX", [devinBooker, jalenGreen]);
-const trailblazers = new Team("Portland Traiblazers", false, "POR", [dame, drexler, scootHenderson]);
+const trailblazers = new Team("Portland Trail Blazers", false, "POR", [dame, drexler, scootHenderson]);
 
 export let allTeams = [bulls, lakers, celtics, pacers, kings, okc, knicks, timberwolves, heat, raptors, clippers, jazz, cavs, rockets, spurs, magic, sixers, grizzlies, warriors, 
     bucks, pistons, hawks, nuggets, mavs, nets, hornets, wizards, pelicans, suns, trailblazers

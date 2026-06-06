@@ -1168,7 +1168,7 @@ export class Player{
         if (this.arch.includes("Two-way")){
             blockFactor -= 10;
         }
-        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 1.5) - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 20000){
+        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 1.5) + this.hustle + this.vertical - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 25000){
             if (Math.random() * 100 < this.blockTen){
                 this.blk += 1;
                 return true;
