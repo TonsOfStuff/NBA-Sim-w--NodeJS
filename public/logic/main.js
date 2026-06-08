@@ -4,7 +4,6 @@ import { shooterStats, defensiveStats, slasherStats, twoWayStats, postPlayerStat
 import { fn, ln } from "./name.js";
 
 
-
 //DOM elements
 let main = document.getElementById("main");
 
@@ -27,13 +26,38 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     team1.players.sort((a, b) => b.pts - a.pts);
     team2.players.sort((a, b) => b.pts - a.pts);
 
-    team1.players.forEach(player => {
-        const boxScoreRow = document.createElement("div");
-        boxScoreRow.innerText = player.name + "|Min: " + player.min + "|Pts: " + player.pts + "|DReb: " + player.dReb + "|OReb: " + player.oReb + "|Ast: " + player.ast + "|Stl: " + player.stl + "|Blk: " + player.blk + "|Fls: " + player.fls + "|TO: " + player.tov + "|FG%: " + player.fgm + "/" + player.fga + "|3P%: " + player.tpm + "/" + player.tpa + "|FT%: " + player.ftm + "/" + player.fta + "|+/-: " + player.boxMinus;
-        boxScoreRow.style.marginBottom = '10px';
-
-        main.appendChild(boxScoreRow);
+    const team1Table = document.createElement("table");
+    const team1Header = document.createElement("tr");
+    const team1HeaderData = ["Name", "Min", "Pts", "DReb", "OReb", "Ast", "Stl", "Blk", "Fls", "TO", "FG%", "3P%", "FT%", "+/-"];
+    team1HeaderData.forEach(header => {
+        const th = document.createElement("th");
+        th.innerText = header;
+        team1Header.appendChild(th);
     });
+    team1Table.appendChild(team1Header);
+
+    team1.players.forEach(player => {
+        const boxScoreRow = document.createElement("tr");
+        boxScoreRow.innerHTML = `
+            <td style="width: 200px; border: 1px solid black;">${player.name}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.min}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.pts}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.dReb}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.oReb}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.ast}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.stl}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.blk}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.fls}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.tov}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.fgm}/${player.fga}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.tpm}/${player.tpa}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.ftm}/${player.fta}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.boxMinus}</td>
+        `;
+        team1Table.appendChild(boxScoreRow);
+    });
+
+    main.appendChild(team1Table);
     let teamStuff = document.createElement("div");
     teamStuff.style.display = "flex";
     teamStuff.style.alignItems = "center";
@@ -54,13 +78,38 @@ function displayGame(team1, team2, team1Score, team2Score, playOff = false){
     space.style.height = '50px';
     main.appendChild(space);
 
-    team2.players.forEach(player => {
-        const boxScoreRow = document.createElement("div");
-        boxScoreRow.innerText = player.name + "|Min: " + player.min + "|Pts: " + player.pts + "|DReb: " + player.dReb + "|OReb: " + player.oReb + "|Ast: " + player.ast + "|Stl: " + player.stl + "|Blk: " + player.blk + "|Fls: " + player.fls + "|TO: " + player.tov + "|FG%: " + player.fgm + "/" + player.fga + "|3P%: " + player.tpm + "/" + player.tpa + "|FT%: " + player.ftm + "/" + player.fta + "|+/-: " + player.boxMinus;
-        boxScoreRow.style.marginBottom = '10px';
-
-        main.appendChild(boxScoreRow);
+    const team2Table = document.createElement("table");
+    const team2Header = document.createElement("tr");
+    const team2HeaderData = ["Name", "Min", "Pts", "DReb", "OReb", "Ast", "Stl", "Blk", "Fls", "TO", "FG%", "3P%", "FT%", "+/-"];
+    team2HeaderData.forEach(header => {
+        const th = document.createElement("th");
+        th.innerText = header;
+        team2Header.appendChild(th);
     });
+    team2Table.appendChild(team2Header);
+
+    team2.players.forEach(player => {
+        const boxScoreRow = document.createElement("tr");
+        boxScoreRow.innerHTML = `
+            <td style="width: 200px; border: 1px solid black;">${player.name}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.min}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.pts}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.dReb}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.oReb}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.ast}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.stl}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.blk}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.fls}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.tov}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.fgm}/${player.fga}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.tpm}/${player.tpa}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.ftm}/${player.fta}</td>
+            <td style="width: 60px; text-align: center; border: 1px solid black;">${player.boxMinus}</td>
+        `;
+        team2Table.appendChild(boxScoreRow);
+    });
+
+    main.appendChild(team2Table);
     teamStuff = document.createElement("div");
     teamStuff.style.display = "flex";
     teamStuff.style.alignItems = "center";
@@ -225,6 +274,132 @@ window.displayNews = function (){
         main.appendChild(txtEl);
     });
 }
+
+export let seasonHighPoints = [null, 0 /*amount*/, 0 /*day*/];
+export let seasonHighRebounds = [null, 0, 0];
+export let seasonHighAssists = [null, 0, 0];
+export let seasonHighSteals = [null, 0, 0];
+export let seasonHighBlocks = [null, 0, 0];
+export let seasonHighTov = [null, 0, 0];
+export let seasonHighFga = [null, 0, 0];
+export let seasonHighFgm = [null, 0, 0];
+export let seasonHigh3Pa = [null, 0, 0];
+export let seasonHigh3Pm = [null, 0, 0];
+export let seasonHighFta = [null, 0, 0];
+export let seasonHighFtm = [null, 0, 0];
+
+if (!window.location.pathname.includes("team") && !window.location.pathname.includes("playoff") && !window.location.pathname.includes("stats") && !window.location.pathname.includes("history")){
+    const recordsButton = document.getElementById("records");
+    recordsButton.onclick = function(){
+        const recordsPanel = document.getElementById("recordsPanel");
+        recordsPanel.style.display = "block";
+        recordsPanel.innerHTML = `
+            <h1 style="text-align: center;">Season Records</h1>
+            <table>
+                <tr>
+                    <th style="width: 70px; border: 1px solid black;">Stat</th>
+                    <th style="width: 200px; border: 1px solid black;">Name</th>
+                    <th style="width: 50px; border: 1px solid black;">Team</th>
+                    <th style="width: 60px; border: 1px solid black;">#</th>
+                    <th style="width: 60px; border: 1px solid black;">Day</th>
+                </tr>
+                <tr>
+                    <td>Points</td>
+                    <td>${seasonHighPoints[0] ? seasonHighPoints[0].name : "N/A"}</td>
+                    <td>${seasonHighPoints[0] ? seasonHighPoints[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighPoints[1]}</td>
+                    <td style="text-align: center;">${seasonHighPoints[2]}</td>
+                </tr>
+                <tr>
+                    <td>Rebounds</td>
+                    <td>${seasonHighRebounds[0] ? seasonHighRebounds[0].name : "N/A"}</td>
+                    <td>${seasonHighRebounds[0] ? seasonHighRebounds[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighRebounds[1]}</td>
+                    <td style="text-align: center;">${seasonHighRebounds[2]}</td>
+                </tr>
+                <tr>
+                    <td>Assists</td>
+                    <td>${seasonHighAssists[0] ? seasonHighAssists[0].name : "N/A"}</td>
+                    <td>${seasonHighAssists[0] ? seasonHighAssists[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighAssists[1]}</td>
+                    <td style="text-align: center;">${seasonHighAssists[2]}</td>
+                </tr>
+                <tr>
+                    <td>Steals</td>
+                    <td>${seasonHighSteals[0] ? seasonHighSteals[0].name : "N/A"}</td>
+                    <td>${seasonHighSteals[0] ? seasonHighSteals[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighSteals[1]}</td>
+                    <td style="text-align: center;">${seasonHighSteals[2]}</td>
+                </tr>
+                <tr>
+                    <td>Blocks</td>
+                    <td>${seasonHighBlocks[0] ? seasonHighBlocks[0].name : "N/A"}</td>
+                    <td>${seasonHighBlocks[0] ? seasonHighBlocks[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighBlocks[1]}</td>
+                    <td style="text-align: center;">${seasonHighBlocks[2]}</td>
+                </tr>
+                <tr>
+                    <td>Turnovers</td>
+                    <td>${seasonHighTov[0] ? seasonHighTov[0].name : "N/A"}</td>
+                    <td>${seasonHighTov[0] ? seasonHighTov[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighTov[1]}</td>
+                    <td style="text-align: center;">${seasonHighTov[2]}</td>
+                </tr>
+                <tr>
+                    <td>FGA</td>
+                    <td>${seasonHighFga[0] ? seasonHighFga[0].name : "N/A"}</td>
+                    <td>${seasonHighFga[0] ? seasonHighFga[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighFga[1]}</td>
+                    <td style="text-align: center;">${seasonHighFga[2]}</td>
+                </tr>
+                <tr>
+                    <td>FGM</td>
+                    <td>${seasonHighFgm[0] ? seasonHighFgm[0].name : "N/A"}</td>
+                    <td>${seasonHighFgm[0] ? seasonHighFgm[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighFgm[1]}</td>
+                    <td style="text-align: center;">${seasonHighFgm[2]}</td>
+                </tr>
+                <tr>
+                    <td>3PA</td>
+                    <td>${seasonHigh3Pa[0] ? seasonHigh3Pa[0].name : "N/A"}</td>
+                    <td>${seasonHigh3Pa[0] ? seasonHigh3Pa[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHigh3Pa[1]}</td>
+                    <td style="text-align: center;">${seasonHigh3Pa[2]}</td>
+                </tr>
+                <tr>
+                    <td>3PM</td>
+                    <td>${seasonHigh3Pm[0] ? seasonHigh3Pm[0].name : "N/A"}</td>
+                    <td>${seasonHigh3Pm[0] ? seasonHigh3Pm[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHigh3Pm[1]}</td>
+                    <td style="text-align: center;">${seasonHigh3Pm[2]}</td>
+                </tr>
+                <tr>
+                    <td>FTA</td>
+                    <td>${seasonHighFta[0] ? seasonHighFta[0].name : "N/A"}</td>
+                    <td>${seasonHighFta[0] ? seasonHighFta[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighFta[1]}</td>
+                    <td style="text-align: center;">${seasonHighFta[2]}</td>
+                </tr>
+                <tr>
+                    <td>FTM</td>
+                    <td>${seasonHighFtm[0] ? seasonHighFtm[0].name : "N/A"}</td>
+                    <td>${seasonHighFtm[0] ? seasonHighFtm[0].team.abr : "N/A"}</td>
+                    <td style="text-align: center;">${seasonHighFtm[1]}</td>
+                    <td style="text-align: center;">${seasonHighFtm[2]}</td>
+                </tr>
+            </table>
+
+            <button onclick="closeRecords()">Close</button>
+        `;
+    }
+
+    window.closeRecords = function (){
+        const recordsPanel = document.getElementById("recordsPanel");
+        recordsPanel.style.display = "none";
+    }
+}
+
+
 
 //Players
 const michaelJordan = new Player("Michael Jordan", "Slasher All", 99, 90, 99, 93, 99, 99, 39, 21, 82, 97, 53, 32, 92, 32, 96, 95, 99, 99, 99, 99, 58, 67, 79, 77, 99, 99, 99, 99, 99, 52, 93, 78, 34, 48, 99, 99, 99)
@@ -1672,7 +1847,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
         team1.players.forEach(player => {
             if (!playOff){
-                player.statsUpdate();
+                player.statsUpdate(day + 1);
             }else{
                 player.statsPlayoffs(series)
             }
@@ -1680,7 +1855,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         });
         team2.players.forEach(player => {
             if (!playOff){
-                player.statsUpdate();
+                player.statsUpdate(day + 1);
             }else{
                 player.statsPlayoffs(series)
             }

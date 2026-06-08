@@ -1,4 +1,4 @@
-import { hasBallPlayerSetter } from "./main.js";
+import { hasBallPlayerSetter, seasonHighPoints, seasonHighRebounds, seasonHighAssists, seasonHighSteals, seasonHighBlocks, seasonHighTov, seasonHighFga, seasonHighFgm, seasonHigh3Pa, seasonHigh3Pm, seasonHighFta, seasonHighFtm } from "./main.js";
 
 export class Player{
     constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential){
@@ -1339,7 +1339,7 @@ export class Player{
         }
     }
 
-    statsUpdate(){
+    statsUpdate(day){
         if (this.min != 0){
             this.gamesPlayed += 1;
             this.careerGamesPlayed += 1;
@@ -1377,6 +1377,67 @@ export class Player{
             if (greaterThanTenAmount >= 4){
                 this.seasonQuadDoubles += 1;
                 this.careerQuadDoubles += 1;
+            }
+            //Records check
+            if (this.pts > seasonHighPoints[1]){
+                seasonHighPoints[0] = this;
+                seasonHighPoints[1] = this.pts;
+                seasonHighPoints[2] = day;
+            }
+            if (this.oReb + this.dReb > seasonHighRebounds[1]){
+                seasonHighRebounds[0] = this;
+                seasonHighRebounds[1] = this.oReb + this.dReb;
+                seasonHighRebounds[2] = day;
+            }
+            if (this.ast > seasonHighAssists[1]){
+                seasonHighAssists[0] = this;
+                seasonHighAssists[1] = this.ast;
+                seasonHighAssists[2] = day;
+            }
+            if (this.stl > seasonHighSteals[1]){
+                seasonHighSteals[0] = this;
+                seasonHighSteals[1] = this.stl;
+                seasonHighSteals[2] = day;
+            }
+            if (this.blk > seasonHighBlocks[1]){
+                seasonHighBlocks[0] = this;
+                seasonHighBlocks[1] = this.blk;
+                seasonHighBlocks[2] = day;
+            }
+            if (this.tov > seasonHighTov[1]){
+                seasonHighTov[0] = this;
+                seasonHighTov[1] = this.tov;
+                seasonHighTov[2] = day;
+            }
+            if (this.fga > seasonHighFga[1]){
+                seasonHighFga[0] = this;
+                seasonHighFga[1] = this.fga;
+                seasonHighFga[2] = day;
+            }
+            if (this.fgm > seasonHighFgm[1]){
+                seasonHighFgm[0] = this;
+                seasonHighFgm[1] = this.fgm;
+                seasonHighFgm[2] = day;
+            }
+            if (this.tpa > seasonHigh3Pa[1]){
+                seasonHigh3Pa[0] = this;
+                seasonHigh3Pa[1] = this.tpa;
+                seasonHigh3Pa[2] = day;
+            }
+            if (this.tpm > seasonHigh3Pm[1]){
+               seasonHigh3Pm [0] = this;
+               seasonHigh3Pm [1] = this.tpm;
+               seasonHigh3Pm [2] = day;
+            }
+            if (this.fta >seasonHighFta [1]){
+               seasonHighFta [0] = this;
+               seasonHighFta [1] = this.fta;
+               seasonHighFta [2] = day;
+            }
+            if (this.ftm >seasonHighFtm [1]){
+               seasonHighFtm [0] = this;
+               seasonHighFtm [1] = this.ftm;
+               seasonHighFtm [2] = day;
             }
 
             //Season updates

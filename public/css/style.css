@@ -79,6 +79,24 @@ td.highlight, th.highlight {
     background-color: #a6993b; /* soft yellow, change if you want */
 }
 
+#recordsPanel{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+
+    background-color: rgba(255, 255, 255, 0.895);
+    height: 69%;
+    width: 50%;
+    padding: 15px;
+    font-size: 12px;
+}
+
+
+
+
+
 #statsPage th, #statsPage td{
     padding: 4px;
 }
