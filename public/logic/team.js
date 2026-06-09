@@ -150,11 +150,11 @@ export class Team{
             sub.sort((a,b) => (b.freeAgentValue - a.freeAgentValue));
         }
         
-        this.startingLineup[0].usage -= 20;
+        //this.startingLineup[0].usage -= 20;
         this.startingLineup = [];
 
         this.startingLineup.push(...sub.slice(0, 5));
-        this.startingLineup[0].usage += 20;
+        //this.startingLineup[0].usage += 20;
         this.lineup = [...this.startingLineup];
 
 

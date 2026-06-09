@@ -371,9 +371,9 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1560;
-        const twoStress = 1620;
-        const threeStress = 2090;
+        let insideStress = 1700;
+        const twoStress = 1750;
+        const threeStress = 2110;
         let drawFreeThrowAmount = 10;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
