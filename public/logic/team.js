@@ -1,3 +1,5 @@
+import { playByPlay } from "./main.js"
+
 export class Team{
     constructor(name, inEast, abr, players){
         this.name = name;
@@ -237,6 +239,7 @@ export class Team{
             player.otherTeammates.splice(0, player.otherTeammates.length);
             player.opponents.splice(0, player.opponents.length);
         });
+        const oldLineup = [...this.lineup];
         this.lineup = [];
 
         if (insertStart === false){
@@ -264,6 +267,9 @@ export class Team{
         })
         
         this.setPositions()
+
+        playByPlay.push(`Substitution: ${oldLineup[0].name} -> ${this.lineup[0].name} --- ${oldLineup[1].name} -> ${this.lineup[1].name} --- ${oldLineup[2].name} -> ${this.lineup[2].name} --- ${oldLineup[3].name} -> ${this.lineup[3].name} --- ${oldLineup[4].name} -> ${this.lineup[4].name}`);
+        
     }
 
     calcBoxMinus(value){
@@ -389,7 +395,7 @@ export class Team{
         return null;
     }
 
-    storeGame(day, teamScore){
+    storeGame(day, teamScore, plays){
         let stats = {};
         this.players.forEach(player => {
             stats[player.name] ={
@@ -412,7 +418,7 @@ export class Team{
             } 
         });
 
-        this.storedGames[day + 1] = {teamScore: teamScore, boxScore: stats};
+        this.storedGames[day + 1] = {teamScore: teamScore, boxScore: stats, PBP: [...plays]};
 
     }
 }

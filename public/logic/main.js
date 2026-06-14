@@ -186,6 +186,20 @@ function displayPastGame(team1, team2, dayText){
     })
 }
 
+function displayPlayByPlay(team1, dayText){
+    console.log(team1.storedGames[dayText]);
+    const playByPlay = team1.storedGames[dayText]["PBP"];
+    while (main.firstChild){
+        main.removeChild(main.firstChild);
+    }
+    playByPlay.forEach(play => {
+        const playElement = document.createElement("div");
+        playElement.innerText = play;
+        main.appendChild(playElement);
+    });
+}
+
+
 function displayAwards(mvp, dpoy, tempList, dpoyTempList, roty, smoty){
     while (main.firstChild){
         main.removeChild(main.firstChild);
@@ -767,8 +781,9 @@ function updateCalender(chosenTeam = null, page = 0){
 
 
                             panel.children[1].children[0].onclick = () => displayPastGame(starTeam1, starTeam2, 42);
+                            panel.children[1].children[1].onclick = () => displayPlayByPlay(starTeam1, 42);
                             panel.children[1].children[0].innerText = "Box Score"
-                            panel.children[1].children[1].style.display = "none";
+                            panel.children[1].children[1].innerText = "Play by Play";
                         });
                     }else{
                         td.addEventListener("click", () => {
@@ -788,6 +803,8 @@ function updateCalender(chosenTeam = null, page = 0){
                             panel.children[0].children[1].textContent = "All Star Break";
 
 
+
+                            panel.children[1].children[1].innerText = "Sim To Game";
                             panel.children[1].children[0].onclick = () => simToDay(41, false);
                             panel.children[1].children[1].onclick = () => simToDay(41, true);
                         });
@@ -824,8 +841,9 @@ function updateCalender(chosenTeam = null, page = 0){
 
 
                                 panel.children[1].children[0].onclick = () => displayPastGame(teams[0], teams[1], thisDay);
+                                panel.children[1].children[1].onclick = () => displayPlayByPlay(teams[0], thisDay);
                                 panel.children[1].children[0].innerText = "Box Score"
-                                panel.children[1].children[1].style.display = "none";
+                                panel.children[1].children[1].innerText = "Play by Play";
                             }
                         });
                         
@@ -851,7 +869,7 @@ function updateCalender(chosenTeam = null, page = 0){
                                 panel.children[0].children[1].textContent = "Day " + thisDay;
 
                                 panel.children[1].children[0].innerText = "Sim To Game w/o display"
-                                panel.children[1].children[1].style.display = "block";
+                                panel.children[1].children[1].innerText = "Sim To Game";
                                 panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
                                 panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
                             }
@@ -962,8 +980,9 @@ function updateCalender(chosenTeam = null, page = 0){
 
 
                                 panel.children[1].children[0].onclick = () => displayPastGame(teams[0], teams[1], thisDay);
+                                panel.children[1].children[1].onclick = () => displayPlayByPlay(teams[0], thisDay);
                                 panel.children[1].children[0].innerText = "Box Score"
-                                panel.children[1].children[1].style.display = "none";
+                                panel.children[1].children[1].innerText = "Play by Play";
                             }
                         });
                     })
@@ -989,7 +1008,7 @@ function updateCalender(chosenTeam = null, page = 0){
 
 
                                 panel.children[1].children[0].innerText = "Sim To Game w/o display"
-                                panel.children[1].children[1].style.display = "block";
+                                panel.children[1].children[1].innerText = "Sime To Game";
                                 panel.children[1].children[0].onclick = () => simToDay(thisDay, false);
                                 panel.children[1].children[1].onclick = () => simToDay(thisDay, true);
                             }
@@ -1187,6 +1206,7 @@ export function save(players, teams, news = false){
         delete copy.pf;
         delete copy.c;
         delete copy.sixthMan;
+        delete copy.storedGames;
         return copy;
     });
 
@@ -1728,19 +1748,22 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team2.setPositions();
 
     hasBallPlayer = team1.pg;
+    playByPlay.push("QUARTER 1, " + team1.name + ": 0 vs. " + team2.name + ": 0");
     for (let i = 0; i < theTime; i++){ //Quarter 1
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % subFreq === 0){
+        if (i % subFreq === 0 && i !== 0){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
     subbing(quarter + 1, 0, team1, team2, team1, true);
 
     quarter += 1;
+    let teamScores = findTotalScore(team1, team2);
+    playByPlay.push("QUARTER 2, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 2
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1754,6 +1777,8 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     subbing(quarter + 1, 0, team1, team2, team2, true);
 
     quarter += 1;
+    teamScores = findTotalScore(team1, team2);
+    playByPlay.push("QUARTER 3, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 3
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1767,6 +1792,8 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     subbing(quarter + 1, 0, team1, team2, team2);
 
     quarter += 1;
+    teamScores = findTotalScore(team1, team2);
+    playByPlay.push("QUARTER 4, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 4
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1778,7 +1805,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         }
     }
 
-    let teamScores = findTotalScore(team1, team2);
+    teamScores = findTotalScore(team1, team2);
     while (true) { 
         if (teamScores[0] > teamScores[1]){
             if (!playOff){
@@ -1822,6 +1849,8 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         }else{ //Overtime
             subbing(quarter, 0, team1, team2, team1, true);
             quarter += 1;
+            teamScores = findTotalScore(team1, team2);
+            playByPlay.push("OVERTIME, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
             for (let i = 0; i < 240; i++){ //OT
                 hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], 300, playByPlay) //300 bc clutch players active whole time in OT
                 if (i % 20 === 0){
@@ -1841,8 +1870,8 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     offRate = Number((teamScores[1] / team2.possesions).toFixed(3));
     team2.totalOffensiveRating += offRate;
     
-    team1.storeGame(day, teamScores[0]);
-    team2.storeGame(day, teamScores[1]);
+    team1.storeGame(day, teamScores[0], playByPlay);
+    team2.storeGame(day, teamScores[1], playByPlay);
 
     if (display === true){
         displayGame(team1, team2, teamScores[0], teamScores[1], playOff);
@@ -1876,7 +1905,6 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             player.resetAllStar();
         });
     }
-    console.log(playByPlay)
 }
 
 
