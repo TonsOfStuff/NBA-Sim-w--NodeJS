@@ -206,8 +206,8 @@ export class Team{
         playersCopy.splice(playersCopy.indexOf(this.sg), 1);
 
         this.c = playersCopy.reduce((best, current) => {
-            const bestSum = best.height + best.inside;
-            const currentSum = current.inside + current.height;
+            const bestSum = Math.pow(best.height, 2) + best.inside;
+            const currentSum = current.inside + Math.pow(current.height, 2);
             return currentSum > bestSum ? current : best;
         });
         playersCopy.splice(playersCopy.indexOf(this.c), 1);

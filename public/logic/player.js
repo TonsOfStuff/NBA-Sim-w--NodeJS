@@ -371,10 +371,10 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1700;
-        const twoStress = 1750;
+        let insideStress = 1730;
+        const twoStress = 1790;
         const threeStress = 2110;
-        let drawFreeThrowAmount = 100;
+        let drawFreeThrowAmount = 150;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
             drawFreeThrowAmount -= 60;
@@ -498,7 +498,7 @@ export class Player{
                     return false;
                 }
             }else{
-                if (this.team.shotClock >= 10){
+                if (this.team.shotClock >= 5){
                     if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
                         if(defense.block(this, true)){
                             playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
@@ -729,7 +729,7 @@ export class Player{
                     return false;
                 }
             }else{
-                if (this.team.shotClock >= 10){
+                if (this.team.shotClock >= 5){
                     if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
                         if(defense.block(this, true)){
                             playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
@@ -1005,7 +1005,7 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
-        if (300 - this.passingAccuracy + this.ballControl > Math.random() * 12000){
+        if (300 - this.passingAccuracy + this.ballControl > Math.random() * 15000){
             this.tov += 1;
             this.hasBall = false;
             playByPlay.push(`${this.name} turns the ball over | TOV: ${this.tov}`);
@@ -1017,7 +1017,7 @@ export class Player{
             this.team.shotClock = 0;
             return;
         }
-        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 7000){
+        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 8000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;

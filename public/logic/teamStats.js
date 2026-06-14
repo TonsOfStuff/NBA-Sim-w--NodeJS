@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         selectedTeam = player.abr;
                         const panel = document.getElementById("playerPanel");
                         const body = document.getElementById("teamPlayerTBody");
+                        const startingLineup = document.getElementById("startingLineup");
 
                         const rosterCount = document.getElementById("rosterCount");
 
@@ -253,7 +254,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                         });
 
                         rosterCount.innerText = playerInTeam.length + "/15"
-                    
+                        
+                        startingLineup.innerHTML = "PG: " + player.startingLineupOne + "<br>SG: " + player.startingLineupTwo + "<br>SF: " + player.startingLineupThree + "<br>PF: " + player.startingLineupFour + "<br>C: " + player.startingLineupFive + "<br>6: " + player.sixManName;
+
                         editRoster.onclick = () => {
                             saveRoster.style.display = "block";
                             editRoster.style.display = "none";
