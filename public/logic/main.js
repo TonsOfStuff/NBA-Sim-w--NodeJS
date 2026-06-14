@@ -596,7 +596,7 @@ export function addLeagueHistory(winner, award, yearT){
 }
 
 //Global variables
-let hasBallPlayer = null;
+export let hasBallPlayer = null;
 export function hasBallPlayerSetter(player){
     hasBallPlayer = player;
 }
@@ -1695,10 +1695,13 @@ window.allStars = function(){
     updateCalender(focusedTeam)
 }
 
+export let playByPlay = [];
 export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, display = true, allStar = false){
 
     const team1 = chosenTeam1;
     const team2 = chosenTeam2;
+
+    playByPlay = [];
 
     team1.games += 1;
     team2.games += 1;
@@ -1726,12 +1729,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     hasBallPlayer = team1.pg;
     for (let i = 0; i < theTime; i++){ //Quarter 1
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % subFreq){
+        if (i % subFreq === 0){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -1739,12 +1742,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 2
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % subFreq){
+        if (i % subFreq === 0){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -1752,12 +1755,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 3
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % subFreq){
+        if (i % subFreq === 0){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -1765,12 +1768,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     for (let i = 0; i < theTime; i++){ //Quarter 4
-        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+        hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
             team1.updateMin();
             team2.updateMin();
         }
-        if (i % subFreq){
+        if (i % subFreq === 0){
             subbing(quarter, i, team1, team2, hasBallPlayer.team)
         }
     }
@@ -1820,12 +1823,12 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             subbing(quarter, 0, team1, team2, team1, true);
             quarter += 1;
             for (let i = 0; i < 240; i++){ //OT
-                hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)])
+                hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], 300, playByPlay) //300 bc clutch players active whole time in OT
                 if (i % 20 === 0){
                     team1.updateMin();
                     team2.updateMin();
                 }
-                if (i % subFreq){
+                if (i % subFreq === 0){
                     subbing(quarter, i, team1, team2, hasBallPlayer.team)
                 }
             }
@@ -1872,8 +1875,11 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
         team2.players.forEach(player => {
             player.resetAllStar();
         });
-    }    
+    }
+    console.log(playByPlay)
 }
+
+
 
 function playOffs(){
     //Calc awards

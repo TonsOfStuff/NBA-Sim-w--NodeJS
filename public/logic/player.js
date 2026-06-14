@@ -1,4 +1,4 @@
-import { hasBallPlayerSetter, seasonHighPoints, seasonHighRebounds, seasonHighAssists, seasonHighSteals, seasonHighBlocks, seasonHighTov, seasonHighFga, seasonHighFgm, seasonHigh3Pa, seasonHigh3Pm, seasonHighFta, seasonHighFtm } from "./main.js";
+import { hasBallPlayer, hasBallPlayerSetter, playByPlay, seasonHighPoints, seasonHighRebounds, seasonHighAssists, seasonHighSteals, seasonHighBlocks, seasonHighTov, seasonHighFga, seasonHighFgm, seasonHigh3Pa, seasonHigh3Pm, seasonHighFta, seasonHighFtm } from "./main.js";
 
 export class Player{
     constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential){
@@ -363,7 +363,7 @@ export class Player{
         if (this.passedFromSomeone === false){
             defensiveImpact = this.offensiveAbility - defense.defensiveAbility * (Math.random() + 2);
         }else{
-            defensiveImpact = this.offensiveAbility + (this.passedFromSomeone.passingAccuracy - Math.random() * 30) - this.defensiveAbility * (Math.random() + 1.4)
+            defensiveImpact = this.offensiveAbility + (this.passedFromSomeone.passingAccuracy - Math.random() * 30) - defense.defensiveAbility * (Math.random() + 1.4)
         }
         let factor = 0;
         if (time > 180){
@@ -374,7 +374,7 @@ export class Player{
         let insideStress = 1700;
         const twoStress = 1750;
         const threeStress = 2110;
-        let drawFreeThrowAmount = 10;
+        let drawFreeThrowAmount = 100;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
             drawFreeThrowAmount -= 60;
@@ -399,706 +399,34 @@ export class Player{
             drawFreeThrowAmount -= 10;
         }
 
+        const shootingLocations = {
+            "Inside": [this.insideTen, this.inside, insideStress, 200, 0],
+            "Close": [this.closeTen, this.inside, twoStress, 200, 0],
+            "Left Elbow": [this.leftElbow, this.twoPt, twoStress, 500, 300],
+            "Right Elbow": [this.rightElbow, this.twoPt, twoStress, 500, 300],
+            "Left" : [this.leftTwo, this.twoPt, twoStress, 500, 300],
+            "Right": [this.rightTwo, this.twoPt, twoStress, 500, 300],
+            "Center": [this.center, this.twoPt, twoStress, 500, 300],
+            "Left Corner": [this.leftCorner, this.threePt, threeStress, 1500, 1000],
+            "Right Corner": [this.rightCorner, this.threePt, threeStress, 1500, 1000],
+            "Left Wing": [this.leftWing, this.threePt, threeStress, 1500, 1000],
+            "Right Wing": [this.rightWing, this.threePt, threeStress, 1500, 1000],
+            "Center Three": [this.centerThree, this.threePt, threeStress, 1500, 1000]
+        }
 
-        if (this.location === "Inside" && this.insideTen + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            if(defense.takeCharges > Math.random() * 10000){
-                this.fls += 1;
-                return true;
-            }
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.inside, 1.5) + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
+        if (this.location === "Inside" || this.location === "Close" || this.location === "Left Elbow" || this.location === "Right Elbow" || this.location === "Left" || this.location === "Right" || this.location === "Center"){
+            if (shootingLocations[this.location][0] + defensiveImpact >= Math.round(Math.random() * shootTend)){
+                if(defense.takeCharges > Math.random() * 10000){
+                    this.fls += 1;
+                    playByPlay.push(`${defense.name} draws a charge on ${this.name}`);
+                    return true;
                 }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Close" && this.closeTen + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            if(defense.takeCharges > Math.random() * 10000){
-                this.fls += 1;
-                return true;
-            }
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.inside, 1.5) + defensiveImpact >= Math.round(Math.random() * (insideStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 200)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Left Elbow" && this.leftElbow + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Right Elbow" && this.rightElbow + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Left" && this.leftTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Right" && this.rightTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Center" && this.centerTwo + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            if(defense.block(this)){
-                return false;
-            }
-            if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
-                this.fgm += 1;
-                this.pts += 2;
-                this.team.calcBoxMinus(2);
-                defense.team.calcBoxMinus(-2);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 2;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Left Corner" && this.leftCorner + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            this.tpa += 1;
-            if(defense.block(this, true)){
-                return false;
-            }
-            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
-                this.fgm += 1;
-                this.tpm += 1;
-                this.pts += 3;
-                this.team.calcBoxMinus(3);
-                defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 3;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Right Corner" && this.rightCorner + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            this.tpa += 1;
-            if(defense.block(this, true)){
-                return false;
-            }
-            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
-                this.fgm += 1;
-                this.tpm += 1;
-                this.pts += 3;
-                this.team.calcBoxMinus(3);
-                defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 3;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Left Wing" && this.leftWing + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            this.tpa += 1;
-            if(defense.block(this, true)){
-                return false;
-            }
-            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
-                this.fgm += 1;
-                this.tpm += 1;
-                this.pts += 3;
-                this.team.calcBoxMinus(3);
-                defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 3;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Right Wing" && this.rightWing + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            this.tpa += 1;
-            if(defense.block(this, true)){
-                return false;
-            }
-            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
-                this.fgm += 1;
-                this.tpm += 1;
-                this.pts += 3;
-                this.team.calcBoxMinus(3);
-                defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 3;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        else if (this.location === "Center Three" && this.centerThree + defensiveImpact >= Math.round(Math.random() * shootTend)){
-            this.fga += 1;
-            this.tpa += 1;
-            if(defense.block(this, true)){
-                return false;
-            }
-            if (Math.pow(this.threePt, 1.5) + defensiveImpact >= Math.round(Math.random() * (threeStress - factor))){
-                this.fgm += 1;
-                this.tpm += 1;
-                this.pts += 3;
-                this.team.calcBoxMinus(3);
-                defense.team.calcBoxMinus(-3);
-                if (this.passedFromSomeone) {
-                    if (this.passedFromSomeone.ast >= 1) {
-                        this.passedFromSomeone.ast += 1;
-                    } else {
-                        this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                    }
-                }
-                if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 1500)){
-                    defense.fls += 1;
-                    this.fta += 1;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }else{
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else{
-                //Fts
-                if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 1000){
-                    defense.fls += 1;
-                    this.fga -= 1;
-                    this.fta += 3;
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                    }
-                    if (this.freeThrow > Math.random() * freeThrowDiff){
-                        this.pts += 1;
-                        this.ftm += 1;
-                        this.team.calcBoxMinus(1);
-                        defense.team.calcBoxMinus(-1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }else{
-            if (Math.floor(Math.random()) === 0){
                 this.fga += 1;
-                if (Math.pow(this.twoPt, 1.5) + defensiveImpact >= Math.round(Math.random() * (twoStress - factor))){
+                if(defense.block(this)){
+                    playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot | Blk: ${defense.blk}`);
+                    return false;
+                }
+                if (Math.pow(shootingLocations[this.location][1], 1.5) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
                     this.fgm += 1;
                     this.pts += 2;
                     this.team.calcBoxMinus(2);
@@ -1110,47 +438,163 @@ export class Player{
                             this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
                         }
                     }
-                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + 500)){
+                
+                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
                         defense.fls += 1;
                         this.fta += 1;
+                        if (this.passedFromSomeone){
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt AND-ONE against ${defense.name} assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
+                        }else{
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt AND-ONE against ${defense.name} | Pts: ${this.pts}`);
+                        }
+                        
                         if (this.freeThrow > Math.random() * freeThrowDiff){
                             this.pts += 1;
                             this.ftm += 1;
                             this.team.calcBoxMinus(1);
                             defense.team.calcBoxMinus(-1);
+                            playByPlay.push(`${this.name} converts the free throw | Pts: ${this.pts}`);
                         }else{
+                            playByPlay.push(`${this.name} misses the free throw`);
                             return false;
+                        }
+                    }else{
+                        if (this.passedFromSomeone){
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
+                        }else{
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 | Pts: ${this.pts}`);
+                        }  
+                    }
+                    return true;
+                }else{
+                    //Fts
+                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][4])){
+                        playByPlay.push(`${this.name} can't hit the ${this.location.toLowerCase()} attempt but is fouled by ${defense.name}`)
+                        defense.fls += 1;
+                        this.fga -= 1;
+                        this.fta += 2;
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                        }else{
+                            playByPlay.push(`${this.name} misses the first free throw`);
+                        }
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                            playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
+                            return true;
+                        }else{
+                            playByPlay.push(`${this.name} misses the second free throw`);
+                        }
+                    }else{
+                        playByPlay.push(`${this.name} misses the ${this.location.toLowerCase()} attempt`);
+                    }
+                    return false;
+                }
+            }else{
+                this.pass(defense);
+                return "passed";
+            }
+        }else{
+            if(shootingLocations[this.location][0] + defensiveImpact >= Math.round(Math.random() * shootTend)){
+                this.fga += 1;
+                if(defense.block(this, true)){
+                    playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
+                    return false;
+                }
+                if (Math.pow(shootingLocations[this.location][1], 1.5) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
+                    this.fgm += 1;
+                    this.tpa += 1;
+                    this.tpm += 1;
+                    this.pts += 3;
+                    this.team.calcBoxMinus(3);
+                    defense.team.calcBoxMinus(-3);
+                    if (this.passedFromSomeone) {
+                        if (this.passedFromSomeone.ast >= 1) {
+                            this.passedFromSomeone.ast += 1;
+                        } else {
+                            this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
+                        }
+                    }
+                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
+                        defense.fls += 1;
+                        this.fta += 1;
+                        if (this.passedFromSomeone) {
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} 3-pointer AND-ONE against ${defense.name} assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
+                        } else {
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} 3-pointer AND-ONE against ${defense.name} | Pts: ${this.pts}`);
+                        }
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            playByPlay.push(`${this.name} converts the free throw | Pts: ${this.pts}`);
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                        }else{
+                            playByPlay.push(`${this.name} misses the free throw`);
+                            return false;
+                        }
+                    }else{
+                        if (this.passedFromSomeone) {
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
+                        } else {
+                            playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 | Pts: ${this.pts}`);
                         }
                     }
                     return true;
                 }
                 else{
                     //Fts
-                    if (this.drawFoul + defense.foul > Math.random() * drawFreeThrowAmount + 300){
+                    if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][4])){
+                        playByPlay.push(`${this.name} can't hit the ${this.location.toLowerCase()} attempt but is fouled by ${defense.name} and will shoot 3 free throws`);
                         defense.fls += 1;
                         this.fga -= 1;
-                        this.fta += 2;
+                        this.fta += 3;
                         if (this.freeThrow > Math.random() * freeThrowDiff){
                             this.pts += 1;
                             this.ftm += 1;
                             this.team.calcBoxMinus(1);
                             defense.team.calcBoxMinus(-1);
+                            playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
+                        }else{
+                            playByPlay.push(`${this.name} misses the first free throw`);
                         }
                         if (this.freeThrow > Math.random() * freeThrowDiff){
                             this.pts += 1;
                             this.ftm += 1;
                             this.team.calcBoxMinus(1);
                             defense.team.calcBoxMinus(-1);
+                            playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
+                        }else{
+                            playByPlay.push(`${this.name} misses the second free throw`);
+                        }
+                        if (this.freeThrow > Math.random() * freeThrowDiff){
+                            this.pts += 1;
+                            this.ftm += 1;
+                            this.team.calcBoxMinus(1);
+                            defense.team.calcBoxMinus(-1);
+                            playByPlay.push(`${this.name} hits the third free throw | Pts: ${this.pts}`);
                             return true;
+                        }else{
+                            playByPlay.push(`${this.name} misses the third free throw`);
                         }
+                    }else{
+                        playByPlay.push(`${this.name} misses the ${this.location.toLowerCase()} attempt`);
                     }
                     return false;
                 }
             }else{
-                this.pass(defense);
+                this.pass(defense)
+                return "passed";
             }
-            
         }
+
     }
 
     moving(defense){
@@ -1286,11 +730,13 @@ export class Player{
         if (300 - this.passingAccuracy + this.ballControl > Math.random() * 12000){
             this.tov += 1;
             this.hasBall = false;
+            playByPlay.push(`${this.name} turns the ball over | TOV: ${this.tov}`);
             const newPlayer = defense.otherTeammates[Math.floor(Math.random() * defense.otherTeammates.length)];
             hasBallPlayerSetter(newPlayer);
             newPlayer.hasBall = true;
             newPlayer.team.possesions += 1;
             this.team.shotClock = 0;
+            return;
         }
         else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 7000){
             this.tov += 1;
@@ -1299,14 +745,18 @@ export class Player{
             hasBallPlayerSetter(defense);
             defense.team.possesions += 1;
             defense.stl += 1;
+            playByPlay.push(`${defense.name} steals the ball from ${this.name} | STL: ${defense.stl}`);
             this.team.shotClock = 0;
+            return;
         }
         else{
             const passedTo = passingList[Math.floor(Math.random() * passingList.length)];
             passedTo.hasBall = true;
             hasBallPlayerSetter(passedTo);
             this.hasBall = false;
+            playByPlay.push(`${this.name} passes to ${passedTo.name}`);
             passedTo.passedFromSomeone = this;
+            return;
         }
 
 
@@ -1343,12 +793,14 @@ export class Player{
         rand = Math.random() * (oPToReb.offensiveReb * (oPToReb.arch.includes("Inside") ? 2 : 1) + dPToReb.defensiveReb * (dPToReb.arch.includes("Inside") ? 7 : 5));
         if (rand < dPToReb.defensiveReb) {
             oPToReb.oReb += 1;
+            playByPlay.push(`${oPToReb.name} grabs the offensive rebound | OReb: ${oPToReb.oReb}`);
             return oPToReb;
         } else {
-            if (Math.round(Math.random() * 4) > 1){
+            if (Math.round(Math.random() * 4) + 2 > 1){
                 dPToReb.dReb += 1;
             }   
             dPToReb.team.possesions += 1;
+            playByPlay.push(`${dPToReb.name} grabs the defensive rebound | DReb: ${dPToReb.dReb}`);
             return dPToReb;
         }
     }
@@ -1397,10 +849,12 @@ export class Player{
         if (passAmount > Math.random() * shootAmount && this.team.shotClock < 5){
             this.pass(defense);
             this.team.shotClock += 1;
+            return;
         }else{
             const shotOutcome = this.shooting(defense, time);
             if (shotOutcome === false){
                 this.passedFromSomeone = false;
+                this.hasBall = false;
                 const newPlayer = this.rebound(defense);
                 newPlayer.hasBall = true;
                 hasBallPlayerSetter(newPlayer);
@@ -1413,8 +867,12 @@ export class Player{
                 hasBallPlayerSetter(newPlayer);
                 newPlayer.hasBall = true;
                 this.team.shotClock = 0;
+            }else if (shotOutcome === "passed"){
+                this.passedFromSomeone = false;
+                this.team.shotClock += 1;
             }
         }
+        return;
     }
 
     statsUpdate(day){
