@@ -371,9 +371,9 @@ export class Player{
         }
         let shootTend = 100;
         
-        let insideStress = 1730;
-        const twoStress = 1790;
-        const threeStress = 2110;
+        let insideStress = 2190;
+        const twoStress = 1600;
+        const threeStress = 2300;
         let drawFreeThrowAmount = 150;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
@@ -400,8 +400,8 @@ export class Player{
         }
 
         const shootingLocations = {
-            "Inside": [this.insideTen, this.inside, insideStress, 200, 0],
-            "Close": [this.closeTen, this.inside, twoStress, 200, 0],
+            "Inside": [this.insideTen, this.inside, insideStress, 200, 50],
+            "Close": [this.closeTen, this.inside, insideStress, 200, 50],
             "Left Elbow": [this.leftElbow, this.twoPt, twoStress, 500, 300],
             "Right Elbow": [this.rightElbow, this.twoPt, twoStress, 500, 300],
             "Left" : [this.leftTwo, this.twoPt, twoStress, 500, 300],
@@ -1017,7 +1017,7 @@ export class Player{
             this.team.shotClock = 0;
             return;
         }
-        else if (500 - (this.passingAccuracy + this.passingTen + this.ballControl - defense.stealTen) > Math.random() * 8000){
+        else if (Math.pow(this.stealTen, 2) - (this.passingAccuracy + this.passingTen + this.ballControl) > Math.random() * 100000){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
@@ -1125,7 +1125,7 @@ export class Player{
         const passAmount = passingInfluence * fatiguePenalty;
         const shootAmount = usageBias * passTenInfluence;  
 
-        if (passAmount > Math.random() * shootAmount && this.team.shotClock < 5){
+        if (passAmount > Math.random() * shootAmount && this.team.shotClock < 3){
             this.pass(defense);
             this.team.shotClock += 1;
             return;
