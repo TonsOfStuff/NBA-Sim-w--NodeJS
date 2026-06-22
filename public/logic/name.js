@@ -20,8 +20,9 @@ export let fn = ["Robert", "James", "Tom", "Thomas", "Malone", "Max", "Darious",
     "Russell", "Buddy", "Bud", "Duncan", "Coby", "Ferdinand", "Karl", "Carl", "Abe", "Aaron", "Eren", 
     "Terry", "Garry", "Woodrow", "Clark", "Sebastion", "Steve", "Steven", "Chuck", "Zane", "Ty", "Tyrone", "Luca",
     "Lance", "Stephon", "Stephen", "Rudy", "Clyde", "Dexter", "Jaylen", "Hayden", "Jalen", "Terrance", "Dante",
-    "Andre", "Steph", "Cam", "Kendrick", "Cooper", "Coop", "Carter", "Kaiden", "Shaedon", "Russell", "Carmelo", "Koby",
-    "Kai", "Aiden", "Dylan", "Dennis", "Denis", "Contavious", "Dan", "Arthur", "Liam", "Noah", "Oliver", "Theo", "Theodore"
+    "Andre", "Steph", "Cam", "Kendrick", "Cooper", "Carter", "Kaiden", "Shaedon", "Russell", "Carmelo", "Koby",
+    "Kai", "Aiden", "Dylan", "Dennis", "Denis", "Contavious", "Dan", "Arthur", "Liam", "Noah", "Oliver", "Theo", "Theodore",
+    "Jerice", "Jermaine", "Jaxson", ""
 ]
 
 export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mase", "Hilm", "Monroe", "Obama", 
@@ -38,5 +39,6 @@ export let ln = ["Williams", "Garland", "Brooks", "Banks", "James", "Bail", "Mas
     "Clark", "Perkins", "Hendrick", "Wayne", "Butler", "Lincoln", "Borris", "June", "Terry", "Woodrow", 
     "Wilson", "Dent", "Adams", "Sharon", "Mullin", "Maw", "Stephonson", "Stevenson", "Robertson", "Christianson",
     "Hurtz", "Hertz", "Brown", "Bowen", "McConnell", "Shannon", "Shannon Jr", "Quake", "Drummond", "Wilder", "Whitmore",
-    "Hall", "Wall", "Clayton", "Clayton Jr", "Harper", "Caldwell", "Post", "Aspinall", "Banchero", "Young", "Brunson"
+    "Hall", "Wall", "Clayton", "Clayton Jr", "Harper", "Caldwell", "Post", "Aspinall", "Banchero", "Young", "Brunson", "Cassell", "Vassell",
+    "Hansen", "Hawkins", "Henderson"
 ]

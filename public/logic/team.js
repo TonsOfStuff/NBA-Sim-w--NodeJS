@@ -224,15 +224,11 @@ export class Team{
 
 
     sub(quarter, time, team1Score, team2Score, team1, team2, insertStart = false){
-        let smartSubNum = 6;
+        let smartSubNum = 8;
         let blowout = false;
-        if (quarter >= 4 && team1Score - team2Score > 15 && team1 === this){
+        if (Math.abs(team1Score - team2Score) > 15){
             smartSubNum = this.players.length;
             blowout = true;
-        }
-        if (quarter >= 4 && team2Score - team1Score > 15 && team2 === this){
-            smartSubNum = this.players.length;
-            blowout = false;
         }
         this.lineup.forEach(player => {
             player.hasBall = false;
@@ -243,8 +239,9 @@ export class Team{
         this.lineup = [];
 
         if (insertStart === false){
-            let top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 8 + b.boxMinus * 1.2 + b.usage / 10) - ((a.stamina - a.energyUsed) / 8 + a.boxMinus * 1.2 + a.usage / 10)).slice(0, smartSubNum);
+            let top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 8 + b.boxMinus / 5 + b.usage / 3 + b.ovr / 2 + b.ptsAvg * 10) - ((a.stamina - a.energyUsed) / 8 + a.boxMinus / 5 + a.usage / 3 + a.ovr / 2 * a.ptsAvg * 10)).slice(0, smartSubNum);
             if (blowout === true){
+                top = this.players.sort((a, b) => ((b.stamina - b.energyUsed) / 8 + b.boxMinus / 5 + b.usage / 3 + b.ovr / 2) - ((a.stamina - a.energyUsed) / 8 + a.boxMinus / 5 + a.usage / 3 + a.ovr / 2)).slice(0, smartSubNum);
                 top.reverse();
             }
             top.push(top[0]);

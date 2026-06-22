@@ -35,7 +35,8 @@ export let shooterStats = {
   drawFoul: [5, 10],
   clutch: [30, 60],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };
 
 export let defensiveStats = {
@@ -75,7 +76,8 @@ export let defensiveStats = {
   drawFoul: [10, 30],
   clutch: [30, 60],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };
 
 export let slasherStats = {
@@ -115,7 +117,8 @@ export let slasherStats = {
   drawFoul: [20, 30],
   clutch: [40, 70],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };
 
 export let twoWayStats = {
@@ -155,7 +158,8 @@ export let twoWayStats = {
   drawFoul: [15, 30],
   clutch: [40, 70],
   usage: [65, 80],
-  potential: [65, 85]
+  potential: [65, 85],
+  consistency: [50, 80]
 };
 
 export let postPlayerStats = {
@@ -195,7 +199,8 @@ export let postPlayerStats = {
   drawFoul: [10, 25],
   clutch: [30, 65],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };
 
 export let insideStats = {
@@ -235,7 +240,8 @@ export let insideStats = {
   drawFoul: [15, 30],
   clutch: [35, 70],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };
 
 export let playmakerStats = {
@@ -275,7 +281,8 @@ export let playmakerStats = {
   drawFoul: [15, 30],
   clutch: [40, 80],
   usage: [65, 80],
-  potential: [60, 85]
+  potential: [60, 85],
+  consistency: [50, 80]
 };
 
 export let allAroundStats = {
@@ -315,5 +322,6 @@ export let allAroundStats = {
   drawFoul: [15, 30],
   clutch: [35, 75],
   usage: [65, 80],
-  potential: [60, 80]
+  potential: [60, 80],
+  consistency: [50, 80]
 };

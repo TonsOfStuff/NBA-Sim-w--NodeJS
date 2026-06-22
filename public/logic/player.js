@@ -1,7 +1,7 @@
 import { hasBallPlayer, hasBallPlayerSetter, playByPlay, seasonHighPoints, seasonHighRebounds, seasonHighAssists, seasonHighSteals, seasonHighBlocks, seasonHighTov, seasonHighFga, seasonHighFgm, seasonHigh3Pa, seasonHigh3Pm, seasonHighFta, seasonHighFtm } from "./main.js";
 
 export class Player{
-    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential){
+    constructor(name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, consistency, height, foul, drawFoul, clutch, usage, potential){
         this.name = name;
         this.arch = arch;
 
@@ -53,6 +53,7 @@ export class Player{
         this.foul = foul;
         this.drawFoul = drawFoul;
         this.clutch = clutch;
+        this.consistency = consistency;
         this.usage = usage;
         this.potential = potential;
 
@@ -367,14 +368,20 @@ export class Player{
         }
         let factor = 0;
         if (time > 180){
-            factor = Math.round(this.clutch * 0.3);
+            factor = this.clutch;
+        }
+        if (this.fgm / this.fga <= this.consistency / 100 / 2.2 && time < 180){ //To prevent ridiculous shooting slumps
+            factor += 1000;
         }
         let shootTend = 100;
-        
-        let insideStress = 2190;
-        const twoStress = 1600;
-        const threeStress = 2300;
-        let drawFreeThrowAmount = 150;
+        if (this.team.startingLineup.includes(this)){
+            shootTend += 20;
+        }
+
+        let insideStress = 380;
+        const twoStress = 380;
+        const threeStress = 2600;
+        let drawFreeThrowAmount = 100;
         this.team.startingLineup.sort((a,b) => b.avgPts - a.avgPts);
         if (this.team.startingLineup.indexOf(this) === 0){
             drawFreeThrowAmount -= 60;
@@ -400,8 +407,8 @@ export class Player{
         }
 
         const shootingLocations = {
-            "Inside": [this.insideTen, this.inside, insideStress, 200, 50],
-            "Close": [this.closeTen, this.inside, insideStress, 200, 50],
+            "Inside": [this.insideTen, this.inside, insideStress, 500, 150],
+            "Close": [this.closeTen, this.inside, twoStress, 500, 200],
             "Left Elbow": [this.leftElbow, this.twoPt, twoStress, 500, 300],
             "Right Elbow": [this.rightElbow, this.twoPt, twoStress, 500, 300],
             "Left" : [this.leftTwo, this.twoPt, twoStress, 500, 300],
@@ -426,7 +433,7 @@ export class Player{
                     playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot | Blk: ${defense.blk}`);
                     return false;
                 }
-                if (Math.pow(shootingLocations[this.location][1], 1.5) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
+                if (Math.pow(shootingLocations[this.location][1], 1.1) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
                     this.fgm += 1;
                     this.pts += 2;
                     this.team.calcBoxMinus(2);
@@ -499,31 +506,16 @@ export class Player{
                 }
             }else{
                 if (this.team.shotClock >= 5){
-                    if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
-                        if(defense.block(this, true)){
-                            playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
-                            return false;
-                        }
-                    }else{
-                        if(defense.block(this)){
-                            playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot | Blk: ${defense.blk}`);
-                            return false;
-                        }
+                    if(defense.block(this)){
+                        playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot | Blk: ${defense.blk}`);
+                        return false;
                     }
-                    
-                    if (Math.pow(shootingLocations[this.location][1], 1.5) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
+                    this.fga += 1;
+                    if (Math.pow(shootingLocations[this.location][1], 1.1) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
                         this.fgm += 1;
-                        if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
-                            this.pts += 3;
-                            this.tpa += 1;
-                            this.tpm += 1;
-                            this.team.calcBoxMinus(3);
-                            defense.team.calcBoxMinus(-3);
-                        }else{
-                            this.pts += 2;
-                            this.team.calcBoxMinus(2);
-                            defense.team.calcBoxMinus(-2);
-                        }
+                        this.pts += 2;
+                        this.team.calcBoxMinus(2);
+                        defense.team.calcBoxMinus(-2);
                         
                         if (this.passedFromSomeone) {
                             if (this.passedFromSomeone.ast >= 1) {
@@ -554,17 +546,10 @@ export class Player{
                             }
                         }else{
                             if (this.passedFromSomeone){
-                                if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
-                                }else{
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
-                                }
+                                playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
+                                
                             }else{
-                                if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 | Pts: ${this.pts}`);
-                                }else{
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 | Pts: ${this.pts}`);
-                                }
+                                playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 | Pts: ${this.pts}`);
                             }  
                         }
                         return true;
@@ -574,62 +559,25 @@ export class Player{
                             playByPlay.push(`${this.name} can't hit the ${this.location.toLowerCase()} attempt but is fouled by ${defense.name}`)
                             defense.fls += 1;
                             this.fga -= 1;
-                            if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                this.tpa -= 1;
-                                this.fta += 3;
+                            this.fta += 2;
+                            if (this.freeThrow > Math.random() * freeThrowDiff){
+                                this.pts += 1;
+                                this.ftm += 1;
+                                playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
+                                this.team.calcBoxMinus(1);
+                                defense.team.calcBoxMinus(-1);
                             }else{
-                                this.fta += 2;
+                                playByPlay.push(`${this.name} misses the first free throw`);
                             }
-                            if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
-                                }else{
-                                    playByPlay.push(`${this.name} misses the first free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the second free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the third free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the third free throw`);
-                                }
+                            if (this.freeThrow > Math.random() * freeThrowDiff){
+                                this.pts += 1;
+                                this.ftm += 1;
+                                this.team.calcBoxMinus(1);
+                                defense.team.calcBoxMinus(-1);
+                                playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
+                                return true;
                             }else{
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                }else{
-                                    playByPlay.push(`${this.name} misses the first free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the second free throw`);
-                                }
+                                playByPlay.push(`${this.name} misses the second free throw`);
                             }
                         }else{
                             playByPlay.push(`${this.name} misses the ${this.location.toLowerCase()} attempt`);
@@ -694,6 +642,7 @@ export class Player{
                         playByPlay.push(`${this.name} can't hit the ${this.location.toLowerCase()} attempt but is fouled by ${defense.name} and will shoot 3 free throws`);
                         defense.fls += 1;
                         this.fga -= 1;
+                        this.tpa -= 1;
                         this.fta += 3;
                         if (this.freeThrow > Math.random() * freeThrowDiff){
                             this.pts += 1;
@@ -730,31 +679,18 @@ export class Player{
                 }
             }else{
                 if (this.team.shotClock >= 5){
-                    if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
-                        if(defense.block(this, true)){
-                            playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
-                            return false;
-                        }
-                    }else{
-                        if(defense.block(this)){
-                            playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot | Blk: ${defense.blk}`);
-                            return false;
-                        }
+                    if(defense.block(this, true)){
+                        playByPlay.push(`${defense.name} blocks ${this.name}'s ${this.location.toLowerCase()} shot`);
+                        return false;
                     }
-                    
+                    this.fga += 1;
+                    this.tpa += 1;
                     if (Math.pow(shootingLocations[this.location][1], 1.5) + defensiveImpact >= Math.round(Math.random() * (shootingLocations[this.location][2] - factor))){
                         this.fgm += 1;
-                        if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three"){
-                            this.pts += 3;
-                            this.tpa += 1;
-                            this.tpm += 1;
-                            this.team.calcBoxMinus(3);
-                            defense.team.calcBoxMinus(-3);
-                        }else{
-                            this.pts += 2;
-                            this.team.calcBoxMinus(2);
-                            defense.team.calcBoxMinus(-2);
-                        }
+                        this.pts += 3;
+                        this.tpm += 1;
+                        this.team.calcBoxMinus(3);
+                        defense.team.calcBoxMinus(-3);
                         
                         if (this.passedFromSomeone) {
                             if (this.passedFromSomeone.ast >= 1) {
@@ -785,17 +721,9 @@ export class Player{
                             }
                         }else{
                             if (this.passedFromSomeone){
-                                if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
-                                }else{
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
-                                }
+                                playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 assisted by ${this.passedFromSomeone.name} | Pts: ${this.pts}`);
                             }else{
-                                if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 | Pts: ${this.pts}`);
-                                }else{
-                                    playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 2 | Pts: ${this.pts}`);
-                                }
+                                playByPlay.push(`${this.name} hits the ${this.location.toLowerCase()} attempt for 3 | Pts: ${this.pts}`);
                             }  
                         }
                         return true;
@@ -805,62 +733,36 @@ export class Player{
                             playByPlay.push(`${this.name} can't hit the ${this.location.toLowerCase()} attempt but is fouled by ${defense.name}`)
                             defense.fls += 1;
                             this.fga -= 1;
-                            if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                this.tpa -= 1;
-                                this.fta += 3;
+                            this.tpa -= 1;
+                            this.fta += 3;
+                            if (this.freeThrow > Math.random() * freeThrowDiff){
+                                this.pts += 1;
+                                this.ftm += 1;
+                                playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
+                                this.team.calcBoxMinus(1);
+                                defense.team.calcBoxMinus(-1);
                             }else{
-                                this.fta += 2;
+                                playByPlay.push(`${this.name} misses the first free throw`);
                             }
-                            if (this.location === "Left Corner" || this.location === "Right Corner" || this.location === "Left Wing" || this.location === "Right Wing" || this.location === "Center Three") {
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                }else{
-                                    playByPlay.push(`${this.name} misses the first free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the second free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the third free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the third free throw`);
-                                }
+                            if (this.freeThrow > Math.random() * freeThrowDiff){
+                                this.pts += 1;
+                                this.ftm += 1;
+                                this.team.calcBoxMinus(1);
+                                defense.team.calcBoxMinus(-1);
+                                playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
+                                return true;
                             }else{
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    playByPlay.push(`${this.name} hits the first free throw | Pts: ${this.pts}`);
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                }else{
-                                    playByPlay.push(`${this.name} misses the first free throw`);
-                                }
-                                if (this.freeThrow > Math.random() * freeThrowDiff){
-                                    this.pts += 1;
-                                    this.ftm += 1;
-                                    this.team.calcBoxMinus(1);
-                                    defense.team.calcBoxMinus(-1);
-                                    playByPlay.push(`${this.name} hits the second free throw | Pts: ${this.pts}`);
-                                    return true;
-                                }else{
-                                    playByPlay.push(`${this.name} misses the second free throw`);
-                                }
+                                playByPlay.push(`${this.name} misses the second free throw`);
+                            }
+                            if (this.freeThrow > Math.random() * freeThrowDiff){
+                                this.pts += 1;
+                                this.ftm += 1;
+                                this.team.calcBoxMinus(1);
+                                defense.team.calcBoxMinus(-1);
+                                playByPlay.push(`${this.name} hits the third free throw | Pts: ${this.pts}`);
+                                return true;
+                            }else{
+                                playByPlay.push(`${this.name} misses the third free throw`);
                             }
                         }else{
                             playByPlay.push(`${this.name} misses the ${this.location.toLowerCase()} attempt`);
@@ -968,7 +870,7 @@ export class Player{
         if (this.arch.includes("Two-way")){
             blockFactor -= 10;
         }
-        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 1.5) + this.hustle + this.vertical - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 25000){
+        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 2) + this.hustle + this.vertical - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 70000){
             if (Math.random() * 100 < this.blockTen){
                 this.blk += 1;
                 return true;
@@ -1075,7 +977,7 @@ export class Player{
             playByPlay.push(`${oPToReb.name} grabs the offensive rebound | OReb: ${oPToReb.oReb}`);
             return oPToReb;
         } else {
-            if (Math.round(Math.random() * 4) + 2 > 1){
+            if (Math.round(Math.random() * 4) > 1){
                 dPToReb.dReb += 1;
             }   
             dPToReb.team.possesions += 1;
@@ -1110,7 +1012,7 @@ export class Player{
             passTen += 56;
         }
 
-        if (this.fga > 29){
+        if (this.fga > 20){
             passTen -= 40;
         }
         if (this.pts > 30){
@@ -1120,12 +1022,12 @@ export class Player{
         const passTenInfluence = Math.exp(passTen / 47);                      
 
         const usageBias = this.usage                          
-        const fatiguePenalty = Math.pow(this.fga, 1.4); 
+        const fatiguePenalty = Math.pow(this.fga, 1.3); 
 
         const passAmount = passingInfluence * fatiguePenalty;
         const shootAmount = usageBias * passTenInfluence;  
 
-        if (passAmount > Math.random() * shootAmount && this.team.shotClock < 3){
+        if (passAmount > Math.random() * shootAmount && this.team.shotClock < 4){
             this.pass(defense);
             this.team.shotClock += 1;
             return;
