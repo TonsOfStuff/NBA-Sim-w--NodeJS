@@ -342,7 +342,15 @@ export class Player{
     }
 
     calcOvr() {
-        this.ovr = Math.round((this.twoPt + this.threePt + this.inside + this.freeThrow + this.offensiveAbility + this.defensiveAbility + this.defensiveReb + this.offensiveReb + this.blockTen + this.stealTen + this.passingAccuracy + this.passingEff + this.ballControl + this.catching + this.vertical + this.hustle + this.stamina + this.clutch + this.potential) / 16);
+        let reboundBonus = 1
+        if (this.height > 81 || this.arch.includes("Post-player")){
+            reboundBonus += 2
+        }
+        let assistBonus = 1
+        if (this.arch.includes("Playmaker")){
+            assistBonus += 2
+        }
+        this.ovr = Math.round((this.twoPt + this.threePt + this.inside + this.freeThrow + this.offensiveAbility + this.defensiveAbility + Math.round(this.defensiveReb / reboundBonus) + Math.round(this.offensiveReb / reboundBonus) + this.blockTen + this.stealTen + Math.round(this.passingAccuracy / assistBonus) + this.passingEff + this.ballControl + this.catching + this.vertical + this.hustle + this.stamina + this.clutch + this.potential + this.consistency + this.usage + this.drawFoul) / 18);
         /*
         if (this.ovr > 99){
             this.ovr = 99;
@@ -439,11 +447,8 @@ export class Player{
                     this.team.calcBoxMinus(2);
                     defense.team.calcBoxMinus(-2);
                     if (this.passedFromSomeone) {
-                        if (this.passedFromSomeone.ast >= 1) {
-                            this.passedFromSomeone.ast += 1;
-                        } else {
-                            this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                        }
+                        this.passedFromSomeone.ast += 1;
+
                     }
                 
                     if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -518,11 +523,7 @@ export class Player{
                         defense.team.calcBoxMinus(-2);
                         
                         if (this.passedFromSomeone) {
-                            if (this.passedFromSomeone.ast >= 1) {
-                                this.passedFromSomeone.ast += 1;
-                            } else {
-                                this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                            }
+                            this.passedFromSomeone.ast += 1;
                         }
                     
                         if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -603,11 +604,7 @@ export class Player{
                     this.team.calcBoxMinus(3);
                     defense.team.calcBoxMinus(-3);
                     if (this.passedFromSomeone) {
-                        if (this.passedFromSomeone.ast >= 1) {
-                            this.passedFromSomeone.ast += 1;
-                        } else {
-                            this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                        }
+                        this.passedFromSomeone.ast += 1;
                     }
                     if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
                         defense.fls += 1;
@@ -693,11 +690,7 @@ export class Player{
                         defense.team.calcBoxMinus(-3);
                         
                         if (this.passedFromSomeone) {
-                            if (this.passedFromSomeone.ast >= 1) {
-                                this.passedFromSomeone.ast += 1;
-                            } else {
-                                this.passedFromSomeone.ast += Math.round(Math.random() * ((this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) / passBias)) + 1;
-                            }
+                            this.passedFromSomeone.ast += 1;
                         }
                     
                         if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -862,7 +855,7 @@ export class Player{
     block(offense, three = false){
         let blockFactor = 0;
         if (three === true){
-            blockFactor = 80;
+            blockFactor = 100;
         }
         if (this.arch.includes("Defensive")){
             blockFactor -= 20;
@@ -870,7 +863,10 @@ export class Player{
         if (this.arch.includes("Two-way")){
             blockFactor -= 10;
         }
-        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 2) + this.hustle + this.vertical - offense.ballControl - offense.offensiveAbility - blockFactor > Math.random() * 70000){
+        if (this.defensiveAbility > 90){
+            blockFactor -= 10;
+        }
+        if (Math.pow(this.blockTen, 2) + Math.pow(this.height, 2) > Math.random() * (70000 - this.hustle - this.vertical + offense.ballControl + offense.offensiveAbility + blockFactor)){
             if (Math.random() * 100 < this.blockTen){
                 this.blk += 1;
                 return true;
@@ -907,6 +903,16 @@ export class Player{
         }
 
         //Check for ball turning over and if defense steals it
+        let stealFactor = 0;
+        if (defense.arch.includes("Defensive")){
+            stealFactor -= 20;
+        }
+        if (defense.arch.includes("Two-way")){
+            stealFactor -= 10;
+        }
+        if (defense.defensiveAbility > 90){
+            stealFactor -= 10;
+        }
         if (300 - this.passingAccuracy + this.ballControl > Math.random() * 15000){
             this.tov += 1;
             this.hasBall = false;
@@ -919,7 +925,7 @@ export class Player{
             this.team.shotClock = 0;
             return;
         }
-        else if (Math.pow(this.stealTen, 2) - (this.passingAccuracy + this.passingTen + this.ballControl) > Math.random() * 100000){
+        else if (Math.pow(defense.stealTen, 2) > Math.random() * (185000 + this.passingAccuracy + this.ballControl + this.passingEff + stealFactor)){
             this.tov += 1;
             this.hasBall = false;
             defense.hasBall = true;
@@ -1013,10 +1019,10 @@ export class Player{
         }
 
         if (this.fga > 20){
-            passTen -= 40;
+            passTen -= 60;
         }
         if (this.pts > 30){
-            passTen -= 40;
+            passTen -= 80;
         }
         const passingInfluence = this.passingTen * 50          
         const passTenInfluence = Math.exp(passTen / 47);                      

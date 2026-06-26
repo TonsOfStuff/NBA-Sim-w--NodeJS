@@ -433,7 +433,7 @@ const wemby = new Player("Victor Wembanyama", "Two-way Defensive", 97, 91, 99, 9
 const doncic = new Player("Luka Doncic", "All Playmakers", 98, 96, 94, 86, 99, 62, 78, 56, 32, 44, 12, 41, 98, 99, 82, 88, 92, 92, 50, 12, 95, 90, 96, 88, 91, 90, 32, 99, 42, 33, 98, 87, 78, 38, 49, 99, 99, 99);
 const jokic = new Player("Nikola Jokic", "Playmaker Inside", 97, 94, 98, 84, 99, 73, 93, 90, 34, 13, 33, 41, 99, 99, 93, 81, 99, 99, 72, 80, 10, 2, 65, 82, 55, 55, 88, 60, 23, 41, 95, 98, 83, 38, 40, 97, 99, 99);
 const giannis = new Player("Giannis Antetokounmpo", "Inside All", 95, 79, 99, 70, 99, 93, 80, 72, 89, 53, 34, 41, 74, 86, 83, 82, 99, 99, 90, 90, 1, 1, 1, 2, 30, 33, 22, 10, 80, 84, 89, 94, 83, 36, 50, 97, 97, 99);
-const shai = new Player("Shai Gilgeous Alexander", "Slasher", 90, 87, 94, 90, 92, 78, 25, 17, 66, 80, 21, 37, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 81, 66, 93, 98, 78, 36, 53, 95, 97, 99);
+const shai = new Player("Shai Gilgeous Alexander", "Slasher", 98, 87, 94, 90, 92, 78, 25, 17, 66, 80, 21, 33, 23, 14, 92, 90, 90, 83, 89, 89, 18, 17, 29, 37, 82, 79, 93, 6, 81, 66, 93, 98, 78, 36, 53, 95, 98, 99);
 const tatum = new Player("Jayson Tatum", "All Two-way", 95, 92, 94, 85, 93, 87, 34, 24, 75, 79, 44, 37, 82, 35, 82, 90, 94, 90, 86, 72, 13, 15, 82, 80, 34, 90, 32, 99, 75, 63, 81, 85, 80, 40, 34, 89, 92, 97);
 const ant = new Player("Anthony Edwards", "Slasher Shooter", 92, 96, 97, 83, 96, 80, 23, 19, 80, 75, 10, 34, 56, 28, 93, 90, 99, 93, 25, 29, 39, 59, 90, 82, 98, 93, 70, 34, 96, 22, 90, 88, 76, 41, 39, 93, 90, 99);
 const oscar = new Player("Oscar Robertson", "All Playmaker", 94, 83, 97, 90, 97, 53, 60, 32, 33, 72, 10, 48, 94, 96, 92, 87, 90, 97, 94, 99, 32, 10, 4, 7, 30, 33, 55, 11, 66, 69, 77, 90, 77, 33, 37, 92, 96, 99);
@@ -449,7 +449,7 @@ const brunson = new Player("Jalen Brunson", "Shooter Slasher", 94, 94, 90, 89, 9
 const jimmyButler = new Player("Jimmy Butler", "Two-way Slasher", 96, 85, 91, 85, 94, 94, 48, 35, 58, 85, 45, 41, 78, 72, 88, 91, 89, 88, 77, 76, 31, 28, 62, 58, 82, 93, 90, 40, 78, 94, 92, 82, 79, 35, 40, 95, 86, 97);
 const traeYoung = new Player("Trae Young", "Playmaker Shooter", 85, 96, 72, 90, 92, 58, 12, 9, 18, 45, 28, 42, 88, 85, 98, 80, 70, 58, 64, 69, 93, 87, 92, 91, 55, 42, 70, 95, 32, 41, 85, 80, 73, 20, 32, 89, 83, 96);
 const demarDeRozan = new Player("DeMar DeRozan", "Slasher Shooter", 95, 75, 93, 84, 92, 73, 22, 18, 22, 50, 30, 36, 58, 60, 86, 88, 93, 91, 95, 93, 35, 38, 72, 70, 92, 88, 86, 20, 74, 65, 90, 84, 78, 30, 33, 90, 87, 94);
-const paulGeorge = new Player("Paul George", "Two-way Shooter", 92, 91, 86, 87, 91, 92, 42, 9, 52, 87, 35, 40, 58, 32, 87, 90, 84, 84, 89, 87, 91, 90, 84, 81, 84, 83, 83, 64, 76, 70, 87, 84, 80, 32, 36, 92, 88, 95);
+const paulGeorge = new Player("Paul George", "Two-way Shooter", 90, 86, 86, 87, 88, 83, 42, 9, 52, 87, 35, 40, 58, 32, 87, 90, 84, 84, 89, 87, 91, 90, 84, 81, 84, 83, 83, 64, 76, 70, 87, 84, 80, 32, 36, 92, 83, 95);
 const kawhiLeonard = new Player("Kawhi Leonard", "Two-way Defensive", 94, 91, 92, 85, 89, 97, 64, 40, 78, 90, 22, 37, 85, 30, 84, 89, 92, 92, 90, 89, 62, 64, 86, 87, 83, 80, 86, 47, 77, 72, 85, 92, 78, 28, 30, 97, 99, 99);
 const dame = new Player("Damian Lillard", "Shooter Slasher", 92, 97, 79, 89, 93, 60, 12, 6, 24, 60, 29, 39, 82, 70, 91, 87, 86, 72, 81, 83, 90, 93, 90, 89, 66, 55, 50, 90, 65, 58, 89, 87,74, 33, 39, 95, 85, 98);
 const pennyHardaway = new Player("Penny Hardaway", "All Playmaker", 94, 82, 92, 86, 92, 74, 44, 22, 45, 65, 40, 39, 87, 40, 91, 84, 86, 87, 89, 88, 50, 55, 70, 68, 88, 85, 85, 48, 78, 80, 85, 85, 80, 36, 38, 91, 85, 96);
@@ -457,8 +457,8 @@ const reggieMiller = new Player("Reggie Miller", "Shooter", 95, 99, 70, 92, 92, 
 const yaoMing = new Player("Yao Ming", "Inside Post-player", 92, 0, 99, 83, 88, 80, 95, 84, 76, 25, 12, 40, 60, 55, 52, 82, 98, 96, 65, 67, 0, 0, 0, 0, 66, 61, 78, 0, 40, 38, 72, 83, 90, 44, 36, 84, 86, 91);
 const benWallace = new Player("Ben Wallace", "Defensive Post-player", 72, 0, 95, 42, 66, 99, 99, 98, 92, 66, 45, 36, 80, 48, 52, 70, 91, 90, 20, 22, 0, 0, 0, 0, 40, 35, 52, 0, 90, 99, 87, 74, 81, 47, 25, 88, 78, 89);
 const joelEmbiid = new Player("Joel Embiid", "Inside Post-player", 94, 85, 99, 81, 95, 88, 90, 88, 91, 38, 20, 36, 54, 38, 75, 82, 98, 96, 63, 66, 20, 18, 30, 34, 78, 75, 85, 50, 72, 72, 88, 86, 84, 42, 42, 93, 93, 98);
-const zachLaVine = new Player("Zach LaVine", "Slasher Shooter", 91, 90, 89, 85, 90, 65, 20, 14, 38, 58, 21, 35, 67, 42, 91, 86, 87, 84, 81, 90, 80, 70, 80, 78, 71, 67, 75, 88, 98, 72, 85, 82, 77, 34, 36, 90, 87, 93);
-const chrisPaul = new Player("Chris Paul", "Playmaker", 92, 91, 75, 93, 90, 82, 11, 2, 20, 95, 66, 47, 97, 99, 94, 85, 72, 70, 76, 77, 84, 82, 78, 80, 68, 70, 65, 84, 62, 70, 86, 85, 72, 30, 30, 88, 92, 91);
+const zachLaVine = new Player("Zach LaVine", "Slasher Shooter", 87, 86, 89, 85, 85, 65, 20, 14, 38, 58, 21, 35, 67, 42, 91, 86, 87, 84, 81, 90, 80, 70, 80, 78, 71, 67, 75, 88, 98, 72, 85, 82, 77, 34, 36, 90, 87, 93);
+const chrisPaul = new Player("Chris Paul", "Playmaker", 88, 83, 75, 93, 83, 32, 11, 2, 20, 95, 66, 47, 97, 99, 94, 85, 72, 70, 76, 77, 84, 82, 78, 80, 68, 70, 65, 84, 62, 70, 86, 85, 72, 30, 30, 88, 92, 91);
 const russellWestbrook = new Player("Russell Westbrook", "Slasher Playmaker", 90, 80, 99, 76, 92, 75, 45, 38, 58, 60, 35, 40, 86, 87, 94, 88, 97, 97, 62, 73, 21, 27, 46, 48, 76, 74, 73, 75, 99, 99, 84, 73, 76, 40, 38, 94, 95, 96);
 const chrisWebber = new Player("Chris Webber", "Inside Playmaker", 93, 40, 94, 79, 89, 82, 74, 66, 65, 42, 20, 35, 60, 48, 74, 82, 92, 90, 55, 60, 14, 11, 30, 25, 77, 70, 76, 20, 74, 72, 86, 85, 82, 38, 37, 89, 83, 91);
 const kevinGarnett = new Player("Kevin Garnett", "Two-way Post-player", 97, 65, 99, 80, 90, 97, 85, 84, 92, 64, 40, 35, 54, 28, 78, 84, 97, 94, 66, 69, 0, 1, 1, 0, 74, 70, 82, 0, 90, 90, 87, 90, 83, 42, 39, 93, 89, 97);
@@ -466,7 +466,7 @@ const manuGinobili = new Player("Manu Ginobili", "Slasher Shooter", 92, 90, 88, 
 const kevinMcHale = new Player("Kevin McHale", "Inside Post-player", 94, 20, 97, 73, 86, 91, 84, 82, 90, 32, 18, 34, 48, 50, 64, 78, 94, 91, 58, 61, 0, 0, 0, 0, 70, 68, 81, 0, 72, 66, 82, 86, 82, 39, 36, 85, 83, 91);
 const rudyGobert = new Player("Rudy Gobert", "Defensive Post-player", 70, 0, 90, 64, 78, 98, 98, 92, 97, 28, 12, 35, 30, 11, 52, 72, 90, 87, 30, 28, 0, 0, 0, 0, 40, 35, 50, 0, 88, 91, 83, 75, 85, 44, 30, 80, 74, 88);
 const andreIguodala = new Player("Andre Iguodala", "All Defensive", 85, 82, 80, 76, 84, 92, 42, 33, 58, 81, 50, 37, 79, 52, 85, 80, 78, 76, 70, 72, 63, 61, 70, 69, 75, 72, 68, 66, 84, 85, 82, 81, 78, 30, 28, 88, 81, 90);
-const jamesHarden = new Player("James Harden", "Shooter Slasher", 92, 96, 90, 88, 97, 83, 21, 14, 42, 79, 23, 38, 90, 33, 94, 86, 92, 90, 87, 88, 54, 56, 94, 95, 22, 19, 18, 99, 40, 27, 81, 80, 78, 38, 43, 71, 87, 95);
+const jamesHarden = new Player("James Harden", "Shooter Slasher", 90, 94, 85, 88, 94, 63, 21, 14, 42, 79, 23, 38, 90, 23, 94, 86, 92, 90, 87, 88, 54, 56, 94, 95, 22, 19, 18, 99, 40, 27, 81, 80, 78, 38, 43, 71, 87, 95);
 const dennisRodman = new Player("Dennis Rodman", "Defensive Post-player", 83, 0, 85, 70, 70, 99, 99, 99, 99, 92, 80, 40, 30, 20, 68, 79, 90, 90, 10, 12, 0, 0, 0, 0, 20, 25, 30, 0, 83, 99, 99, 76, 79, 40, 21, 78, 70, 90);
 const devinBooker = new Player("Devin Booker", "Shooter Slasher", 94, 95, 88, 90, 94, 80, 30, 22, 40, 76, 27, 34, 81, 54, 90, 86, 86, 82, 85, 87, 88, 84, 89, 91, 83, 79, 81, 90, 85, 72, 84, 88, 80, 35, 37, 92, 87, 96);
 const jaylenBrown = new Player("Jaylen Brown", "Two-way Slasher", 91, 85, 90, 83, 88, 87, 46, 30, 62, 79, 30, 38, 70, 48, 86, 82, 84, 80, 78, 79, 34, 36, 68, 72, 86, 84, 79, 76, 90, 86, 88, 84, 82, 37, 39, 93, 88, 95);
@@ -477,7 +477,7 @@ const dejounteMurray = new Player("Dejounte Murray", "Playmaker Defensive", 87, 
 const laMeloBall = new Player("LaMelo Ball", "Playmaker Shooter", 88, 91, 82, 86, 88, 70, 32, 22, 46, 74, 35, 41, 93, 92, 90, 81, 76, 70, 80, 81, 90, 87, 88, 86, 64, 62, 72, 92, 75, 68, 84, 77, 76, 32, 36, 91, 84, 95);
 const kyrieIrving = new Player("Kyrie Irving", "Shooter Slasher", 96, 97, 87, 92, 95, 68, 20, 10, 34, 89, 40, 46, 81, 57, 99, 95, 84, 82, 88, 89, 95, 90, 92, 93, 79, 82, 80, 94, 89, 72, 91, 87, 80, 33, 39, 95, 90, 97);
 const tyreseHaliburton = new Player("Tyrese Haliburton", "Playmaker Shooter", 91, 94, 82, 88, 90, 70, 30, 20, 44, 78, 36, 42, 95, 91, 90, 85, 80, 75, 83, 85, 89, 87, 88, 86, 68, 66, 72, 92, 78, 69, 85, 85, 79, 36, 38, 92, 86, 95);
-const chetHolmgren = new Player("Chet Holmgren", "Two-way Defensive", 88, 92, 95, 84, 91, 90, 72, 55, 99, 80, 30, 37, 25, 10, 88, 82, 95, 95, 70, 68, 84, 80, 88, 90, 98, 99, 83, 90, 50, 75, 85, 83, 85, 42, 39, 95, 98, 99);
+const chetHolmgren = new Player("Chet Holmgren", "Two-way Defensive", 88, 92, 95, 84, 84, 90, 72, 55, 99, 80, 30, 39, 25, 10, 88, 82, 95, 95, 70, 68, 84, 80, 88, 90, 98, 99, 83, 90, 50, 75, 85, 83, 85, 42, 39, 95, 98, 99);
 const scootHenderson = new Player("Scoot Henderson", "Slasher Playmaker", 87, 85, 89, 82, 88, 68, 28, 22, 42, 80, 30, 38, 90, 86, 87, 84, 82, 78, 80, 82, 86, 84, 88, 85, 78, 74, 80, 88, 84, 72, 81, 72, 77, 34, 36, 91, 85, 94);
 const franzWagner = new Player("Franz Wagner", "Two-way Shooter", 94, 76, 88, 83, 87, 80, 38, 28, 58, 82, 28, 34, 82, 50, 85, 82, 88, 80, 83, 84, 40, 42, 78, 80, 80, 78, 84, 82, 78, 70, 85, 78, 81, 36, 38, 89, 87, 93);
 const domantasSabonis = new Player("Domantas Sabonis", "Inside Playmaker", 92, 80, 94, 82, 90, 88, 80, 75, 82, 38, 22, 36, 70, 58, 78, 84, 92, 90, 66, 68, 55, 50, 72, 76, 78, 76, 82, 86, 72, 65, 84, 80, 81, 40, 38, 90, 88, 94);
@@ -487,7 +487,7 @@ const joshGiddey = new Player("Josh Giddey", "Playmaker Two-way", 87, 88, 84, 82
 const alperenSengun = new Player("Alperen Sengun", "Inside Post-player", 95, 70, 97, 82, 88, 84, 78, 70, 85, 32, 22, 36, 70, 52, 75, 80, 88, 86, 60, 58, 48, 46, 65, 68, 72, 70, 78, 82, 64, 60, 81, 77, 80, 40, 38, 88, 86, 92);
 const jaMorant = new Player("Ja Morant","Slasher",88,82,92,78,90,70,35,25,45,80,30,40,85,82,84,88,86,84,82,84,80,78,82,80,78,76,80,86,95,78,85,77,75,38,36,92,85,95);
 const anthonyDavis = new Player("Anthony Davis","Two-way Big",90,75,96,80,92,95,88,80,98,70,40,45,78,50,75,82,90,94,78,76,68,65,74,78,92,90,86,80,85,84,88,80,83,42,40,94,90,96);
-const austinReaves = new Player("Austin Reaves","Shooter Playmaker",84,86,80,87,85,70,65,60,35,65,60,55,82,78,84,80,76,75,78,79,84,83,80,81,74,73,77,82,74,78,83,85,77,28,32,88,82,90);
+const austinReaves = new Player("Austin Reaves","Shooter Playmaker",89,89,90,87,88,64,65,60,35,65,60,55,82,78,84,80,76,75,78,79,84,83,80,81,74,73,77,82,74,78,83,85,77,28,32,88,82,90);
 const jalenWilliams = new Player("Jalen Williams","Slasher Shooter",95,88,92,83,95,75,72,68,45,70,64,36,78,72,82,81,84,82,85,84,80,79,82,81,83,82,84,83,86,82,85,83,79,32,35,90,85,92);
 const amenThompson = new Player("Amen Thompson","Slasher Playmaker",85,78,88,80,82,76,70,66,40,72,68,58,84,74,86,82,86,84,80,81,76,75,78,77,82,81,80,79,95,84,86,72,78,34,36,91,84,93);
 const ausarThompson = new Player("Ausar Thompson","Defensive Slasher",82,77,86,78,81,82,88,84,52,75,72,66,76,70,82,80,84,82,78,80,74,73,76,75,80,79,78,77,94,85,84,70,80,36,38,90,83,92);
@@ -496,13 +496,13 @@ const dariusGarland = new Player("Darius Garland","Shooter Playmaker",87,90,80,8
 const pascalSiakam = new Player("Pascal Siakam","Slasher Post-player",86,78,88,80,87,82,84,80,65,72,68,64,74,70,82,80,86,84,78,80,64,62,70,68,84,83,80,70,88,84,86,80,81,34,37,90,85,92);
 const jarrettAllen = new Player("Jarrett Allen","Defensive Post-player",80,0,90,70,78,95,92,88,90,30,20,35,60,50,70,75,88,85,40,38,0,0,0,0,68,65,72,0,82,80,80,75,78,40,38,85,80,90);
 const draymondGreen = new Player("Draymond Green","Defensive Playmaker",83,74,85,75,78,98,90,55,92,50,43,42,76,60,71,72,90,88,30,22,10,12,30,28,78,75,80,60,76,96,89,72,78,44,35,72,77,88);
-const klayThompson = new Player("Klay Thompson","Shooter",95,99,80,94,91,76,48,28,20,62,22,36,74,27,81,88,80,38,59,31,99,97,84,85,54,63,76,99,64,55,84,89,78,33,38,91,90,94);
+const klayThompson = new Player("Klay Thompson","Shooter",95,98,80,94,87,80,48,28,20,62,22,36,74,27,81,88,80,38,59,31,99,97,84,85,54,63,76,99,64,55,84,89,78,33,38,91,79,94);
 const cooperFlagg = new Player("Cooper Flagg","Two-way Defensive",93,79,88,76,85,94,85,40,82,65,60,38,58,42,75,73,78,76,60,58,80,78,75,74,70,68,72,78,86,71,81,85,81,39,38,93,88,99);
 const deaaronFox = new Player("De'Aaron Fox","Slasher Playmaker",97,78,85,88,87,52,27,19,36,91,38,38,88,52,93,85,84,80,78,79,28,16,34,15,96,94,80,10,78,88,89,88,75,34,36,96,89,96);
 const michaelPorterJr = new Player("Michael Porter Jr","Shooter Slasher",90,91,82,88,90,72,31,22,37,60,18,20,28,2,82,93,84,80,13,14,40,28,78,76,23,28,39,95,63,40,73,73,82,40,22,87,71,94);
 const camThomas = new Player("Cam Thomas","Shooter",88,93,75,85,87,60,20,15,30,55,15,24,25,5,78,82,76,70,10,12,88,85,80,78,20,25,30,90,70,50,75,70,75,28,20,85,70,94);
-const stephonCastle = new Player("Stephon Castle","Playmaker Slasher",85,80,97,78,91,83,33,30,65,94,31,39,85,60,68,78,96,90,70,88,3,15,11,58,65,62,70,27,91,77,79,81,78,38,40,83,82,96);
-const dylanHarper = new Player("Dylan Harper","Two-way Slasher",84,81,95,78,89,80,28,15,53,86,28,36,80,25,79,78,95,87,60,62,13,21,12,76,60,68,62,45,80,71,77,84,78,41,39,87,80,95);
+const stephonCastle = new Player("Stephon Castle","Playmaker Slasher",95,79,97,78,94,83,39,30,65,94,31,39,85,60,78,78,96,90,70,88,3,15,11,58,65,62,70,27,94,77,84,82,78,38,40,83,82,96);
+const dylanHarper = new Player("Dylan Harper","Two-way Slasher",90,81,97,81,89,80,28,15,53,86,28,36,80,25,79,78,95,87,60,62,13,21,12,76,60,68,62,45,80,71,77,84,78,41,39,87,80,95);
 const jaredMcCain = new Player("Jared McCain","Slasher Shooter",88,90,80,80,82,51,12,10,21,80,16,38,78,50,82,80,85,80,82,84,78,76,82,80,78,76,80,85,90,78,82,83,75,39,36,90,85,95);
 const luDort = new Player("Lu Dort","Defensive",77,78,78,78,71,90,68,40,65,60,40,63,50,30,75,80,57,28,1,2,60,58,60,48,12,3,2,66,72,95,88,71,76,49,40,88,63,90);
 const alexCaruso = new Player("Alex Caruso","Defensive Playmaker",76,79,81,78,69,83,60,24,80,50,77,50,53,37,80,78,90,88,30,28,20,18,30,28,78,75,80,85,78,92,85,79,77,44,38,88,72,90);
@@ -516,14 +516,19 @@ const paoloBanchero = new Player("Paolo Banchero","Two-way Post-player",94,85,90
 const scottieBarnes = new Player("Scottie Barnes", "Defensive Playmaker", 88, 80, 90, 82, 81, 90, 40, 30, 71, 63, 36, 40, 70, 60, 77, 72, 90, 88, 50, 58, 20, 18, 60, 78, 78, 75, 80, 85, 81, 96, 85, 85, 80, 40, 38, 88, 90, 94);
 const lauriMarkkanen = new Player("Lauri Markkanen", "Shooter Post-player", 90, 90, 88, 82, 83, 69, 68, 55, 81, 32, 12, 38, 56, 38, 71, 75, 82, 85, 80, 79, 32, 15, 62, 80, 14, 22, 33, 95, 63, 72, 84, 82, 85, 42, 39, 91, 88, 94);
 const joshHart = new Player("Josh Hart", "Two-way", 80, 74, 83, 81, 79, 86, 93, 42, 62, 82, 58, 54, 20, 30, 72, 71, 61, 48, 10, 21, 12, 18, 24, 38, 68, 55, 80, 25, 63, 98, 92, 76, 77, 41, 31, 73, 81, 87);
-const devinVassell = new Player("Devin Vassell", "Two-way Shooter", 81, 84, 81, 84, 87, 82, 33, 30, 66, 72, 14, 39, 53, 27, 83, 82, 88, 80, 33, 44, 83, 12, 48, 80, 50, 38, 74, 82, 74, 79, 88, 79, 77, 38, 38, 83, 73, 85);
+const devinVassell = new Player("Devin Vassell", "Two-way Shooter", 81, 87, 81, 84, 87, 82, 33, 30, 66, 72, 14, 39, 53, 27, 83, 82, 88, 80, 33, 44, 83, 12, 48, 80, 50, 38, 74, 82, 74, 79, 88, 79, 77, 38, 38, 83, 73, 85);
 const evanMobley = new Player("Evan Mobley", "Defensive Post-player", 89, 75, 95, 72, 81, 95, 85, 80, 93, 21, 22, 41, 32, 12, 63, 72, 95, 86, 30, 68, 1, 0, 22, 58, 12, 10, 28, 52, 59, 64, 87, 80, 83, 43, 31, 82, 75, 90);
 const konKnueppel = new Player("Kon Knueppel", "Shooter", 90, 94, 72, 93, 81, 54, 21, 8, 33, 70, 31, 39, 61, 22, 84, 83, 71, 34, 10, 8, 90, 80, 70, 75, 10, 28, 52, 95, 70, 73, 78, 82, 78, 44, 39, 91, 89, 95);
 const vjEdgecome = new Player("VJ Edgecome", "Two-way Slasher", 83, 82, 93, 77, 89, 75, 30, 22, 57, 77, 18, 38, 25, 30, 86, 81, 93, 68, 40, 32, 34, 20, 68, 56, 28, 36, 81, 88, 90, 89, 84, 82, 76, 38, 41, 93, 90, 97);
 const jalenJohnson = new Player("Jalen Johnson", "Two-way", 85, 88, 91, 85, 84, 79, 44, 33, 61, 53, 25, 38, 73, 85, 71, 82, 82, 76, 35, 40, 78, 15, 45, 76, 20, 10, 68, 82, 65, 72, 87, 83, 80, 43, 35, 82, 81, 90);
 const dysonDaniels = new Player("Dyson Daniels", "Defensive", 80, 78, 87, 89, 81, 95, 44, 33, 31, 97, 55, 44, 33, 55, 92, 89, 82, 76, 55, 40, 78, 75, 25, 76, 3, 10, 8, 44, 65, 77, 83, 77, 79, 43, 31, 70, 75, 86);
 const jamalMurray = new Player("Jamal Murray", "Slasher Shooter", 91, 85, 92, 88, 89, 71, 33, 17, 49, 77, 49, 38, 46, 22, 94, 71, 90, 68, 50, 52, 50, 12, 86, 78, 28, 15, 29, 89, 82, 91, 85, 88, 76, 38, 39, 91, 80, 93);
-
+const tylerHerro = new Player("Tyler Herro", "Shooter", 88, 93, 85, 89, 87, 71, 30, 13, 60, 77, 14, 38, 53, 27, 89, 80, 88, 80, 33, 24, 83, 72, 68, 80, 40, 38, 74, 82, 70, 79, 86, 79, 77, 40, 38, 83, 79, 90);
+const nazReid = new Player("Naz Reid", "Inside Shooter", 85, 80, 89, 72, 80, 83, 65, 40, 82, 21, 12, 41, 32, 12, 63, 85, 95, 86, 30, 68, 82, 50, 22, 58, 12, 10, 28, 52, 69, 84, 89, 78, 81, 43, 31, 82, 78, 84);
+const brandonMiller = new Player("Brandon Miller", "Two-way Shooter", 89, 84, 90, 80, 82, 82, 31, 30, 71, 70, 32, 38, 43, 19, 81, 81, 89, 72, 30, 40, 35, 10, 75, 85, 45, 33, 65, 88, 90, 63, 87, 78, 79, 43, 37, 81, 80, 91);
+const donteDiVincenzo = new Player("Donte DiVincenzo", "Shooter", 85, 88, 85, 82, 79, 53, 12, 10, 33, 77, 42, 39, 43, 49, 83, 87, 89, 32, 12, 14, 65, 70, 85, 92, 45, 23, 35, 88, 71, 80, 87, 80, 76, 40, 37, 84, 78, 86);
+const ogAnunoby = new Player("OG Anunoby", "Defensive", 88, 85, 90, 82, 84, 89, 43, 22, 71, 66, 30, 40, 50, 30, 71, 75, 85, 75, 40, 40, 60, 60, 83, 72, 43, 61, 62, 93, 82, 80, 90, 85, 79, 43, 30, 88, 77, 89);
+const mikalBridges = new Player("Mikal Bridges", "Two-way Shooter", 85, 84, 85, 82, 80, 62, 33, 30, 61, 70, 32, 39, 43, 22, 81, 81, 89, 72, 30, 40, 65, 70, 75, 45, 25, 13, 55, 88, 90, 63, 87, 78, 78, 40, 37, 81, 76, 88);
 //twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility, defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy, passingEff, ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner, leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina, height, foul, drawFoul, clutch, usage, potential
 
 let era = 7;
@@ -533,7 +538,8 @@ export let allPlayers = [michaelJordan, lebron, kareem, duncan, bird, magicJohns
     devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis, 
     jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
     draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-    jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell, evanMobley, konKnueppel, vjEdgecome, jalenJohnson, dysonDaniels, jamalMurray
+    jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell, evanMobley, konKnueppel, vjEdgecome, jalenJohnson, dysonDaniels, jamalMurray, tylerHerro, nazReid, brandonMiller, 
+    donteDiVincenzo, ogAnunoby, mikalBridges
 ];
 
 if (era === 2){
@@ -558,7 +564,8 @@ if (era === 2){
         rudyGobert, jamesHarden, devinBooker, jaylenBrown, bamAdebayo, donovanMitchell, karlAnthonyTowns, dejounteMurray, laMeloBall, kyrieIrving, tyreseHaliburton, chetHolmgren, scootHenderson, franzWagner, domantasSabonis,
         jalenGreen, tyreseMaxey, joshGiddey, alperenSengun, jaMorant, anthonyDavis, austinReaves, jalenWilliams, amenThompson, ausarThompson, zionWilliamson, dariusGarland, pascalSiakam, jarrettAllen,
         draymondGreen, klayThompson, cooperFlagg, deaaronFox, michaelPorterJr, camThomas, stephonCastle, dylanHarper, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein, cadeCunningham,
-        jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell, evanMobley, konKnueppel, vjEdgecome, jalenJohnson, dysonDaniels, jamalMurray
+        jalenDuren, derrickWhite, paoloBanchero, scottieBarnes, lauriMarkkanen, joshHart, devinVassell, evanMobley, konKnueppel, vjEdgecome, jalenJohnson, dysonDaniels, jamalMurray, tylerHerro, nazReid, 
+        brandonMiller, donteDiVincenzo, ogAnunoby, mikalBridges
     ]
 }
 let removePlayers = [...allPlayers];
@@ -571,9 +578,9 @@ const celtics = new Team("Boston Celitcs", true, "BOS", [bird, billRussell, jayl
 const pacers = new Team("Indiana Pacers", true, "IND", [reggieMiller, tyreseHaliburton, pascalSiakam]);
 const kings = new Team("Sacramento Kings", false, "SAC", [zachLaVine, demarDeRozan, chrisWebber, domantasSabonis, russellWestbrook]);
 const okc = new Team("Oklahoma City Thunder", false, "OKC", [shai, chetHolmgren, jalenWilliams, jaredMcCain, luDort, alexCaruso, isiahJoe, ajayMitchell, isaiahHartenstein]);
-const knicks = new Team("New York Knicks", true, "NYK", [karlAnthonyTowns, brunson, joshHart]);
-const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", [ant, kevinGarnett, rudyGobert]);
-const heat = new Team("Miami Heat", true, "MIA", [bamAdebayo]);
+const knicks = new Team("New York Knicks", true, "NYK", [karlAnthonyTowns, brunson, joshHart, mikalBridges, ogAnunoby]);
+const timberwolves = new Team("Minnesota Timberwolves", false, "MIN", [ant, kevinGarnett, rudyGobert, laMeloBall, donteDiVincenzo]);
+const heat = new Team("Miami Heat", true, "MIA", [bamAdebayo, giannis]);
 const raptors = new Team("Toronto Raptors", true, "TOR", [scottieBarnes]);
 const clippers = new Team("Los Angeles Clippers", false, "LAC", [kawhiLeonard, paulGeorge, chrisPaul, dariusGarland]);
 const jazz = new Team("Utah Jazz", false, "UTA", [malone, stockton, lauriMarkkanen]);
@@ -584,13 +591,13 @@ const magic = new Team("Orlando Magic", true, "ORL", [pennyHardaway, franzWagner
 const sixers = new Team("Philadelphia 76ers", true, "PHI", [joelEmbiid, iverson, moses, wilt, tyreseMaxey, vjEdgecome]);
 const grizzlies = new Team("Memphis Grizzlies", false, "MEM", [jaMorant]);
 const warriors = new Team("Golden State Warriors", false, "GSW", [curry, andreIguodala, jimmyButler, draymondGreen]);
-const bucks = new Team("Milwaukee Bucks", true, "MIL", [oscar, giannis]);
+const bucks = new Team("Milwaukee Bucks", true, "MIL", [oscar, tylerHerro]);
 const pistons = new Team("Detroit Pistons", true, "DET", [isiah, benWallace, ausarThompson, cadeCunningham, jalenDuren]);
 const hawks = new Team("Atlanta Hawks", true, "ATL", [jalenJohnson, dysonDaniels]);
 const nuggets = new Team("Denver Nuggets", false, "DEN", [jokic, jamalMurray]);
 const mavs = new Team("Dallas Mavericks", false, "DAL", [kyrieIrving, dirk, klayThompson, cooperFlagg]);
 const nets = new Team("Brooklyn Nets", true, "BKN", [camThomas, michaelPorterJr]);
-const hornets = new Team("Charlotte Hornets", true, "CHA", [laMeloBall, konKnueppel]);
+const hornets = new Team("Charlotte Hornets", true, "CHA", [konKnueppel, brandonMiller, nazReid]);
 const wizards = new Team("Washington Wizards", true, "WAS", [traeYoung, anthonyDavis]);
 const pelicans = new Team("New Orleans Pelicans", false, "NOP", [dejounteMurray, zionWilliamson]);
 const suns = new Team("Phoenix Suns", false, "PHX", [devinBooker, jalenGreen]);
@@ -1098,7 +1105,7 @@ if (!window.location.pathname.includes("playoff.html") && !window.location.pathn
 
 
 //Generate Players
-function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 99) {
+function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 102) {
   const adjustedMin = Math.max(clampMin, min + quality);
   const adjustedMax = Math.min(clampMax, max + quality);
   return Math.floor(Math.random() * (adjustedMax - adjustedMin + 1)) + adjustedMin;
@@ -1145,11 +1152,11 @@ export function genPlayer(amount){
 
         const quality = Math.round(Math.random() * 10);
         if (quality === 3){
-            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 10), randInRangeWithQuality(archStat.threePt, 10), randInRangeWithQuality(archStat.inside, 10), randInRangeWithQuality(archStat.freeThrow, 10), randInRangeWithQuality(archStat.offensiveAbility, 15), randInRangeWithQuality(archStat.defensiveAbility, 15), randInRangeWithQuality(archStat.defensiveReb, 20), randInRangeWithQuality(archStat.offensiveReb, 20), randInRangeWithQuality(archStat.blockTen, 20), randInRangeWithQuality(archStat.stealTen, 20), randInRangeWithQuality(archStat.takeCharges, 10), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 30), randInRangeWithQuality(archStat.passingEff, 20), randInRangeWithQuality(archStat.ballControl, 10), randInRangeWithQuality(archStat.catching, 10), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 20), randInRangeWithQuality(archStat.hustle, 10), randInRangeWithQuality(archStat.stamina, 10), randInRangeWithQuality(archStat.consistency, 19), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 10), randInRangeWithQuality(archStat.clutch, 20), randInRangeWithQuality(archStat.usage, 20), randInRangeWithQuality(archStat.potential, 20));
+            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 20), randInRangeWithQuality(archStat.threePt, 20), randInRangeWithQuality(archStat.inside, 20), randInRangeWithQuality(archStat.freeThrow, 20), randInRangeWithQuality(archStat.offensiveAbility, 20), randInRangeWithQuality(archStat.defensiveAbility, 20), randInRangeWithQuality(archStat.defensiveReb, 20), randInRangeWithQuality(archStat.offensiveReb, 20), randInRangeWithQuality(archStat.blockTen, 20), randInRangeWithQuality(archStat.stealTen, 20), randInRangeWithQuality(archStat.takeCharges, 10), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 30), randInRangeWithQuality(archStat.passingEff, 20), randInRangeWithQuality(archStat.ballControl, 10), randInRangeWithQuality(archStat.catching, 10), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 20), randInRangeWithQuality(archStat.hustle, 10), randInRangeWithQuality(archStat.stamina, 10), randInRangeWithQuality(archStat.consistency, 19), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 10), randInRangeWithQuality(archStat.clutch, 20), randInRangeWithQuality(archStat.usage, 20), randInRangeWithQuality(archStat.potential, 20));
         }else if (quality < 3){
-            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 5), randInRangeWithQuality(archStat.threePt, 5), randInRangeWithQuality(archStat.inside, 5), randInRangeWithQuality(archStat.freeThrow, 5), randInRangeWithQuality(archStat.offensiveAbility, 10), randInRangeWithQuality(archStat.defensiveAbility, 10), randInRangeWithQuality(archStat.defensiveReb, 10), randInRangeWithQuality(archStat.offensiveReb, 10), randInRangeWithQuality(archStat.blockTen, 10), randInRangeWithQuality(archStat.stealTen, 10), randInRangeWithQuality(archStat.takeCharges, 5), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 15), randInRangeWithQuality(archStat.passingEff, 10), randInRangeWithQuality(archStat.ballControl, 5), randInRangeWithQuality(archStat.catching, 5), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 10), randInRangeWithQuality(archStat.hustle, 5), randInRangeWithQuality(archStat.stamina, 5), randInRangeWithQuality(archStat.consistency, 10), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 5), randInRangeWithQuality(archStat.clutch, 10), randInRangeWithQuality(archStat.usage, 10), randInRangeWithQuality(archStat.potential, 10));
+            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 10), randInRangeWithQuality(archStat.threePt, 10), randInRangeWithQuality(archStat.inside, 10), randInRangeWithQuality(archStat.freeThrow, 10), randInRangeWithQuality(archStat.offensiveAbility, 15), randInRangeWithQuality(archStat.defensiveAbility, 15), randInRangeWithQuality(archStat.defensiveReb, 10), randInRangeWithQuality(archStat.offensiveReb, 10), randInRangeWithQuality(archStat.blockTen, 10), randInRangeWithQuality(archStat.stealTen, 10), randInRangeWithQuality(archStat.takeCharges, 5), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 15), randInRangeWithQuality(archStat.passingEff, 10), randInRangeWithQuality(archStat.ballControl, 5), randInRangeWithQuality(archStat.catching, 5), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 10), randInRangeWithQuality(archStat.hustle, 5), randInRangeWithQuality(archStat.stamina, 5), randInRangeWithQuality(archStat.consistency, 10), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 5), randInRangeWithQuality(archStat.clutch, 10), randInRangeWithQuality(archStat.usage, 10), randInRangeWithQuality(archStat.potential, 10));
         }else{
-            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 0), randInRangeWithQuality(archStat.threePt, 0), randInRangeWithQuality(archStat.inside, 0), randInRangeWithQuality(archStat.freeThrow, 0), randInRangeWithQuality(archStat.offensiveAbility, 0), randInRangeWithQuality(archStat.defensiveAbility, 0), randInRangeWithQuality(archStat.defensiveReb, 0), randInRangeWithQuality(archStat.offensiveReb, 0), randInRangeWithQuality(archStat.blockTen, 0), randInRangeWithQuality(archStat.stealTen, 0), randInRangeWithQuality(archStat.takeCharges, 0), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 0), randInRangeWithQuality(archStat.passingEff, 0), randInRangeWithQuality(archStat.ballControl, 0), randInRangeWithQuality(archStat.catching, 0), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 0), randInRangeWithQuality(archStat.hustle, 0), randInRangeWithQuality(archStat.stamina, 0), randInRangeWithQuality(archStat.consistency, 0), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 0), randInRangeWithQuality(archStat.clutch, 0), randInRangeWithQuality(archStat.usage, 0), randInRangeWithQuality(archStat.potential, 0));;
+            gen = new Player(name, chosenArch, randInRangeWithQuality(archStat.twoPt, 0), randInRangeWithQuality(archStat.threePt, 0), randInRangeWithQuality(archStat.inside, 0), randInRangeWithQuality(archStat.freeThrow, 0), randInRangeWithQuality(archStat.offensiveAbility, 5), randInRangeWithQuality(archStat.defensiveAbility, 5), randInRangeWithQuality(archStat.defensiveReb, 0), randInRangeWithQuality(archStat.offensiveReb, 0), randInRangeWithQuality(archStat.blockTen, 0), randInRangeWithQuality(archStat.stealTen, 0), randInRangeWithQuality(archStat.takeCharges, 0), randInRangeWithQuality(archStat.passingTen, 0), randInRangeWithQuality(archStat.passingAccuracy, 0), randInRangeWithQuality(archStat.passingEff, 0), randInRangeWithQuality(archStat.ballControl, 0), randInRangeWithQuality(archStat.catching, 0), randInRangeWithQuality(archStat.insideTen, 0), randInRangeWithQuality(archStat.closeTen, 0), randInRangeWithQuality(archStat.leftElbow, 0), randInRangeWithQuality(archStat.rightElbow, 0), randInRangeWithQuality(archStat.leftCorner, 0), randInRangeWithQuality(archStat.rightCorner, 0), randInRangeWithQuality(archStat.leftWing, 0), randInRangeWithQuality(archStat.rightWing, 0), randInRangeWithQuality(archStat.leftTwo, 0), randInRangeWithQuality(archStat.rightTwo, 0), randInRangeWithQuality(archStat.centerTwo, 0), randInRangeWithQuality(archStat.centerThree, 0), randInRangeWithQuality(archStat.vertical, 0), randInRangeWithQuality(archStat.hustle, 0), randInRangeWithQuality(archStat.stamina, 0), randInRangeWithQuality(archStat.consistency, 0), randInRangeWithQuality(archStat.height, 0), randInRangeWithQuality(archStat.foul, 0), randInRangeWithQuality(archStat.drawFoul, 0), randInRangeWithQuality(archStat.clutch, 0), randInRangeWithQuality(archStat.usage, 0), randInRangeWithQuality(archStat.potential, 0));;
         }
 
         listGen.push(gen); //Push newly generated player into allPlayer list to be used
@@ -1729,7 +1736,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team1.games += 1;
     team2.games += 1;
     let quarter = 1;
-    const theTime = 12 * 15;
+    const theTime = 12 * 16;
     const subFreq = 25;
     
     //Init teams
@@ -1751,7 +1758,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
     team2.setPositions();
 
     hasBallPlayer = team1.pg;
-    playByPlay.push("QUARTER 1, " + team1.name + ": 0 vs. " + team2.name + ": 0");
+    playByPlay.push("QUARTER 1: " + team1.name + ": 0 vs. " + team2.name + ": 0");
     for (let i = 0; i < theTime; i++){ //Quarter 1
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1766,7 +1773,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     let teamScores = findTotalScore(team1, team2);
-    playByPlay.push("QUARTER 2, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
+    playByPlay.push("QUARTER 2: " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 2
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1781,7 +1788,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     teamScores = findTotalScore(team1, team2);
-    playByPlay.push("QUARTER 3, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
+    playByPlay.push("QUARTER 3: " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 3
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1796,7 +1803,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
 
     quarter += 1;
     teamScores = findTotalScore(team1, team2);
-    playByPlay.push("QUARTER 4, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
+    playByPlay.push("QUARTER 4: " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
     for (let i = 0; i < theTime; i++){ //Quarter 4
         hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], i, playByPlay)
         if (i % (theTime / 12) === 0){
@@ -1853,7 +1860,7 @@ export function aGame(chosenTeam1, chosenTeam2, playOff = false, series = 0, dis
             subbing(quarter, 0, team1, team2, team1, true);
             quarter += 1;
             teamScores = findTotalScore(team1, team2);
-            playByPlay.push("OVERTIME, " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
+            playByPlay.push("OVERTIME: " + team1.name + ": " + teamScores[0] + " vs. " + team2.name + ": " + teamScores[1]);
             for (let i = 0; i < 240; i++){ //OT
                 hasBallPlayer.playerPossesion(hasBallPlayer.opponents[Math.floor(Math.random() * hasBallPlayer.opponents.length)], 300, playByPlay) //300 bc clutch players active whole time in OT
                 if (i % 20 === 0){
