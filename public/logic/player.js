@@ -399,6 +399,7 @@ export class Player{
         const freeThrowDiff = 107;
 
         const passBias = 65;
+        const passCount = 250;
 
         //Archetype Effect
         if (this.arch.includes("Shooter")){
@@ -447,8 +448,11 @@ export class Player{
                     this.team.calcBoxMinus(2);
                     defense.team.calcBoxMinus(-2);
                     if (this.passedFromSomeone) {
-                        this.passedFromSomeone.ast += 1;
-
+                        if (this.passedFromSomeone.ast > 3){
+                            if (Math.random() * passCount < this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) this.passedFromSomeone.ast += 1;
+                        }else{
+                            this.passedFromSomeone.ast += 1;
+                        }
                     }
                 
                     if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -523,7 +527,11 @@ export class Player{
                         defense.team.calcBoxMinus(-2);
                         
                         if (this.passedFromSomeone) {
-                            this.passedFromSomeone.ast += 1;
+                            if (this.passedFromSomeone.ast > 3){
+                                if (Math.random() * passCount < this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) this.passedFromSomeone.ast += 1;
+                            }else{
+                                this.passedFromSomeone.ast += 1;
+                            }
                         }
                     
                         if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -604,7 +612,11 @@ export class Player{
                     this.team.calcBoxMinus(3);
                     defense.team.calcBoxMinus(-3);
                     if (this.passedFromSomeone) {
-                        this.passedFromSomeone.ast += 1;
+                        if (this.passedFromSomeone.ast > 3){
+                            if (Math.random() * passCount < this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) this.passedFromSomeone.ast += 1;
+                        }else{
+                            this.passedFromSomeone.ast += 1;
+                        }
                     }
                     if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
                         defense.fls += 1;
@@ -690,7 +702,11 @@ export class Player{
                         defense.team.calcBoxMinus(-3);
                         
                         if (this.passedFromSomeone) {
-                            this.passedFromSomeone.ast += 1;
+                            if (this.passedFromSomeone.ast > 3){
+                                if (Math.random() * passCount < this.passedFromSomeone.passingEff + this.passedFromSomeone.passingAccuracy) this.passedFromSomeone.ast += 1;
+                            }else{
+                                this.passedFromSomeone.ast += 1;
+                            }
                         }
                     
                         if (this.drawFoul + defense.foul > Math.random() * (drawFreeThrowAmount + shootingLocations[this.location][3])){
@@ -893,7 +909,7 @@ export class Player{
                 passingAmount -= 10;
             }
             else if (this.otherTeammates[i].fga > 30){
-                passingAmount -= 2;
+                passingAmount -= 5;
             }
             else if (this.otherTeammates[i].fga > 20){
                 passingAmount -= 1;
@@ -983,7 +999,7 @@ export class Player{
             playByPlay.push(`${oPToReb.name} grabs the offensive rebound | OReb: ${oPToReb.oReb}`);
             return oPToReb;
         } else {
-            if (Math.round(Math.random() * 4) > 1){
+            if (Math.round(Math.random() * 5 > 1)) {
                 dPToReb.dReb += 1;
             }   
             dPToReb.team.possesions += 1;
@@ -1019,7 +1035,7 @@ export class Player{
         }
 
         if (this.fga > 20){
-            passTen -= 60;
+            passTen -= 70;
         }
         if (this.pts > 30){
             passTen -= 80;
