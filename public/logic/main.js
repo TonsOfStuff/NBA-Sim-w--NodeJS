@@ -1111,6 +1111,24 @@ function randInRangeWithQuality([min, max], quality, clampMin = 0, clampMax = 10
   const adjustedMax = Math.min(clampMax, max + quality);
   return Math.floor(Math.random() * (adjustedMax - adjustedMin + 1)) + adjustedMin;
 }
+function generateUniqueName(existingPlayers) {
+    const existingNames = new Set(existingPlayers.map(p => p.name));
+    let name;
+    let attempts = 0;
+    const maxAttempts = 1000;
+
+    do {
+        name = `${fn[Math.floor(Math.random() * fn.length)]} ${ln[Math.floor(Math.random() * ln.length)]}`;
+        attempts++;
+    } while (existingNames.has(name) && attempts < maxAttempts);
+
+    if (attempts >= maxAttempts) {
+        // Extremely unlikely with a reasonable name pool, but avoids an infinite loop
+        name = `${name} ${Math.floor(Math.random() * 1000)}`;
+    }
+
+    return name;
+}
 export function genPlayer(amount){
     let listGen = []
     for (let i = 0; i<amount; i++){
@@ -1148,7 +1166,7 @@ export function genPlayer(amount){
         }
 
         //Name chooser
-        const name = `${fn[Math.floor(Math.random() * fn.length)]} ${ln[Math.floor(Math.random() * ln.length)]}`;
+        const name = generateUniqueName([...allPlayers, ...listGen]);
 
 
         const quality = Math.round(Math.random() * 10);

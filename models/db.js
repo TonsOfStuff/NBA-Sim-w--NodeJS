@@ -13,43 +13,44 @@ export const connection = mysql.createPool({
   connectionLimit: 3,
 });
 
+export async function savePlayers(players) {
+  if (players.length === 0) return;
 
+  const columns = ['name', 'arch', 'twoPt', 'threePt', 'inside', 'freeThrow', 'offensiveAbility', 'defensiveAbility',
+  'defensiveReb', 'offensiveReb', 'blockTen', 'stealTen', 'takeCharges', 'passingTen', 'passingAccuracy',
+  'ballControl', 'catching', 'insideTen', 'closeTen', 'leftElbow', 'rightElbow', 'leftCorner', 'rightCorner',
+  'leftWing', 'rightWing', 'leftTwo', 'rightTwo', 'centerTwo', 'centerThree', 'vertical', 'hustle', 'stamina',
+  'height', 'foul', 'drawFoul', 'clutch', 'potential', 'gamesPlayed', 'gamesStarted', 'avgMin', 'avgPts', 'avgAst',
+  'avgDReb', 'avgOReb', 'avgStl', 'avgBlk', 'avgFls', 'avgTov', 'fgp', 'tpp', 'ftp',
 
+  'seasonTotalMin', 'seasonTotalPts', 'seasonTotalAst', 'seasonTotalOReb', 'seasonTotalDReb',
+  'seasonTotalStl', 'seasonTotalBlk', 'seasonTotalFls', 'seasonTotalTov', 'seasonTotalFGA',
+  'seasonTotalFGM', 'seasonTotalTPA', 'seasonTotalTPM', 'seasonTotalFTA', 'seasonTotalFTM',
+  'seasonTripleDoubles', 'seasonDoubleDoubles', 'seasonQuadDoubles',
 
-export async function savePlayer(player) {
+  'careerGamesPlayed', 'careerGamesStarted', 'careerAvgMin', 'careerAvgPts', 'careerAvgAst',
+  'careerAvgOReb', 'careerAvgDReb', 'careerAvgStl', 'careerAvgBlk', 'careerAvgFls', 'careerAvgTov',
+  'careerAvgFG', 'careerAvgTP', 'careerAvgFT', 'careerTotalMin', 'careerTotalPts', 'careerTotalAst',
+  'careerTotalOReb', 'careerTotalDReb', 'careerTotalStl', 'careerTotalBlk', 'careerTotalFls',
+  'careerTotalTov', 'careerTotalFGA', 'careerTotalFGM', 'careerTotalTPA', 'careerTotalTPM',
+  'careerTotalFTA', 'careerTotalFTM', 'careerTripleDoubles', 'careerDoubleDoubles', 'careerQuadDoubles',
+
+  'totalMVPS', 'totalDPOYs', 'totalROTYs', 'totalSMOTY', 'mvpNum', 'dpoyNum',
+  'allNBAFirst', 'allNBASecond', 'allNBAThird', 'allDefensiveFirst', 'allDefensiveSecond',
+  'allDefensiveThird', 'allStar', 'scoringChamp', 'assistChamp', 'reboundChamp', 'stealChamp', 'blockChamp',
+
+  'team', 'championships', 'finalsMVP', 'age', 'yearsPro',
+
+  'happiness', 'contractYears', 'money', 'yearsIntoContract', 'career', 'ovr', 'passingEff',
+  'pickNum', 'draftTeam', 'yearsInFA', 'usageAtt', 'consistency'];
+
   const sql = `
-    INSERT INTO players (
-      name, arch, twoPt, threePt, inside, freeThrow, offensiveAbility, defensiveAbility,
-      defensiveReb, offensiveReb, blockTen, stealTen, takeCharges, passingTen, passingAccuracy,
-      ballControl, catching, insideTen, closeTen, leftElbow, rightElbow, leftCorner, rightCorner,
-      leftWing, rightWing, leftTwo, rightTwo, centerTwo, centerThree, vertical, hustle, stamina,
-      height, foul, drawFoul, clutch, potential, gamesPlayed, gamesStarted, avgMin, avgPts, avgAst,
-      avgDReb, avgOReb, avgStl, avgBlk, avgFls, avgTov, fgp, tpp, ftp,
-
-      seasonTotalMin, seasonTotalPts, seasonTotalAst, seasonTotalOReb, seasonTotalDReb,
-      seasonTotalStl, seasonTotalBlk, seasonTotalFls, seasonTotalTov, seasonTotalFGA,
-      seasonTotalFGM, seasonTotalTPA, seasonTotalTPM, seasonTotalFTA, seasonTotalFTM,
-      seasonTripleDoubles, seasonDoubleDoubles, seasonQuadDoubles,
-
-      careerGamesPlayed, careerGamesStarted, careerAvgMin, careerAvgPts, careerAvgAst,
-      careerAvgOReb, careerAvgDReb, careerAvgStl, careerAvgBlk, careerAvgFls, careerAvgTov,
-      careerAvgFG, careerAvgTP, careerAvgFT, careerTotalMin, careerTotalPts, careerTotalAst,
-      careerTotalOReb, careerTotalDReb, careerTotalStl, careerTotalBlk, careerTotalFls,
-      careerTotalTov, careerTotalFGA, careerTotalFGM, careerTotalTPA, careerTotalTPM,
-      careerTotalFTA, careerTotalFTM, careerTripleDoubles, careerDoubleDoubles, careerQuadDoubles,
-
-      totalMVPS, totalDPOYs, totalROTYs, totalSMOTY, mvpNum, dpoyNum,
-      allNBAFirst, allNBASecond, allNBAThird, allDefensiveFirst, allDefensiveSecond,
-      allDefensiveThird, allStar, scoringChamp, assistChamp, reboundChamp, stealChamp, blockChamp,
-
-      team, championships, finalsMVP, age, yearsPro,
-
-      happiness, contractYears, money, yearsIntoContract, career, ovr, passingEff, pickNum, draftTeam, yearsInFA, usageAtt, consistency
-      
-    ) VALUES (${Array(136).fill('?').join(',')})
+    INSERT INTO players (${columns.join(', ')})
+    VALUES ?
+    ON DUPLICATE KEY UPDATE ${columns.filter(c => c !== 'name').map(c => `${c}=VALUES(${c})`).join(', ')}
   `;
 
-  const values = [
+  const values = players.map(player => ([
     player.name, player.arch, player.twoPt, player.threePt, player.inside, player.freeThrow,
     player.offensiveAbility, player.defensiveAbility, player.defensiveReb, player.offensiveReb,
     player.blockTen, player.stealTen, player.takeCharges, player.passingTen, player.passingAccuracy,
@@ -87,10 +88,9 @@ export async function savePlayer(player) {
 
     player.happiness, player.contractYears, player.money, player.yearsIntoContract, JSON.stringify(player.career), player.ovr, player.passingEff, 
     player.pickNum, player.pickTeam, player.yearsInFA, player.usage, player.consistency
-  ];
+  ]));
 
-
-  await connection.execute(sql, values);
+  await connection.query(sql, [values]);
 }
 
 
