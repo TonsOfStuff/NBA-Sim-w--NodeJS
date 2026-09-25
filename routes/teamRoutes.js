@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/saveTeams", async (req, res) => {
     try {
+        await connection.execute("DELETE FROM teams");
         const teams = req.body;
         await saveTeams(teams);
         res.status(200).json({ message: 'Teams saved successfully' });

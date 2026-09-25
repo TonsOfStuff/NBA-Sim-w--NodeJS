@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/save-player', async (req, res) => {
   try {
+    await connection.execute("DELETE FROM players");
     const players = req.body;
     await savePlayers(players);
     res.status(200).json({ message: 'Players saved successfully' });
