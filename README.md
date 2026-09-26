@@ -7,3 +7,5 @@ Usable to predict what a new team looks like after a large trade
 
 ## Stack
 Made with NodeJS and MySQL and stats inspired from NBA 2K.
+
+Link to app: https://nba-sim-w-node-js.vercel.app/
